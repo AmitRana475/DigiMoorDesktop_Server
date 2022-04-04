@@ -26,7 +26,7 @@ namespace WorkShipVersionII.WorkHoursView
         public AddMooringWinchDetail()
         {
             InitializeComponent();
-            //rana
+            //rana amit
             sc = new ShipmentContaxt();
         }
 
