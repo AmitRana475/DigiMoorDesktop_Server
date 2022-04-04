@@ -1,9 +1,6 @@
-﻿
-using WorkShipVersionII.ViewModelAdministration;
-
-namespace WorkShipVersionII.ViewModelAdministration
+﻿namespace WorkShipVersionII.ViewModelAdministration
 {
-    public class ViewModelLocator
+       public class ViewModelLocator
     {
 
         private static MainAdministrationViewModel _mainadministration;

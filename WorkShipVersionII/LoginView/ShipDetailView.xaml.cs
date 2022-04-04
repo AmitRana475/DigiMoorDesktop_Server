@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace WorkShipVersionII.LoginView
 {
@@ -10,6 +11,13 @@ namespace WorkShipVersionII.LoginView
         public ShipDetailView()
         {
             InitializeComponent();
+
+            TxtSerialKey.Text = StaticHelper.CPU_ProcessorID;
+        }
+
+        private void BtnCopy_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Clipboard.SetText(TxtSerialKey.Text);
         }
     }
 }

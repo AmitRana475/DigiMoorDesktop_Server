@@ -1,0 +1,188 @@
+﻿<UserControl x:Class="WorkShipVersionII.WorkHoursView.ViewResidualLabTest"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+               xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WorkShipVersionII.WorkHoursView"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+             mc:Ignorable="d" 
+              Margin="60,0,0,0"
+             Height="450" Width="780" Background="WhiteSmoke"  VerticalAlignment="Top">
+
+    <ScrollViewer>
+        <Grid >
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+
+            </Grid.RowDefinitions>
+
+            <UniformGrid Grid.Row="0" MinHeight="31" Margin="0,0,0,5" x:Name="AddCrewUniformGrid" Columns="1">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="85*"/>
+                        <ColumnDefinition Width="15*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--<TextBlock Grid.Column="1"  HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="Blue" FontFamily="Verdana" FontSize="14"  Text="Help" Padding="0,0,10,0"   />-->
+                </Grid>
+            </UniformGrid>
+
+            <!--<TextBlock Style="{StaticResource HeaderText1}" TextAlignment="Center" Foreground="Blue" Background="Azure" FontWeight="Bold" Text="ASSIGN ROPE TO WINCH"></TextBlock>-->
+
+            <GroupBox Height="520" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible"   >
+
+                <GroupBox.Header>
+                    <GroupBox FontWeight="Bold" FontSize="15" Header="View Residual Lab Test Report">
+                    </GroupBox>
+                </GroupBox.Header>
+
+                <Grid  Grid.Row="1">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="15*" />
+                        <RowDefinition Height="18*" />
+                        <RowDefinition Height="22*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                     
+                        
+
+                        <!--<RowDefinition Height="10*" />
+                <RowDefinition Height="10*" />
+                <RowDefinition Height="14*" />
+                <RowDefinition Height="13*" />-->
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="64*"/>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="180*"/>
+                        <!--<ColumnDefinition Width="10*"/>-->
+                        <ColumnDefinition Width="350*"/>
+                        <ColumnDefinition Width="100*"/>
+                        <ColumnDefinition Width="17*"/>
+                        <ColumnDefinition Width="7*"/>
+
+                    </Grid.ColumnDefinitions>
+
+
+                    <Canvas Grid.Column="2" Grid.Row="2" >
+                        <TextBlock Text="Unique Ident. No"  Style="{StaticResource HeaderText1}" />
+                    </Canvas>
+                    <TextBlock Name="txtUniqueId" FontWeight="Bold" Margin="40,0,0,0" FontSize="14" Grid.Column="3"  Grid.Row="2" ></TextBlock>
+                    <Canvas Grid.Column="2" Grid.Row="3" >
+                        <TextBlock Text="Certificate Number"  Style="{StaticResource HeaderText1}" />
+                    </Canvas>
+                   
+                    <TextBlock Name="txtCer" FontWeight="Bold" Margin="40,0,0,0" FontSize="14" Grid.Column="3"  Grid.Row="3" ></TextBlock>
+
+
+                    <Canvas Grid.Column="2" Grid.Row="4" >
+                        <TextBlock Text="Location"  Style="{StaticResource HeaderText1}" />
+                    </Canvas>
+
+                  
+                    <Canvas Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="4" >
+                        <TextBlock Name="txtLoc"  FontWeight="Bold" FontSize="14" Margin="40,0,0,0" ></TextBlock>
+                    </Canvas>
+
+                    <Canvas Grid.Column="2" Grid.Row="5">
+                        <TextBlock Text="Manufacturer"   Style="{StaticResource HeaderText1}" />
+
+                    </Canvas>
+
+                    <TextBlock Name="txtManu"  FontWeight="Bold" FontSize="14" Margin="40,0,0,0" Grid.Column="3" Grid.Row="5" ></TextBlock>
+
+                    <Canvas Grid.Column="2" Grid.Row="6" >
+                        <TextBlock Text="Lab Test Date "  Style="{StaticResource HeaderText1}" />
+
+                    </Canvas>
+
+                    <TextBlock Name="txtLabTest" FontWeight="Bold" FontSize="14" Margin="40,0,0,0" Grid.Column="3" Grid.Row="6" ></TextBlock>
+
+
+                    <Canvas Grid.Column="2" Grid.Row="7">
+                        <TextBlock Text="RunningHours in Service" TextWrapping="Wrap" Width="180"   Style="{StaticResource HeaderText1}" />
+                    </Canvas>
+                    <TextBlock Name="txtRngSer" FontWeight="Bold" FontSize="14" Margin="40,0,0,0" Grid.Column="3" Grid.Row="7" ></TextBlock>
+
+                    <Canvas Grid.Column="2" Grid.Row="8">
+                        <TextBlock Text="Residual Strenght as per Test Report" TextWrapping="Wrap" Width="150"   Style="{StaticResource HeaderText1}" />
+                    </Canvas>
+                    <TextBlock Name="txtResStrength" FontWeight="Bold" FontSize="14" Margin="40,0,0,0" Grid.Column="3" Grid.Row="8" ></TextBlock>
+
+                    <Canvas Grid.Column="2" Grid.Row="9">
+                        <TextBlock Text="Month in Service at Test Date" TextWrapping="Wrap" Width="150"   Style="{StaticResource HeaderText1}" />
+                    </Canvas>
+                  
+                    <TextBlock Name="txtservicedt" FontWeight="Bold" FontSize="14" Margin="40,0,0,0" Grid.Column="3" Grid.Row="9" ></TextBlock>
+
+
+
+                    <Canvas Grid.Column="2" Grid.Row="10">
+                        <TextBlock Text="Remarks" TextWrapping="Wrap" Width="150"   Style="{StaticResource HeaderText1}" />
+                    </Canvas>
+                    <TextBox Name="txtRemarks" IsReadOnly="True"  VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" FontWeight="Bold" FontSize="14" Margin="40,0,0,0" Grid.Column="3" Grid.Row="10" ></TextBox>
+
+
+
+                    <!--<Canvas Grid.Column="2" Grid.Row="12">
+                        <TextBlock Text="Splicing Method"   Style="{StaticResource HeaderText1}" />
+
+                    </Canvas>
+
+
+                    <TextBlock Name="txtSplicingMethod" TextWrapping="Wrap" FontWeight="Bold" FontSize="14" Margin="40,0,0,0" Grid.Column="3" Grid.Row="12" ></TextBlock>-->
+
+
+
+
+
+
+
+
+                    <Canvas Margin="30,0,0,0"  Grid.Column="3" Grid.Row="12" >
+
+
+                        <Button x:Name="btnCancel" Margin="0,0,0,0"  Width="125" Canvas.Left="0" Style="{StaticResource HeaderButton1}" Click="btnCancel_Click" Canvas.Top="0">
+                            <TextBlock  Style="{StaticResource HeaderText1}"  HorizontalAlignment="Center" Text=" &lt;&lt; Back "/>
+
+
+
+                        </Button>
+
+
+
+
+                    </Canvas>
+
+
+
+                </Grid>
+
+            </GroupBox>
+
+
+            <Button Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Right"  VerticalAlignment="Top"   Click="Button_Click" >
+                <StackPanel>
+                    <Image Height="22" Width="22"   Source="/WorkShipVersionII;component/Images/closebtnRed.png" />
+                </StackPanel>
+            </Button>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Windows.Input;
 using WorkShipVersionII.ViewModel;
+using WorkShipVersionII.WorkHoursViewModel;
 
 namespace WorkShipVersionII.Commands
 {
     public class FirstPageCommand : ICommand
     {
-        private NotificationViewModel mainView;
-        public FirstPageCommand(NotificationViewModel mainViews)
+        private NotificationsViewModel mainView;
+      
+        public FirstPageCommand(NotificationsViewModel mainViews)
         {
             mainView = mainViews;
         }
-
+      
         public event EventHandler CanExecuteChanged
         {
             add { CommandManager.RequerySuggested += value; }
@@ -21,6 +23,7 @@ namespace WorkShipVersionII.Commands
         public bool CanExecute(object parameter)
         {
             return mainView.CurrentPageIndex != 0;
+
         }
 
         public void Execute(object parameter)

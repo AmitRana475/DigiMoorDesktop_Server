@@ -17,7 +17,7 @@
                 </Grid.RowDefinitions>
 
                 <Grid Height="Auto" x:Name="grid1b"  DockPanel.Dock="Top"   Background="#003366" >
-                    <TextBlock  Text="WORK-SHIP" Foreground="WhiteSmoke" FontFamily="Verdana" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock  Text="DigiMoor-X7" Foreground="WhiteSmoke" FontFamily="Verdana" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Grid>
 
                 <Grid Grid.Row="1">
@@ -66,16 +66,16 @@
 
                             </Canvas>
 
-                            <TextBox  Grid.Column="2" Text="Admin" VerticalContentAlignment="Center" IsEnabled="False" Grid.Row="0" Height="30" FontFamily="Verdana" FontSize="14"    HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,5,0,2" Width="234"/>
+                            <TextBox  Grid.Column="2" Text="Admin" VerticalContentAlignment="Center" IsEnabled="False" Grid.Row="0" Height="30" FontFamily="Verdana" FontSize="14" MaxLength="20"    HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,5,0,2" Width="234"/>
                             <Canvas Grid.Column="2" Grid.Row="1">
                                 <PasswordBox   w:PasswordHelper.Attach="True" 
-                 w:PasswordHelper.Password="{Binding AdminAccess.pswd,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" PasswordChar="*" Height="30" FontFamily="Verdana" FontSize="14"   HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,4,0,3" Width="234"/>
+                 w:PasswordHelper.Password="{Binding AdminAccess.pswd,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" PasswordChar="*" Height="30" FontFamily="Verdana" FontSize="14" MaxLength="20"  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,4,0,3" Width="234"/>
                                 <TextBlock Text="{Binding AddPasswordMessage.PasswordMessage, Mode=TwoWay}" FontFamily="Verdana" Foreground="Red" FontSize="13" Canvas.Top="38" Canvas.Left="3"  />
                             </Canvas>
 
                             <Canvas Grid.Column="2" Grid.Row="2">
                                 <PasswordBox   w:PasswordHelper.Attach="True" 
-                 w:PasswordHelper.Password="{Binding AdminAccess.ConfirmPassword,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center" PasswordChar="*"  Height="30" FontFamily="Verdana" FontSize="14"   HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,3,0,4" Width="234"/>
+                 w:PasswordHelper.Password="{Binding AdminAccess.ConfirmPassword,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center" PasswordChar="*"  Height="30" FontFamily="Verdana" FontSize="14" MaxLength="20"  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,3,0,4" Width="234"/>
                                 <TextBlock Text="{Binding AddPasswordMessage.ConfPasswordMessage, Mode=TwoWay}" FontFamily="Verdana" Foreground="Red" FontSize="13" Canvas.Top="38" Canvas.Left="3"  />
                             </Canvas>
 

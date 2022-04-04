@@ -8,6 +8,7 @@ namespace DataBuildingLayer
 {
     public class ProductInfoClass
     {
+        public string TextMain { get; set; }
         public string Text1 { get; set; }
         public string Text2 { get; set; }
         public string Text3 { get; set; }

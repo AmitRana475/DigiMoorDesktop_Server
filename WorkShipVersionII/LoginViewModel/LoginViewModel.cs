@@ -17,7 +17,7 @@ namespace WorkShipVersionII.LoginViewModel
     {
         private int erinfo;
         private int erinfo1;
-        private readonly AdministrationContaxt sc;
+        private readonly ShipmentContaxt sc;
         MainWindow main;
 
 
@@ -27,13 +27,17 @@ namespace WorkShipVersionII.LoginViewModel
         {
             if (sc == null)
             {
-                sc = new AdministrationContaxt();
+                sc = new ShipmentContaxt();
                 sc.Configuration.ProxyCreationEnabled = false;
             }
+            // for check security encryption
+
+            //string ss = "wlYFkS+DZ0LtBEqpmYLb5Hy7wKzAZKJ9J5MLfK97biO96+s5b3cEcexVYDmj6VdnIAOQ2yenm0bElhbasjgk2pP9i8ybCNLg";
+            //string RecordData = sc.Decrypt(ss, StaticHelper.Key);
 
             loginCommand = new RelayCommand<AdminLoginClass>(LoginMethod);
             validateCommand = new RelayCommand<ProductInfoClass>(ValidateMethod);
-            new MainViewModelCrewManagement();
+            // new MainViewModelCrewManagement();
             Checksecurity();
         }
 
@@ -56,12 +60,60 @@ namespace WorkShipVersionII.LoginViewModel
         }
 
 
-        private string btnVisible;
+        public static string btnVisible;
         public string BtnVisible
         {
             get
             {
+                if (btnVisible == null)
+                {
+                    var vessel = sc.Vessels.FirstOrDefault();
 
+                    var txtpath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "RecordDigiMoor.txt");
+                    if (File.Exists(txtpath) && new FileInfo(txtpath).Length > 0)
+                    {
+
+
+
+                        StreamReader srd = new StreamReader(txtpath);
+
+                        string RecordData = sc.Decrypt(srd.ReadLine(), StaticHelper.Key);
+                        srd.Close();
+
+                        string[] RecordArr = RecordData.Split(',');
+                        string ss = RecordArr[1]; //Convert.ToDateTime(dtn.Rows[0][0]).ToShortDateString();
+                        string shipnm = RecordArr[3];
+                        if (shipnm.ToLower() == vessel.VesselName.ToLower())
+                        {
+                            btnVisible = "Visible";
+                            RaisePropertyChanged("BtnVisible");
+                            errorMessage = string.Empty;
+                            RaisePropertyChanged("ErrorMessage");
+                        }
+                        else
+                        {
+                            btnVisible = "Hidden";
+                            RaisePropertyChanged("BtnVisible");
+                            errorMessage = "Error - 405, Vessel information is missing ! Please contact support team";
+                            RaisePropertyChanged("ErrorMessage");
+                        }
+                    }
+                    else
+                    {
+                        var AdminData = sc.AdminLogins.FirstOrDefault();
+                        if (AdminData != null)
+                        {
+                            string VerifySecurtyFile = AdminData.productinfo;
+                            if (VerifySecurtyFile != string.Empty)
+                            {
+                                btnVisible = "Hidden";
+                                RaisePropertyChanged("BtnVisible");
+                                errorMessage = "Error - 404, Registry File is missing ! Please contact support team";
+                                RaisePropertyChanged("ErrorMessage");
+                            }
+                        }
+                    }
+                }
                 return btnVisible;
             }
             set
@@ -244,13 +296,20 @@ namespace WorkShipVersionII.LoginViewModel
         {
             try
             {
-                if (string.IsNullOrEmpty(obj.Text1) || string.IsNullOrEmpty(obj.Text2) || string.IsNullOrEmpty(obj.Text3) || string.IsNullOrEmpty(obj.Text4) || string.IsNullOrEmpty(obj.Text5) || obj.Text1.Length < 4 || obj.Text2.Length < 4 || obj.Text3.Length < 4 || obj.Text4.Length < 4 || obj.Text5.Length < 4)
+                // if (string.IsNullOrEmpty(obj.Text1) || string.IsNullOrEmpty(obj.Text2) || string.IsNullOrEmpty(obj.Text3) || string.IsNullOrEmpty(obj.Text4) || string.IsNullOrEmpty(obj.Text5) || obj.Text1.Length < 4 || obj.Text2.Length < 4 || obj.Text3.Length < 4 || obj.Text4.Length < 4 || obj.Text5.Length < 4)
+                if (string.IsNullOrEmpty(obj.TextMain))
                 {
                     CheckErrorMessage.CheckErrorMessages = false;
                     productMessage = "Please Enter the Licence Key";
                     RaisePropertyChanged("ProductMessage");
                 }
-                else if (!string.IsNullOrEmpty(obj.Text1) && !string.IsNullOrEmpty(obj.Text2) && !string.IsNullOrEmpty(obj.Text3) && !string.IsNullOrEmpty(obj.Text4) && !string.IsNullOrEmpty(obj.Text5))
+                else if (string.IsNullOrEmpty(obj.TextMain.Trim()))
+                {
+                    CheckErrorMessage.CheckErrorMessages = false;
+                    productMessage = "Please Enter the Licence Key";
+                    RaisePropertyChanged("ProductMessage");
+                }
+                else //if (!string.IsNullOrEmpty(obj.Text1) && !string.IsNullOrEmpty(obj.Text2) && !string.IsNullOrEmpty(obj.Text3) && !string.IsNullOrEmpty(obj.Text4) && !string.IsNullOrEmpty(obj.Text5))
                 {
                     CheckErrorMessage.CheckErrorMessages = true;
                     productMessage = string.Empty;
@@ -267,6 +326,7 @@ namespace WorkShipVersionII.LoginViewModel
         {
             try
             {
+               // var keys = sc.GetLicencekeys().ToList();
 
                 erinfo = 1;
                 Refreshmessage(obj);
@@ -274,104 +334,112 @@ namespace WorkShipVersionII.LoginViewModel
                 {
                     UserTypeClass.UserName = obj.uname.ToLower();
                     UserTypeClass.UserTypes = obj.uname.ToLower();
-                    if (obj.uname.ToLower() == "admin")
+                    if (BtnVisible == "Visible")
                     {
-                        var logn = sc.AdminLogins.FirstOrDefault();
-                        var password = sc.Decrypt(logn.pswd, "KKPrajapat");
-                        if (obj.uname.ToLower() == logn.uname.ToLower() && obj.pswd == password)
-                        {
-                            main = new MainWindow();
-                            main.Show();
-                            LoginWindow login = App.Current.Windows.OfType<LoginWindow>().FirstOrDefault();
-                            if (login != null)
+                        if (obj.uname.ToLower() == "admin")
+                        {     //Admin Login
+                            var logn = sc.AdminLogins.FirstOrDefault();
+                            var password = sc.Decrypt(logn.pswd, StaticHelper.Key);
+                            if (obj.uname.ToLower() == logn.uname.ToLower() && obj.pswd == password)
                             {
-                                login.Close();
-                                //login.WindowState = WindowState.Minimized;
-                            }
-                            CheckErrorMessage.CheckErrorMessages = false;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Wrong UserName or Password", "Work-Ship Login", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        }
-
-
-                    }
-                    else
-                    {
-                        var logn = sc.CrewDetails.Select(s => new { s.UserName, s.pswd, s.ServiceFrom, s.ServiceTo, s.position }).Where(x => x.UserName.ToLower() == obj.uname.ToLower() && x.pswd == obj.pswd).FirstOrDefault();
-                        if (logn != null)
-                        {
-                            DateTime ServerEndDate = Convert.ToDateTime(logn.ServiceTo.ToShortDateString());
-                            DateTime cdate = Convert.ToDateTime(DateTime.Now.ToShortDateString());
-                            if (ServerEndDate >= cdate)
-                            {
-
-                                if (logn.position.ToUpper() == "MASTER")
+                                main = new MainWindow();
+                                main.Show();
+                                LoginWindow login = App.Current.Windows.OfType<LoginWindow>().FirstOrDefault();
+                                if (login != null)
                                 {
-                                    UserTypeClass.UserTypes = "MASTER";
-                                    main = new MainWindow();
-                                    main.Show();
-
-                                    LoginWindow login = App.Current.Windows.OfType<LoginWindow>().FirstOrDefault();
-                                    if (login != null)
-                                    {
-                                        login.Close();
-                                    }
-
-                                    CheckErrorMessage.CheckErrorMessages = false;
+                                    login.Close();
+                                    //login.WindowState = WindowState.Minimized;
                                 }
-                                else
-                                {
-                                    var user = sc.UserAccessHOD.Where(x => x.UserName.ToLower() == obj.uname.ToLower()).FirstOrDefault();
-                                    if (user != null)
-                                    {
-                                        UserTypeClass.UserTypes = "HOD";
-                                        UserTypeClass.HODAccess = user;
-                                        main = new MainWindow();
-                                        main.Show();
-
-                                        LoginWindow login = App.Current.Windows.OfType<LoginWindow>().FirstOrDefault();
-                                        if (login != null)
-                                        {
-                                            login.Close();
-                                        }
-
-                                        CheckErrorMessage.CheckErrorMessages = false;
-                                    }
-                                    else
-                                    {
-                                        UserTypeClass.UserTypes = "Crew";
-                                        main = new MainWindow();
-                                        main.Show();
-
-                                        LoginWindow login = App.Current.Windows.OfType<LoginWindow>().FirstOrDefault();
-                                        if (login != null)
-                                        {
-                                            login.Close();
-                                        }
-
-                                        CheckErrorMessage.CheckErrorMessages = false;
-                                    }
-
-
-                                }
-
-
-
-                                //have to make master HOD and Crew Access....
-
+                                CheckErrorMessage.CheckErrorMessages = false;
                             }
                             else
                             {
-                                MessageBox.Show("Sorry! You have been off signed for login.", "Work-Ship Login", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                MessageBox.Show("Wrong UserName or Password", "DigiMoor-X7 Login", MessageBoxButton.OK, MessageBoxImage.Warning);
                             }
+
 
                         }
                         else
                         {
-                            MessageBox.Show("Wrong UserName or Password", "Work-Ship Login", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            MessageBox.Show("Wrong UserName or Password", "DigiMoor-X7 Login", MessageBoxButton.OK, MessageBoxImage.Warning);
                         }
+                        //else
+                        //{
+                        //    // var logn = sc.CrewDetails.Select(s => new { s.UserName, s.pswd, s.ServiceFrom, s.ServiceTo, s.position }).Where(x => x.UserName.ToLower() == obj.uname.ToLower() && x.pswd == obj.pswd).FirstOrDefault();
+                        //    var EncrypPwd = sc.Encrypt(obj.pswd, StaticHelper.Key);
+                        //    var logn = sc.CrewDetails.Where(x => x.UserName.ToLower() == obj.uname.ToLower() && x.pswd == EncrypPwd).FirstOrDefault();
+                        //    if (logn != null)
+                        //    {
+                        //        DateTime ServerEndDate = Convert.ToDateTime(logn.ServiceTo.ToShortDateString());
+                        //        DateTime cdate = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+                        //        if (ServerEndDate >= cdate)
+                        //        {
+
+                        //            if (logn.position.ToUpper() == "MASTER")
+                        //            {     // MASTER Login
+                        //                UserTypeClass.UserTypes = "MASTER";
+                        //                main = new MainWindow();
+                        //                main.Show();
+
+                        //                LoginWindow login = App.Current.Windows.OfType<LoginWindow>().FirstOrDefault();
+                        //                if (login != null)
+                        //                {
+                        //                    login.Close();
+                        //                }
+
+                        //                CheckErrorMessage.CheckErrorMessages = false;
+                        //            }
+                        //            else
+                        //            {
+                        //                var user = sc.UserAccessHOD.Where(x => x.UserName.ToLower() == obj.uname.ToLower()).FirstOrDefault();
+                        //                if (user != null)
+                        //                {      // HOD Login
+                        //                    UserTypeClass.UserTypes = "HOD";
+                        //                    UserTypeClass.HODAccess = user;
+                        //                    main = new MainWindow();
+                        //                    main.Show();
+
+                        //                    LoginWindow login = App.Current.Windows.OfType<LoginWindow>().FirstOrDefault();
+                        //                    if (login != null)
+                        //                    {
+                        //                        login.Close();
+                        //                    }
+
+                        //                    CheckErrorMessage.CheckErrorMessages = false;
+                        //                }
+                        //                else
+                        //                {
+                        //                    // Crew Login
+                        //                    UserTypeClass.UserTypes = "Crew";
+                        //                    StaticHelper.MyCrewDetails = logn;
+                        //                    main = new MainWindow();
+                        //                    main.Show();
+
+                        //                    LoginWindow login = App.Current.Windows.OfType<LoginWindow>().FirstOrDefault();
+                        //                    if (login != null)
+                        //                    {
+                        //                        login.Close();
+                        //                    }
+
+                        //                    CheckErrorMessage.CheckErrorMessages = false;
+                        //                }
+
+
+                        //            }
+
+
+                        //        }
+                        //        else
+                        //        {
+                        //            MessageBox.Show("Sorry! You have been off signed for login.", "Work-Ship Login", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        //        }
+
+                        //    }
+                        //    else
+                        //    {
+                        //        MessageBox.Show("Wrong UserName or Password", "Work-Ship Login", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        //    }
+                        //}
                     }
                 }
 
@@ -409,11 +477,11 @@ namespace WorkShipVersionII.LoginViewModel
                     KeyClass.Key3 = keys.Where(x => x.keyno == "key3").FirstOrDefault().keycode;
                     KeyClass.Key4 = keys.Where(x => x.keyno == "key4").FirstOrDefault().keycode;
                     KeyClass.Key5 = keys.Where(x => x.keyno == "key5").FirstOrDefault().keycode;
-                    //KeyClass.Key6 = keys.Where(x => x.keyno == "key6").FirstOrDefault().keycode.ToString();
-                    //KeyClass.Key7 = keys.Where(x => x.keyno == "key7").FirstOrDefault().keycode.ToString();
-                    //KeyClass.Key8 = keys.Where(x => x.keyno == "key8").FirstOrDefault().keycode.ToString();
-                    //KeyClass.Key9 = keys.Where(x => x.keyno == "key9").FirstOrDefault().keycode.ToString();
-                    //KeyClass.Key10 = keys.Where(x => x.keyno == "key10").FirstOrDefault().keycode.ToString();
+                    KeyClass.Key6 = keys.Where(x => x.keyno == "key6").FirstOrDefault().keycode;
+                    KeyClass.Key7 = keys.Where(x => x.keyno == "key7").FirstOrDefault().keycode;
+                    KeyClass.Key8 = keys.Where(x => x.keyno == "key8").FirstOrDefault().keycode;
+                    KeyClass.Key9 = keys.Where(x => x.keyno == "key9").FirstOrDefault().keycode;
+                    KeyClass.Key10 = keys.Where(x => x.keyno == "key10").FirstOrDefault().keycode;
                     //KeyClass.Key11 = keys.Where(x => x.keyno == "key11").FirstOrDefault().keycode.ToString();
                     //KeyClass.Key12 = keys.Where(x => x.keyno == "key12").FirstOrDefault().keycode.ToString();
                     //KeyClass.Key13 = keys.Where(x => x.keyno == "key13").FirstOrDefault().keycode.ToString();
@@ -435,13 +503,24 @@ namespace WorkShipVersionII.LoginViewModel
                     //KeyClass.Key29 = keys.Where(x => x.keyno == "key29").FirstOrDefault().keycode.ToString();
                     //KeyClass.Key30 = keys.Where(x => x.keyno == "key30").FirstOrDefault().keycode.ToString();
 
-                    string txtLicenseKey = obj.Text1.Trim().ToUpper() + "-" + obj.Text2.Trim().ToUpper() + "-" + obj.Text3.Trim().ToUpper() + "-" + obj.Text4.Trim().ToUpper() + "-" + obj.Text5.Trim().ToUpper();
+                    // string txtLicenseKey = obj.Text1.Trim().ToUpper() + "-" + obj.Text2.Trim().ToUpper() + "-" + obj.Text3.Trim().ToUpper() + "-" + obj.Text4.Trim().ToUpper() + "-" + obj.Text5.Trim().ToUpper();
+                    string[] InputkeyList = { "A", "B" };
+                    string DCodeKey = sc.Decrypt(obj.TextMain, StaticHelper.Key);
+                    if (DCodeKey != null)
+                    {
+                        InputkeyList = null;
+                        InputkeyList = DCodeKey.Split(',');
+                    }
 
-                    var txtpath101 = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RecordWork49V2.txt");
+                    string txtLicenseKey = InputkeyList[0];
+                    string InputSerialKey = InputkeyList[1];
+
+
+                    var txtpath101 = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "RecordDigiMoor.txt");
                     if (File.Exists(txtpath101))
                     {
                         StreamReader srd = new StreamReader(txtpath101);
-                        string RecordData = sc.Decrypt(srd.ReadLine(), "KKPrajapat");
+                        string RecordData = sc.Decrypt(srd.ReadLine(), StaticHelper.Key);
                         srd.Close();
 
                         string[] RecordArr = RecordData.Split(',');
@@ -456,7 +535,14 @@ namespace WorkShipVersionII.LoginViewModel
                         int dd = dtt1.Day;//.Substring(2, 2);
                         int yy = dtt1.Year;//.Substring(5, 4);
 
+                        string dtt5 = RecordArr[1];
+                        DateTime dtt55 = Convert.ToDateTime(dtt5);
+                        int yy5 = dtt55.Year;
 
+                        if (yy5 == 2021)
+                        {
+                            ct = ct.AddDays(-1);
+                        }
 
                         KeyClass.Dt1 = KeyClass.Yr1 = new DateTime(yy, mm, dd);
                         KeyClass.Year1 = KeyClass.Yr1.Year;
@@ -465,9 +551,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr2 = KeyClass.Yr1.AddYears(1);
                         KeyClass.Year2 = KeyClass.Dt1.Year;
-                        if (KeyClass.Year2 % 4 == 0)
+                        if (KeyClass.Yr2.Year % 4 == 0)
                         {
-                            KeyClass.Dt2 = KeyClass.Dt1.AddDays(366);
+                            KeyClass.Dt2 = KeyClass.Dt1.AddDays(366 - 1);
                         }
                         else
                         {
@@ -476,9 +562,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr3 = KeyClass.Yr2.AddYears(1);
                         KeyClass.Year3 = KeyClass.Dt2.Year;
-                        if (KeyClass.Year3 % 4 == 0)
+                        if (KeyClass.Yr3.Year % 4 == 0)
                         {
-                            KeyClass.Dt3 = KeyClass.Dt2.AddDays(366);
+                            KeyClass.Dt3 = KeyClass.Dt2.AddDays(366 - 1);
                         }
                         else
                         {
@@ -487,9 +573,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr4 = KeyClass.Yr3.AddYears(1);
                         KeyClass.Year4 = KeyClass.Dt3.Year;
-                        if (KeyClass.Year4 % 4 == 0)
+                        if (KeyClass.Yr4.Year % 4 == 0)
                         {
-                            KeyClass.Dt4 = KeyClass.Dt3.AddDays(366);
+                            KeyClass.Dt4 = KeyClass.Dt3.AddDays(366 - 1);
                         }
                         else
                         {
@@ -498,9 +584,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr5 = KeyClass.Yr4.AddYears(1);
                         KeyClass.Year5 = KeyClass.Dt4.Year;
-                        if (KeyClass.Year5 % 4 == 0)
+                        if (KeyClass.Yr5.Year % 4 == 0)
                         {
-                            KeyClass.Dt5 = KeyClass.Dt4.AddDays(366);
+                            KeyClass.Dt5 = KeyClass.Dt4.AddDays(366 - 1);
                         }
                         else
                         {
@@ -509,9 +595,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr6 = KeyClass.Yr5.AddYears(1);
                         KeyClass.Year6 = KeyClass.Dt5.Year;
-                        if (KeyClass.Year6 % 4 == 0)
+                        if (KeyClass.Yr6.Year % 4 == 0)
                         {
-                            KeyClass.Dt6 = KeyClass.Dt5.AddDays(366);
+                            KeyClass.Dt6 = KeyClass.Dt5.AddDays(366 - 1);
                         }
                         else
                         {
@@ -520,9 +606,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr7 = KeyClass.Yr6.AddYears(1);
                         KeyClass.Year7 = KeyClass.Dt6.Year;
-                        if (KeyClass.Year7 % 4 == 0)
+                        if (KeyClass.Yr7.Year % 4 == 0)
                         {
-                            KeyClass.Dt7 = KeyClass.Dt6.AddDays(366);
+                            KeyClass.Dt7 = KeyClass.Dt6.AddDays(366 - 1);
                         }
                         else
                         {
@@ -531,9 +617,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr8 = KeyClass.Yr7.AddYears(1);
                         KeyClass.Year8 = KeyClass.Dt7.Year;
-                        if (KeyClass.Year8 % 4 == 0)
+                        if (KeyClass.Yr8.Year % 4 == 0)
                         {
-                            KeyClass.Dt8 = KeyClass.Dt7.AddDays(366);
+                            KeyClass.Dt8 = KeyClass.Dt7.AddDays(366 - 1);
                         }
                         else
                         {
@@ -542,9 +628,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr9 = KeyClass.Yr8.AddYears(1);
                         KeyClass.Year9 = KeyClass.Dt8.Year;
-                        if (KeyClass.Year9 % 4 == 0)
+                        if (KeyClass.Yr9.Year % 4 == 0)
                         {
-                            KeyClass.Dt9 = KeyClass.Dt8.AddDays(366);
+                            KeyClass.Dt9 = KeyClass.Dt8.AddDays(366 - 1);
                         }
                         else
                         {
@@ -553,9 +639,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr10 = KeyClass.Yr9.AddYears(1);
                         KeyClass.Year10 = KeyClass.Dt9.Year;
-                        if (KeyClass.Year10 % 4 == 0)
+                        if (KeyClass.Yr10.Year % 4 == 0)
                         {
-                            KeyClass.Dt10 = KeyClass.Dt9.AddDays(366);
+                            KeyClass.Dt10 = KeyClass.Dt9.AddDays(366 - 1);
                         }
                         else
                         {
@@ -564,9 +650,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr11 = KeyClass.Yr10.AddYears(1);
                         KeyClass.Year11 = KeyClass.Dt10.Year;
-                        if (KeyClass.Year11 % 4 == 0)
+                        if (KeyClass.Yr11.Year % 4 == 0)
                         {
-                            KeyClass.Dt11 = KeyClass.Dt10.AddDays(366);
+                            KeyClass.Dt11 = KeyClass.Dt10.AddDays(366 - 1);
                         }
                         else
                         {
@@ -575,9 +661,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr12 = KeyClass.Yr11.AddYears(1);
                         KeyClass.Year12 = KeyClass.Dt11.Year;
-                        if (KeyClass.Year12 % 4 == 0)
+                        if (KeyClass.Yr12.Year % 4 == 0)
                         {
-                            KeyClass.Dt12 = KeyClass.Dt11.AddDays(366);
+                            KeyClass.Dt12 = KeyClass.Dt11.AddDays(366 - 1);
                         }
                         else
                         {
@@ -586,9 +672,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr13 = KeyClass.Yr12.AddYears(1);
                         KeyClass.Year13 = KeyClass.Dt12.Year;
-                        if (KeyClass.Year13 % 4 == 0)
+                        if (KeyClass.Yr13.Year % 4 == 0)
                         {
-                            KeyClass.Dt13 = KeyClass.Dt12.AddDays(366);
+                            KeyClass.Dt13 = KeyClass.Dt12.AddDays(366 - 1);
                         }
                         else
                         {
@@ -597,9 +683,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr14 = KeyClass.Yr13.AddYears(1);
                         KeyClass.Year14 = KeyClass.Dt13.Year;
-                        if (KeyClass.Year14 % 4 == 0)
+                        if (KeyClass.Yr14.Year % 4 == 0)
                         {
-                            KeyClass.Dt14 = KeyClass.Dt13.AddDays(366);
+                            KeyClass.Dt14 = KeyClass.Dt13.AddDays(366 - 1);
                         }
                         else
                         {
@@ -608,9 +694,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr15 = KeyClass.Yr14.AddYears(1);
                         KeyClass.Year15 = KeyClass.Dt14.Year;
-                        if (KeyClass.Year15 % 4 == 0)
+                        if (KeyClass.Yr15.Year % 4 == 0)
                         {
-                            KeyClass.Dt15 = KeyClass.Dt14.AddDays(366);
+                            KeyClass.Dt15 = KeyClass.Dt14.AddDays(366 - 1);
                         }
                         else
                         {
@@ -619,9 +705,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr16 = KeyClass.Yr15.AddYears(1);
                         KeyClass.Year16 = KeyClass.Dt15.Year;
-                        if (KeyClass.Year16 % 4 == 0)
+                        if (KeyClass.Yr16.Year % 4 == 0)
                         {
-                            KeyClass.Dt16 = KeyClass.Dt15.AddDays(366);
+                            KeyClass.Dt16 = KeyClass.Dt15.AddDays(366 - 1);
                         }
                         else
                         {
@@ -630,9 +716,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr17 = KeyClass.Yr16.AddYears(1);
                         KeyClass.Year17 = KeyClass.Dt16.Year;
-                        if (KeyClass.Year17 % 4 == 0)
+                        if (KeyClass.Yr17.Year % 4 == 0)
                         {
-                            KeyClass.Dt17 = KeyClass.Dt16.AddDays(366);
+                            KeyClass.Dt17 = KeyClass.Dt16.AddDays(366 - 1);
                         }
                         else
                         {
@@ -641,9 +727,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr18 = KeyClass.Yr17.AddYears(1);
                         KeyClass.Year18 = KeyClass.Dt17.Year;
-                        if (KeyClass.Year18 % 4 == 0)
+                        if (KeyClass.Yr18.Year % 4 == 0)
                         {
-                            KeyClass.Dt18 = KeyClass.Dt17.AddDays(366);
+                            KeyClass.Dt18 = KeyClass.Dt17.AddDays(366 - 1);
                         }
                         else
                         {
@@ -652,9 +738,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr19 = KeyClass.Yr18.AddYears(1);
                         KeyClass.Year19 = KeyClass.Dt18.Year;
-                        if (KeyClass.Year19 % 4 == 0)
+                        if (KeyClass.Yr19.Year % 4 == 0)
                         {
-                            KeyClass.Dt19 = KeyClass.Dt18.AddDays(366);
+                            KeyClass.Dt19 = KeyClass.Dt18.AddDays(366 - 1);
                         }
                         else
                         {
@@ -663,9 +749,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr20 = KeyClass.Yr19.AddYears(1);
                         KeyClass.Year20 = KeyClass.Dt19.Year;
-                        if (KeyClass.Year20 % 4 == 0)
+                        if (KeyClass.Yr20.Year % 4 == 0)
                         {
-                            KeyClass.Dt20 = KeyClass.Dt19.AddDays(366);
+                            KeyClass.Dt20 = KeyClass.Dt19.AddDays(366 - 1);
                         }
                         else
                         {
@@ -674,9 +760,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr21 = KeyClass.Yr20.AddYears(1);
                         KeyClass.Year21 = KeyClass.Dt20.Year;
-                        if (KeyClass.Year21 % 4 == 0)
+                        if (KeyClass.Yr21.Year % 4 == 0)
                         {
-                            KeyClass.Dt21 = KeyClass.Dt20.AddDays(366);
+                            KeyClass.Dt21 = KeyClass.Dt20.AddDays(366 - 1);
                         }
                         else
                         {
@@ -685,9 +771,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr22 = KeyClass.Yr21.AddYears(1);
                         KeyClass.Year22 = KeyClass.Dt21.Year;
-                        if (KeyClass.Year22 % 4 == 0)
+                        if (KeyClass.Yr22.Year % 4 == 0)
                         {
-                            KeyClass.Dt22 = KeyClass.Dt21.AddDays(366);
+                            KeyClass.Dt22 = KeyClass.Dt21.AddDays(366 - 1);
                         }
                         else
                         {
@@ -696,9 +782,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr23 = KeyClass.Yr22.AddYears(1);
                         KeyClass.Year23 = KeyClass.Dt22.Year;
-                        if (KeyClass.Year23 % 4 == 0)
+                        if (KeyClass.Yr23.Year % 4 == 0)
                         {
-                            KeyClass.Dt23 = KeyClass.Dt22.AddDays(366);
+                            KeyClass.Dt23 = KeyClass.Dt22.AddDays(366 - 1);
                         }
                         else
                         {
@@ -707,9 +793,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr24 = KeyClass.Yr23.AddYears(1);
                         KeyClass.Year24 = KeyClass.Dt23.Year;
-                        if (KeyClass.Year24 % 4 == 0)
+                        if (KeyClass.Yr24.Year % 4 == 0)
                         {
-                            KeyClass.Dt24 = KeyClass.Dt23.AddDays(366);
+                            KeyClass.Dt24 = KeyClass.Dt23.AddDays(366 - 1);
                         }
                         else
                         {
@@ -718,9 +804,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr25 = KeyClass.Yr24.AddYears(1);
                         KeyClass.Year25 = KeyClass.Dt24.Year;
-                        if (KeyClass.Year25 % 4 == 0)
+                        if (KeyClass.Yr25.Year % 4 == 0)
                         {
-                            KeyClass.Dt25 = KeyClass.Dt24.AddDays(366);
+                            KeyClass.Dt25 = KeyClass.Dt24.AddDays(366 - 1);
                         }
                         else
                         {
@@ -729,9 +815,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr26 = KeyClass.Yr25.AddYears(1);
                         KeyClass.Year26 = KeyClass.Dt25.Year;
-                        if (KeyClass.Year26 % 4 == 0)
+                        if (KeyClass.Yr26.Year % 4 == 0)
                         {
-                            KeyClass.Dt26 = KeyClass.Dt25.AddDays(366);
+                            KeyClass.Dt26 = KeyClass.Dt25.AddDays(366 - 1);
                         }
                         else
                         {
@@ -740,9 +826,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr27 = KeyClass.Yr26.AddYears(1);
                         KeyClass.Year27 = KeyClass.Dt26.Year;
-                        if (KeyClass.Year27 % 4 == 0)
+                        if (KeyClass.Yr27.Year % 4 == 0)
                         {
-                            KeyClass.Dt27 = KeyClass.Dt26.AddDays(366);
+                            KeyClass.Dt27 = KeyClass.Dt26.AddDays(366 - 1);
                         }
                         else
                         {
@@ -751,9 +837,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr28 = KeyClass.Yr27.AddYears(1);
                         KeyClass.Year28 = KeyClass.Dt27.Year;
-                        if (KeyClass.Year28 % 4 == 0)
+                        if (KeyClass.Yr28.Year % 4 == 0)
                         {
-                            KeyClass.Dt28 = KeyClass.Dt27.AddDays(366);
+                            KeyClass.Dt28 = KeyClass.Dt27.AddDays(366 - 1);
                         }
                         else
                         {
@@ -762,9 +848,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr29 = KeyClass.Yr28.AddYears(1);
                         KeyClass.Year29 = KeyClass.Dt28.Year;
-                        if (KeyClass.Year29 % 4 == 0)
+                        if (KeyClass.Yr29.Year % 4 == 0)
                         {
-                            KeyClass.Dt29 = KeyClass.Dt28.AddDays(366);
+                            KeyClass.Dt29 = KeyClass.Dt28.AddDays(366 - 1);
                         }
                         else
                         {
@@ -773,9 +859,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr30 = KeyClass.Yr29.AddYears(1);
                         KeyClass.Year30 = KeyClass.Dt29.Year;
-                        if (KeyClass.Year30 % 4 == 0)
+                        if (KeyClass.Yr30.Year % 4 == 0)
                         {
-                            KeyClass.Dt30 = KeyClass.Dt29.AddDays(366);
+                            KeyClass.Dt30 = KeyClass.Dt29.AddDays(366 - 1);
                         }
                         else
                         {
@@ -784,9 +870,9 @@ namespace WorkShipVersionII.LoginViewModel
 
                         KeyClass.Yr31 = KeyClass.Yr30.AddYears(1);
                         KeyClass.Year31 = KeyClass.Dt30.Year;
-                        if (KeyClass.Year31 % 4 == 0)
+                        if (KeyClass.Yr31.Year % 4 == 0)
                         {
-                            KeyClass.Dt31 = KeyClass.Dt30.AddDays(366);
+                            KeyClass.Dt31 = KeyClass.Dt30.AddDays(366 - 1);
                         }
                         else
                         {
@@ -794,12 +880,14 @@ namespace WorkShipVersionII.LoginViewModel
                         }
 
 
+
                         ////=========================
 
                         DateTime expirydate;
                         if (KeyClass.Dt1.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key1)
+                            // if (txtLicenseKey == KeyClass.Key1)
+                            if (txtLicenseKey == KeyClass.Key1 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt2;
@@ -816,7 +904,7 @@ namespace WorkShipVersionII.LoginViewModel
 
                         else if (KeyClass.Dt2.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key2)
+                            if (txtLicenseKey == KeyClass.Key2 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt3;
@@ -832,7 +920,7 @@ namespace WorkShipVersionII.LoginViewModel
 
                         else if (KeyClass.Dt3.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key3)
+                            if (txtLicenseKey == KeyClass.Key3 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt4;
@@ -848,7 +936,7 @@ namespace WorkShipVersionII.LoginViewModel
 
                         else if (KeyClass.Dt4.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key4)
+                            if (txtLicenseKey == KeyClass.Key4 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt5;
@@ -864,7 +952,7 @@ namespace WorkShipVersionII.LoginViewModel
 
                         else if (KeyClass.Dt5.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key5)
+                            if (txtLicenseKey == KeyClass.Key5 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt6;
@@ -880,7 +968,7 @@ namespace WorkShipVersionII.LoginViewModel
 
                         else if (KeyClass.Dt6.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key6)
+                            if (txtLicenseKey == KeyClass.Key6 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt7;
@@ -896,7 +984,7 @@ namespace WorkShipVersionII.LoginViewModel
 
                         else if (KeyClass.Dt7.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key7)
+                            if (txtLicenseKey == KeyClass.Key7 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt8;
@@ -912,7 +1000,7 @@ namespace WorkShipVersionII.LoginViewModel
 
                         else if (KeyClass.Dt8.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key8)
+                            if (txtLicenseKey == KeyClass.Key8 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt9;
@@ -928,7 +1016,7 @@ namespace WorkShipVersionII.LoginViewModel
 
                         else if (KeyClass.Dt9.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key9)
+                            if (txtLicenseKey == KeyClass.Key9 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt10;
@@ -944,7 +1032,7 @@ namespace WorkShipVersionII.LoginViewModel
 
                         else if (KeyClass.Dt10.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key10)
+                            if (txtLicenseKey == KeyClass.Key10 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt11;
@@ -960,7 +1048,7 @@ namespace WorkShipVersionII.LoginViewModel
 
                         else if (KeyClass.Dt11.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key11)
+                            if (txtLicenseKey == KeyClass.Key11 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt12;
@@ -976,7 +1064,7 @@ namespace WorkShipVersionII.LoginViewModel
 
                         else if (KeyClass.Dt12.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key12)
+                            if (txtLicenseKey == KeyClass.Key12 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt13;
@@ -992,7 +1080,7 @@ namespace WorkShipVersionII.LoginViewModel
 
                         else if (KeyClass.Dt13.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key13)
+                            if (txtLicenseKey == KeyClass.Key13 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt14;
@@ -1008,7 +1096,7 @@ namespace WorkShipVersionII.LoginViewModel
 
                         else if (KeyClass.Dt14.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key14)
+                            if (txtLicenseKey == KeyClass.Key14 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt15;
@@ -1024,7 +1112,7 @@ namespace WorkShipVersionII.LoginViewModel
 
                         else if (KeyClass.Dt15.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key15)
+                            if (txtLicenseKey == KeyClass.Key15 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt16;
@@ -1040,7 +1128,7 @@ namespace WorkShipVersionII.LoginViewModel
 
                         else if (KeyClass.Dt16.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key16)
+                            if (txtLicenseKey == KeyClass.Key16 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt17;
@@ -1056,7 +1144,7 @@ namespace WorkShipVersionII.LoginViewModel
 
                         else if (KeyClass.Dt17.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key17)
+                            if (txtLicenseKey == KeyClass.Key17 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt18;
@@ -1072,7 +1160,7 @@ namespace WorkShipVersionII.LoginViewModel
 
                         else if (KeyClass.Dt18.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key18)
+                            if (txtLicenseKey == KeyClass.Key18 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt19;
@@ -1087,7 +1175,7 @@ namespace WorkShipVersionII.LoginViewModel
                         }
                         else if (KeyClass.Dt19.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key19)
+                            if (txtLicenseKey == KeyClass.Key19 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt20;
@@ -1103,7 +1191,7 @@ namespace WorkShipVersionII.LoginViewModel
 
                         else if (KeyClass.Dt20.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key20)
+                            if (txtLicenseKey == KeyClass.Key20 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt21;
@@ -1118,7 +1206,7 @@ namespace WorkShipVersionII.LoginViewModel
                         }
                         else if (KeyClass.Dt21.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key21)
+                            if (txtLicenseKey == KeyClass.Key21 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt22;
@@ -1133,7 +1221,7 @@ namespace WorkShipVersionII.LoginViewModel
                         }
                         else if (KeyClass.Dt22.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key22)
+                            if (txtLicenseKey == KeyClass.Key22 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt23;
@@ -1148,7 +1236,7 @@ namespace WorkShipVersionII.LoginViewModel
                         }
                         else if (KeyClass.Dt23.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key23)
+                            if (txtLicenseKey == KeyClass.Key23 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt24;
@@ -1163,7 +1251,7 @@ namespace WorkShipVersionII.LoginViewModel
                         }
                         else if (KeyClass.Dt24.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key24)
+                            if (txtLicenseKey == KeyClass.Key24 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt25;
@@ -1178,7 +1266,7 @@ namespace WorkShipVersionII.LoginViewModel
                         }
                         else if (KeyClass.Dt25.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key25)
+                            if (txtLicenseKey == KeyClass.Key25 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt26;
@@ -1193,7 +1281,7 @@ namespace WorkShipVersionII.LoginViewModel
                         }
                         else if (KeyClass.Dt26.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key26)
+                            if (txtLicenseKey == KeyClass.Key26 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt27;
@@ -1208,7 +1296,7 @@ namespace WorkShipVersionII.LoginViewModel
                         }
                         else if (KeyClass.Dt27.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key27)
+                            if (txtLicenseKey == KeyClass.Key27 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt28;
@@ -1223,7 +1311,7 @@ namespace WorkShipVersionII.LoginViewModel
                         }
                         else if (KeyClass.Dt28.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key28)
+                            if (txtLicenseKey == KeyClass.Key28 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt29;
@@ -1238,7 +1326,7 @@ namespace WorkShipVersionII.LoginViewModel
                         }
                         else if (KeyClass.Dt29.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key29)
+                            if (txtLicenseKey == KeyClass.Key29 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt30;
@@ -1253,7 +1341,7 @@ namespace WorkShipVersionII.LoginViewModel
                         }
                         else if (KeyClass.Dt30.Date == ct.Date)
                         {
-                            if (txtLicenseKey == KeyClass.Key30)
+                            if (txtLicenseKey == KeyClass.Key30 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                             {
 
                                 expirydate = KeyClass.Dt31;
@@ -1291,29 +1379,29 @@ namespace WorkShipVersionII.LoginViewModel
             {
                 string exp = NextDate;
 
-                var txtpath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RecordWork49V2.txt");
+                var txtpath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "RecordDigiMoor.txt");
                 if (File.Exists(txtpath) && new FileInfo(txtpath).Length > 0)
                 {
 
                     StreamReader srd = new StreamReader(txtpath);
 
                     string LastYearRecordWork49Data = srd.ReadLine();
-                    string OldRecordData = sc.Decrypt(LastYearRecordWork49Data, "KKPrajapat");
+                    string OldRecordData = sc.Decrypt(LastYearRecordWork49Data, StaticHelper.Key);
                     srd.Close();
 
                     string[] lastRecord = OldRecordData.Split(',');
                     string kpl = lastRecord[2].ToString();
                     string shipnm = lastRecord[3].ToString();
 
-                    if (shipnm == vesselName)
+                    if (shipnm.ToLower() == vesselName.ToLower())
                     {
                         StreamWriter writer = new StreamWriter(txtpath);
                         //Encrypt method has first parameter as data to be encrypted and second as key for encryption
 
-                        writer.Write(sc.Encrypt(FirstDate + "," + NextDate + "," + LicenseKey + "," + vesselName, "KKPrajapat"));
+                        writer.Write(sc.Encrypt(FirstDate + "," + NextDate + "," + LicenseKey + "," + vesselName, StaticHelper.Key));
                         writer.Close();
 
-                        string Recordwork49file = sc.Encrypt(FirstDate + "," + NextDate + "," + LicenseKey + "," + vesselName, "KKPrajapat");
+                        string Recordwork49file = sc.Encrypt(FirstDate + "," + NextDate + "," + LicenseKey + "," + vesselName, StaticHelper.Key);
 
                         var data = sc.AdminLogins.FirstOrDefault();
                         if (data != null)
@@ -1340,26 +1428,26 @@ namespace WorkShipVersionII.LoginViewModel
                         errorMessage = string.Empty;
                         RaisePropertyChanged("ErrorMessage");
 
-                        MessageBox.Show("Your License is validated. Thank You!", "Work-Ship Login", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("Your License is validated. Thank You!", "DigiMoor-X7 Login", MessageBoxButton.OK, MessageBoxImage.Information);
 
                         btnVisible = "Visible";
-                        RaisePropertyChanged("btnVisible");
+                        RaisePropertyChanged("BtnVisible");
 
                         productVisible = "Hidden";
                         RaisePropertyChanged("ProductVisible");
 
-                       
+
                     }
                     else
                     {
 
-                        MessageBox.Show("It is not Valid Ship, Your License is terminated!!!", "Work-Ship Login", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("It is not Valid Ship, Your License is terminated!!!", "DigiMoor-X7 Login", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
 
                 }
                 else
                 {
-                    MessageBox.Show("Error - 404, Registry File is missing ! Please contact support team", "Work-Ship Login", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Error - 404, Registry File is missing ! Please contact support team", "DigiMoor-X7 Login", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 }
             }
@@ -1378,116 +1466,156 @@ namespace WorkShipVersionII.LoginViewModel
                 RaisePropertyChanged("ProductVisible");
 
                 var vessel = sc.Vessels.FirstOrDefault();
-
-                var txtpath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RecordWork49V2.txt");
-                if (File.Exists(txtpath) && new FileInfo(txtpath).Length > 0)
+                if (vessel != null)
                 {
-
-                    btnVisible = "Visible";
-                    RaisePropertyChanged("BtnVisible");
-                    errorMessage = string.Empty;
-                    RaisePropertyChanged("ErrorMessage");
-
-                    StreamReader srd = new StreamReader(txtpath);
-
-                    string RecordData = sc.Decrypt(srd.ReadLine(), "KKPrajapat");
-                    srd.Close();
-
-                    string[] RecordArr = RecordData.Split(',');
-                    string ss = RecordArr[1]; //Convert.ToDateTime(dtn.Rows[0][0]).ToShortDateString();
-                    string shipnm = RecordArr[3];
-                    if (shipnm == vessel.VesselName)
+                    var txtpath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "RecordDigiMoor.txt");
+                    if (File.Exists(txtpath) && new FileInfo(txtpath).Length > 0)
                     {
 
-                        expiryMessage = "Expiring On" + " " + ss;
-                        RaisePropertyChanged("ExpiryMessage");
+                        btnVisible = "Visible";
+                        RaisePropertyChanged("BtnVisible");
+                        errorMessage = string.Empty;
+                        RaisePropertyChanged("ErrorMessage");
 
-                        DateTime date;
-                        if (DateTime.TryParseExact(ss, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out date))
+                        StreamReader srd = new StreamReader(txtpath);
+                        //StreamReader srd = new StreamReader("x3ebu5LWr60oDzbazO5+JFpkwMECOl2w4+H3XtHj1xo=");
+
+
+
+                        //Test Keys
+
+                        ProductKeyClass KeyClass = new ProductKeyClass();
+
+                        var keys = sc.GetLicencekeys().ToList();
+
+
+                        KeyClass.Key1 = keys.Where(x => x.keyno == "key1").FirstOrDefault().keycode;
+                        KeyClass.Key2 = keys.Where(x => x.keyno == "key2").FirstOrDefault().keycode;
+                        KeyClass.Key3 = keys.Where(x => x.keyno == "key3").FirstOrDefault().keycode;
+                        KeyClass.Key4 = keys.Where(x => x.keyno == "key4").FirstOrDefault().keycode;
+                        KeyClass.Key5 = keys.Where(x => x.keyno == "key5").FirstOrDefault().keycode;
+                        KeyClass.Key6 = keys.Where(x => x.keyno == "key6").FirstOrDefault().keycode;
+                        KeyClass.Key7 = keys.Where(x => x.keyno == "key7").FirstOrDefault().keycode;
+                        KeyClass.Key8 = keys.Where(x => x.keyno == "key8").FirstOrDefault().keycode;
+                        KeyClass.Key9 = keys.Where(x => x.keyno == "key9").FirstOrDefault().keycode;
+                        KeyClass.Key10 = keys.Where(x => x.keyno == "key10").FirstOrDefault().keycode;
+
+
+                        //Test Keys
+
+
+
+
+
+
+
+
+
+
+                        string RecordData = sc.Decrypt(srd.ReadLine(), StaticHelper.Key);
+                        srd.Close();
+
+                        string[] RecordArr = RecordData.Split(',');
+                        string ss = RecordArr[1]; //Convert.ToDateTime(dtn.Rows[0][0]).ToShortDateString();
+                        string shipnm = RecordArr[3];
+                        if (shipnm.ToLower() == vessel.VesselName.ToLower())
+                        //if ("Test Vessel" == "Test Vessel")
                         {
+
+                            expiryMessage = "Expiring On" + " " + ss;
+                            RaisePropertyChanged("ExpiryMessage");
+
+                            DateTime date;
+                            if (DateTime.TryParseExact(ss, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out date))
+                            {
+
+                            }
+                            else
+                            {
+                                // do something............
+                                char[] spl = { '/', '-' };
+                                string[] datarr = ss.Split(spl);
+                                string part1 = datarr[0];
+                                string part2 = datarr[1];
+                                string part3 = datarr[2];
+
+                                if (part1.Length == 1)
+                                {
+                                    part1 = "0" + part1;
+                                }
+                                if (part2.Length == 1)
+                                {
+                                    part2 = "0" + part2;
+                                }
+                                if (part3.Length == 1)
+                                {
+                                    part3 = "0" + part3;
+                                }
+
+                                ss = part1 + "/" + part2 + "/" + part3;   // dd/MM/YYYY
+                                date = DateTime.ParseExact(ss, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal);
+
+                            }
+
+
+
+                            DateTime d1 = DateTime.Now;
+
+                            TimeSpan t = date.Date - d1.Date;
+                            double NrOfDays = t.TotalDays;
+                            if (NrOfDays <= 0)
+                            {
+                                //var lblRemainingDays = "Remaining Day" + " " + "0";
+                                //daysleft = 0;
+
+                                productVisible = "Visible";
+                                RaisePropertyChanged("ProductVisible");
+                                btnVisible = "Hidden";
+                                RaisePropertyChanged("BtnVisible");
+                                //txtkey1.Focus();
+                            }
+
+                            if (NrOfDays <= 30)
+                            {
+                                errorMessage = "Remaining Day" + " " + NrOfDays.ToString();
+                                RaisePropertyChanged("ErrorMessage");
+                            }
+
 
                         }
                         else
                         {
-                            // do something............
-                            char[] spl = { '/', '-' };
-                            string[] datarr = ss.Split(spl);
-                            string part1 = datarr[0];
-                            string part2 = datarr[1];
-                            string part3 = datarr[2];
-
-                            if (part1.Length == 1)
-                            {
-                                part1 = "0" + part1;
-                            }
-                            if (part2.Length == 1)
-                            {
-                                part2 = "0" + part2;
-                            }
-                            if (part3.Length == 1)
-                            {
-                                part3 = "0" + part3;
-                            }
-
-                            ss = part1 + "/" + part2 + "/" + part3;   // dd/MM/YYYY
-                            date = DateTime.ParseExact(ss, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal);
-
-                        }
-
-
-
-                        DateTime d1 = DateTime.Now;
-
-                        TimeSpan t = date.Date - d1.Date;
-                        double NrOfDays = t.TotalDays;
-                        if (NrOfDays <= 0)
-                        {
-                            //var lblRemainingDays = "Remaining Day" + " " + "0";
-                            //daysleft = 0;
-
-                            productVisible = "Visible";
-                            RaisePropertyChanged("ProductVisible");
                             btnVisible = "Hidden";
                             RaisePropertyChanged("BtnVisible");
-                            //txtkey1.Focus();
-                        }
-
-                        if (NrOfDays <= 30)
-                        {
-                            errorMessage = "Remaining Day" + " " + NrOfDays.ToString();
+                            errorMessage = "Error - 405, Vessel information is missing ! Please contact support team";
                             RaisePropertyChanged("ErrorMessage");
-                        }
-                        
 
+                        }
                     }
                     else
                     {
-                        btnVisible = "Hidden";
-                        RaisePropertyChanged("BtnVisible");
-                        errorMessage = "Error - 405, Vessel information is missing ! Please contact support team";
-                        RaisePropertyChanged("ErrorMessage");
-
-                    }
-                }
-                else
-                {
-                    var AdminData = sc.AdminLogins.FirstOrDefault();
-                    if (AdminData != null)
-                    {
-                        string VerifySecurtyFile = AdminData.productinfo;
-                        if (VerifySecurtyFile != string.Empty)
+                        string VerifySecurtyFile = null;
+                        var AdminData = sc.AdminLogins.FirstOrDefault();
+                        if (AdminData != null)
+                        {
+                            VerifySecurtyFile = AdminData.productinfo;
+                        }
+                        if (File.Exists(txtpath) == false && String.IsNullOrEmpty(VerifySecurtyFile))// != string.Empty)
+                        {
+                        }
+                        else
                         {
                             btnVisible = "Hidden";
                             RaisePropertyChanged("BtnVisible");
                             errorMessage = "Error - 404, Registry File is missing ! Please contact support team";
                             RaisePropertyChanged("ErrorMessage");
                         }
+
+
                     }
 
+
                 }
-
-
-
 
 
 

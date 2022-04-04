@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -1914,7 +1915,7 @@ namespace WorkShipVersionII.WorkHoursViewModel.TimeSlotModels
 
                         //..........Opa for 3 days...................
 
-                        var sdaopastatr = sc.OPAStartStops.Where(x => (obj.dates >= x.OPAStart && obj.dates <= x.OPAStop)).FirstOrDefault();
+                        var sdaopastatr = sc.OPAStartStops.Where(x => (obj.dates.Date >= DbFunctions.TruncateTime(x.OPAStart) && obj.dates.Date <= x.OPAStop)).FirstOrDefault();
 
                         bool b11;
                         bool chkOPAforallday = false;

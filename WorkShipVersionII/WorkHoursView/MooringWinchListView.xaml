@@ -1,0 +1,215 @@
+﻿<UserControl x:Class="WorkShipVersionII.WorkHoursView.MooringWinchListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WorkShipVersionII.WorkHoursView"       
+             xmlns:vm="clr-namespace:WorkShipVersionII.WorkHoursViewModel"             
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1260">
+    <Grid MaxWidth="920" Width="Auto">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <!--<UniformGrid Grid.Row="0" Margin="30,0,-100,5" HorizontalAlignment="Right" x:Name="MooringWinchUniformGrid" Columns="2" >-->
+
+
+
+            <Grid  Margin="5,0,0,0">
+                <!--<Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>-->
+
+            <Canvas Margin="0,20,0,0">
+                
+            
+
+                <Button Visibility="Visible" Canvas.Right="250" HorizontalAlignment="Right" Style="{StaticResource HeaderButton1}" Margin="0,0,7,0" Click="Button_Click">
+                    <TextBlock TextWrapping="Wrap" Text=" Save Order "/>
+                </Button>
+
+                <Button Visibility="Visible" Canvas.Right="80"  Style="{StaticResource HeaderButton1}"  Command="{Binding ShowChildWindowAddMooringWinch}" >
+                    <TextBlock TextWrapping="Wrap"  Text="  Add Mooring Winch  "/>
+
+                    <Button.DataContext>
+                        <vm:ChildPopUPModelWorkHours/>
+                    </Button.DataContext>
+                </Button>
+
+                <!--<TextBlock Grid.Column="2"   HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap"   Foreground="Blue" FontFamily="Verdana" FontSize="14"   Padding="0,0,10,0"   >
+                     <Hyperlink   Name="Help" Foreground="#0000cc">Help</Hyperlink>
+                </TextBlock>-->
+
+                <TextBlock Canvas.Right="10" Canvas.Top="5" Style="{StaticResource HeaderText1}"  HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="Blue" FontSize="14" Padding="0,0,10,0" Grid.Column="2"      >
+                    <Hyperlink Command="{Binding HelpCommand}" Name="Help" >Help</Hyperlink>
+                </TextBlock>
+            </Canvas>
+        </Grid>
+        <!--</UniformGrid>-->
+
+        <Grid Height="500" Margin="0,20,0,0" Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="270*"/>
+                <ColumnDefinition Width="37*"/>
+            </Grid.ColumnDefinitions>
+            <Canvas>
+            <!--<TextBlock Style="{StaticResource HeaderText1}"  Grid.Row="0" Canvas.Top="-20"  Canvas.Left="970" HorizontalAlignment="Right" Foreground="Blue"  Padding="2" Grid.Column="0"      >
+                    <Hyperlink Command="{Binding HelpCommand}" Name="Help" >Help</Hyperlink>
+            </TextBlock>-->
+            </Canvas>
+
+            <!--<ScrollViewer>-->
+                <DataGrid x:Name="MooringWinchGrid" ColumnHeaderHeight="35" AllowDrop="True"   ItemsSource="{Binding Path=LoadUserAccess}" BorderThickness="0" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" GridLinesVisibility="Horizontal" SelectionUnit="FullRow" 
+                      SelectionMode="Single" Grid.Row="1" RowHeight="25" CanUserAddRows="False" HeadersVisibility="Column"  BorderBrush="LightGray" ColumnWidth="Auto"   AutoGenerateColumns="False"     VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray" Grid.ColumnSpan="2" >
+
+
+                    <DataGrid.Columns >
+                    <DataGridTextColumn   Binding="{Binding Path = Id,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Id"  Visibility="Hidden"/>
+
+                        <DataGridTemplateColumn MaxWidth="45" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image  Source="/WorkShipVersionII;component/Images/CMove.png" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+
+                            <DataGridTemplateColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <EventSetter Event="PreviewMouseLeftButtonDown" Handler="OnCertiGrid_PreviewMouseLeftButtonDown"/>
+
+                                    <Setter Property="BorderThickness" Value="0.1,0,0.1,0"/>
+                                    <Setter Property="BorderBrush" Value="Gray"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background"  Value="WhiteSmoke" />
+                                            <Setter Property="Foreground" Value="Black" />
+                                            <Setter Property="BorderThickness" Value="0.3,0,0.3,0"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGridTemplateColumn.CellStyle>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTextColumn Binding="{Binding Path= AssignedNumber,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  FontSize="12" IsReadOnly="True" Header="Assigned Number" MaxWidth="500" Width="*">                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="Margin" Value="5,0,0,0"/>
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+
+
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <EventSetter Event="PreviewMouseLeftButtonDown" Handler="OnCertiGrid_PreviewMouseLeftButtonDown"/>
+
+                                <Setter Property="BorderThickness" Value="0.1,0,0.1,0"/>
+                                <Setter Property="BorderBrush" Value="Gray"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background"  Value="WhiteSmoke" />
+                                        <Setter Property="Foreground" Value="Black" />
+                                        <Setter Property="BorderThickness" Value="0.3,0,0.3,0"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn    Binding="{Binding Path = Location,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  Header="Location" MaxWidth="300" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="Margin" Value="5,0,0,0"/>
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn    Binding="{Binding Path = MBL,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  Header="Max Brake Holding Force(T)" MinWidth="250" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="Margin" Value="5,0,0,0"/>
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+
+                    </DataGridTextColumn>
+
+
+                    <DataGridTextColumn    Binding="{Binding Path = Lead,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  Header="Lead" MaxWidth="250" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="Margin" Value="5,0,0,0"/>
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+
+                    </DataGridTextColumn>
+
+
+                    <!--<DataGridTemplateColumn MaxWidth="60" Width="*" Header="View">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Width="50"  FontWeight="Normal"   FontSize="13" FontFamily="Verdana" VerticalAlignment="Center" HorizontalContentAlignment="Center">
+                                        <Hyperlink  Command="{Binding Path=DataContext.ViewCommand,RelativeSource={RelativeSource AncestorType=DataGrid}}" 
+                                        CommandParameter="{Binding}"  Name="Edit" Foreground="#0000cc">View</Hyperlink>
+                                    </Label>
+
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>-->
+
+                    <DataGridTemplateColumn MaxWidth="60" Width="*" Header="Edit">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Width="60"  FontWeight="Normal"   FontSize="13" FontFamily="Verdana" VerticalAlignment="Center" HorizontalContentAlignment="Center">
+                                        <Hyperlink  Command="{Binding Path=DataContext.EditCommand,RelativeSource={RelativeSource AncestorType=DataGrid}}" 
+                                        CommandParameter="{Binding}"  Name="Edit" Foreground="#0000cc">Edit</Hyperlink>
+                                    </Label>
+
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn MaxWidth="65" Width="*" Header="Delete">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+
+                                    <Label Width="60"  FontWeight="Normal"   FontSize="13" FontFamily="Verdana" VerticalAlignment="Center" HorizontalContentAlignment="Center">
+                                        <Hyperlink  Name="Delete" Command="{Binding Path=DataContext.DeleteCommand,RelativeSource={RelativeSource AncestorType=DataGrid}}"  CommandParameter="{Binding}" Foreground="#0000cc">Delete
+                                        </Hyperlink>
+                                    </Label>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+
+                </DataGrid.Columns>
+
+            </DataGrid>
+
+            <!--</ScrollViewer>-->
+        </Grid>
+
+    </Grid>
+</UserControl>

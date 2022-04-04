@@ -1,0 +1,80 @@
+﻿<UserControl x:Class="WorkShipVersionII.WorkHoursView.AddChafeGuard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+               xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:local="clr-namespace:WorkShipVersionII.WorkHoursView"
+             mc:Ignorable="d" 
+             Margin="0,0,0,0"
+             Height="470" Width="580" Background="WhiteSmoke"  VerticalAlignment="Top">
+    <Grid >
+        <GroupBox Margin="15,15,15,15" Header=" Add ChafeGuard Details " FontFamily="Verdana" FontSize="14" BorderBrush="LightGray">
+            <Canvas>
+                <TextBlock Text="Certificate Number" Style="{StaticResource HeaderText1}" Canvas.Left="24" Canvas.Top="39" />
+
+                <TextBox x:Name="txtCertnumber" MaxLength="50"  Text="{Binding AddChafeGuard.CertificateNumber,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Height="31" FontFamily="Verdana" FontSize="14" Width="210" VerticalContentAlignment="Center" Canvas.Left="315" Canvas.Top="30"/>
+                <Label Height="20" Content="*" Foreground="Red" FontSize="16" Canvas.Left="145" Canvas.Top="70"  />
+
+
+                <TextBlock Text="Unique Ident. No" Style="{StaticResource HeaderText1}" Canvas.Left="24" Canvas.Top="75" />
+
+                <TextBox x:Name="txtuniqueid" IsEnabled="{Binding IsEnabledCheck,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" MaxLength="50"  Text="{Binding AddChafeGuard.UniqueID,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Height="31" FontFamily="Verdana" FontSize="14" Width="210" VerticalContentAlignment="Center" Canvas.Left="315" Canvas.Top="72"/>
+                <Label Height="20" Content="*" Foreground="Red" FontSize="16" Canvas.Left="155" Canvas.Top="32"  />
+
+
+                <TextBlock Text="Manufacturer Name" Style="{StaticResource HeaderText1}" Canvas.Left="24" Canvas.Top="115" />
+
+                <TextBox x:Name="txtManuName" MaxLength="50"  Text="{Binding AddChafeGuard.ManufacturerName,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Height="31" FontFamily="Verdana" FontSize="14" Width="210" VerticalContentAlignment="Center" Canvas.Left="315" Canvas.Top="115"/>
+                <Label Height="20" Content="*" Foreground="Red" FontSize="16" Canvas.Left="160" Canvas.Top="110"  />
+
+             <TextBlock Name="cnv11" Text="Received Date" Visibility="Visible" Style="{StaticResource HeaderText1}" Canvas.Left="24" Canvas.Top="145" />
+                <Label Height="20" Content="*" Foreground="Red" FontSize="16" Canvas.Left="125" Canvas.Top="140"  />
+
+                <DatePicker x:Name="dpIRecDate" Visibility="Visible" DisplayDateEnd="{x:Static sys:DateTime.Today}"  Validation.ErrorTemplate="{x:Null}" Canvas.Left="315" Canvas.Top="155" CalendarStyle="{StaticResource styleCalendar}"  Text="{Binding ReceivedDate,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  FontFamily="Verdana" FontSize="14" VerticalContentAlignment="Center"  >
+                    <DatePicker.Resources>
+                        <Style TargetType="DatePickerTextBox">
+                            <Setter Property="IsReadOnly" Value="True"/>
+                            <Setter Property="Height" Value="Auto"/>
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
+
+
+               <TextBlock  Text="Is this Loose Eq. installed and In Use?" Canvas.Left="24" Canvas.Top="188" TextWrapping="Wrap" Width="240"   Style="{StaticResource HeaderText1}" />
+                <Label Height="20" Content="*" FontFamily="Verdana" Foreground="Red" FontSize="16" Canvas.Left="245" Canvas.Top="180"  />
+                <Canvas Canvas.Left="315" Canvas.Top="188" Visibility="Visible" >
+                    <RadioButton x:Name="rdb1"  GroupName="1"  Content="No" FontFamily="Verdana" FontSize="14" Canvas.Top="7" Click="rdb1_Click"  />
+                    <RadioButton x:Name="rdb2" GroupName="1" Content="Yes" Canvas.Left="50" FontFamily="Verdana" FontSize="14" Canvas.Top="7" Click="rdb2_Click" />
+                </Canvas>
+
+              <TextBlock Name="cnv1" Text="InstalledDate" Visibility="Hidden" Style="{StaticResource HeaderText1}" Canvas.Left="24" Canvas.Top="230" />
+
+                <DatePicker x:Name="dpInsDate" CalendarClosed="DpInsDate_CalendarClosed" Visibility="Hidden" DisplayDateEnd="{x:Static sys:DateTime.Today}"  Validation.ErrorTemplate="{x:Null}" Canvas.Left="315" Canvas.Top="230" CalendarStyle="{StaticResource styleCalendar}"  Text="{Binding InstalledDate,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  FontFamily="Verdana" FontSize="14" VerticalContentAlignment="Center"  >
+                    <DatePicker.Resources>
+                        <Style TargetType="DatePickerTextBox">
+                            <Setter Property="IsReadOnly" Value="True"/>
+                            <Setter Property="Height" Value="Auto"/>
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
+
+                 <TextBlock Text="Remarks" Style="{StaticResource HeaderText1}" Canvas.Left="24" Canvas.Top="270" />
+
+                <TextBox x:Name="txtRemarks" MaxLength="500" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible"   Text="{Binding AddChafeGuard.Remarks,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Height="81" FontFamily="Verdana" FontSize="14" Width="210"   Canvas.Left="315" Canvas.Top="270"/>
+                <!--<Label Height="20" Content="*" Foreground="Red" FontSize="16" Canvas.Left="188" Canvas.Top="65"  />-->
+
+
+
+                <Button Width="100" Height="31" Style="{StaticResource HeaderButton1}" Content="Save" Command="{Binding SaveCommand}" CommandParameter="{Binding AddChafeGuard}" Canvas.Left="158" Canvas.Top="378" />
+                <Button Width="100" Height="31" Style="{StaticResource HeaderButton1}" Content="Cancel" Command="{Binding CancelCommand}" Canvas.Left="269" Canvas.Top="378" />
+            </Canvas>
+        </GroupBox>
+
+        <Button Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Right"  VerticalAlignment="Top"   Command="{Binding CancelCommand}" >
+            <StackPanel>
+                <Image Height="22" Width="22"   Source="/WorkShipVersionII;component/Images/closebtnRed.png" />
+            </StackPanel>
+        </Button>
+    </Grid>
+</UserControl>

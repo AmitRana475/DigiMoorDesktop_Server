@@ -1,0 +1,418 @@
+﻿<UserControl x:Class="WorkShipVersionII.WorkHoursView.ViewInspectionSetting"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WorkShipVersionII.WorkHoursView"
+               xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="1300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="4*"/>
+
+
+
+
+        </Grid.RowDefinitions>
+
+
+        <Canvas Margin="0,15,0,0"  Grid.Column="0" Grid.Row="0" >
+
+            <TextBlock Text="Line Type" Canvas.Left="180" TextWrapping="Wrap" Width="180"   Style="{StaticResource HeaderText1}" />
+
+
+            <ComboBox x:Name="CBShipWasContact" DropDownClosed="CBShipWasContact_DropDownClosed" Height="25"  Canvas.Left="270" Width="220" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center"  
+                                               
+                                      Text="Line" >
+
+                <ComboBoxItem>Line</ComboBoxItem>
+                <ComboBoxItem>Rope Tail</ComboBoxItem>
+            </ComboBox>
+
+            <TextBlock  Canvas.Left="1060" HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="Blue" FontFamily="Verdana" FontSize="14"   Padding="0,0,10,0" >
+                      <Hyperlink Command="{Binding HelpCommand}" Name="Help" Foreground="#0000cc">Help</Hyperlink>
+            </TextBlock>
+
+        </Canvas>
+
+     
+
+        <Canvas Margin="0,15,0,0" Visibility="Collapsed"  Grid.Column="0" Grid.Row="1" >
+
+            <TextBlock Text="Loose EquipType" Canvas.Left="20" TextWrapping="Wrap" Width="180"   Style="{StaticResource HeaderText1}" />
+
+            <ComboBox x:Name="comboLooseEtype" Height="25" DropDownClosed="comboLooseEtype_DropDownClosed" Canvas.Left="160" Width="220" Text="--Select--"    IsEditable="True" IsReadOnly="True"  VerticalContentAlignment="Center"   >
+            </ComboBox>
+
+        </Canvas>
+
+
+        <Canvas Grid.Row="2" >
+            <TextBlock Canvas.Top="-30"  FontSize="15"   Canvas.Left="30" Text="The values are set by your office for inspection, discard, end to end and winch rotation settings. Where value = '0', it means the field is either not defined or infinite. "></TextBlock>
+        </Canvas>
+
+
+        <Grid Grid.Row="3" Margin="0,0,0,0" Grid.ColumnSpan="2">
+            <!--<TextBlock Style="{StaticResource HeaderText1}" TextAlignment="Center" Foreground="Blue" Background="Azure" FontWeight="Bold" Margin="0,-30,0,0" Text="ADD ROPE CROPPING"></TextBlock>-->
+
+
+
+            <ScrollViewer  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0*"/>
+                        <ColumnDefinition Width="33*"/>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="40*"/>
+                        <ColumnDefinition Width="40*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="90*"/>
+                    </Grid.RowDefinitions>
+
+                    <Canvas Grid.Row="0">
+                        <TextBlock Margin="321,0,0,0" FontWeight="Bold" FontSize="17" Background="LightBlue" TextWrapping="Wrap"  Text="       Discard / Criteria               "/>
+
+                        <TextBlock Margin="780,0,0,0" FontWeight="Bold" FontSize="17" TextWrapping="Wrap" Background="LightSkyBlue"  Text="                                    Inspection Interval(months)                                    "/>
+                    </Canvas>
+
+
+                    <DataGrid Grid.Row="1" Margin="-30,-300,0,0" Height="60" Visibility="Collapsed" x:Name="MooringLooseEInspectionGrid"  Width="950"    BorderThickness="1" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" GridLinesVisibility="All" SelectionUnit="FullRow" 
+                     SelectionMode="Single" CanUserAddRows="False" HeadersVisibility="Column"  BorderBrush="LightGray" ColumnWidth="Auto"   AutoGenerateColumns="False"     VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray" Grid.ColumnSpan="3" Grid.Column="1" >
+                        <!--<DataGrid x:Name="MooringRopeInspectionGrid" Width="1800" ItemsSource="{Binding Path=LoadInspections,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" BorderThickness="1" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" GridLinesVisibility="All" SelectionUnit="FullRow" 
+                     RowHeight="25" SelectionMode="Single" CanUserAddRows="False" HeadersVisibility="Column"  BorderBrush="LightGray" ColumnWidth="Auto"   AutoGenerateColumns="False"     VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray" >-->
+                        <!--<DataGrid.RowStyle>
+                            <Style TargetType="{x:Type DataGridRow}">
+                                <Setter Property="Height" Value="{x:Static sys:Double.NaN}"/>
+                            </Style>
+                        </DataGrid.RowStyle>-->
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn   Binding="{Binding Path = Id,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Id"  Visibility="Hidden"/>
+
+                            <DataGridTemplateColumn   IsReadOnly="True" Header="Equipment Type"  MaxWidth="280" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= looseequipmenttype, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn   IsReadOnly="True"   MaxWidth="250" Width="*">
+                                <DataGridTemplateColumn.Header>
+                                    <TextBlock TextWrapping="Wrap" Text="Inspection Frequency(in months)"/>
+                                </DataGridTemplateColumn.Header>
+
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= InspectionFrequency, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn   IsReadOnly="True"   MaxWidth="180" Width="*">
+                                <DataGridTemplateColumn.Header>
+                                    <TextBlock TextWrapping="Wrap" Text="Max Running Hrs."/>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= MaximumRunningHours, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn   IsReadOnly="True"  MaxWidth="180" Width="*">
+                                <DataGridTemplateColumn.Header>
+                                    <TextBlock TextWrapping="Wrap" Text="Max. Duration Allowed(months)"/>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= MaximumMonthsAllowed, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+
+                    <DataGrid Grid.Row="1" Margin="0,0,0,0"   Visibility="Visible" x:Name="mooringropeSe"  Width="1390" BorderThickness="1" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" GridLinesVisibility="All" SelectionUnit="FullRow" 
+                     SelectionMode="Single" CanUserAddRows="False" HeadersVisibility="Column"  BorderBrush="LightGray" ColumnWidth="Auto" RowHeight="25"  AutoGenerateColumns="False"     VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray" Grid.ColumnSpan="5" >
+                        <!--<DataGrid x:Name="MooringRopeInspectionGrid" Width="1800" ItemsSource="{Binding Path=LoadInspections,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" BorderThickness="1" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" GridLinesVisibility="All" SelectionUnit="FullRow" 
+                     RowHeight="25" SelectionMode="Single" CanUserAddRows="False" HeadersVisibility="Column"  BorderBrush="LightGray" ColumnWidth="Auto"   AutoGenerateColumns="False"     VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray" >-->
+                        <!--<DataGrid.RowStyle>
+                            <Style TargetType="{x:Type DataGridRow}">
+                                <Setter Property="Height" Value="{x:Static sys:Double.NaN}"/>
+                            </Style>
+                        </DataGrid.RowStyle>-->
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn   Binding="{Binding Path = Id,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Id"  Visibility="Hidden"/>
+
+                            <DataGridTemplateColumn   IsReadOnly="True" Header="Manufacturer Name"  MaxWidth="170" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            
+                            <DataGridTemplateColumn   IsReadOnly="True" Header="Rope Type"  MaxWidth="150" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= ropetype, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                           
+
+                            <DataGridTemplateColumn   IsReadOnly="True"   MaxWidth="100" Width="*">
+                                <DataGridTemplateColumn.Header>
+                                    <TextBlock TextWrapping="Wrap" Text="Max Running Hrs."/>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= MaximumRunningHours, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn   IsReadOnly="True"   MaxWidth="220" Width="*">
+                                <DataGridTemplateColumn.Header>
+                                    <TextBlock TextWrapping="Wrap" Text="Max Duration Allowed(months)"/>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= MaximumMonthsAllowed, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+                            <DataGridTemplateColumn   IsReadOnly="True"   MaxWidth="230" Width="*">
+                                <DataGridTemplateColumn.Header>
+                                    <TextBlock TextWrapping="Wrap" Text="End To End Frequency(months)"/>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= EndtoEndMonth, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <!--<DataGridTemplateColumn   IsReadOnly="True"   MaxWidth="230" Width="*">
+                                <DataGridTemplateColumn.Header>
+                                    <TextBlock TextWrapping="Wrap" Text="Winch Rotation Criteria (in months)"/>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= RotationOnWinches, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>-->
+
+                            <DataGridTemplateColumn   IsReadOnly="True" Header="Rating1"  MaxWidth="80" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= Rating1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn   IsReadOnly="True" Header="Rating2"  MaxWidth="80" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= Rating2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn   IsReadOnly="True" Header="Rating3"  MaxWidth="80" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= Rating3, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn   IsReadOnly="True" Header="Rating4"  MaxWidth="80" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= Rating4, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn   IsReadOnly="True" Header="Rating5"  MaxWidth="80" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= Rating5, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn   IsReadOnly="True" Header="Rating6"  MaxWidth="80" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= Rating6, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn   IsReadOnly="True" Header="Rating7"  MaxWidth="80" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= Rating7, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+
+                    <DataGrid Grid.Row="1" Margin="0,0,0,0"   Visibility="Hidden" x:Name="mooringropeSe1"  Width="1390" BorderThickness="1" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" GridLinesVisibility="All" SelectionUnit="FullRow" 
+                     SelectionMode="Single" CanUserAddRows="False" HeadersVisibility="Column"  BorderBrush="LightGray" ColumnWidth="Auto" RowHeight="25"  AutoGenerateColumns="False"     VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray" Grid.ColumnSpan="5" >
+                        <!--<DataGrid x:Name="MooringRopeInspectionGrid" Width="1800" ItemsSource="{Binding Path=LoadInspections,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" BorderThickness="1" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" GridLinesVisibility="All" SelectionUnit="FullRow" 
+                     RowHeight="25" SelectionMode="Single" CanUserAddRows="False" HeadersVisibility="Column"  BorderBrush="LightGray" ColumnWidth="Auto"   AutoGenerateColumns="False"     VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray" >-->
+                        <!--<DataGrid.RowStyle>
+                            <Style TargetType="{x:Type DataGridRow}">
+                                <Setter Property="Height" Value="{x:Static sys:Double.NaN}"/>
+                            </Style>
+                        </DataGrid.RowStyle>-->
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn   Binding="{Binding Path = Id,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Id"  Visibility="Hidden"/>
+
+
+                            <DataGridTemplateColumn   IsReadOnly="True" Header="Manufacturer Name"  MaxWidth="220" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn   IsReadOnly="True" Header="Mooring RopeType"  MaxWidth="200" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= ropetype, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                          
+
+                            <DataGridTemplateColumn   IsReadOnly="True"   MaxWidth="200" Width="*">
+                                <DataGridTemplateColumn.Header>
+                                    <TextBlock TextWrapping="Wrap" Text="Max Running Hrs."/>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= MaximumRunningHours, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn   IsReadOnly="True"   MaxWidth="280" Width="*">
+                                <DataGridTemplateColumn.Header>
+                                    <TextBlock TextWrapping="Wrap" Text="Max Duration Allowed(months)"/>
+                                </DataGridTemplateColumn.Header>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= MaximumMonthsAllowed, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+                            
+                            <DataGridTemplateColumn   IsReadOnly="True" Header="Rating1"  MaxWidth="80" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= Rating1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn   IsReadOnly="True" Header="Rating2"  MaxWidth="80" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= Rating2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn   IsReadOnly="True" Header="Rating3"  MaxWidth="80" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= Rating3, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn   IsReadOnly="True" Header="Rating4"  MaxWidth="80" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= Rating4, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn   IsReadOnly="True" Header="Rating5"  MaxWidth="80" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= Rating5, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn   IsReadOnly="True" Header="Rating6"  MaxWidth="80" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= Rating6, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn   IsReadOnly="True" Header="Rating7"  MaxWidth="80" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Foreground="Black" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Path= Rating7, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+
+
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+
+        <Canvas Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Visibility="Collapsed" HorizontalAlignment="Center" >
+            <Button Name="btnSave" Canvas.Top="5" Canvas.Left="-25" IsEnabled="False" Style="{StaticResource HeaderButton1}"  Command="{Binding ElementName=WorkHoursContent,Path=DataContext.NavCommand}" CommandParameter="LooseEInspectList" >
+                <TextBlock TextWrapping="Wrap"  Text=" Save "/>
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding SaveCommand}" CommandParameter="{Binding LooseEInspectList}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <Button Canvas.Top="5" Canvas.Left="50" Style="{StaticResource HeaderButton1}" Command="{Binding ElementName=WorkHoursContent,Path=DataContext.NavCommand}" CommandParameter="LooseEInspectList" >
+                <TextBlock TextWrapping="Wrap"  Text=" Cancel "/>
+            </Button>
+
+
+        </Canvas>
+
+    </Grid>
+</UserControl>

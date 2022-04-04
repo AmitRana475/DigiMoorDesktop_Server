@@ -1,19 +1,20 @@
 ﻿using DataBuildingLayer;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using System.ComponentModel;
-using System.Windows.Input;
-using System;
-using System.Windows;
-using System.IO;
 using Microsoft.Win32;
+using System;
+using System.ComponentModel;
+using System.IO;
+using System.Windows;
+using System.Windows.Input;
 
 namespace WorkShipVersionII.ViewModelAdministration
 {
-    public  class ErrorLogViewModel : ViewModelBase
+       public  class ErrorLogViewModel : ViewModelBase
     {
         private readonly ShipmentContaxt sc;
         private BackgroundWorker _Worker;
+        public ICommand HelpCommand { get; private set; }
         public ErrorLogViewModel()
         {
             if (sc == null)
@@ -21,7 +22,7 @@ namespace WorkShipVersionII.ViewModelAdministration
                 sc = new ShipmentContaxt();
                 sc.Configuration.ProxyCreationEnabled = false;
             }
-
+            HelpCommand = new RelayCommand(() => StaticHelper.HelpMethod(StaticHelper.HelpFor));
             _ExportCommand = new RelayCommand(() => _Worker.RunWorkerAsync(), () => !_Worker.IsBusy);
             _Worker = new BackgroundWorker();
             //_Worker.WorkerReportsProgress = true;
@@ -55,8 +56,11 @@ namespace WorkShipVersionII.ViewModelAdministration
             try
             {
 
-                string path0 = @"C:\Work-Ship_DB_Backup";
-                string path1 = @"\Systemlogfile.txt";
+                //string path0 = @"C:\DigiMoorDB_Backup";
+
+                            string ServerName = StaticHelper.ServerName;
+                            string path0 = ServerName + "\\DigiMoorDB_Backup";
+                            string path1 = @"\Systemlogfile.txt";
                 string path2 = path0 + path1;
                 if (File.Exists(path2))
                 {

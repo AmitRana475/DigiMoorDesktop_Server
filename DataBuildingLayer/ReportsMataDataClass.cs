@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace DataBuildingLayer
@@ -11,9 +12,9 @@ namespace DataBuildingLayer
         public int Id { get; set; }
         public string Company { get; set; }
         public string ReportName { get; set; }
-        public ImageSource LOGO { get; set; }
-        public ImageSource Middle_RightImage { get; set; }
-        public ImageSource FooterImage { get; set; }
+        public byte[] LOGO { get; set; }
+        public byte[] Middle_RightImage { get; set; }
+        public byte[] FooterImage { get; set; }
         public string FooterLine { get; set; }
     }
 }

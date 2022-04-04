@@ -10,5 +10,7 @@ namespace DataBuildingLayer
         public int vids { get; set; }
         public string versions { get; set; }
         public string ClientVersions { get; set; }
+
+        public string SubVersions { get; set; }
     }
 }

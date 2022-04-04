@@ -1,0 +1,495 @@
+﻿<UserControl x:Class="WorkShipVersionII.Views.NotificationsView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+              xmlns:userControls="clr-namespace:WorkShipVersionII.Pagination"
+             mc:Ignorable="d" 
+             d:DesignHeight="810" d:DesignWidth="1300" >
+
+    <UserControl.Resources>
+
+
+        <Style TargetType="{x:Type Button}" x:Key="HeaderButton">
+            <Setter Property="FontFamily" Value="Verdana"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="MinHeight" Value="22"/>
+            <Setter Property="MaxHeight" Value="25"/>
+            <Setter Property="Background" Value="#ededef"/>   
+            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <Style TargetType="{x:Type TextBlock}" x:Key="HeaderText">
+            <Setter Property="FontFamily" Value="Verdana"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+
+
+        </Style>
+
+
+    </UserControl.Resources>
+
+    <!--<ScrollViewer VerticalScrollBarVisibility="Auto">-->
+    <Grid>
+
+      
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="148*" />
+            <!--<RowDefinition Height="{Binding ComCertification.CerNotiWidth,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
+            <RowDefinition Height="{Binding ComCertification.OCNotiWidth,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>-->
+
+        </Grid.RowDefinitions>
+
+        <UniformGrid Grid.Row="0" x:Name="HeaderUniformGrid" Columns="4"  >
+
+            <Grid Margin="0,0,60,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+
+                    <ColumnDefinition Width="*"/>
+                
+               
+
+                </Grid.ColumnDefinitions>
+
+                <Button  Style="{StaticResource HeaderButton1}"  Grid.Column="0" Grid.ColumnSpan="3" Command="{Binding AcknowledgeCommand}" HorizontalAlignment="Left" >
+                    <TextBlock Style="{StaticResource HeaderText1}" Text=" Acknowledge "/>
+                </Button>
+                <TextBlock Style="{StaticResource HeaderText1}" HorizontalAlignment="Left" Foreground="Blue"  Padding="2" Grid.Column="2"   Margin="37,6,0,6" Grid.ColumnSpan="2"  >
+                    <Hyperlink Command="{Binding HelpCommand}" Name="Help" >Help</Hyperlink>
+
+                </TextBlock>
+            </Grid>
+
+            <Grid Margin="-180,0,228,0">
+                <Grid.Style>
+                    <Style TargetType="{x:Type Grid}">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=btnArchives, Path=Content}" Value="Archives">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Style="{StaticResource HeaderText}" Padding="2" HorizontalAlignment="Right"  Grid.Column="0"  Text="From" />
+                <DatePicker x:Name="dtFrom" CalendarStyle="{StaticResource styleCalendar}" FontFamily="Verdana" FontSize="14" VerticalContentAlignment="Center"  Text="{Binding DateFrom,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" SelectedDate="{Binding SDateFrom,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Height="25"  Grid.Column="1" Grid.ColumnSpan="3"  />
+
+                <TextBlock  Style="{StaticResource HeaderText}" Padding="2" HorizontalAlignment="Right"  Grid.Column="4" Text="To" Margin="0,7,2,7" />
+
+                <DatePicker  x:Name="dtTo" CalendarStyle="{StaticResource styleCalendar}" FontFamily="Verdana" FontSize="14" VerticalContentAlignment="Center" Text="{Binding DatesTo,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" SelectedDate="{Binding SDateTo,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  Height="25"  Grid.Column="5" Grid.ColumnSpan="3"/>
+
+                <Button   Width="33" Style="{StaticResource HeaderButton}"  Grid.Column="7" HorizontalAlignment="Right" Margin="0,4,-41,4" Command="{Binding GoCommand}" >
+                    <TextBlock  Style="{StaticResource HeaderText}"   HorizontalAlignment="Center" 
+                      Text="Go"/>
+                </Button>
+
+            </Grid>
+
+            <Grid Margin="4,0,40,0">
+                <Grid.Style>
+                    <Style TargetType="{x:Type Grid}">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=NotificationGrid, Path=Items.Count}" Value="0">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />   
+                   
+                </Grid.ColumnDefinitions>
+
+                <Canvas Margin="15,0,0,0">
+                    <TextBlock  Style="{StaticResource HeaderText}"  HorizontalAlignment="Center" FontSize="12"  Canvas.Left="-200"  Text="Total Unread Office Comments" Width="110" TextWrapping="Wrap" />
+                    <TextBlock  Height="25"  FontSize="12" Style="{StaticResource HeaderText}" Canvas.Left="-70" Canvas.Top="4"  x:Name="sss" TextWrapping="Wrap" Width="50"  Text="{Binding TotalUnreadOfcCmnt,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Foreground="Red" HorizontalAlignment="Left"  />
+
+                    <userControls:PaginationElements x:Name="DeviationPaging"  Height="Auto" HorizontalAlignment="Center"   />
+
+                </Canvas>
+               
+                <!--<StackPanel Grid.Column='1'
+                    Grid.Row='0'
+                    Grid.RowSpan='2'
+                    Grid.ColumnSpan='5'
+                    VerticalAlignment='Bottom'>
+                    <StackPanel.Effect>
+                        <DropShadowEffect />
+                    </StackPanel.Effect>
+                    <StackPanel.Background>
+                        <LinearGradientBrush EndPoint='0.5,1'
+                                     StartPoint='0.5,0'>
+                            <GradientStop Color='Black'
+                                  Offset='1' />
+                            <GradientStop Color='#FF6974DC' />
+                        </LinearGradientBrush>
+                    </StackPanel.Background>
+                    <TextBlock Foreground='Wheat'
+                       Padding='2'
+                       VerticalAlignment='Center'
+                       Text='Paging in WPF'
+                       FontSize='22'
+                       TextAlignment='Center' />
+                    <StackPanel Orientation='Horizontal'
+                        Margin='6'
+                        HorizontalAlignment='Center'>
+                        <Button x:Name='Backwards'
+                        Padding='4'
+                        Content='&lt; Previous'
+                        Margin='6'
+                      ></Button>
+                        <Button x:Name='First'
+                        Padding='4'
+                        Content='&lt;&lt; Jump to First'
+                        Margin='6'
+                        ></Button>
+                        <Grid Margin='6'
+                      VerticalAlignment='Center'
+                      HorizontalAlignment='Center'>
+                            <Label x:Name='PageInfo'
+                           Foreground='AntiqueWhite' />
+                        </Grid>
+                        <Grid VerticalAlignment='Center'
+                      Margin='6'
+                      HorizontalAlignment='Center'>
+                            <ComboBox x:Name='NumberOfRecords'
+                              SelectedIndex='0'
+                              />
+                        </Grid>
+                        <Button x:Name='Last'
+                        Padding='4'
+                        Content='&gt;&gt; Jump to Last'
+                        Margin='6'
+                       ></Button>
+                        <Button x:Name='Forward'
+                        Padding='4'
+                        Content='&gt; Next'
+                        Margin='6'
+                      ></Button>
+                    </StackPanel>
+                </StackPanel>-->
+
+            </Grid>
+
+            <Grid Margin="-90,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="*"/>
+                      <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+
+                <Canvas>
+                    <TextBlock Canvas.Left="25" Canvas.Top="25" Style="{StaticResource HeaderText}" HorizontalAlignment="Center"  Text="Acknowledged"  />
+                    <TextBlock Canvas.Left="115"  Canvas.Top="25" Style="{StaticResource HeaderText}"  x:Name="lblAckdCount"  Text="{Binding Acknowledged,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" HorizontalAlignment="Left"  />
+
+                    <TextBlock  Canvas.Left="25" Style="{StaticResource HeaderText}" HorizontalAlignment="Center"    Text="To be Acknowledged"  />
+                    <TextBlock Canvas.Left="160" Style="{StaticResource HeaderText}"  x:Name="lblAckCount"  Text="{Binding TobeAcknowledged,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Foreground="Red" HorizontalAlignment="Left"  />
+                </Canvas>
+                <Button x:Name="btnArchives" Width="80" Style="{StaticResource HeaderButton1}"  Grid.Column="9" Grid.ColumnSpan="3" HorizontalAlignment="Right"  Command="{Binding Path=ArchivesCommand}"   
+                   CommandParameter="{Binding ElementName=btnArchives, Path=Content}" Content="{Binding BtnName,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   />
+
+                <!--<TextBlock  Style="{StaticResource HeaderText}" Grid.Column="8"  Grid.Row="2" x:Name="ss"  Text="{Binding TobeAcknowledged,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Foreground="Red" HorizontalAlignment="Left"  />-->
+
+
+            </Grid>
+
+        </UniformGrid>
+
+        <!--<Grid Grid.Row="0" Margin="0,10,0,0">-->
+     
+
+        <!--</Grid>-->
+
+        <Grid Grid.Row="2" Margin="0,-30,0,0">
+            
+            <!--<DataGrid x:Name="NotificationGrid"  ItemsSource="{Binding LoadUserAccess}"  BorderThickness="0" Background="WhiteSmoke" FontFamily="Verdana" GridLinesVisibility="Horizontal" SelectionUnit="FullRow"  SelectionMode="Single" CanUserAddRows="False"
+                      HeadersVisibility="Column"  BorderBrush="LightGray"    AutoGenerateColumns="False"   VerticalScrollBarVisibility="Auto" VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray" RowHeight="55"  SelectedItem="{Binding SelectedItem}">-->
+            <DataGrid x:Name="NotificationGrid"  ItemsSource="{Binding ViewList.View}"  BorderThickness="0" Background="WhiteSmoke" FontFamily="Verdana" GridLinesVisibility="Horizontal" SelectionUnit="FullRow"  SelectionMode="Single" CanUserAddRows="False"
+                      HeadersVisibility="Column"  BorderBrush="LightGray"    AutoGenerateColumns="False"   VerticalScrollBarVisibility="Auto" VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray" RowHeight="55"  SelectedItem="{Binding SelectedItem}">
+
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding AckRecord}" Value="Not yet acknowledged">
+                                <Setter Property="Foreground" Value="Red" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding AckRecord}" Value="This notification cannot be acknowledged, kindly discard it">
+                                <Setter Property="Foreground" Value="Red" />
+                            </DataTrigger>
+                            <DataTrigger  Binding="{Binding NotificationAlertType}" Value="17">
+                                <Setter Property="Foreground" Value="Red" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding NotificationAlertType}" Value="18">
+                                <Setter Property="Foreground" Value="Red" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                    
+                    
+                </DataGrid.RowStyle>
+               
+                  
+                       
+                  
+
+
+
+
+                <!--<DataGrid x:Name="OnboardGrid"  BorderThickness="0" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" ItemsSource="{Binding LoadUserAccess}"
+                      GridLinesVisibility="Horizontal" SelectionUnit="FullRow"  SelectionMode="Single" CanUserAddRows="False" HeadersVisibility="Column"  BorderBrush="LightGray" RowHeight="55" ColumnWidth="Auto" 
+                      AutoGenerateColumns="False"   VerticalScrollBarVisibility="Auto" VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray" Grid.ColumnSpan="5">-->
+
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="BorderThickness" Value="0.2,0,0.2,0"/>
+                        <Setter Property="BorderBrush" Value="Gray"/>
+                        <!--<Setter Property="Background" Value="Red"/>
+                        <Setter Property="Foreground" Value="Black"/>-->
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background"  Value="WhiteSmoke" />
+                                <Setter Property="Foreground" Value="Black" />
+                                <Setter Property="BorderBrush" Value="Black"/>
+                            </Trigger>
+
+                            <!--<MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    --><!--<Condition 1 here.../>-->
+                                    <!--<Condition 2 here.../>--><!--
+                                    <Condition Binding="{Binding Path=OfficeCmnt}" Value="No Comment(s)"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" Value="White"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                            </MultiDataTrigger>-->
+                        </Style.Triggers>
+                        
+                        
+                    </Style>
+                </DataGrid.CellStyle>
+
+
+
+
+                <DataGrid.Columns >
+                    <DataGridTextColumn Binding="{Binding Path= IndexId,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="IndexId" Visibility="Hidden"/>
+                    <DataGridTextColumn Binding="{Binding Path= Id,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Id" Visibility="Hidden"/>
+
+
+                    <DataGridTemplateColumn MaxWidth="60" Width="*">
+                        <DataGridTemplateColumn.Header>
+                            <CheckBox x:Name="chkBox3"  IsChecked="{Binding Path=DataContext.AllSelected,
+                       UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,
+                       RelativeSource={RelativeSource FindAncestor,
+                           AncestorType=DataGrid}}" />
+
+                            <!--<CheckBox Content="Uncheck All Or Check All" Checked="CheckBox_Checked"    Unchecked="CheckBox_Unchecked" Click="CheckBox_Checked"/>-->
+
+
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox x:Name="chkDiscontinueb"  HorizontalAlignment="Center" VerticalAlignment="Center"  IsChecked="{Binding IsCheckedV,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+
+                    <DataGridTextColumn  Binding="{Binding Path=Notification}" IsReadOnly="True"  Header="Notifications"  MaxWidth="800" Width="*"   >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Left" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="TextWrapping" Value="Wrap" />
+                                <Setter Property="Margin" Value="5,5,5,5"/>
+                            
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <!--<DataGridTextColumn  Binding="{Binding Path=NotificationDate}" IsReadOnly="True"  Header="Notification Date"  MaxWidth="180" Width="*"   >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="TextWrapping" Value="Wrap" />
+                                <Setter Property="Margin" Value="5,5,5,5"/>
+
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>-->
+
+                    <!--<DataGridTextColumn  Binding="{Binding Path=ShipActionTaken}" IsReadOnly="True" Header="Ship Comments" MaxWidth="200" Width="*">
+
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="TextWrapping" Value="Wrap" />
+                               
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+
+                    </DataGridTextColumn>-->
+
+                    <DataGridTemplateColumn MaxWidth="200" Width="*"   Header="Ship Comments">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel VerticalAlignment="Center"   HorizontalAlignment="Center" Orientation="Horizontal">
+                                    <TextBlock Width="120"  FontWeight="Normal"   FontSize="13" FontFamily="Verdana" VerticalAlignment="Center" >
+                                        <Hyperlink  Name="Delete"   Command="{Binding Path=DataContext.CommentsCommand,RelativeSource={RelativeSource AncestorType=DataGrid}}"  CommandParameter="{Binding}" Foreground="#0000cc">
+                                            <TextBlock Text="{Binding Path=ShipCmnt}"/>
+                                        </Hyperlink>
+                                    </TextBlock>
+                                </StackPanel>
+
+                              
+                                    <!--<CheckBox x:Name="chkDiscontinueb"  HorizontalAlignment="Center" VerticalAlignment="Center"  IsChecked="{Binding IsCheckedV,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />-->
+                                
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                 
+   <DataGridTemplateColumn MaxWidth="200" Width="*" Header="Office Comments">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                                    <TextBlock Width="120"  FontWeight="Normal"    FontSize="13" FontFamily="Verdana" VerticalAlignment="Center" >
+                                        <Hyperlink   Name="Delete" Command="{Binding Path=DataContext.CommentsCommand1,RelativeSource={RelativeSource AncestorType=DataGrid}}"  CommandParameter="{Binding}" Foreground="#0000cc">
+                                           <TextBlock Text="{Binding Path=OfficeCmnt}"/>
+                                        </Hyperlink>
+                                    </TextBlock>
+                                </StackPanel>
+                                
+                                
+                            </DataTemplate>
+                            
+                        </DataGridTemplateColumn.CellTemplate>
+
+                        <DataGridTemplateColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}">
+                                <Setter Property="Background" Value="Red"></Setter>
+
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding OfficeCmnt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Value ="No Comment(s)">
+                                        <Setter Property="Background" Value="White" />
+                                    </DataTrigger>
+                                    <!--<DataTrigger Binding="{Binding ColorBIDQty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Value="2">
+                                        <Setter Property="Background" Value="Black" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding ColorBIDQty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Value="3">
+                                        <Setter Property="Background" Value="Red" />
+                                    </DataTrigger>-->
+                                </Style.Triggers>
+                            </Style>
+                           
+                            
+
+                        </DataGridTemplateColumn.CellStyle>
+                    </DataGridTemplateColumn>
+                   
+                    
+                    
+                    <DataGridTextColumn  Binding="{Binding Path=AckRecord}" IsReadOnly="True" Header="Ack. Record" MaxWidth="390" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="TextWrapping" Value="Wrap" />
+                               
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <!--<DataGridTextColumn  Binding="{Binding Path=ReasonofCropping}" IsReadOnly="True" Header="Reasonof Cropping" MaxWidth="285" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn  Binding="{Binding Path=CroppedOutboardEnd}" IsReadOnly="True" Header="Outboard" MaxWidth="80" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn  Binding="{Binding Path=LengthofCroppedRope}" IsReadOnly="True" Header="Length" MaxWidth="80" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+
+                    <DataGridTemplateColumn MaxWidth="65" Width="*" Header="Delete">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Width="70"  FontWeight="Normal"  FontSize="13" FontFamily="Verdana" VerticalAlignment="Center" HorizontalContentAlignment="Center">
+                                        <Hyperlink  Name="Delete" Command="{Binding Path=DataContext.DeleteCommand,RelativeSource={RelativeSource AncestorType=DataGrid}}"  CommandParameter="{Binding}" Foreground="#0000cc">Delete</Hyperlink>
+                                    </Label>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>-->
+                </DataGrid.Columns>
+
+            </DataGrid>
+
+
+        </Grid>
+
+
+
+       
+    </Grid>
+    <!--</ScrollViewer>-->
+
+</UserControl>

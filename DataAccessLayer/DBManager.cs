@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-    public sealed class DBManager : IDBManager, IDisposable
+       public sealed class DBManager : IDBManager, IDisposable
     {
 
         private IDbConnection idbConnection;

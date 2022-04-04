@@ -121,6 +121,7 @@ namespace WorkShipVersionII.Control
             }
             SetSelectedItems();
             SetText();
+            
 
         }
         #endregion

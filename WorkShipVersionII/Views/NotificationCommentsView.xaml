@@ -1,0 +1,208 @@
+﻿<UserControl x:Class="WorkShipVersionII.Views.NotificationCommentsView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WorkShipVersionII.WorkHoursView"
+              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+             mc:Ignorable="d" 
+             Margin="80,50,0,0"
+              Height="600" Width="1000" Background="WhiteSmoke"  VerticalAlignment="Top">
+    <!--d:DesignHeight="1300" d:DesignWidth="1200">-->
+
+
+    <Grid Height="950" Margin="0,0,0,0">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+
+
+            <RowDefinition Height="25" />
+            <RowDefinition Height="10*" />
+        </Grid.RowDefinitions>
+
+        <UniformGrid Grid.Row="0" MinHeight="31" Margin="0,0,0,5" x:Name="AddCrewUniformGrid" Columns="1">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="85*"/>
+                    <ColumnDefinition Width="15*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="{Binding CommentTitle}" FontSize="18" Margin="10,0,0,0" Style="{StaticResource HeaderText1}"  />
+            </Grid>
+        </UniformGrid>
+
+        <GroupBox Name="AddGrpBox" Height="200" Margin="0,0,0,0" Visibility="Collapsed" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible"   >
+
+            <GroupBox.Header>
+                <GroupBox FontWeight="Bold" FontSize="15" Header="Add Comments">
+                </GroupBox>
+            </GroupBox.Header>
+            <Grid Grid.Row="1" Margin="0,0,0,0">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="10*" />
+                    <RowDefinition Height="10*" />
+                    <RowDefinition Height="10*" />
+
+                </Grid.RowDefinitions>
+
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="8*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="20*"/>
+                    <!--<ColumnDefinition Width="10*"/>-->
+                    <ColumnDefinition Width="25*"/>
+                    <ColumnDefinition Width="25*"/>
+                    <ColumnDefinition Width="8*"/>
+
+                </Grid.ColumnDefinitions>
+
+
+
+
+                <TextBlock Text="Write Comment" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource HeaderText1}" />
+
+                <TextBox x:Name="txtComment"  Grid.Column="3" Grid.Row="1" MaxLength="500" Text="{Binding NotificationCmnt.Comments,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center"  >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="LostFocus">
+                            <i:InvokeCommandAction  Command="{Binding LostFocusCDCCommand}" CommandParameter="{Binding NotificationCmnt.Comments}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+
+                <TextBlock x:Name="Lblmessage" Text="{Binding Lblmessage,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Visibility="Hidden" Canvas.Left="381" FontFamily="Verdana" FontSize="14"   Canvas.Top="5"/>
+
+                <Canvas Margin="200,0,0,0" Grid.Column="2" Grid.Row="19" >
+                    <Button x:Name="btnReset" Content="Reset" Command="{Binding ResetCommand}" CommandParameter="{Binding AddCrewDetail}"   Width="65" Style="{StaticResource HeaderButton1}" Canvas.Left="30" Canvas.Top="4"  />
+
+
+
+
+                    <Button x:Name="btnSave"  Command="{Binding ElementName=WorkHoursContent1,Path=DataContext.NavCommand}" CommandParameter="MooringWinchRopeView" Width="65" Canvas.Left="101" Style="{StaticResource HeaderButton1}" Canvas.Top="4" >
+                        <TextBlock  Style="{StaticResource HeaderText1}"  HorizontalAlignment="Center" Text=" Save "/>
+                        <!--Command="{Binding ElementName=CrewManagementContent,Path=DataContext.NavCommand}" CommandParameter="NextCrewDetail"-->
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding SaveCommand}" CommandParameter="{Binding NotificationCmnt}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+
+                    </Button>
+
+
+                    <Button x:Name="btnCancel"   Width="65" Canvas.Left="172" Style="{StaticResource HeaderButton1}" Command="{Binding ElementName=WorkHoursContent,Path=DataContext.NavCommand}" CommandParameter="MooringWinchRopeView" Canvas.Top="4">
+                        <TextBlock  Style="{StaticResource HeaderText1}"  HorizontalAlignment="Center" Text=" Cancel "/>
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding CancelCommand}" CommandParameter="{Binding MooringWinchRopeView}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                    </Button>
+
+                </Canvas>
+
+            </Grid>
+
+        </GroupBox>
+
+        <Canvas Margin="0,-80,0,0" Name="canBtn" Grid.Row="2" >
+            <Button Canvas.Top="50" Canvas.Right="15" Name="btnAddComment" Height="25" Click="btnAddComment_Click" Width="150" Grid.Column="1"  Style="{StaticResource HeaderButton1}"  >
+                <TextBlock TextWrapping="Wrap"  Text="Add Comments"/>
+            </Button>
+        </Canvas>
+
+
+        <GroupBox Grid.Row="3"  Height="650" Margin="0,-190,0,0" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+
+
+            <GroupBox.Header>
+                <GroupBox FontWeight="Bold" FontSize="15"  Header="Comments List">
+                </GroupBox>
+            </GroupBox.Header>
+            <Grid Grid.Row="1" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="943*"/>
+                    <!--<ColumnDefinition Width="645*"/>-->
+                </Grid.ColumnDefinitions>
+
+                <DataGrid x:Name="MooringWinchGrid" ItemsSource="{Binding Path=LoadUserAccess,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" BorderThickness="0" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" GridLinesVisibility="Horizontal" SelectionUnit="FullRow" 
+                      SelectionMode="Single" RowHeight="25" CanUserAddRows="False" HeadersVisibility="Column"  BorderBrush="LightGray" ColumnWidth="Auto"   AutoGenerateColumns="False"   VerticalScrollBarVisibility="Auto"   VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray" Grid.ColumnSpan="2" >
+
+
+
+                    <DataGrid.Columns >
+                        <DataGridTextColumn   Binding="{Binding Path = Id,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Id"  Visibility="Hidden"/>
+                        <DataGridTextColumn Binding="{Binding Path= Comments,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  FontSize="12" IsReadOnly="True" Header="Comments" MaxWidth="1037" Width="*">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="Margin" Value="5,0,0,0"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                       <DataGridTextColumn    Binding="{Binding Path = CreatedDate,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  Header="Comments Date" MaxWidth="300" Width="*">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="Margin" Value="5,0,0,0"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+
+                        </DataGridTextColumn>
+
+                        <!--<DataGridTemplateColumn MaxWidth="60" Width="*" Header="Edit">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Width="50"  FontWeight="Normal"   FontSize="13" FontFamily="Verdana" VerticalAlignment="Center" HorizontalContentAlignment="Center">
+                                            <Hyperlink  Command="{Binding Path=DataContext.EditCommand,RelativeSource={RelativeSource AncestorType=DataGrid}}" 
+                                        CommandParameter="{Binding}"  Name="Edit" Foreground="#0000cc">Edit</Hyperlink>
+                                        </Label>
+
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn MaxWidth="65" Width="*" Header="Delete">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+
+                                        <Label Width="55"  FontWeight="Normal"   FontSize="13" FontFamily="Verdana" VerticalAlignment="Center" HorizontalContentAlignment="Center">
+                                            <Hyperlink  Name="Delete" Command="{Binding Path=DataContext.DeleteCommand,RelativeSource={RelativeSource AncestorType=DataGrid}}"  CommandParameter="{Binding}" Foreground="#0000cc">Delete
+                                            </Hyperlink>
+                                        </Label>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>-->
+
+
+                    </DataGrid.Columns>
+
+                </DataGrid>
+            </Grid>
+
+        </GroupBox>
+
+
+
+        <Button Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Right"  VerticalAlignment="Top"   Command="{Binding CancelCommand}" >
+            <StackPanel>
+                <Image Height="22" Width="22"   Source="/WorkShipVersionII;component/Images/closebtnRed.png" />
+            </StackPanel>
+        </Button>
+    </Grid>
+
+</UserControl>
+

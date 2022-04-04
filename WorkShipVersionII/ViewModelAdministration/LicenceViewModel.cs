@@ -1,17 +1,20 @@
 ﻿using DataBuildingLayer;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Windows.Input;
 using WorkShipVersionII.ViewModel;
 
 namespace WorkShipVersionII.ViewModelAdministration
 {
 
-    public class LicenceViewModel : ViewModelBase
+       public class LicenceViewModel : ViewModelBase
     {
         private readonly AdministrationContaxt sc;
+        public ICommand HelpCommand { get; private set; }
         public LicenceViewModel()
         {
             if (sc == null)
@@ -19,7 +22,7 @@ namespace WorkShipVersionII.ViewModelAdministration
                 sc = new AdministrationContaxt();
                 sc.Configuration.ProxyCreationEnabled = false;
             }
-
+            HelpCommand = new RelayCommand(() => StaticHelper.HelpMethod(StaticHelper.HelpFor));
             try
             {
                 LicenceClass data = (from c in sc.Vessels
@@ -51,7 +54,7 @@ namespace WorkShipVersionII.ViewModelAdministration
         {
             try
             {
-                var txtpath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RecordWork49V2.txt");
+                var txtpath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "RecordDigiMoor.txt");
                 if (File.Exists(txtpath) && new FileInfo(txtpath).Length > 0)
                 {
                     StreamReader srd = new StreamReader(txtpath);

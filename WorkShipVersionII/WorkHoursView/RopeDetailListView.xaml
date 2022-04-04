@@ -1,0 +1,1094 @@
+﻿<UserControl x:Class="WorkShipVersionII.WorkHoursView.RopeDetailListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WorkShipVersionII.WorkHoursView"
+              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+             mc:Ignorable="d" 
+             d:DesignHeight="230" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        
+        
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="4*"/>
+
+
+
+
+        </Grid.RowDefinitions>
+
+        <Grid x:Name = "CrewManagementContent"   Margin="10,0,0,0"  >
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0*"/>
+                    <RowDefinition Height="*"/>
+
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Canvas Margin="0,20,0,0" Grid.Row="0">
+
+                    <Grid>
+                        
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                      
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Name="txtAssignWinch" FontWeight="Bold" Grid.Row="0" Grid.Column="1" FontSize="15" Text=" " ></TextBlock>
+                        <TextBlock Name="txtlocation" FontWeight="Bold" TextWrapping="Wrap" Grid.Row="0" Grid.Column="2"  FontSize="15" Text=" "  ></TextBlock>
+                        <TextBlock Name="txtRuninghrs" FontWeight="Bold" FontSize="15" Text=" " Grid.Row="0" Grid.Column="3"  ></TextBlock>
+                        <!--<TextBlock Name="txtMaxRuninghrs" FontWeight="Bold" FontSize="15" Text=" " Grid.Row="0" Grid.Column="2"  ></TextBlock>-->
+                        <TextBlock Name="txtNxtInspDue" FontWeight="Bold" FontSize="15" Text=" " Grid.Row="0" Grid.Column="5"  ></TextBlock>
+                        <TextBlock Name="txtcrntoutboard" FontWeight="Bold" FontSize="15" Text=" " Grid.Column="6" Grid.Row="0"   ></TextBlock>
+                    </Grid>
+                </Canvas>
+
+                <Canvas Margin="0,30,0,0" Grid.Row="1">
+
+                    <TextBlock x:Name="MenuTitle" Text="" FontWeight="Bold" Canvas.Left="10" Style="{StaticResource HeaderText1}" Canvas.Top="3" FontFamily="Verdana"  />
+                    <Button  x:Name="B1" Content=" LineDetail " Command="{Binding Path=TabCommand}"   Style="{StaticResource HeaderButton1}" Canvas.Left="0" Canvas.Top="30" Click="B1_Click"  />
+                    <Button x:Name="B2" Content=" Inspection "   Style="{StaticResource HeaderButton1}" Canvas.Left="97" Canvas.Top="30" Click="B2_Click"  />
+                  
+                   
+                
+                    <Button x:Name="B4" Content=" Splicing "  Style="{StaticResource HeaderButton1}" Canvas.Left="190" Canvas.Top="30" Click="B4_Click" />
+
+                    <Button  x:Name="B5" Content=" Cropping "    Style="{StaticResource HeaderButton1}" Canvas.Left="267" Canvas.Top="30" Click="B5_Click"  />
+                    <Button x:Name="B6" Content="  Damage  "   Style="{StaticResource HeaderButton1}" Canvas.Left="353" Canvas.Top="30" Click="B6_Click"  />
+                    <Button x:Name="B7" Content=" Discard "    Style="{StaticResource HeaderButton1}" Canvas.Left="440" Canvas.Top="30" Click="B7_Click" />
+                    <Button x:Name="B8" Content=" Disposal "  Style="{StaticResource HeaderButton1}" Canvas.Left="510" Canvas.Top="30" Click="B8_Click" />
+
+
+                    <Button  x:Name="B3" Content=" End to End "    Style="{StaticResource HeaderButton1}" Canvas.Left="590" Canvas.Top="30" Click="B3_Click" />
+
+                    <Button  x:Name="B9" Content=" Winch Rotation "    Style="{StaticResource HeaderButton1}" Canvas.Left="687" Canvas.Top="30" Click="B9_Click" />
+
+                </Canvas>
+
+             
+
+
+            </Grid>
+
+
+
+        </Grid>
+
+
+        <Grid Grid.Row="3" Margin="0,5,0,0" Grid.ColumnSpan="2">
+            <!--<TextBlock Style="{StaticResource HeaderText1}" TextAlignment="Center" Foreground="Blue" Background="Azure" FontWeight="Bold" Margin="0,-30,0,0" Text="ADD ROPE CROPPING"></TextBlock>-->
+
+
+
+            <ScrollViewer  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="80*"/>
+                    </Grid.RowDefinitions>
+
+
+
+
+                    <DataGrid ColumnHeaderHeight="35" x:Name="ropedetailGrid"  RowHeight="25" Visibility="Visible" MaxWidth="1900" MinWidth="1040" BorderThickness="0" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" 
+                      GridLinesVisibility="Horizontal" SelectionUnit="FullRow"  SelectionMode="Single" CanUserAddRows="False" HeadersVisibility="Column"  BorderBrush="LightGray" ColumnWidth="Auto" 
+                     CanUserDeleteRows="False" AutoGenerateColumns="False"   VerticalScrollBarVisibility="Auto" VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray">
+
+
+                        <DataGrid.Columns >
+                            <DataGridTextColumn Binding="{Binding Path= Id,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Id" Visibility="Hidden"/>
+                            <!--<DataGridTextColumn Binding="{Binding Path= UserName,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="User Name" Visibility="Hidden"/>-->
+
+
+
+                            <DataGridTextColumn  Binding="{Binding Path= ropetype}" IsReadOnly="True" Header="Type" MaxWidth="230" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="TextAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn   Binding="{Binding Path= UniqueID}" IsReadOnly="True" Header="Unique ID" MaxWidth="230" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="TextAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn   Binding="{Binding Path= CertificateNumber}" IsReadOnly="True" Header="Cert. No." MaxWidth="230" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="TextAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                          
+
+                            <DataGridTextColumn  Binding="{Binding Path= ManufacturerName}" IsReadOnly="True" Header="Manufacturer" MaxWidth="200" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn  Binding="{Binding Path=RopeConstruction}" IsReadOnly="True" Header="Rope Const." MaxWidth="150" Width="*">
+
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn  Binding="{Binding Path=DiaMeter}" IsReadOnly="True" Header="DiaMeter" MaxWidth="100" Width="*">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                          
+
+                            <DataGridTextColumn  Binding="{Binding Path=Length}" IsReadOnly="True"  MaxWidth="100" Width="*">
+
+                                <DataGridTextColumn.Header>
+                                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="Original Length"/>
+                                </DataGridTextColumn.Header>
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn  Binding="{Binding Path=CurrentLength}" IsReadOnly="True"  MaxWidth="100" Width="*">
+
+                                <DataGridTextColumn.Header> 
+                                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="Current Length"/>
+                                </DataGridTextColumn.Header>
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+
+
+                            <DataGridTextColumn Visibility="Hidden" Binding="{Binding Path=MBL}" IsReadOnly="True" Header="MBL" MaxWidth="60" Width="*">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Binding="{Binding Path=LDBF}" IsReadOnly="True" Header="LDBF" MaxWidth="60" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Binding="{Binding Path=WLL}" IsReadOnly="True" Header="WLL" MaxWidth="60" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn   Binding="{Binding Path= ReceivedDate1}" IsReadOnly="True" Header="Received Date" MaxWidth="170" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn   Binding="{Binding Path= InstalledDate1}" IsReadOnly="True" Header="Installed Date" MaxWidth="170" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+
+                            <DataGridTextColumn   Binding="{Binding Path= RopeTagging}" IsReadOnly="True" Header="Tagging" MaxWidth="100" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+
+                    <DataGrid ColumnHeaderHeight="35" x:Name="ropeinspectionGrid" RowHeight="25" MaxWidth="3100" MinWidth="3080" Visibility="Collapsed"  BorderThickness="0" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" 
+                      GridLinesVisibility="Horizontal" SelectionUnit="FullRow"  SelectionMode="Single" CanUserAddRows="False" HeadersVisibility="Column"  BorderBrush="LightGray"  ColumnWidth="Auto" 
+                    CanUserDeleteRows="False"  AutoGenerateColumns="False"   VerticalScrollBarVisibility="Auto" VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray">
+
+                      
+                        <DataGrid.Columns >
+                            <DataGridTextColumn Binding="{Binding Path= Id,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Id" Visibility="Hidden"/>
+                            <!--<DataGridTextColumn Binding="{Binding Path= UserName,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="User Name" Visibility="Hidden"/>-->
+
+                            <DataGridTextColumn   Binding="{Binding Path=InspectDate1}" IsReadOnly="True"  Header="Inspected Date" MaxWidth="150" Width="*"   >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="Margin" Value="5,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn   Binding="{Binding Path=InspectBy}" IsReadOnly="True"  Header="Inspected By" MaxWidth="150" Width="*"   >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="Margin" Value="5,0,0,0"/>
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+
+                            <DataGridTextColumn Visibility="Hidden"  Binding="{Binding Path= assignednumber}" IsReadOnly="True" Header="Assigned Winch" MaxWidth="160" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Visibility="Hidden" Binding="{Binding Path= location}" IsReadOnly="True" Header="Location" MaxWidth="180" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn   Binding="{Binding Path= certificatenumber}" IsReadOnly="True" Header="Cert. No." MaxWidth="230" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="TextAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+
+                            <DataGridTextColumn  Binding="{Binding Path=ExternalRating_A}" IsReadOnly="True" Header="External Rating(A)"   MaxWidth="170" Width="*">
+                               
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            
+                            
+
+                            <DataGridTextColumn   Binding="{Binding Path= InternalRating_A}" IsReadOnly="True" Header="Internal Rating (A)" MaxWidth="170" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+
+
+                            <DataGridTextColumn  Binding="{Binding Path=AverageRating_A}" IsReadOnly="True"  Header="Average Rating (A)" MaxWidth="150" Width="*">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+
+                            <DataGridTextColumn   Binding="{Binding Path= LengthOFAbrasion_A}" IsReadOnly="True" Header="Length of Abrasion (A)" MaxWidth="180" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn   Binding="{Binding Path= DistanceOutboard_A}" IsReadOnly="True" Header="Distance Outboard (A)" MaxWidth="180" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn   Binding="{Binding Path= CutYarnCount_A}" IsReadOnly="True" Header="Cut Yarn Count (A)" MaxWidth="150" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style> 
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn   Binding="{Binding Path= LengthOFGlazing_A}" IsReadOnly="True" Header="Length of Glazing (A)" MaxWidth="170" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style> 
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+
+
+                            <DataGridTextColumn  Binding="{Binding Path=ExternalRating_B}" IsReadOnly="True"  Header="External Rating (B)" MaxWidth="150" Width="*">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+
+                            <DataGridTextColumn   Binding="{Binding Path= InternalRating_B}" IsReadOnly="True" Header="Internal Rating (B)" MaxWidth="150" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+
+
+                            <DataGridTextColumn  Binding="{Binding Path=AverageRating_B}" IsReadOnly="True"  Header="Average Rating (B)" MaxWidth="170" Width="*">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+
+                            <DataGridTextColumn   Binding="{Binding Path= LengthOFAbrasion_B}" IsReadOnly="True" Header="Length of Abrasion (B)" MaxWidth="180" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn   Binding="{Binding Path= DistanceOutboard_B}" IsReadOnly="True" Header="DistanceOutboard (B)" MaxWidth="170" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn   Binding="{Binding Path= CutYarnCount_B}" IsReadOnly="True" Header="Cut Yarn Count (B)" MaxWidth="170" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn   Binding="{Binding Path= LengthOFGlazing_B}" IsReadOnly="True" Header="Length of Glazing (B)" MaxWidth="180" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn   Binding="{Binding Path= Chafe_guard_condition}" IsReadOnly="True" Header="ChafeGuard Condition" MaxWidth="180" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn   Binding="{Binding Path= Twist}" IsReadOnly="True" Header="Twist" MaxWidth="70" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTemplateColumn MaxWidth="120" Width="*" Header="Photo1">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Width="80" Visibility="{Binding Photo11}" CommandParameter="{Binding Path=Id}" Click="Button_Click">ViewPhoto1</Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn  MaxWidth="120" Width="*" Header="Photo2">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Width="80" Visibility="{Binding Photo12}" CommandParameter="{Binding Path=Id}" Click="Button_Click_1">ViewPhoto2</Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+
+                    <DataGrid ColumnHeaderHeight="35" x:Name="ropeendtoendGrid" RowHeight="25" Margin="-200,0,0,0"  MaxWidth="950" MinWidth="920" Visibility="Hidden"  BorderThickness="0"  Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" 
+                      GridLinesVisibility="Horizontal"  SelectionUnit="FullRow"  SelectionMode="Single" CanUserAddRows="False" HeadersVisibility="Column"  BorderBrush="LightGray"  ColumnWidth="Auto" 
+                    CanUserDeleteRows="False"  AutoGenerateColumns="False"   VerticalScrollBarVisibility="Auto" VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray">
+
+
+                        <DataGrid.Columns >
+                            <DataGridTextColumn Binding="{Binding Path= Id,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Id" Visibility="Hidden"/>
+                            <!--<DataGridTextColumn Binding="{Binding Path= UserName,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="User Name" Visibility="Hidden"/>-->
+
+                            <DataGridTextColumn  Visibility="Hidden" Binding="{Binding Path=AssignedNumber}" IsReadOnly="True"  Header="Assigned Winch" MaxWidth="200" Width="*"   >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                        <Setter Property="Margin" Value="5,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Visibility="Hidden"  Binding="{Binding Path=Location}" IsReadOnly="True"  Header="Location" MaxWidth="350" Width="*"   >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                        <Setter Property="Margin" Value="5,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+
+                            <DataGridTextColumn  Binding="{Binding Path= EndtoEndDoneDate}" IsReadOnly="True" Header="End To End Done Date" MaxWidth="350" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn  Binding="{Binding Path= CertificateNumber}" IsReadOnly="True" Header="Cert. No." MaxWidth="380" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn   Binding="{Binding Path= CurrentOutboadEndinUse1}" IsReadOnly="True" Header="Outboard End In Use" MaxWidth="280" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="TextAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+
+
+
+
+
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+
+                    <DataGrid ColumnHeaderHeight="35" x:Name="ropesplicingGrid" RowHeight="25" MaxWidth="950" MinWidth="950" Margin="-200,0,0,0" Visibility="Collapsed"  BorderThickness="0" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" 
+                      GridLinesVisibility="Horizontal" SelectionUnit="FullRow"  SelectionMode="Single" CanUserAddRows="False" HeadersVisibility="Column"  BorderBrush="LightGray"  ColumnWidth="Auto" 
+                     CanUserDeleteRows="False" AutoGenerateColumns="False"   VerticalScrollBarVisibility="Auto" VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray">
+
+
+                        <DataGrid.Columns >
+                            <DataGridTextColumn Binding="{Binding Path= Id,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Id" Visibility="Hidden"/>
+                            <!--<DataGridTextColumn Binding="{Binding Path= UserName,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="User Name" Visibility="Hidden"/>-->
+
+                            <DataGridTextColumn  Visibility="Hidden" Binding="{Binding Path=AssignedNumber}" IsReadOnly="True"  Header="Assigned Winch" MaxWidth="200" Width="*"   >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                        <Setter Property="Margin" Value="5,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Visibility="Hidden"  Binding="{Binding Path=AssignedLocation}" IsReadOnly="True"  Header="Location" MaxWidth="250" Width="*"   >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                        <Setter Property="Margin" Value="5,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn  Binding="{Binding Path= SplicingDoneDate}" IsReadOnly="True" Header="Splicing Done Date" MaxWidth="250" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn  Binding="{Binding Path= CertificateNumber}" IsReadOnly="True" Header="Cert. No." MaxWidth="320" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                           
+
+                            <DataGridTextColumn  Binding="{Binding Path= SplicingDoneBy}" IsReadOnly="True" Header="Splicing DoneBy" MaxWidth="280" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn  Binding="{Binding Path= SplicingMethod}" IsReadOnly="True" Header="Splicing Method" MaxWidth="250" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+
+
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+
+                    <DataGrid ColumnHeaderHeight="35" x:Name="ropecroppingGrid" RowHeight="25" Margin="-100,0,0,0" MaxWidth="1050" MinWidth="1050" Visibility="Collapsed"  BorderThickness="0" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" 
+                      GridLinesVisibility="Horizontal" SelectionUnit="FullRow"  SelectionMode="Single" CanUserAddRows="False" HeadersVisibility="Column"  BorderBrush="LightGray"  ColumnWidth="Auto" 
+                     CanUserDeleteRows="False" AutoGenerateColumns="False"   VerticalScrollBarVisibility="Auto" VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray">
+
+
+                        <DataGrid.Columns >
+                            <DataGridTextColumn Binding="{Binding Path= Id,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Id" Visibility="Hidden"/>
+                            <!--<DataGridTextColumn Binding="{Binding Path= UserName,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="User Name" Visibility="Hidden"/>-->
+
+                            <DataGridTextColumn Visibility="Hidden"  Binding="{Binding Path=AssignedNumber}" IsReadOnly="True"  Header="Assigned Winch" MaxWidth="200" Width="*"   >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                        <Setter Property="Margin" Value="5,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Visibility="Hidden"  Binding="{Binding Path=AssignedLocation}" IsReadOnly="True"  Header="Location" MaxWidth="250" Width="*"   >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                        <Setter Property="Margin" Value="5,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn  Binding="{Binding Path= CroppedDate}" IsReadOnly="True" Header="Cropped Date" MaxWidth="150" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn  Binding="{Binding Path= CertificateNumber}" IsReadOnly="True" Header="Cert. No." MaxWidth="150" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            
+
+                            <DataGridTextColumn  Binding="{Binding Path= CroppedOutboardEnd}" IsReadOnly="True" Header="Cropped Outboard End" MaxWidth="200" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn  Binding="{Binding Path= LengthofCroppedRope}" IsReadOnly="True" Header="Length of Cropping" MaxWidth="150" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn  Binding="{Binding Path= reasonofcropping}" IsReadOnly="True" Header="Reason Of Cropping" MaxWidth="450" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                        <Setter Property="Padding" Value="1,1,1,1" />
+
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+
+
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+
+                    <DataGrid ColumnHeaderHeight="35" x:Name="ropedamageGrid" RowHeight="25" MaxWidth="1000" MinWidth="980" Margin="-160,0,0,0" Visibility="Collapsed"  BorderThickness="0" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" 
+                      GridLinesVisibility="Horizontal" SelectionUnit="FullRow"  SelectionMode="Single" CanUserAddRows="False" HeadersVisibility="Column"  BorderBrush="LightGray"  ColumnWidth="Auto" 
+                     CanUserDeleteRows="False" AutoGenerateColumns="False"   VerticalScrollBarVisibility="Auto" VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray">
+
+
+                        <DataGrid.Columns >
+                            <DataGridTextColumn Binding="{Binding Path= Id,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Id" Visibility="Hidden"/>
+                            <!--<DataGridTextColumn Binding="{Binding Path= UserName,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="User Name" Visibility="Hidden"/>-->
+
+                            <DataGridTextColumn Visibility="Hidden"  Binding="{Binding Path=AssignedNumber}" IsReadOnly="True"  Header="Assigned Winch" MaxWidth="200" Width="*"   >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                        <Setter Property="Margin" Value="5,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn  Visibility="Hidden" Binding="{Binding Path=AssignedLocation}" IsReadOnly="True"  Header="Location" MaxWidth="250" Width="*"   >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                        <Setter Property="Margin" Value="5,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn  Binding="{Binding Path= damagedate}" IsReadOnly="True" Header="Damage Date" MaxWidth="250" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn  Binding="{Binding Path= CertificateNumber}" IsReadOnly="True" Header="Cert. No." MaxWidth="320" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn  Binding="{Binding Path= DamageObserved}" IsReadOnly="True" Header="Damage Observed" MaxWidth="250" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                   
+
+                            <DataGridTextColumn  Binding="{Binding Path= IncidentReport}" IsReadOnly="True" Header="Incident Report" MaxWidth="250" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+
+
+
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+
+                    <DataGrid ColumnHeaderHeight="35" x:Name="ropediscardGrid" RowHeight="25" MaxWidth="900" MinWidth="900" Margin="-240,0,0,0"  Visibility="Collapsed"  BorderThickness="0" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" 
+                      GridLinesVisibility="Horizontal" SelectionUnit="FullRow"  SelectionMode="Single" CanUserAddRows="False" HeadersVisibility="Column"  BorderBrush="LightGray"  ColumnWidth="Auto" 
+                     CanUserDeleteRows="False" AutoGenerateColumns="False"   VerticalScrollBarVisibility="Auto" VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray">
+
+
+                        <DataGrid.Columns >
+                            <DataGridTextColumn Binding="{Binding Path= Id,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Id" Visibility="Hidden"/>
+                            <!--<DataGridTextColumn Binding="{Binding Path= UserName,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="User Name" Visibility="Hidden"/>-->
+
+                            <DataGridTextColumn Visibility="Hidden" Binding="{Binding Path=AssignedNumber}" IsReadOnly="True"  Header="Assigned Winch" MaxWidth="200" Width="*"   >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                        <Setter Property="Margin" Value="5,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn  Visibility="Hidden" Binding="{Binding Path=AssignedLocation}" IsReadOnly="True"  Header="Location" MaxWidth="250" Width="*"   >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                        <Setter Property="Margin" Value="5,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn  Binding="{Binding Path= outofservicedate}" IsReadOnly="True" Header="Out of Service Date" MaxWidth="250" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn  Binding="{Binding Path= certificatenumber}" IsReadOnly="True" Header="Cert. No." MaxWidth="350" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                         
+
+                            <DataGridTextColumn  Binding="{Binding Path= reasonoutofservice}" IsReadOnly="True" Header="Reason Out Of Service" MaxWidth="350" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+
+                    <DataGrid ColumnHeaderHeight="35" x:Name="ropedisposalGrid" RowHeight="25" MaxWidth="900" MinWidth="900" Margin="-240,0,0,0" Visibility="Collapsed"  BorderThickness="0" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" 
+                      GridLinesVisibility="Horizontal" SelectionUnit="FullRow"  SelectionMode="Single" CanUserAddRows="False" HeadersVisibility="Column"  BorderBrush="LightGray"  ColumnWidth="Auto" 
+                     CanUserDeleteRows="False" AutoGenerateColumns="False"   VerticalScrollBarVisibility="Auto" VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray">
+
+
+                        <DataGrid.Columns >
+                            <DataGridTextColumn Binding="{Binding Path= Id,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Id" Visibility="Hidden"/>
+                            <!--<DataGridTextColumn Binding="{Binding Path= UserName,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="User Name" Visibility="Hidden"/>-->
+
+                            <DataGridTextColumn  Visibility="Hidden"  Binding="{Binding Path=AssignedNumber}" IsReadOnly="True"  Header="Assigned Winch" MaxWidth="200" Width="*"   >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="Margin" Value="5,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn  Visibility="Hidden" Binding="{Binding Path=AssignedLocation}" IsReadOnly="True"  Header="Location" MaxWidth="250" Width="*"   >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                        <Setter Property="Margin" Value="5,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn  Binding="{Binding Path= DisposalDate}" IsReadOnly="True" Header="Disposal Date" MaxWidth="250" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn  Binding="{Binding Path= certificatenumber}" IsReadOnly="True" Header="Cert. No." MaxWidth="320" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+
+                           
+                            <DataGridTextColumn  Binding="{Binding Path= DisposalPortName}" IsReadOnly="True" Header="Disposal Port Name" MaxWidth="300" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            
+
+                            <DataGridTextColumn  Binding="{Binding Path= ReceptionFacilityName}" IsReadOnly="True" Header="Reception Facility Name" MaxWidth="300" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                        </DataGrid.Columns>
+
+
+                    
+
+
+                    </DataGrid>
+
+
+
+                    <DataGrid ColumnHeaderHeight="35" x:Name="winchrotationGrid" RowHeight="25" MaxWidth="900" MinWidth="900" Margin="-240,0,0,0" Visibility="Collapsed"  BorderThickness="0" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" 
+                      GridLinesVisibility="Horizontal" SelectionUnit="FullRow"  SelectionMode="Single" CanUserAddRows="False" HeadersVisibility="Column"  BorderBrush="LightGray"  ColumnWidth="Auto" 
+                     CanUserDeleteRows="False" AutoGenerateColumns="False"   VerticalScrollBarVisibility="Auto" VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray">
+
+
+                        <DataGrid.Columns >
+                            <!--<DataGridTextColumn Binding="{Binding Path= Id,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Id" Visibility="Hidden"/>-->
+                            <!--<DataGridTextColumn Binding="{Binding Path= UserName,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="User Name" Visibility="Hidden"/>-->
+
+                            <DataGridTextColumn  Visibility="Visible"  Binding="{Binding Path=AssignedNumber}" IsReadOnly="True"  Header="Winch Assigned" MaxWidth="130" Width="*"   >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="Margin" Value="5,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+
+                            <DataGridTextColumn  Binding="{Binding Path= AssignedDate,StringFormat=\{0:dd-MMM-yyyy\},Mode=TwoWay}" IsReadOnly="True" Header="Assigned Date" MaxWidth="130" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn  Visibility="Visible" Binding="{Binding Path=Location}" IsReadOnly="True"  Header="Winch Location" MaxWidth="200" Width="*"   >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                        <Setter Property="Margin" Value="5,0,0,0"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn  Binding="{Binding Path= Lead}" IsReadOnly="True" Header="Winch Lead" MaxWidth="170" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+
+
+                            <DataGridTextColumn  Binding="{Binding Path= RunningHours}" IsReadOnly="True" Header="Running hrs done (for that lead) " MaxWidth="300" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                        </DataGrid.Columns>
+
+
+
+
+
+                    </DataGrid>
+
+
+
+                    <Label Name="lblError" Visibility="Visible" Grid.Row="3" FontSize="15" HorizontalContentAlignment="Left" FontWeight="Bold" Content="No Record Found !"></Label>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+
+       
+
+    </Grid>
+</UserControl>

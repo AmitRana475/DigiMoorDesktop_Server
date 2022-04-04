@@ -17,7 +17,7 @@
             <Grid>
                 <ProgressBar Value="{Binding LogProgress, Mode=OneWay}" VerticalAlignment="Bottom" HorizontalAlignment='Left' Visibility="{Binding logPVisible,Mode=TwoWay}" Minimum="0" Height="25" Grid.Column="6" Margin="5,0,0,0" Width="143"/>
             </Grid>
-            
+
             <Grid >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="18*"/>
@@ -27,19 +27,19 @@
                     <ColumnDefinition Width="13*"/>
                     <ColumnDefinition Width="15*"/>
                 </Grid.ColumnDefinitions>
-              
-                    
+
+
                 <TextBlock Margin="0,0,5,0" Grid.Column="0" Style="{StaticResource HeaderText1}" HorizontalAlignment="Right"  Text="From" />
-                <DatePicker Grid.Column="1"  x:Name="dtFrom" Text="{Binding DateFrom,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" FontSize="14" FontFamily="Verdana" >
+                <DatePicker Grid.Column="1"  x:Name="dtFrom" CalendarStyle="{StaticResource styleCalendar}" FontFamily="Verdana" FontSize="14" VerticalContentAlignment="Center" Text="{Binding DateFrom,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
                     <DatePicker.Resources>
                         <Style TargetType="DatePickerTextBox">
                             <Setter Property="IsReadOnly" Value="True"/>
                         </Style>
                     </DatePicker.Resources>
                 </DatePicker>
-                
+
                 <TextBlock  Margin="0,0,5,0" Grid.Column="2" HorizontalAlignment="Right" Style="{StaticResource HeaderText1}"   Text="To" />
-                <DatePicker Grid.Column="3"  x:Name="dtTo" Text="{Binding DateTo,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" FontSize="14" FontFamily="Verdana" >
+                <DatePicker Grid.Column="3"  x:Name="dtTo" CalendarStyle="{StaticResource styleCalendar}" FontFamily="Verdana" FontSize="14" VerticalContentAlignment="Center" Text="{Binding DateTo,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" >
                     <DatePicker.Resources>
                         <Style TargetType="DatePickerTextBox">
                             <Setter Property="IsReadOnly" Value="True"/>
@@ -50,13 +50,13 @@
                 <Button Grid.Column="4" MinWidth="68" Style="{StaticResource HeaderButton1}" HorizontalAlignment=" Right " Command="{Binding ExcelCommand}">
                     <TextBlock    HorizontalAlignment="Left" TextWrapping="Wrap" Text="Excel"/>
                 </Button>
-               
-                
+
+
                 <TextBlock  Grid.Column="5" HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="Blue" FontFamily="Verdana" FontSize="14"  Text="Help" Padding="0,0,10,0"   />
 
             </Grid>
 
-         
+
 
         </UniformGrid>
 
@@ -64,13 +64,13 @@
             <DataGrid  x:Name="AppLogGrid"  BorderThickness="0" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" ItemsSource="{Binding LoadlogFiles}" GridLinesVisibility="Horizontal" SelectionUnit="FullRow"  SelectionMode="Single" CanUserAddRows="False" HeadersVisibility="Column"
                       RowHeight="25" BorderBrush="LightGray" ColumnWidth="Auto"   AutoGenerateColumns="False"   VerticalScrollBarVisibility="Auto" VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray"   >
 
-                
+
 
 
                 <DataGrid.Columns >
                     <DataGridTextColumn  Header="Id" Binding="{Binding Path= LogId}" Visibility="Collapsed"/>
 
-                    <DataGridTextColumn  Binding="{Binding Path=dt,StringFormat=\{0:dd-MMM-yyyy - hh:mm:ss \},Mode=TwoWay}" IsReadOnly="True" Header="Date / Time" MaxWidth="220" Width="*">
+                    <DataGridTextColumn  Binding="{Binding Path=dt,StringFormat=\{0:dd-MMM-yyyy - HH:mm:ss \},Mode=TwoWay}" IsReadOnly="True" Header="Date / Time" MaxWidth="220" Width="*">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="HorizontalAlignment" Value="Center" />

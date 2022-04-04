@@ -23,7 +23,14 @@
         <DataTemplate DataType="{x:Type vm:BackupViewModel}">
             <views:BackupView/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:ApplicationLogViewModel}">
+        <DataTemplate DataType="{x:Type vm:ErrorLogViewModel}">
+            <views:ErrorLogView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:LicenceViewModel}">
+            <views:LicenceView/>
+        </DataTemplate>
+        <!--<DataTemplate DataType="{x:Type vm:ApplicationLogViewModel}">
             <views:ApplicationLogView/>
         </DataTemplate>
 
@@ -31,9 +38,7 @@
             <views:RulesView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type vm:LicenceViewModel}">
-            <views:LicenceView/>
-        </DataTemplate>
+       
 
         <DataTemplate DataType="{x:Type vm:ErrorLogViewModel}">
             <views:ErrorLogView/>
@@ -41,7 +46,7 @@
 
         <DataTemplate DataType="{x:Type vm:DisclaimerViewModel}">
             <views:DisclaimerView/>
-        </DataTemplate>
+        </DataTemplate>-->
 
 
 
@@ -76,12 +81,12 @@
                         <Image Source="/WorkShipVersionII;component/Images/import export.png" MaxWidth="20" MaxHeight="20" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="BackupRestore" Cursor="Hand" Visibility="{Binding CommonHide.BackupRestore,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Command="{Binding BackupAdminCommand}" Header="Backup / Restore" Padding="4,6,0,6" >
+               <MenuItem x:Name="BackupRestore" Cursor="Hand" Visibility="{Binding CommonHide.BackupRestore,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Command="{Binding BackupAdminCommand}" Header="Backup / Restore" Padding="4,6,0,6" >
                     <MenuItem.Icon>
                         <Image Source="/WorkShipVersionII;component/Images/backup.png" MaxWidth="20" MaxHeight="20" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="ApplicationLog" Cursor="Hand" Visibility="{Binding CommonHide.ApplicationLog,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Command="{Binding ApplicationLogAdminCommand}" Header="Application Log"  Padding="4,6,0,6" >
+                <!--<MenuItem x:Name="ApplicationLog" Cursor="Hand" Visibility="{Binding CommonHide.ApplicationLog,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Command="{Binding ApplicationLogAdminCommand}" Header="Application Log"  Padding="4,6,0,6" >
                     <MenuItem.Icon>
                         <Image Source="/WorkShipVersionII;component/Images/logicon.png" MaxWidth="20" MaxHeight="20" />
                     </MenuItem.Icon>
@@ -90,7 +95,7 @@
                     <MenuItem.Icon>
                         <Image Source="/WorkShipVersionII;component/Images/rulesicon.png" MaxWidth="20" MaxHeight="20" />
                     </MenuItem.Icon>
-                </MenuItem>
+                </MenuItem>-->
                 <MenuItem x:Name="License" Cursor="Hand" Visibility="{Binding CommonHide.Lincenc,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Command="{Binding LicenceAdminCommand}" Header="License"  Padding="4,6,0,6" >
                     <MenuItem.Icon>
                         <Image Source="/WorkShipVersionII;component/Images/Linc.png" MaxWidth="20" MaxHeight="20" />
@@ -101,7 +106,7 @@
                         <Image Source="/WorkShipVersionII;component/Images/errorlog.png" MaxWidth="20" MaxHeight="20" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="Disclaimer" Cursor="Hand" Command="{Binding DisclaimerAdminCommand}" Header="Disclaimer"  Padding="4,6,0,6">
+                <!--<MenuItem x:Name="Disclaimer" Cursor="Hand" Command="{Binding DisclaimerAdminCommand}" Header="Disclaimer"  Padding="4,6,0,6">
                     <MenuItem.Icon>
                         <Image Source="/WorkShipVersionII;component/Images/disc.png" MaxWidth="20" MaxHeight="20"/>
                     </MenuItem.Icon>
@@ -110,8 +115,8 @@
                     <MenuItem.Icon>
                         <Image Source="/WorkShipVersionII;component/Images/help1.png" MaxWidth="20" MaxHeight="20" />
                     </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem x:Name="ExitFromWorkShip" Command="{Binding ExitAdminCommand}" Cursor="Hand" Header="Exit From Work-Ship" Padding="2,6,2,6"  >
+                </MenuItem>-->
+                <MenuItem x:Name="ExitFromWorkShip" Command="{Binding ExitAdminCommand}" Cursor="Hand" Header="Exit From DigiMoor-X7" Padding="2,6,2,6"  >
                     <MenuItem.Icon>
                         <Image Source="/WorkShipVersionII;component/Images/logout3.png" MaxWidth="20" MaxHeight="20" />
                     </MenuItem.Icon>

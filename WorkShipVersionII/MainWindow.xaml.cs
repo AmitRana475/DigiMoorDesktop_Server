@@ -1,9 +1,12 @@
 ﻿using DataBuildingLayer;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using WorkShipVersionII.ViewModel;
 
@@ -16,8 +19,10 @@ namespace WorkShipVersionII
               static string tag = "";
               static IEnumerable<Button> Tabcollection;
               private readonly ShipmentContaxt sc;
+              double screenWidth = 1360;
               public MainWindow()
               {
+                     this.Language = XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag);
                      InitializeComponent();
 
                      if (sc == null)
@@ -26,54 +31,31 @@ namespace WorkShipVersionII
                             sc.Configuration.ProxyCreationEnabled = false;
                      }
 
-                     //var titleBar = this.GetForCurrentView().TitleBar;
-                     //// Title Bar Content Area
-                     //titleBar.BackgroundColor = Colors.DarkBlue;
-                     //titleBar.ForegroundColor = Colors.White;
-                     //// Title Bar Button Area
-                     //titleBar.ButtonBackgroundColor = Colors.DarkBlue;
-
-
-
-
 
                      MyClickFunction1();
 
                      childWindow.DataContext = ChildWindowManager.Instance;
 
-                     CheckFreezFunction();
+
+                     screenWidth = SystemParameters.PrimaryScreenWidth;
+
+                     //if (screenWidth > 1366)
+                     //{
+                     //       this.MaxHeight = 768;// SystemParameters.MaximizedPrimaryScreenHeight;
+                     //       this.Height = 768;
+                     //       this.Width = 1366;
+                     //       this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                     //}
+                     //else
+                     //{
+                     //       this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+                     //       this.WindowState = WindowState.Maximized;
+                     //}
 
 
+                   
               }
 
-              private void CheckFreezFunction()
-              {
-                     try
-                     {
-                            //Set DataFreez on first runtime....
-                            //MainViewModelCrewManagement dd = new MainViewModelCrewManagement();
-                            var data = sc.Freezes.ToList();
-                            if (data.Count() == 0)
-                            {
-                                   var freez = new FreezeClass
-                                   {
-                                          FreezeDays = 30,
-                                          FreezeStatus = "Freeze",
-                                          ApplyDate = Convert.ToDateTime(DateTime.Now.ToShortDateString()),
-                                          DateFrom = DateTime.Now.AddDays(-30),
-                                          DateTo = DateTime.Now.AddDays(+30)
-                                   };
-
-                                   sc.Freezes.Add(freez);
-                                   sc.SaveChanges();
-                            }
-                            //.....................
-                     }
-                     catch (Exception ex)
-                     {
-                            sc.ErrorLog(ex);
-                     }
-              }
 
               private void MyClickFunction1()
               {
@@ -125,12 +107,12 @@ namespace WorkShipVersionII
 
               private void MyClickFunction(object sender, RoutedEventArgs e)
               {
-
+                     lblLoading.Visibility = Visibility.Visible;
                      if (ChildWindowManager.Instance.XmlContent == null)
                      {
 
                             tag = ((Button)sender).Name;
-                           // StaticHelper.TabButtonMenuName = tag;
+                            // StaticHelper.TabButtonMenuName = tag;
 
                             Tabcollection = this.grid1b.Children.OfType<Button>();
                             foreach (Button item in this.grid1b.Children.OfType<Button>())
@@ -163,11 +145,16 @@ namespace WorkShipVersionII
 
               private void MouseEnterFunction(object sender, System.Windows.Input.MouseEventArgs e)
               {
+                     lblLoading.Visibility = Visibility.Visible;
+
                      if (ChildWindowManager.Instance.XmlContent == null)
                      {
+
+
                             var item = ((Button)sender);
                             if (item.Name.Equals(tag.ToString()))
                             {
+
                                    item.Background = new SolidColorBrush(Colors.WhiteSmoke);
                                    item.Foreground = new SolidColorBrush(Colors.Black);
                                    item.BorderBrush = new SolidColorBrush(Colors.Transparent);
@@ -212,29 +199,32 @@ namespace WorkShipVersionII
 
 
 
-              //private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-              //{
-              //    //this.WindowState = System.Windows.WindowState.Minimized;
-              //    //System.GC.Collect();
+          
+            
 
-
-              //    //this.Dispose();
-              //    //Process[] pp = Process.GetProcessesByName("WorkShipVersionII");
-              //    //foreach (Process pp1 in pp)
-              //    //{
-              //    //    pp1.Kill();
-              //    //}
-              //}
-
-              private void Window_Loaded(object sender, RoutedEventArgs e)
+              private void Mainwindow_StateChanged(object sender, EventArgs e)
               {
-                     new MainViewModel();
+                     if (WindowState == WindowState.Maximized || WindowState == WindowState.Normal)
+                     {
+
+
+                            // screenWidth = SystemParameters.PrimaryScreenWidth;
+
+                            //if (screenWidth > 1366)
+                            //{
+                            //       this.MaxHeight = 768;// SystemParameters.MaximizedPrimaryScreenHeight;
+                            //       this.Height = 768;
+                            //       this.Width = 1366;
+                            //       this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                            //}
+                            //else
+                            //{
+                            //       this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+                            //       this.WindowState = WindowState.Maximized;
+                            //}
+                     }
               }
 
-              //private void Window_Loaded(object sender, RoutedEventArgs e)
-              //{
-              //    LoginWindow login = new LoginWindow();
-              //    login.Hide();
-              //}
+              
        }
 }

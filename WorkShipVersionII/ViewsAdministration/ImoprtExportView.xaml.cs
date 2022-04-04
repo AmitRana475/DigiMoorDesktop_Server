@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System.Globalization;
+using System.Windows.Controls;
+using System.Windows.Markup;
 
 namespace WorkShipVersionII.ViewsAdministration
 {
@@ -9,6 +11,7 @@ namespace WorkShipVersionII.ViewsAdministration
     {
         public ImoprtExportView()
         {
+           XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag);
             InitializeComponent();
         }
     }

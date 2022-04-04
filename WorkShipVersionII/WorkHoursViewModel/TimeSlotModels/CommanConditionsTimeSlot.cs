@@ -437,9 +437,12 @@ namespace WorkShipVersionII.WorkHoursViewModel.TimeSlotModels
             {
                 ArrayList ab10rest1 = new ArrayList();
                 ab10rest1.Clear();
+              
 
 
                 string[] st42bms7 = null;
+                //string[] st1bms = null;
+
 
                 int cellcouns = 0;
                 int iDatebm = 0;
@@ -502,7 +505,7 @@ namespace WorkShipVersionII.WorkHoursViewModel.TimeSlotModels
 
                 st42bms7 = label42OneDay.TrimEnd(',').Split(',');
 
-
+                //st1bms = st42bms7.Skip(336 - 48).Select(i => i.ToString()).ToArray();
 
                 //...New Implementation for an hour....
                 string change42 = string.Join(",", st42bms7);
@@ -512,11 +515,25 @@ namespace WorkShipVersionII.WorkHoursViewModel.TimeSlotModels
                 //...End New Implementation for an hour...
 
 
+                ////...New Implementation for an hour....
+                //string change1 = string.Join(",", st1bms);
+                //change1 = change1 + ',';
+                //string change71 = Morethan1hrsNormal(change1);
+                //st1bms = change71.TrimEnd(',').Split(',');
+                ////...End New Implementation for an hour...
+
+
+
 
                 double totalbms1 = 0;
                 ArrayList listabms1 = new ArrayList();
 
+                //double totalbms = 0;
+                //ArrayList listabms = new ArrayList();
+                //listabms.Clear();
+
                 listabms1.Clear();
+               
 
                 int norm22 = 0;
                 norm22 = st42bms7.Length;
@@ -546,6 +563,10 @@ namespace WorkShipVersionII.WorkHoursViewModel.TimeSlotModels
 
                 }
 
+
+
+
+
                 double abc221maa = 0;
                 foreach (var li in listabms1)
                 {
@@ -558,6 +579,53 @@ namespace WorkShipVersionII.WorkHoursViewModel.TimeSlotModels
                 ab10rest1.Add(abc221maa);
                 obj.RestHour7day = Convert.ToDecimal(abc221maa);
                 obj.RestHourAny7day = abc221maa.ToString();
+
+                // for last day calculation....
+
+                //int norm1 = 0;
+                //norm1 = st1bms.Length;
+                //for (long i = 0; i < norm1; i++)
+                //{
+
+                //    if (Convert.ToInt32(st1bms[i]) == 0)
+                //    {
+                //        totalbms += 0.5;
+                //    }
+                //    else if (Convert.ToInt32(st1bms[i]) == 1)
+                //    {
+                //        if (totalbms != 0)
+                //        {
+                //            listabms.Add(totalbms);
+                //            totalbms = 0;
+                //        }
+                //    }
+                //    if (i == st1bms.Length - 1)
+                //    {
+                //        if (totalbms != 0)
+                //        {
+                //            listabms.Add(totalbms);
+                //            totalbms = 0;
+                //        }
+                //    }
+
+                //}
+
+                //double abc1maa = 0;
+                //foreach (var li in listabms)
+                //{
+                //    abc1maa += Convert.ToDouble(li.ToString());// in this label we show rest periods and how much hrs of rest he takes
+
+                //}
+
+                //abc1maa = abc1maa - Convert.ToDouble(obj.TotalHours);
+
+                ////ab10rest.Add(abc1maa);
+                //obj.RestHours = Convert.ToDecimal(abc1maa);
+                //obj.RestHourAny24 = abc1maa.ToString();
+
+
+
+
 
             }
             catch (Exception ex)
@@ -4513,25 +4581,96 @@ namespace WorkShipVersionII.WorkHoursViewModel.TimeSlotModels
                 cmd.Parameters.AddWithValue("@Col29", obj.Col29);
                 cmd.Parameters.AddWithValue("@Col30", obj.Col30);
 
-                cmd.Parameters.AddWithValue("@Col31", obj.Col31);
-                cmd.Parameters.AddWithValue("@Col32", obj.Col32);
-                cmd.Parameters.AddWithValue("@Col33", obj.Col33);
-                cmd.Parameters.AddWithValue("@Col34", obj.Col34);
-                cmd.Parameters.AddWithValue("@Col35", obj.Col35);
-                cmd.Parameters.AddWithValue("@Col36", obj.Col36);
-                cmd.Parameters.AddWithValue("@Col37", obj.Col37);
-                cmd.Parameters.AddWithValue("@Col38", obj.Col38);
-                cmd.Parameters.AddWithValue("@Col39", obj.Col39);
-                cmd.Parameters.AddWithValue("@Col40", obj.Col40);
+                if (string.IsNullOrEmpty(obj.Col31))
+                    cmd.Parameters.AddWithValue("@Col31", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("@Col31", obj.Col31);
 
-                cmd.Parameters.AddWithValue("@Col41", obj.Col41);
-                cmd.Parameters.AddWithValue("@Col42", obj.Col42);
-                cmd.Parameters.AddWithValue("@Col43", obj.Col43);
-                cmd.Parameters.AddWithValue("@Col44", obj.Col44);
-                cmd.Parameters.AddWithValue("@Col45", obj.Col45);
-                cmd.Parameters.AddWithValue("@Col46", obj.Col46);
-                cmd.Parameters.AddWithValue("@Col47", obj.Col47);
-                cmd.Parameters.AddWithValue("@Col48", obj.Col48);
+                if (string.IsNullOrEmpty(obj.Col32))
+                    cmd.Parameters.AddWithValue("@Col32", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("@Col32", obj.Col32);
+
+                if (string.IsNullOrEmpty(obj.Col33))
+                    cmd.Parameters.AddWithValue("@Col33", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("@Col33", obj.Col33);
+
+                if (string.IsNullOrEmpty(obj.Col34))
+                    cmd.Parameters.AddWithValue("@Col34", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("@Col34", obj.Col34);
+
+                if (string.IsNullOrEmpty(obj.Col35))
+                    cmd.Parameters.AddWithValue("@Col35", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("@Col35", obj.Col35);
+
+                if (string.IsNullOrEmpty(obj.Col36))
+                    cmd.Parameters.AddWithValue("@Col36", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("@Col36", obj.Col36);
+
+                if (string.IsNullOrEmpty(obj.Col37))
+                    cmd.Parameters.AddWithValue("@Col37", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("@Col37", obj.Col37);
+
+                if (string.IsNullOrEmpty(obj.Col38))
+                    cmd.Parameters.AddWithValue("@Col38", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("@Col38", obj.Col38);
+
+                if (string.IsNullOrEmpty(obj.Col39))
+                    cmd.Parameters.AddWithValue("@Col39", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("@Col39", obj.Col39);
+
+                if (string.IsNullOrEmpty(obj.Col40))
+                    cmd.Parameters.AddWithValue("@Col40", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("@Col40", obj.Col40);
+
+                if (string.IsNullOrEmpty(obj.Col41))
+                    cmd.Parameters.AddWithValue("@Col41", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("@Col41", obj.Col41);
+
+                if (string.IsNullOrEmpty(obj.Col42))
+                    cmd.Parameters.AddWithValue("@Col42", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("@Col42", obj.Col42);
+
+                if (string.IsNullOrEmpty(obj.Col43))
+                    cmd.Parameters.AddWithValue("@Col43", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("@Col43", obj.Col43);
+
+                if (string.IsNullOrEmpty(obj.Col44))
+                    cmd.Parameters.AddWithValue("@Col44", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("@Col44", obj.Col44);
+
+                if (string.IsNullOrEmpty(obj.Col45))
+                    cmd.Parameters.AddWithValue("@Col45", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("@Col45", obj.Col45);
+
+                if (string.IsNullOrEmpty(obj.Col46))
+                    cmd.Parameters.AddWithValue("@Col46", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("@Col46", obj.Col46);
+
+                if (string.IsNullOrEmpty(obj.Col47))
+                    cmd.Parameters.AddWithValue("@Col47", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("@Col47", obj.Col47);
+
+                if (string.IsNullOrEmpty(obj.Col48))
+                    cmd.Parameters.AddWithValue("@Col48", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("@Col48", obj.Col48);
+
                 if (string.IsNullOrEmpty(obj.Col49))
                     cmd.Parameters.AddWithValue("@Col49", DBNull.Value);
                 else

@@ -1,0 +1,1735 @@
+﻿<UserControl x:Class="WorkShipVersionII.WorkHoursView.MooringOPRView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WorkShipVersionII.WorkHoursView"
+              xmlns:vm="clr-namespace:WorkShipVersionII.WorkHoursViewModel"     
+             xmlns:control="clr-namespace:WorkShipVersionII.Control"
+              xmlns:xwt="http://schemas.xceed.com/wpf/xaml/toolkit"
+              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+             mc:Ignorable="d" 
+             d:DesignHeight="1500" d:DesignWidth="1100">
+    <Grid>
+        <ScrollViewer   HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
+
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition  Height="{Binding RowGrid1}"/>
+                    <RowDefinition Height="{Binding RowGrid2}"/>
+                    <RowDefinition Height="{Binding RowGrid3}"/>
+                    <RowDefinition Height="{Binding RowGrid4}"/>
+                    <RowDefinition Height="10"/>
+                    <!--<RowDefinition Height="20*"/>-->
+                    <RowDefinition Height="{Binding BerthGrid}"/>
+
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Row 0-->
+                <Grid Grid.Row="0" Grid.ColumnSpan="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="28*"/>
+                        <ColumnDefinition Width="25*"/>
+                        <ColumnDefinition Width="40*"/>
+                        <ColumnDefinition Width="40*"/>
+                        <ColumnDefinition Width="20*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Canvas Grid.Column="1" Grid.Row="0" >
+                        <TextBlock  Text="Port Name"  Style="{StaticResource HeaderText1}" />
+                        <Label Height="20" Content="*" FontFamily="Verdana" Foreground="Red" FontSize="16" Canvas.Left="70" Canvas.Top="-5"  />
+
+                        <!--<TextBox x:Name="txtInspectBy"   Canvas.Top="25" Width="120" Height="25" Text="{Binding MOperationBirth.PortName,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center"  >
+
+                        </TextBox>-->
+                        <!--<ComboBox x:Name="txtInspectBy" Canvas.Top="25" Width="150" Height="25" Grid.Column="3"  Grid.Row="1" Text="-Select-"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path = PortName,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DisplayMemberPath="PortName" SelectedItem="{Binding Path = SPortName,UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding Path = SPortName.Id,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" SelectedValuePath="Id" VerticalContentAlignment="Center"   >
+                        </ComboBox>-->
+
+                        <TextBox x:Name="txtInspectBy" Canvas.Top="25"  Text="{Binding AutoPortName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Height="25" Grid.Column="3"  Grid.Row="1" TextChanged="txtInspectBy_TextChanged"
+                                 PreviewKeyDown="txtInspectBy_PreviewKeyDown" Width="150"  />
+                        <TextBlock   Canvas.Top="29" IsHitTestVisible="False"  Text="Type portname here.." VerticalAlignment="Center" HorizontalAlignment="Right" FontFamily="Verdana" FontSize="12" Grid.Column="3"  Grid.Row="1"  Foreground="DarkGray" Margin="5,0,0,0">
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=txtInspectBy}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+
+
+                        <ListBox x:Name="lbSuggestion" Opacity="10"  ItemsSource="{Binding AutoPortNames, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding ListVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                 Height="69" Width="250"   Panel.ZIndex="4"  KeyDown="lbSuggestion_KeyDown"  MouseDoubleClick="lbSuggestion_MouseDoubleClick"  Canvas.Top="52"  MouseUp="lbSuggestion_MouseUp"  />
+
+
+                        <TextBlock Name="txtprtnm" Visibility="Hidden" Canvas.Top="59" Text="Enter Port Name"  Style="{StaticResource HeaderText1}" />
+
+                        <TextBox x:Name="txtportname" Visibility="Hidden" Canvas.Top="85" MouseLeave="txtportname_MouseLeave" VerticalAlignment="Center" Height="25" Grid.Column="3"  Grid.Row="1"   Width="150"  />
+
+                    </Canvas>
+
+                    <Canvas Grid.Column="2" Grid.Row="0" >
+                        <TextBlock Text="Date &amp; Time for 'All Fast'"   Style="{StaticResource HeaderText1}" />
+                        <Label Height="20" Content="*" FontFamily="Verdana" Foreground="Red" FontSize="16" Canvas.Left="170" Canvas.Top="-5"  />
+
+
+                        <DatePicker x:Name="DpFastDate" Canvas.Left="5" Canvas.Top="25" CalendarStyle="{StaticResource styleCalendar}"  Text="{Binding FastDate,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  FontFamily="Verdana" FontSize="14" VerticalContentAlignment="Center" CalendarClosed="DpFastDate_CalendarClosed"   >
+                            <DatePicker.Resources>
+                                <Style TargetType="DatePickerTextBox">
+                                    <Setter Property="IsReadOnly" Value="True"/>
+                                    <Setter Property="Height" Value="Auto"/>
+                                </Style>
+                            </DatePicker.Resources>
+                        </DatePicker>
+
+
+                        <ComboBox x:Name="cbHours" Canvas.Left="135" Canvas.Top="25" Text="00"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Hours}" SelectedItem="{Binding Path=SHours}" VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="25" DropDownClosed="CbHours_DropDownClosed"     />
+                        <ComboBox x:Name="cbMints" Canvas.Left="180" Canvas.Top="25" Text="00"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Mints}" SelectedItem="{Binding Path=SMints}" VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="25" DropDownClosed="CbMints_DropDownClosed"     />
+
+
+                    </Canvas>
+
+                    <Canvas Grid.Column="3" Grid.Row="0" >
+                        <TextBlock Text="Date &amp; Time for 'Cast Off'"   Style="{StaticResource HeaderText1}" />
+                        <Label Height="20" Content="*" FontFamily="Verdana" Foreground="Red" FontSize="16" Canvas.Left="180" Canvas.Top="-5"  />
+
+
+                        <DatePicker x:Name="DpCastoffDate" Canvas.Left="5" Canvas.Top="25" CalendarStyle="{StaticResource styleCalendar}"  Text="{Binding CastDate,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  FontFamily="Verdana" FontSize="14" VerticalContentAlignment="Center"  CalendarClosed="DpCastoffDate_CalendarClosed"   >
+                            <DatePicker.Resources>
+                                <Style TargetType="DatePickerTextBox">
+                                    <Setter Property="IsReadOnly" Value="True"/>
+                                    <Setter Property="Height" Value="Auto"/>
+                                </Style>
+                            </DatePicker.Resources>
+                        </DatePicker>
+
+
+                        <ComboBox x:Name="cbHours1" Canvas.Left="135" DropDownClosed="cbHours1_DropDownClosed" Canvas.Top="25" Text="00"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Hours}" SelectedItem="{Binding Path=SHours2}" VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="25"     />
+                        <ComboBox x:Name="cbMints1" Canvas.Left="180" DropDownClosed="CbMints1_DropDownClosed"   Canvas.Top="25" Text="00"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Mints}" SelectedItem="{Binding Path=SMints2}" VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="25"     />
+
+                        <TextBlock Grid.Column="1" Margin="340,10,0,0"  HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="Blue" FontFamily="Verdana" FontSize="14"   Padding="0,0,10,0"   >
+                      <Hyperlink Command="{Binding HelpCommand}" Name="Help" Foreground="#0000cc">Help</Hyperlink>
+                        </TextBlock>
+
+                    </Canvas>
+                </Grid>
+
+                <!--Row 1-->
+                <Canvas  Grid.Row="1" Margin="0,88,0,0"  Grid.Column="1">
+                    <TextBlock  Text="LINES / ROPE TAIL USED FOR Full PERIOD" Canvas.Bottom="5" FontStyle="Italic" Style="{StaticResource HeaderText1}" />
+                </Canvas>
+
+                <!--Row 2-->
+                <!--<ScrollViewer Height="auto" Grid.Column="1"  Grid.Row="2">-->
+
+                <!--<xwt:CheckComboBox   ItemsSource="{Binding Path=Hours}" SelectedItem="{Binding Path=SHours}" />-->
+
+                <DataGrid  Grid.Column="1" Margin="0,50,0,0"  Grid.Row="2"  x:Name="WinchMainGrid1"  ItemsSource="{Binding Path = LoadWinchlist,Mode=TwoWay}" BorderThickness="0" Background="White" FontFamily="Verdana" FontSize="12" GridLinesVisibility="Horizontal" SelectionUnit="FullRow"  SelectionMode="Single" CanUserAddRows="False" 
+                    CanUserDeleteRows="False"  HeadersVisibility="Column"  BorderBrush="LightGray" ColumnWidth="auto"   AutoGenerateColumns="False"     VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray" >
+
+
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn   Binding="{Binding Path = WinId,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Id"  Visibility="Hidden"/>
+                        <DataGridTextColumn Binding="{Binding WinchNo,Mode=TwoWay}" FontSize="12" IsReadOnly="True" FontStyle="Italic" Header="Winch - (Certi. No. - Unique ID)" MaxWidth="250" MinWidth="250">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Left" />
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="Margin" Value="5,0,0,0"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Binding="{Binding Location,Mode=TwoWay}" FontSize="12" IsReadOnly="True" FontStyle="Italic" Header="Location" MaxWidth="180" MinWidth="170">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Left" />
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="Margin" Value="5,0,0,0"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+
+                        <DataGridTemplateColumn MaxWidth="70" Width="65">
+                            <DataGridTemplateColumn.Header>
+                                <CheckBox x:Name="chkBox3" Content="Line"  IsChecked="{Binding Path=DataContext.MarkAll,
+                       UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,
+                       RelativeSource={RelativeSource FindAncestor,
+                           AncestorType=DataGrid}}" />
+
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox x:Name="chkDiscontinueb"  HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding Path=DataContext.CheckMarkCommand,RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}" IsChecked="{Binding Mark,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn MaxWidth="200" Width="150">
+                            <DataGridTemplateColumn.Header>
+                                <!--<CheckBox x:Name="chkBox41" Content="RopeTail" IsChecked="{Binding Path=DataContext.RopeTailmarkAll,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,
+                       RelativeSource={RelativeSource FindAncestor,
+                           AncestorType=DataGrid}}" />-->
+                                <TextBlock TextAlignment="Center" TextWrapping="Wrap" Width="70" Text="Rope Tail"/>
+
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+
+
+                                    <xwt:CheckListBox BorderBrush="LightGray" x:Name="TextChk1" ItemsSource="{Binding Path=Tails,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DisplayMemberPath="Name" SelectedItem="{Binding Path=Name}"  SelectedValue="Id" SelectedMemberPath="Selected" />
+
+                                    <!--<xwt:CheckComboBox     Text="{Binding Path= Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  ItemsSource="{Binding Path=test,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DisplayMemberPath="Name" SelectedItem="{Binding Path=Name}"  />-->
+                                    <!--<CheckBox x:Name="chkropetail" HorizontalAlignment="Center"  VerticalAlignment="Center"  Visibility="{Binding VisibilityCheck,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" IsChecked="{Binding RopeTailMark,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />-->
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+
+
+
+                        <DataGridTemplateColumn  >
+                            <DataGridTemplateColumn.Header>
+                                <TextBlock TextAlignment="Center" TextWrapping="Wrap" Width="100" Text="Outboard End"/>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <ComboBox Grid.Row="1"  Width="100" IsEditable="True" IsEnabled="{Binding IsEditable,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" IsReadOnly="True" HorizontalAlignment="Center" x:Name="cbooutboard" 
+                                               
+                                      Text="{Binding Path= outboard1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                            <ComboBoxItem>A</ComboBoxItem>
+                                            <ComboBoxItem>B</ComboBoxItem>
+                                        </ComboBox>
+
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+
+                        <DataGridTemplateColumn MaxWidth="155"  Header="Select Lead">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+
+                                    <!--<ListBox Grid.Row="1"  Width="150"  HorizontalAlignment="Center" x:Name="cboBhp" 
+                                               
+                                    SelectedItem="{Binding Path= Lead, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  >
+                                        <RadioButton IsChecked="True" >Headline</RadioButton>
+                                        <RadioButton >Sternline</RadioButton>
+                                        <RadioButton>Fwd Breast Line</RadioButton>
+                                        <RadioButton>Fwd Spring Line</RadioButton>
+                                        <RadioButton>Aft Breast Line</RadioButton>
+                                        <RadioButton>Aft Spring Line</RadioButton>
+                                     </ListBox>-->
+
+                                    <ComboBox Height="25" VerticalAlignment="Top" Grid.Row="1"  Width="150" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center" x:Name="cboBhp" 
+                                               
+                                      Text="{Binding Path= Lead, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                        <ComboBoxItem>Headline</ComboBoxItem>
+                                        <ComboBoxItem>Headline (1)</ComboBoxItem>
+                                        <ComboBoxItem>Headline (2)</ComboBoxItem>
+                                        <ComboBoxItem>Springline</ComboBoxItem>
+                                        <ComboBoxItem>Fwd Springline</ComboBoxItem>
+                                        <ComboBoxItem>Fwd Springline (1)</ComboBoxItem>
+                                        <ComboBoxItem>Fwd Springline (2)</ComboBoxItem>
+                                        <ComboBoxItem>Fwd Springline Port side (1)</ComboBoxItem>
+                                        <ComboBoxItem>Fwd Springline Port side (2)</ComboBoxItem>
+                                        <ComboBoxItem>Fwd Springline Port side (3)</ComboBoxItem>
+                                        <ComboBoxItem>Fwd Springline Stbd side (1)</ComboBoxItem>
+                                        <ComboBoxItem>Fwd Springline Stbd side (2)</ComboBoxItem>
+                                        <ComboBoxItem>Fwd Springline Stbd side (3)</ComboBoxItem>
+                                        <ComboBoxItem>Breastline</ComboBoxItem>
+                                        <ComboBoxItem>Fwd Breastline</ComboBoxItem>
+                                        <ComboBoxItem>Fwd Breastline (1)</ComboBoxItem>
+                                        <ComboBoxItem>Fwd Breastline (2)</ComboBoxItem>
+                                        <ComboBoxItem>Fwd Breastline Port side (1)</ComboBoxItem>
+                                        <ComboBoxItem>Fwd Breastline Port side (2)</ComboBoxItem>
+                                        <ComboBoxItem>Fwd Breastline Port side (3)</ComboBoxItem>
+                                        <ComboBoxItem>Fwd Breastline Stbd side (1)</ComboBoxItem>
+                                        <ComboBoxItem>Fwd Breastline Stbd side (2)</ComboBoxItem>
+                                        <ComboBoxItem>Fwd Breastline Stbd side (3)</ComboBoxItem>
+                                        <ComboBoxItem>Fwd Breastline Port side</ComboBoxItem>
+                                        <ComboBoxItem>Fwd Breastline Stbd side</ComboBoxItem>
+                                        <ComboBoxItem>Fwd Springline Port side</ComboBoxItem>
+                                        <ComboBoxItem>Fwd Springline Stbd side</ComboBoxItem>
+                                        <ComboBoxItem>Aft Springline</ComboBoxItem>
+                                        <ComboBoxItem>Aft Springline (1)</ComboBoxItem>
+                                        <ComboBoxItem>Aft Springline (2)</ComboBoxItem>
+                                        <ComboBoxItem>Aft Springline Port side</ComboBoxItem>
+                                        <ComboBoxItem>Aft Springline Stbd side</ComboBoxItem>
+                                        <ComboBoxItem>Aft Springline Port side (1)</ComboBoxItem>
+                                        <ComboBoxItem>Aft Springline Port side (2)</ComboBoxItem>
+                                        <ComboBoxItem>Aft Springline Port side (3)</ComboBoxItem>
+                                        <ComboBoxItem>Aft Springline Stbd side (1)</ComboBoxItem>
+                                        <ComboBoxItem>Aft Springline Stbd side (2)</ComboBoxItem>
+                                        <ComboBoxItem>Aft Springline Stbd side (3)</ComboBoxItem>
+                                        <ComboBoxItem>Aft Breastline</ComboBoxItem>
+                                        <ComboBoxItem>Aft Breastline (1)</ComboBoxItem>
+                                        <ComboBoxItem>Aft Breastline (2)</ComboBoxItem>
+                                        <ComboBoxItem>Aft Breastline Port side (1)</ComboBoxItem>
+                                        <ComboBoxItem>Aft Breastline Port side (2)</ComboBoxItem>
+                                        <ComboBoxItem>Aft Breastline Port side (3)</ComboBoxItem>
+                                        <ComboBoxItem>Aft Breastline Stbd side (1)</ComboBoxItem>
+                                        <ComboBoxItem>Aft Breastline Stbd side (2)</ComboBoxItem>
+                                        <ComboBoxItem>Aft Breastline Stbd side (3)</ComboBoxItem>
+                                        <ComboBoxItem>Aft Breastline Port side</ComboBoxItem>
+                                        <ComboBoxItem>Fwd Breastline Stbd side</ComboBoxItem>
+                                        <ComboBoxItem>Sternline</ComboBoxItem>
+                                        <ComboBoxItem>Sternline (1)</ComboBoxItem>
+                                        <ComboBoxItem>Sternline (2)</ComboBoxItem>
+                                        <ComboBoxItem>Sternline Port side</ComboBoxItem>
+                                        <ComboBoxItem>Sternline Stbd side</ComboBoxItem>
+                                    </ComboBox>
+
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+
+                        <DataGridTemplateColumn MaxWidth="90" Header="Lead1">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <!--<ListBox Grid.Row="1"  Width="85"  HorizontalAlignment="Center" x:Name="cboBhp5" 
+                                               
+                                      SelectedItem="{Binding Path= Lead1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                            <RadioButton>Direct</RadioButton>
+                                            <RadioButton>InDirect</RadioButton>
+                                        </ListBox>-->
+
+                                        <ComboBox Height="25" VerticalAlignment="Top" Grid.Row="1"  Width="85" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center" x:Name="cboBhp5" 
+                                               
+                                      Text="{Binding Path= Lead1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                            <ComboBoxItem>Direct</ComboBoxItem>
+                                            <ComboBoxItem>InDirect</ComboBoxItem>
+                                        </ComboBox>
+
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+
+
+
+
+
+
+
+
+                        <!--<DataGridTextColumn  Binding="{Binding Path= InspectDate,StringFormat=\{0:dd-MMM-yyyy\},Mode=TwoWay}" IsReadOnly="True" Header="Inspect Date" MaxWidth="120" Width="*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+
+                            <DataGridTemplateColumn MaxWidth="60" Width="*" Header="Edit">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Width="70"  FontWeight="Normal"  FontSize="13" FontFamily="Verdana" VerticalAlignment="Center" HorizontalContentAlignment="Center">
+                                                -->
+                        <!--<Hyperlink  Command="{Binding ElementName= CrewManagementContent,Path=DataContext.NavCommand2}" CommandParameter="{Binding}"   Name="Edit" Foreground="#0000cc">Edit</Hyperlink>-->
+                        <!--
+                                                <Hyperlink  Command="{Binding ElementName=WorkHoursContent,Path=DataContext.NavCommand5}" CommandParameter="{Binding}"  Name="Edit" Foreground="#0000cc">Edit</Hyperlink>
+                                            </Label>
+
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+                            <DataGridTemplateColumn MaxWidth="65" Width="*" Header="Delete">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+
+                                            <Label Width="55"  FontWeight="Normal"   FontSize="13" FontFamily="Verdana" VerticalAlignment="Center" HorizontalContentAlignment="Center">
+                                                <Hyperlink  Name="Delete" Command="{Binding Path=DataContext.DeleteCommand,RelativeSource={RelativeSource AncestorType=DataGrid}}"  CommandParameter="{Binding}" Foreground="#0000cc">Delete
+                                                </Hyperlink>
+                                            </Label>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>-->
+
+                    </DataGrid.Columns>
+
+                </DataGrid>
+                <!--</ScrollViewer>-->
+
+
+                <Canvas Grid.Column="2" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                    <Button x:Name="Add0" Canvas.Right="5" Content=" Add More "   Style="{StaticResource HeaderButton1}" Command="{Binding AddMoreCommand}" CommandParameter="Grid0" Click="Add0_Click" />
+
+                </Canvas>
+                
+
+                <!--Row 3-->
+                <Grid  x:Name="Grid1" Margin="0,20,0,0" Grid.Column="1" Grid.Row="3" Visibility="Visible">
+                    <Grid.RowDefinitions>
+                        <RowDefinition  />
+                        <!--<RowDefinition Height="20"/>
+                            <RowDefinition Height="60"/>-->
+
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ScrollViewer  Height="auto" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition  Height="30"/>
+                                <RowDefinition Height="40*" />
+
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock  Grid.Row="0" Text="WINCHES USED FOR SHORT PERIOD" FontStyle="Italic" Style="{StaticResource HeaderText1}"  />
+                            <Canvas Grid.Row="1">
+
+
+                                <TextBlock Text="Date &amp; Time of Start use"   Style="{StaticResource HeaderText1}" />
+
+
+                                <ComboBox x:Name="dpSubFastGrid1" Canvas.Left="200" Width="125"  IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=SubDates}" Text="{Binding Path=DpSubFastGrid1,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14"  Height="22"   DropDownClosed="cbStartHours1_DropDownClosed"   />
+
+
+                                <!--<ComboBox x:Name="cbStartHours1" Canvas.Left="330"  Text="{Binding Path=DpSubFastGrid1_Hours,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=HoursSTART}"  VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="22"     />
+                                <ComboBox x:Name="cbStartMint1" Canvas.Left="380"  Text="{Binding Path=DpSubFastGrid1_Mint,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=MintsSTART}"  VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="22"     />-->
+
+                                <ComboBox x:Name="cbStartHours1" Canvas.Left="330" Text="{Binding Path=DpSubFastGrid1_Hours,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" ItemsSource="{Binding Path=Hours}" SelectedItem="{Binding Path=DpSubFastGrid1_Hours,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   IsEditable="True" IsReadOnly="True"   VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="22"  DropDownClosed="cbStartHours1_DropDownClosed"   />
+                                <ComboBox x:Name="cbStartMint1" Canvas.Left="380"  Text="{Binding Path=DpSubFastGrid1_Mint,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  ItemsSource="{Binding Path=Mints}" SelectedItem="{Binding Path=DpSubFastGrid1_Mint,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" IsEditable="True" IsReadOnly="True"   VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="22"   DropDownClosed="cbStartHours1_DropDownClosed"  />
+
+
+                            </Canvas>
+
+                            <Canvas Grid.Row="2">
+                                <TextBlock Text="Date &amp; Time of Ceased use"   Style="{StaticResource HeaderText1}" />
+
+                                <ComboBox x:Name="dpSubCastGrid1" Canvas.Left="200" Width="125"  IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=SubDates}" Text="{Binding Path=DpSubCastGrid1,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14"  Height="22"  DropDownClosed="cbEndHours1_DropDownClosed"     />
+
+                                <!--<ComboBox x:Name="cbEndHours1" Canvas.Left="330"  Text="{Binding Path=DpSubCastGrid1_Hours,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=HoursEND}"  VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="22"     />-->
+
+                                <ComboBox x:Name="cbEndHours1" Canvas.Left="330"  Text="{Binding Path=DpSubCastGrid1_Hours,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Hours}" SelectedItem="{Binding Path=DpSubCastGrid1_Hours,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="22" DropDownClosed="cbEndHours1_DropDownClosed"    />
+                                <ComboBox x:Name="cbEndMint1" Canvas.Left="380"  Text="{Binding Path=DpSubCastGrid1_Mint,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Mints}" SelectedItem="{Binding Path=DpSubCastGrid1_Mint,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="22"   DropDownClosed="cbEndHours1_DropDownClosed"  />
+
+
+
+                            </Canvas>
+
+                            <ScrollViewer Name="s1" Grid.Row="3" Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+
+                                <DataGrid    x:Name="WinchGrid1"  ItemsSource="{Binding Path = LoadWinchListGrid1,Mode=TwoWay}" BorderThickness="0" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" GridLinesVisibility="Horizontal" SelectionUnit="FullRow"  SelectionMode="Single" CanUserAddRows="False" 
+                     CanUserDeleteRows="False" HeadersVisibility="Column"  BorderBrush="LightGray" ColumnWidth="auto"   AutoGenerateColumns="False"   VerticalScrollBarVisibility="Auto"   VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray" >
+
+
+                                    <DataGrid.Columns>
+
+                                        <DataGridTextColumn   Binding="{Binding Path = WinId,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Id"  Visibility="Hidden"/>
+                                        <DataGridTextColumn Binding="{Binding WinchNo,Mode=TwoWay}" FontSize="12" IsReadOnly="True" FontStyle="Italic" Header="Winch - (Certi. No. - Unique ID)" MaxWidth="250" MinWidth="250" >
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="HorizontalAlignment" Value="Left" />
+                                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                                    <Setter Property="Margin" Value="5,0,0,0"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn Binding="{Binding Location,Mode=TwoWay}" FontSize="12" IsReadOnly="True" FontStyle="Italic" Header="Location" MaxWidth="180" MinWidth="170">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="HorizontalAlignment" Value="Left" />
+                                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                                    <Setter Property="Margin" Value="5,0,0,0"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+
+
+                                        <DataGridTemplateColumn MaxWidth="70" Width="65">
+                                            <DataGridTemplateColumn.Header>
+                                                <CheckBox x:Name="chkBox4" Content="Line"  IsChecked="{Binding Path=DataContext.Mark1All,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,RelativeSource={RelativeSource FindAncestor,AncestorType=DataGrid}}" />
+
+                                                <!--<CheckBox Content="Uncheck All Or Check All" Checked="CheckBox_Checked"    Unchecked="CheckBox_Unchecked" Click="CheckBox_Checked"/>-->
+
+
+                                            </DataGridTemplateColumn.Header>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox x:Name="chkDiscontinueb" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Mark,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" 
+                                                              Command="{Binding Path=DataContext.CheckMarkCommand1,RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}"  />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+                                        <DataGridTemplateColumn MaxWidth="200" Width="150">
+                                            <DataGridTemplateColumn.Header>
+                                                <!--<CheckBox x:Name="chkBox42" Content="RopeTail"  IsChecked="{Binding Path=DataContext.AllSelected,
+                       UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,
+                       RelativeSource={RelativeSource FindAncestor,
+                           AncestorType=DataGrid}}" />-->
+                                                <TextBlock TextAlignment="Center" TextWrapping="Wrap"  Text="Rope Tail"/>
+
+                                            </DataGridTemplateColumn.Header>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <xwt:CheckListBox BorderBrush="LightGray" x:Name="TextChk2" ItemsSource="{Binding Path=Tails,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DisplayMemberPath="Name" SelectedItem="{Binding Path=Name}"  SelectedValue="Id" SelectedMemberPath="Selected" />
+
+                                                    <!--<CheckBox x:Name="chkropetail" HorizontalAlignment="Center" VerticalAlignment="Center"  Visibility="{Binding VisibilityCheck,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" IsChecked="{Binding RopeTailMark,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />-->
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+                                        <DataGridTemplateColumn >
+                                            <DataGridTemplateColumn.Header>
+                                                <TextBlock TextAlignment="Center" TextWrapping="Wrap"  Text="Outboard End"/>
+                                            </DataGridTemplateColumn.Header>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <ComboBox Grid.Row="1"  Width="100" IsEditable="True" IsEnabled="{Binding IsEditable,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" IsReadOnly="True" HorizontalAlignment="Center" x:Name="cbooutboard" 
+                                               
+                                      Text="{Binding Path= outboard1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                            <ComboBoxItem>A</ComboBoxItem>
+                                                            <ComboBoxItem>B</ComboBoxItem>
+                                                        </ComboBox>
+
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+
+                                        <DataGridTemplateColumn MaxWidth="155"  Header="Select Lead">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <ComboBox Grid.Row="1"  Width="150" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center" x:Name="cboBhp" 
+                                               
+                                      Text="{Binding Path= Lead, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                            <ComboBoxItem>Headline</ComboBoxItem>
+                                                            <ComboBoxItem>Headline (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Headline (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Springline</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Port side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Port side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Port side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Stbd side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Stbd side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Stbd side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Breastline</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Port side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Port side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Port side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Stbd side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Stbd side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Stbd side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Port side</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Stbd side</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Port side</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Stbd side</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Port side</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Stbd side</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Port side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Port side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Port side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Stbd side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Stbd side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Stbd side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Port side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Port side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Port side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Stbd side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Stbd side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Stbd side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Port side</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Stbd side</ComboBoxItem>
+                                                            <ComboBoxItem>Sternline</ComboBoxItem>
+                                                            <ComboBoxItem>Sternline (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Sternline (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Sternline Port side</ComboBoxItem>
+                                                            <ComboBoxItem>Sternline Stbd side</ComboBoxItem>
+                                                        </ComboBox>
+
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+
+                                        <DataGridTemplateColumn   Width="90" Header="Lead1">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <ComboBox Grid.Row="1"  Width="90" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center" x:Name="cboBhp5" 
+                                               
+                                      Text="{Binding Path= Lead1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                            <ComboBoxItem>Direct</ComboBoxItem>
+                                                            <ComboBoxItem>InDirect</ComboBoxItem>
+                                                        </ComboBox>
+
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+                                    </DataGrid.Columns>
+
+                                </DataGrid>
+
+                            </ScrollViewer>
+                        </Grid>
+                    </ScrollViewer>
+
+                </Grid>
+
+                <Canvas Grid.Row="3"  Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                    <Button x:Name="Remove1" Visibility="Visible" Content="Remove" Canvas.Right="90"  Width="65"  Style="{StaticResource HeaderButton1}" Command="{Binding RemoveCommand}" CommandParameter="Grid1" Click="Remove1_Click" />
+                    <Button x:Name="Add1" Visibility="Visible" Content=" Add More " Canvas.Right="5" Style="{StaticResource HeaderButton1}" Command="{Binding AddMoreCommand}" CommandParameter="Grid1" Click="Add1_Click" />
+                </Canvas>
+                <!--Row 4-->
+
+                <Grid  x:Name="Grid2" Margin="0,20,0,0" Grid.Column="1" Grid.Row="4" Visibility="Visible">
+                    <Grid.RowDefinitions>
+                        <RowDefinition  />
+                        <!--<RowDefinition Height="20"/>
+                            <RowDefinition Height="60"/>-->
+
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ScrollViewer  Height="auto" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition  Height="30"/>
+                                <RowDefinition Height="40*" />
+
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock  Grid.Row="0" Text="WINCHES USED FOR SHORT PERIOD" FontStyle="Italic" Style="{StaticResource HeaderText1}"  />
+                            <Canvas Grid.Row="1">
+
+
+                                <TextBlock Text="Date &amp; Time of Start use"   Style="{StaticResource HeaderText1}" />
+
+
+                                <ComboBox x:Name="dpSubFastGrid2" Canvas.Left="200" Width="125"  IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=SubDates}" SelectedItem="{Binding Path=DpSubFastGrid2}" VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14"  Height="22"  DropDownClosed="dpSubFastGrid2_DropDownClosed"   />
+
+
+                                <!--<ComboBox x:Name="cbStartHours2" Canvas.Left="330"  Text="{Binding Path=DpSubFastGrid2_Hours,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=HoursSTART}"  VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="22"     />
+                                <ComboBox x:Name="cbStartMint2" Canvas.Left="380"  Text="{Binding Path=DpSubFastGrid2_Mint,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=MintsSTART}"  VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="22"     />-->
+
+                                <ComboBox x:Name="cbStartHours2" Canvas.Left="330"  Text="{Binding Path=DpSubFastGrid2_Hours,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Hours}" SelectedItem="{Binding Path=DpSubFastGrid2_Hours,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="22"  DropDownClosed="dpSubFastGrid2_DropDownClosed"    />
+                                <ComboBox x:Name="cbStartMint2" Canvas.Left="380"  Text="{Binding Path=DpSubFastGrid2_Mint,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Mints}" SelectedItem="{Binding Path=DpSubFastGrid2_Mint,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="22"   DropDownClosed="dpSubFastGrid2_DropDownClosed"   />
+
+
+                            </Canvas>
+
+                            <Canvas Grid.Row="2">
+                                <TextBlock Text="Date &amp; Time of Ceased use"   Style="{StaticResource HeaderText1}" />
+
+                                <ComboBox x:Name="dpSubCastGrid2" Canvas.Left="200" Width="125"  IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=SubDates}" SelectedItem="{Binding Path=DpSubCastGrid2}" VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14"  Height="22" DropDownClosed="dpSubCastGrid2_DropDownClosed"    />
+
+                                <ComboBox x:Name="cbEndHours2" Canvas.Left="330"  Text="{Binding Path=DpSubCastGrid2_Hours,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Hours}" SelectedItem="{Binding Path=DpSubCastGrid2_Hours,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="22"  DropDownClosed="dpSubCastGrid2_DropDownClosed"    />
+                                <ComboBox x:Name="cbEndMint2" Canvas.Left="380"  Text="{Binding Path=DpSubCastGrid2_Mint,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Mints}" SelectedItem="{Binding Path=DpSubCastGrid2_Mint,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="22"   DropDownClosed="dpSubCastGrid2_DropDownClosed"   />
+
+
+
+                            </Canvas>
+
+                            <ScrollViewer Name="s2" Grid.Row="4" Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+
+                                <DataGrid    x:Name="WinchGrid2"  ItemsSource="{Binding Path = LoadWinchListGrid2,Mode=TwoWay}" BorderThickness="0" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" GridLinesVisibility="Horizontal" SelectionUnit="FullRow"  SelectionMode="Single" CanUserAddRows="False" 
+                    CanUserDeleteRows="False"  HeadersVisibility="Column"  BorderBrush="LightGray" ColumnWidth="auto"   AutoGenerateColumns="False"   VerticalScrollBarVisibility="Auto"   VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray" >
+
+
+                                    <DataGrid.Columns>
+
+                                        <DataGridTextColumn   Binding="{Binding Path = WinId,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Id"  Visibility="Hidden"/>
+                                        <DataGridTextColumn Binding="{Binding WinchNo,Mode=TwoWay}" FontSize="12" IsReadOnly="True" FontStyle="Italic" Header="Winch - (Certi. No. - Unique ID)" MaxWidth="250" MinWidth="250">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="HorizontalAlignment" Value="Left" />
+                                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                                    <Setter Property="Margin" Value="5,0,0,0"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn Binding="{Binding Location,Mode=TwoWay}" FontSize="12" IsReadOnly="True" FontStyle="Italic" Header="Location" MaxWidth="180" MinWidth="170">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="HorizontalAlignment" Value="Left" />
+                                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                                    <Setter Property="Margin" Value="5,0,0,0"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+
+
+                                        <DataGridTemplateColumn MaxWidth="70" Width="65">
+                                            <DataGridTemplateColumn.Header>
+                                                <CheckBox x:Name="chkBox5" Content="Line"  IsChecked="{Binding Path=DataContext.Mark2All,
+                       UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,
+                       RelativeSource={RelativeSource FindAncestor,
+                           AncestorType=DataGrid}}" />
+
+
+                                            </DataGridTemplateColumn.Header>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox x:Name="chkDiscontinueb" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Mark,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                                              Command="{Binding Path=DataContext.CheckMarkCommand2,RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+                                        <DataGridTemplateColumn MaxWidth="200" Width="150">
+                                            <DataGridTemplateColumn.Header>
+                                                <!--<CheckBox x:Name="chkBox43" Content="RopeTail" IsChecked="{Binding Path=DataContext.AllSelected,
+                       UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,
+                       RelativeSource={RelativeSource FindAncestor,
+                           AncestorType=DataGrid}}" />-->
+                                                <TextBlock TextAlignment="Center" TextWrapping="Wrap" Width="70" Text="Rope Tail"/>
+                                            </DataGridTemplateColumn.Header>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <xwt:CheckListBox BorderBrush="LightGray" x:Name="TextChk3" ItemsSource="{Binding Path=Tails,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DisplayMemberPath="Name" SelectedItem="{Binding Path=Name}"  SelectedValue="Id" SelectedMemberPath="Selected" />
+                                                    <!--<CheckBox x:Name="chkropetail" HorizontalAlignment="Center"  VerticalAlignment="Center"  Visibility="{Binding VisibilityCheck,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" IsChecked="{Binding RopeTailMark,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />-->
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+
+                                        <DataGridTemplateColumn MaxWidth="100"  Header="Outboard End">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <ComboBox Grid.Row="1"  Width="100" IsEditable="True" IsEnabled="{Binding IsEditable,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" IsReadOnly="True" HorizontalAlignment="Center" x:Name="cbooutboard" 
+                                               
+                                      Text="{Binding Path= outboard1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                            <ComboBoxItem>A</ComboBoxItem>
+                                                            <ComboBoxItem>B</ComboBoxItem>
+                                                        </ComboBox>
+
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+
+                                        <DataGridTemplateColumn MaxWidth="150" MinWidth="150" Header="Select Lead">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <ComboBox Grid.Row="1"  Width="150" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center" x:Name="cboBhp" 
+                                               
+                                      Text="{Binding Path= Lead, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                            <ComboBoxItem>Headline</ComboBoxItem>
+                                                            <ComboBoxItem>Headline (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Headline (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Springline</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Port side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Port side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Port side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Stbd side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Stbd side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Stbd side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Breastline</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Port side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Port side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Port side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Stbd side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Stbd side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Stbd side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Port side</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Stbd side</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Port side</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Stbd side</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Port side</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Stbd side</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Port side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Port side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Port side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Stbd side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Stbd side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Stbd side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Port side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Port side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Port side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Stbd side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Stbd side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Stbd side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Port side</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Stbd side</ComboBoxItem>
+                                                            <ComboBoxItem>Sternline</ComboBoxItem>
+                                                            <ComboBoxItem>Sternline (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Sternline (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Sternline Port side</ComboBoxItem>
+                                                            <ComboBoxItem>Sternline Stbd side</ComboBoxItem>
+
+                                                        </ComboBox>
+
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+
+                                        <DataGridTemplateColumn MaxWidth="100" MinWidth="95" Header="Lead1">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <ComboBox Grid.Row="1"  Width="95" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center" x:Name="cboBhp5" 
+                                               
+                                      Text="{Binding Path= Lead1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                            <ComboBoxItem>Direct</ComboBoxItem>
+                                                            <ComboBoxItem>InDirect</ComboBoxItem>
+                                                        </ComboBox>
+
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+
+                                </DataGrid>
+
+                            </ScrollViewer>
+                        </Grid>
+                    </ScrollViewer>
+
+                </Grid>
+
+                <Canvas Grid.Row="4"  Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                    <Button x:Name="Remove2" Visibility="Visible" Canvas.Right="90" Content="Remove"  Style="{StaticResource HeaderButton1}" Command="{Binding RemoveCommand}" CommandParameter="Grid2" Click="Remove2_Click" />
+                    <Button x:Name="Add2" Visibility="Visible" Canvas.Right="5" Content=" Add More "  Style="{StaticResource HeaderButton1}" Command="{Binding AddMoreCommand}" CommandParameter="Grid2" Click="Add2_Click" />
+                </Canvas>
+                <!--Row 5-->
+
+                <Grid  x:Name="Grid3" Margin="0,20,0,0" Grid.Column="1" Grid.Row="5" Visibility="Visible">
+                    <Grid.RowDefinitions>
+                        <RowDefinition  />
+                        <!--<RowDefinition Height="20"/>
+                            <RowDefinition Height="60"/>-->
+
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ScrollViewer  Height="auto" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition  Height="30"/>
+                                <RowDefinition Height="40*" />
+
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock  Grid.Row="0" Text="WINCHES USED FOR SHORT PERIOD" FontStyle="Italic" Style="{StaticResource HeaderText1}"  />
+                            <Canvas Grid.Row="1">
+
+
+                                <TextBlock Text="Date &amp; Time of Start use"   Style="{StaticResource HeaderText1}" />
+
+
+                                <ComboBox x:Name="dpSubFastGrid3" Canvas.Left="200" Width="125"  IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=SubDates}" SelectedItem="{Binding Path=DpSubFastGrid3}" VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14"  Height="22"  DropDownClosed="dpSubFastGrid3_DropDownClosed"   />
+
+                                <!--<ComboBox x:Name="cbStartHours1" Canvas.Left="135" DropDownClosed="cbHours1_DropDownClosed" Canvas.Top="25" Text="00"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Hours}" SelectedItem="{Binding Path=SHours2}" VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="25"     />
+                                <ComboBox x:Name="cbStartMint1" Canvas.Left="180"  Canvas.Top="25" Text="00"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Mints}" SelectedItem="{Binding Path=SMints2}" VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="25"     />-->
+
+
+                                <ComboBox x:Name="cbStartHours3" Canvas.Left="330"  Text="{Binding Path=DpSubFastGrid3_Hours,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Hours}" SelectedItem="{Binding Path=DpSubFastGrid3_Hours,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="22"   DropDownClosed="dpSubFastGrid3_DropDownClosed"  />
+                                <ComboBox x:Name="cbStartMint3" Canvas.Left="380"  Text="{Binding Path=DpSubFastGrid3_Mint,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Mints}" SelectedItem="{Binding Path=DpSubFastGrid3_Mint,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="22"   DropDownClosed="dpSubFastGrid3_DropDownClosed"  />
+
+                                <!--<ComboBox x:Name="cbStartHours3" Canvas.Left="330"  Text="{Binding Path=DpSubFastGrid3_Hours,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=HoursSTART}"  VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="22"     />
+                                <ComboBox x:Name="cbStartMint3" Canvas.Left="380"  Text="{Binding Path=DpSubFastGrid3_Mint,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=MintsSTART}"  VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="22"     />-->
+
+
+                            </Canvas>
+
+                            <Canvas Grid.Row="2">
+                                <TextBlock Text="Date &amp; Time of Ceased use"   Style="{StaticResource HeaderText1}" />
+
+                                <ComboBox x:Name="dpSubCastGrid3" Canvas.Left="200" Width="125"  IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=SubDates}" SelectedItem="{Binding Path=DpSubCastGrid3}" VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14"  Height="22"  DropDownClosed="dpSubCastGrid3_DropDownClosed"   />
+
+                                <!--<ComboBox x:Name="cbEndHours3" Canvas.Left="330"  Text="{Binding Path=DpSubCastGrid3_Hours,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=HoursEND}" SelectedItem="{Binding Path=SHours}" VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="22"     />
+                                <ComboBox x:Name="cbEndMint3" Canvas.Left="380"  Text="{Binding Path=DpSubCastGrid3_Mint,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=MintsEND}" SelectedItem="{Binding Path=SMints}" VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="22"     />-->
+
+                                <ComboBox x:Name="cbEndHours3" Canvas.Left="330"  Text="{Binding Path=DpSubCastGrid3_Hours,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Hours}" SelectedItem="{Binding Path=DpSubCastGrid3_Hours,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="22"  DropDownClosed="dpSubCastGrid3_DropDownClosed"   />
+                                <ComboBox x:Name="cbEndMint3" Canvas.Left="380"  Text="{Binding Path=DpSubCastGrid3_Mint,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Mints}" SelectedItem="{Binding Path=DpSubCastGrid3_Mint,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="22"   DropDownClosed="dpSubCastGrid3_DropDownClosed"  />
+
+
+
+
+                            </Canvas>
+
+                            <ScrollViewer Name="s3" Grid.Row="4" Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+
+                                <DataGrid    x:Name="WinchGrid3"  ItemsSource="{Binding Path = LoadWinchListGrid3,Mode=TwoWay}" BorderThickness="0" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" GridLinesVisibility="Horizontal" SelectionUnit="FullRow"  SelectionMode="Single" CanUserAddRows="False" 
+                   CanUserDeleteRows="False"   HeadersVisibility="Column"  BorderBrush="LightGray" ColumnWidth="auto"   AutoGenerateColumns="False"   VerticalScrollBarVisibility="Auto"   VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray" >
+
+
+                                    <DataGrid.Columns>
+
+                                        <DataGridTextColumn   Binding="{Binding Path = WinId,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Id"  Visibility="Hidden"/>
+                                        <DataGridTextColumn Binding="{Binding WinchNo,Mode=TwoWay}" FontSize="12" IsReadOnly="True" FontStyle="Italic" Header="Winch - (Certi. No. - Unique ID)" MaxWidth="250" MinWidth="250">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="HorizontalAlignment" Value="Left" />
+                                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                                    <Setter Property="Margin" Value="5,0,0,0"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn Binding="{Binding Location,Mode=TwoWay}" FontSize="12" IsReadOnly="True" FontStyle="Italic" Header="Location" MaxWidth="170" MinWidth="170">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="HorizontalAlignment" Value="Left" />
+                                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                                    <Setter Property="Margin" Value="5,0,0,0"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+
+
+                                        <DataGridTemplateColumn MaxWidth="70" Width="65">
+                                            <DataGridTemplateColumn.Header>
+                                                <CheckBox x:Name="chkBox6" Content="Line"  IsChecked="{Binding Path=DataContext.Mark3All,
+                       UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,
+                       RelativeSource={RelativeSource FindAncestor,
+                           AncestorType=DataGrid}}" />
+
+
+                                            </DataGridTemplateColumn.Header>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox x:Name="chkDiscontinueb" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Mark,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                                              Command="{Binding Path=DataContext.CheckMarkCommand3,RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+                                        <DataGridTemplateColumn MaxWidth="200" Width="150">
+                                            <DataGridTemplateColumn.Header>
+                                                <!--<CheckBox x:Name="chkBox44" Content="RopeTail" IsChecked="{Binding Path=DataContext.AllSelected,
+                       UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,
+                       RelativeSource={RelativeSource FindAncestor,
+                           AncestorType=DataGrid}}" />-->
+                                                <TextBlock TextAlignment="Center" TextWrapping="Wrap" Width="70" Text="Rope Tail"/>
+                                            </DataGridTemplateColumn.Header>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <xwt:CheckListBox BorderBrush="LightGray" x:Name="TextChk4" ItemsSource="{Binding Path=Tails,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DisplayMemberPath="Name" SelectedItem="{Binding Path=Name}"  SelectedValue="Id" SelectedMemberPath="Selected" />
+                                                    <!--<CheckBox x:Name="chkropetail" HorizontalAlignment="Center"  VerticalAlignment="Center"  Visibility="{Binding VisibilityCheck,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" IsChecked="{Binding RopeTailMark,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />-->
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+
+                                        <DataGridTemplateColumn MaxWidth="100" MinWidth="100" Header="Outboard End">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <ComboBox Grid.Row="1"  Width="100" IsEditable="True" IsEnabled="{Binding IsEditable,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" IsReadOnly="True" HorizontalAlignment="Center" x:Name="cbooutboard" 
+                                               
+                                      Text="{Binding Path= outboard1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                            <ComboBoxItem>A</ComboBoxItem>
+                                                            <ComboBoxItem>B</ComboBoxItem>
+                                                        </ComboBox>
+
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+
+                                        <DataGridTemplateColumn MaxWidth="150" MinWidth="150" Header="Select Lead">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <ComboBox Grid.Row="1"  Width="150" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center" x:Name="cboBhp" 
+                                               
+                                      Text="{Binding Path= Lead, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                            <ComboBoxItem>Headline</ComboBoxItem>
+                                                            <ComboBoxItem>Headline (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Headline (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Springline</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Port side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Port side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Port side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Stbd side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Stbd side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Stbd side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Breastline</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Port side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Port side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Port side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Stbd side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Stbd side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Stbd side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Port side</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Stbd side</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Port side</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Stbd side</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Port side</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Stbd side</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Port side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Port side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Port side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Stbd side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Stbd side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Stbd side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Port side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Port side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Port side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Stbd side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Stbd side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Stbd side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Port side</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Stbd side</ComboBoxItem>
+                                                            <ComboBoxItem>Sternline</ComboBoxItem>
+                                                            <ComboBoxItem>Sternline (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Sternline (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Sternline Port side</ComboBoxItem>
+                                                            <ComboBoxItem>Sternline Stbd side</ComboBoxItem>
+                                                        </ComboBox>
+
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+
+                                        <DataGridTemplateColumn MaxWidth="100" MinWidth="95" Header="Lead1">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <ComboBox Grid.Row="1"  Width="95" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center" x:Name="cboBhp5" 
+                                               
+                                      Text="{Binding Path= Lead1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                            <ComboBoxItem>Direct</ComboBoxItem>
+                                                            <ComboBoxItem>InDirect</ComboBoxItem>
+                                                        </ComboBox>
+
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+
+
+                                    </DataGrid.Columns>
+
+                                </DataGrid>
+
+                            </ScrollViewer>
+                        </Grid>
+                    </ScrollViewer>
+
+                </Grid>
+
+                <Canvas Grid.Row="5"  Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                    <Button x:Name="Remove3" Visibility="Visible" Canvas.Right="90" Content="Remove"  Style="{StaticResource HeaderButton1}" Command="{Binding RemoveCommand}" CommandParameter="Grid3" Click="Remove3_Click" />
+                    <Button x:Name="Add3" Visibility="Visible" Canvas.Right="5" Content=" Add More " Style="{StaticResource HeaderButton1}" Command="{Binding AddMoreCommand}" CommandParameter="Grid3" Click="Add3_Click" />
+                </Canvas>
+                <!--Row 5-->
+
+
+                <Grid  x:Name="Grid4" Margin="0,20,0,0" Grid.Column="1" Grid.Row="6" Visibility="Visible">
+                    <Grid.RowDefinitions>
+                        <RowDefinition  />
+                        <!--<RowDefinition Height="20"/>
+                            <RowDefinition Height="60"/>-->
+
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ScrollViewer  Height="auto" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="30" />
+                                <RowDefinition  Height="30"/>
+                                <RowDefinition Height="40*" />
+
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock  Grid.Row="0" Text="LINES / ROPE TAIL USED FOR SHORT PERIOD" FontStyle="Italic" Style="{StaticResource HeaderText1}"  />
+                            <Canvas Grid.Row="1">
+
+
+                                <TextBlock Text="Date &amp; Time of Start use"   Style="{StaticResource HeaderText1}" />
+
+
+                                <ComboBox x:Name="dpSubFastGrid4" Canvas.Left="200" Width="125"  IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=SubDates}" SelectedItem="{Binding Path=DpSubFastGrid4}" VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14"  Height="22"   DropDownClosed="dpSubFastGrid4_DropDownClosed"  />
+
+
+                                <ComboBox x:Name="cbStartHours4" Canvas.Left="330"  Text="{Binding Path=DpSubFastGrid4_Hours,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Hours}" SelectedItem="{Binding Path=DpSubFastGrid4_Hours,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="22"  DropDownClosed="dpSubFastGrid4_DropDownClosed"   />
+                                <ComboBox x:Name="cbStartMint4" Canvas.Left="380"  Text="{Binding Path=DpSubFastGrid4_Mint,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Mints}" SelectedItem="{Binding Path=DpSubFastGrid4_Mint,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="22"   DropDownClosed="dpSubFastGrid4_DropDownClosed"  />
+
+
+                            </Canvas>
+
+                            <Canvas Grid.Row="2">
+                                <TextBlock Text="Date &amp; Time of Ceased use"   Style="{StaticResource HeaderText1}" />
+
+                                <ComboBox x:Name="dpSubCastGrid4" Canvas.Left="200" Width="125"  IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=SubDates}" SelectedItem="{Binding Path=DpSubCastGrid4}" VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14"  Height="22"   DropDownClosed="dpSubCastGrid4_DropDownClosed"  />
+
+
+
+
+                                <ComboBox x:Name="cbEndHours4" Canvas.Left="330"  Text="{Binding Path=DpSubCastGrid4_Hours,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Hours}" SelectedItem="{Binding Path=DpSubCastGrid4_Hours,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="22"   DropDownClosed="dpSubCastGrid4_DropDownClosed"   />
+                                <ComboBox x:Name="cbEndMint4" Canvas.Left="380"  Text="{Binding Path=DpSubCastGrid4_Mint,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=Mints}" SelectedItem="{Binding Path=DpSubCastGrid4_Mint,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="auto" Height="22"    DropDownClosed="dpSubCastGrid4_DropDownClosed"  />
+
+
+
+                            </Canvas>
+
+                            <ScrollViewer Name="s4" Grid.Row="4" Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+
+                                <DataGrid    x:Name="WinchGrid4"  ItemsSource="{Binding Path = LoadWinchListGrid4,Mode=TwoWay}" BorderThickness="0" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" GridLinesVisibility="Horizontal" SelectionUnit="FullRow"  SelectionMode="Single" CanUserAddRows="False" 
+                    CanUserDeleteRows="False"  HeadersVisibility="Column"  BorderBrush="LightGray" ColumnWidth="auto"   AutoGenerateColumns="False"   VerticalScrollBarVisibility="Auto"   VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray" >
+
+
+                                    <DataGrid.Columns>
+
+                                        <DataGridTextColumn   Binding="{Binding Path = WinId,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Id"  Visibility="Hidden"/>
+                                        <DataGridTextColumn Binding="{Binding WinchNo,Mode=TwoWay}" FontSize="12" IsReadOnly="True" FontStyle="Italic" Header="Winch - (Certi. No. - Unique ID)" MaxWidth="250" MinWidth="250">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="HorizontalAlignment" Value="Left" />
+                                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                                    <Setter Property="Margin" Value="5,0,0,0"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn Binding="{Binding Location,Mode=TwoWay}" FontSize="12" IsReadOnly="True" FontStyle="Italic" Header="Location" MaxWidth="170" MinWidth="170">
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="HorizontalAlignment" Value="Left" />
+                                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                                    <Setter Property="Margin" Value="5,0,0,0"/>
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
+
+
+                                        <DataGridTemplateColumn MaxWidth="70" Width="65">
+                                            <DataGridTemplateColumn.Header>
+                                                <CheckBox x:Name="chkBox7" Content="Line"  IsChecked="{Binding Path=DataContext.Mark4All,
+                       UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,
+                       RelativeSource={RelativeSource FindAncestor,
+                           AncestorType=DataGrid}}" />
+
+
+                                            </DataGridTemplateColumn.Header>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox x:Name="chkDiscontinueb" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Mark,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                                              Command="{Binding Path=DataContext.CheckMarkCommand4,RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+                                        <DataGridTemplateColumn MaxWidth="200" Width="150">
+                                            <DataGridTemplateColumn.Header>
+                                                <!--<CheckBox x:Name="chkBox45" Content="RopeTail" IsChecked="{Binding Path=DataContext.AllSelected,
+                       UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,
+                       RelativeSource={RelativeSource FindAncestor,
+                           AncestorType=DataGrid}}" />-->
+                                                <TextBlock TextAlignment="Center" TextWrapping="Wrap" Width="70" Text="Rope Tail"/>
+                                            </DataGridTemplateColumn.Header>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <xwt:CheckListBox BorderBrush="LightGray" x:Name="TextChk5" ItemsSource="{Binding Path=Tails,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DisplayMemberPath="Name" SelectedItem="{Binding Path=Name}"  SelectedValue="Id" SelectedMemberPath="Selected" />
+                                                    <!--<CheckBox x:Name="chkropetail" HorizontalAlignment="Center"  VerticalAlignment="Center"  Visibility="{Binding VisibilityCheck,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" IsChecked="{Binding RopeTailMark,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />-->
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+                                        <DataGridTemplateColumn MaxWidth="100" MinWidth="100" Header="Outboard End">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <ComboBox Grid.Row="1"  Width="100" IsEditable="True" IsEnabled="{Binding IsEditable,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" IsReadOnly="True" HorizontalAlignment="Center" x:Name="cbooutboard" 
+                                               
+                                      Text="{Binding Path= outboard1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                            <ComboBoxItem>A</ComboBoxItem>
+                                                            <ComboBoxItem>B</ComboBoxItem>
+                                                        </ComboBox>
+
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+
+
+                                        <DataGridTemplateColumn MaxWidth="150" MinWidth="158" Header="Select Lead">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <ComboBox Grid.Row="1"  Width="150" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center" x:Name="cboBhp" 
+                                               
+                                      Text="{Binding Path= Lead, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                            <ComboBoxItem>Headline</ComboBoxItem>
+                                                            <ComboBoxItem>Headline (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Headline (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Springline</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Port side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Port side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Port side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Stbd side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Stbd side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Stbd side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Breastline</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Port side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Port side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Port side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Stbd side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Stbd side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Stbd side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Port side</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Stbd side</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Port side</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Springline Stbd side</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Port side</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Stbd side</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Port side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Port side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Port side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Stbd side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Stbd side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Springline Stbd side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Port side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Port side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Port side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Stbd side (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Stbd side (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Stbd side (3)</ComboBoxItem>
+                                                            <ComboBoxItem>Aft Breastline Port side</ComboBoxItem>
+                                                            <ComboBoxItem>Fwd Breastline Stbd side</ComboBoxItem>
+                                                            <ComboBoxItem>Sternline</ComboBoxItem>
+                                                            <ComboBoxItem>Sternline (1)</ComboBoxItem>
+                                                            <ComboBoxItem>Sternline (2)</ComboBoxItem>
+                                                            <ComboBoxItem>Sternline Port side</ComboBoxItem>
+                                                            <ComboBoxItem>Sternline Stbd side</ComboBoxItem>
+                                                        </ComboBox>
+
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+
+                                        <DataGridTemplateColumn MaxWidth="100" MinWidth="95" Header="Lead1">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <ComboBox Grid.Row="1"  Width="95" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center" x:Name="cboBhp5" 
+                                               
+                                      Text="{Binding Path= Lead1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                                            <ComboBoxItem>Direct</ComboBoxItem>
+                                                            <ComboBoxItem>InDirect</ComboBoxItem>
+                                                        </ComboBox>
+
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+                                    </DataGrid.Columns>
+
+                                </DataGrid>
+
+                            </ScrollViewer>
+                        </Grid>
+                    </ScrollViewer>
+
+                </Grid>
+
+                <Canvas Grid.Row="6" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                    <Button x:Name="Remove4" Height="25" Visibility="Visible" Canvas.Right="5"  Content="Remove"  Style="{StaticResource HeaderButton1}" Command="{Binding RemoveCommand}" CommandParameter="Grid4" Click="Remove4_Click" />
+
+                </Canvas>
+
+                <!--6th Row-->
+                <Grid Grid.Row="8" Grid.Column="1"  Grid.ColumnSpan="2" >
+
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+
+                        <!--<Grid >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                               
+                            </Grid.RowDefinitions>
+
+                        </Grid>-->
+
+                        <Grid x:Name="BirthGrid"   Height="auto">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="3*"/>
+
+
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <!--<ColumnDefinition Width="20*"/>
+                                <ColumnDefinition Width="80*"/>
+                                <ColumnDefinition Width="20*"/>-->
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1" Text="ENTER BERTH DETAILS  >>"  FontWeight="Bold" Style="{StaticResource HeaderText1}" />
+
+                            <Canvas Visibility="Visible" Name="txtfac" Grid.Row="1" Grid.Column="1" >
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Facility Name"   Style="{StaticResource LableText1}" />
+                                <Label Height="20" Content="*" FontFamily="Verdana" Foreground="Red" FontSize="16" Canvas.Left="85" Canvas.Top="-5"  />
+                                <!--<TextBox x:Name="txtBirthName" MaxLength="40" Canvas.Left="300" FontFamily="Verdana" Style="{StaticResource MOperationTextBox}" Text="{Binding MOperationBirth.BirthName,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   />-->
+
+                                <ComboBox x:Name="txtFacilityName" Canvas.Left="300" Width="200"  Text="--Select--" DropDownClosed="TxtFacilityName_DropDownClosed"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path = FacilityName,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DisplayMemberPath="FacilityName" SelectedItem="{Binding Path = SFacilityName,UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding Path = SFacilityName.FacilityName,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" SelectedValuePath="FacilityName" VerticalContentAlignment="Center"   >
+                                </ComboBox>
+
+                                <TextBox x:Name="txtOthers" Visibility="Hidden" MaxLength="40" Canvas.Left="520" FontFamily="Verdana" Style="{StaticResource MOperationTextBox}" Text="{Binding MOperationBirth.FacilityName,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   />
+
+                            </Canvas>
+
+                            <!--<Canvas Visibility="Visible" Name="txtoth" Grid.Row="1" Grid.Column="1" >
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Facility Name "   Style="{StaticResource LableText1}" />
+                                <Label Height="20" Content="*" FontFamily="Verdana" Foreground="Red" FontSize="16" Canvas.Left="85" Canvas.Top="-5"  />
+
+                                --><!--<TextBox x:Name="txtBirthName" MaxLength="40" Canvas.Left="300" FontFamily="Verdana" Style="{StaticResource MOperationTextBox}" Text="{Binding MOperationBirth.BirthName,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   />--><!--
+
+                                <TextBox x:Name="txtOthers55" MaxLength="40" Canvas.Left="300" FontFamily="Verdana" Style="{StaticResource MOperationTextBox}" Text="{Binding MOperationBirth.FacilityName,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   />
+
+
+
+                            </Canvas>-->
+
+
+                            <Canvas Grid.Row="2" Grid.Column="1" >
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Berth Name / Number"   Style="{StaticResource LableText1}" />
+                                <Label Height="20" Content="*" FontFamily="Verdana" Foreground="Red" FontSize="16" Canvas.Left="140" Canvas.Top="-5"  />
+                                <TextBox x:Name="txtBirthName" MaxLength="40" Canvas.Left="300" FontFamily="Verdana" Style="{StaticResource MOperationTextBox}" Text="{Binding MOperationBirth.BirthName,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   />
+
+
+
+                            </Canvas>
+
+                            <Canvas Grid.Row="3" Grid.Column="1">
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Berth Type"   Style="{StaticResource LableText1}" />
+                                <Label Height="20" Content="*" FontFamily="Verdana" Foreground="Red" FontSize="16" Canvas.Left="65" Canvas.Top="-5"  />
+                                <ComboBox x:Name="cbBirthType" Canvas.Left="300"  Width="200" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center"  SelectedItem="{Binding BirthTypeS,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay }"
+                                               
+                                     Text="Select" DropDownClosed="CbBirthType_DropDownClosed" >
+                                    <ComboBoxItem>Dolphin</ComboBoxItem>
+                                    <ComboBoxItem>Straight</ComboBoxItem>
+                                    <ComboBoxItem>Wooden</ComboBoxItem>
+                                    <ComboBoxItem>CBM</ComboBoxItem>
+                                    <ComboBoxItem>SBM / SPM</ComboBoxItem>
+                                    <ComboBoxItem>Tandem mooring to F(P)SO</ComboBoxItem>
+                                    <ComboBoxItem>Double-banking at Berth</ComboBoxItem>
+                                    <ComboBoxItem>STS (incldung reverse STS)</ComboBoxItem>
+                                    <ComboBoxItem>DP Operations</ComboBoxItem>
+                                    <ComboBoxItem>Anchorage</ComboBoxItem>
+                                </ComboBox>
+
+                            </Canvas>
+
+                            <Canvas Grid.Row="4" Grid.Column="1">
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Type of Mooring"   Style="{StaticResource LableText1}" />
+                                <Label Height="20" Content="*" FontFamily="Verdana" Foreground="Red" FontSize="16" Canvas.Left="103" Canvas.Top="-5"  />
+                                <ComboBox x:Name="MooringType" Canvas.Left="300"  Width="200" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center"  
+                                               
+                                   SelectedItem="{Binding MooringTypeS ,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay }"   Text="Select" DropDownClosed="MooringType_DropDownClosed">
+                                    <ComboBoxItem>Sheltered berth</ComboBoxItem>
+                                    <ComboBoxItem>Open to Sea berth</ComboBoxItem>
+                                    <ComboBoxItem>River Channel berth</ComboBoxItem>
+                                    <ComboBoxItem>At Sea - Drifting</ComboBoxItem>
+                                    <ComboBoxItem>At Sea - Manoeuvring</ComboBoxItem>
+                                    <ComboBoxItem>At Anchor</ComboBoxItem>
+                                    <ComboBoxItem>CBM</ComboBoxItem>
+                                    <ComboBoxItem>SBM / SPM</ComboBoxItem>
+                                    <ComboBoxItem>Tandem mooring to F(P)SO</ComboBoxItem>
+                                </ComboBox>
+
+                            </Canvas>
+
+                            <Canvas Grid.Row="5" Grid.Column="1">
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Drafts: Arrival (mtrs)"   Style="{StaticResource LableText1}" />
+                                <Label Height="20" Content="*" FontFamily="Verdana" Foreground="Red" FontSize="16" Canvas.Left="135" Canvas.Top="-5"  />
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="300"  Text="Fwd"   Style="{StaticResource LableText1}" />
+                                <TextBox x:Name="TxtArrivalFWD" PreviewTextInput="NumberValidationTextBox" MaxLength="5"  Canvas.Left="340" FontFamily="Verdana" FontSize="13" Width="50" Height="25" Text="{Binding MOperationBirth.DraftArrivalFWD,UpdateSourceTrigger=LostFocus,Mode=TwoWay}" TextChanged="TxtArrivalFWD_TextChanged"   />
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="420"  Text="Aft"   Style="{StaticResource LableText1}" />
+                                <TextBox x:Name="TxtArrivalAFT" PreviewTextInput="NumberValidationTextBox" MaxLength="5"  Canvas.Left="450" FontFamily="Verdana" FontSize="13" Width="50" Height="25" Text="{Binding MOperationBirth.DraftArrivalAFT,UpdateSourceTrigger=LostFocus,Mode=TwoWay}" TextChanged="TxtArrivalAFT_TextChanged"  />
+                            </Canvas>
+
+                            <Canvas Grid.Row="6" Grid.Column="1">
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Drafts: Departure (mtrs)"   Style="{StaticResource LableText1}" />
+                                <Label Height="20" Content="*" FontFamily="Verdana" Foreground="Red" FontSize="16" Canvas.Left="160" Canvas.Top="-5"  />
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="300"  Text="Fwd"   Style="{StaticResource LableText1}" />
+                                <TextBox x:Name="TxtDepartureFWD" PreviewTextInput="NumberValidationTextBox" MaxLength="5" Canvas.Left="340" FontFamily="Verdana" FontSize="13" Width="50" Height="25" Text="{Binding MOperationBirth.DraftDepartureFWD,UpdateSourceTrigger=LostFocus,Mode=TwoWay}" TextChanged="TxtDepartureFWD_TextChanged" />
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="420"  Text="Aft"   Style="{StaticResource LableText1}" />
+                                <TextBox x:Name="TxtDepartureAFT" PreviewTextInput="NumberValidationTextBox" MaxLength="5"  Canvas.Left="450" FontFamily="Verdana" FontSize="13" Width="50" Height="25" Text="{Binding MOperationBirth.DraftDepartureAFT,UpdateSourceTrigger=LostFocus,Mode=TwoWay}" TextChanged="TxtDepartureAFT_TextChanged"  />
+                            </Canvas>
+
+                            <Canvas Grid.Row="7" Grid.Column="1">
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Depth at Berth (mtrs)"   Style="{StaticResource LableText1}" />
+                                <Label Height="20" Content="*" FontFamily="Verdana" Foreground="Red" FontSize="16" Canvas.Left="140" Canvas.Top="-5"  />
+                                <!--<TextBlock HorizontalAlignment="Center" Canvas.Left="300"  Text="Fwd"   Style="{StaticResource LableText1}" />-->
+                                <TextBox x:Name="TxtDepthAtBerth" PreviewTextInput="NumberValidationTextBox" MaxLength="6" Canvas.Left="300" FontFamily="Verdana" Style="{StaticResource MOperationTextBox}" Text="{Binding MOperationBirth.DepthAtBerth,UpdateSourceTrigger=LostFocus,Mode=TwoWay}" TextChanged="TxtDepthAtBerth_TextChanged" LostFocus="TxtDepthAtBerth_LostFocus"  />
+
+                            </Canvas>
+
+                            <Canvas Grid.Row="8" Grid.Column="1">
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Berthing side"   Style="{StaticResource LableText1}" />
+                                <Label Height="20" Content="*" FontFamily="Verdana" Foreground="Red" FontSize="16" Canvas.Left="85" Canvas.Top="-5"  />
+                                <ComboBox x:Name="BearthSide" Canvas.Left="300"  Width="200" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center"  
+                                               
+                                    SelectedItem="{Binding BerthSideS, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  Text="Select" DropDownClosed="BearthSide_DropDownClosed">
+                                    <ComboBoxItem>Port</ComboBoxItem>
+                                    <ComboBoxItem>Stbd</ComboBoxItem>
+                                </ComboBox>
+
+                            </Canvas>
+
+                            <Canvas Grid.Row="9" Grid.Column="1">
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Vessel condition"   Style="{StaticResource LableText1}" />
+                                <Label Height="20" Content="*" FontFamily="Verdana" Foreground="Red" FontSize="16" Canvas.Left="105" Canvas.Top="-5"  />
+                                <ComboBox x:Name="CBVesselCondition" Canvas.Left="300"  Width="200" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center"  
+                                               
+                                      Text="Select" DropDownClosed="CBVesselCondition_DropDownClosed">
+                                    <ComboBoxItem>Loading</ComboBoxItem>
+                                    <ComboBoxItem>Discharging</ComboBoxItem>
+                                    <ComboBoxItem>Lay-by</ComboBoxItem>
+                                    <ComboBoxItem>Bunkering</ComboBoxItem>
+                                </ComboBox>
+
+                            </Canvas>
+
+                            <Canvas Grid.Row="10" Grid.Column="1">
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Ship access"   Style="{StaticResource LableText1}" />
+                                <Label Height="20" Content="*" FontFamily="Verdana" Foreground="Red" FontSize="16" Canvas.Left="75" Canvas.Top="-5"  />
+                                <ComboBox x:Name="CBShipAccess" Canvas.Left="300"  Width="200" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center"  
+                                               
+                                      Text="Select" DropDownClosed="CBShipAccess_DropDownClosed">
+                                    <ComboBoxItem>Ship's Gangway</ComboBoxItem>
+                                    <ComboBoxItem>MOT</ComboBoxItem>
+                                    <ComboBoxItem>Shore Ladder</ComboBoxItem>
+                                </ComboBox>
+
+                            </Canvas>
+
+                            <Canvas Grid.Row="11" Grid.Column="1">
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Range of Tide (mtrs)"   Style="{StaticResource LableText1}" />
+                                <Label Height="20" Content="*" FontFamily="Verdana" Foreground="Red" FontSize="16" Canvas.Left="135" Canvas.Top="-5"  />
+                                <!--<TextBlock HorizontalAlignment="Center" Canvas.Left="300"  Text="Fwd"   Style="{StaticResource LableText1}" />-->
+                                <TextBox x:Name="TxtRangeTide" PreviewTextInput="NumberValidationTextBox" MaxLength="5" Canvas.Left="300" FontFamily="Verdana" FontSize="13" Width="200" Height="25" Text="{Binding MOperationBirth.RangOfTide,UpdateSourceTrigger=LostFocus,Mode=TwoWay}" TextChanged="TxtRangeTide_TextChanged"  />
+
+                            </Canvas>
+
+                            <Canvas Grid.Row="12" Grid.Column="1">
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Avg Wind direction (relative to bow)"   Style="{StaticResource LableText1}" />
+                                <Label Height="20" Content="*" FontFamily="Verdana" Foreground="Red" FontSize="16" Canvas.Left="230" Canvas.Top="-5"  />
+                                <ComboBox x:Name="CbWindDirection" Canvas.Left="300" Height="25" Padding="10,0,0,0" Width="200" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center"  
+                                               
+                                      Text="Select" DropDownClosed="CbWindDirection_DropDownClosed" >
+                                    <ComboBoxItem Padding="10,0,0,0">1</ComboBoxItem>
+                                    <ComboBoxItem Padding="10,0,0,0">2</ComboBoxItem>
+                                    <ComboBoxItem Padding="10,0,0,0">3</ComboBoxItem>
+                                    <ComboBoxItem Padding="10,0,0,0">4</ComboBoxItem>
+                                    <ComboBoxItem Padding="10,0,0,0">5</ComboBoxItem>
+                                    <ComboBoxItem Padding="10,0,0,0">6</ComboBoxItem>
+                                    <ComboBoxItem Padding="10,0,0,0">7</ComboBoxItem>
+                                </ComboBox>
+                                <TextBlock HorizontalAlignment="Center" Canvas.Right="220"  Text="Avg Wind direction >>"   Style="{StaticResource LableText1}" />
+                                <Image Canvas.Right="100" Canvas.Top="-100" Source="/WorkShipVersionII;component/Images/Wind1.png" MaxWidth="100" MaxHeight="200" />
+                            </Canvas>
+
+                            <Canvas Grid.Row="13" Grid.Column="1">
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Avg Wind speed (Kts)"   Style="{StaticResource LableText1}" />
+                                <Label Height="20" Content="*" FontFamily="Verdana" Foreground="Red" FontSize="16" Canvas.Left="140" Canvas.Top="-5"  />
+                                <!--<TextBlock HorizontalAlignment="Center" Canvas.Left="300"  Text="Fwd"   Style="{StaticResource LableText1}" />-->
+                                <TextBox x:Name="txtWindSpeed" PreviewTextInput="NumberValidationTextBox" MaxLength="2" Canvas.Left="300" FontFamily="Verdana" Style="{StaticResource MOperationTextBox}" Text="{Binding MOperationBirth.WindSpeed,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   />
+
+                            </Canvas>
+
+                            <Canvas Grid.Row="14" Grid.Column="1">
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Any Squall / Gusts experienced"   Style="{StaticResource LableText1}" />
+                                <Label Height="20" Content="*" FontFamily="Verdana" Foreground="Red" FontSize="16" Canvas.Left="200" Canvas.Top="-5"  />
+                                <ComboBox x:Name="CBSquall" Canvas.Left="300"  Width="200" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center"  
+                                               
+                                      Text="Select" DropDownClosed="CBSquall_DropDownClosed">
+                                    <ComboBoxItem>Yes</ComboBoxItem>
+                                    <ComboBoxItem>No</ComboBoxItem>
+
+                                </ComboBox>
+                            </Canvas>
+
+                            <Canvas Grid.Row="15" Grid.Column="1">
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Air Temp (in Degree Centigrade)"   Style="{StaticResource LableText1}" />
+                                <Label Height="20" Content="*" FontFamily="Verdana" Foreground="Red" FontSize="16" Canvas.Left="210" Canvas.Top="-5"  />
+                                <!--<TextBlock HorizontalAlignment="Center" Canvas.Left="300"  Text="Fwd"   Style="{StaticResource LableText1}" />-->
+                                <TextBox x:Name="txtAirTemp" PreviewTextInput="NumberValidationTextBox"  MaxLength="4" Width="120" Canvas.Left="380" FontFamily="Verdana" Style="{StaticResource MOperationTextBox}" Text="{Binding MOperationBirth.AirTemperature,UpdateSourceTrigger=LostFocus,Mode=TwoWay}" TextChanged="txtAirTemp_TextChanged"  />
+
+
+                                <ComboBox x:Name="CBPosNeg" Canvas.Left="300"  Width="70" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center"  
+                                               
+                                      Text="Positive" DropDownClosed="CBPosNeg_DropDownClosed" >
+                                    <ComboBoxItem>Positive</ComboBoxItem>
+                                    <ComboBoxItem>Negative</ComboBoxItem>
+
+                                </ComboBox>
+                            </Canvas>
+
+                            <Canvas Grid.Row="16" Grid.Column="1">
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Current speed (Kts)"   Style="{StaticResource LableText1}" />
+                                <Label Height="20" Content="*" FontFamily="Verdana" Foreground="Red" FontSize="16" Canvas.Left="130" Canvas.Top="-5"  />
+                                <!--<TextBlock HorizontalAlignment="Center" Canvas.Left="300"  Text="Fwd"   Style="{StaticResource LableText1}" />-->
+                                <TextBox x:Name="TxtCurrentSpeed" PreviewTextInput="NumberValidationTextBox" MaxLength="4" Canvas.Left="300" FontFamily="Verdana" Style="{StaticResource MOperationTextBox}" Text="{Binding MOperationBirth.CurrentSpeed,UpdateSourceTrigger=LostFocus,Mode=TwoWay}" TextChanged="TxtCurrentSpeed_TextChanged"  />
+
+                            </Canvas>
+
+                            <Canvas Grid.Row="17" Grid.Column="1">
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Berth exposed to Sea Swell"   Style="{StaticResource LableText1}" />
+                                <Label Height="20" Content="*" FontFamily="Verdana" Foreground="Red" FontSize="16" Canvas.Left="178" Canvas.Top="-5"  />
+                                <ComboBox x:Name="CBberthExposed" Canvas.Left="300"  Width="200" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center"  
+                                               
+                                      Text="Select" DropDownClosed="CBberthExposed_DropDownClosed">
+                                    <ComboBoxItem>Yes</ComboBoxItem>
+                                    <ComboBoxItem>No</ComboBoxItem>
+
+                                </ComboBox>
+                            </Canvas>
+
+                            <Canvas Grid.Row="18" Grid.Column="1">
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Surging observed"   Style="{StaticResource LableText1}" />
+                                <Label Height="20" Content="*" FontFamily="Verdana" Foreground="Red" FontSize="16" Canvas.Left="110" Canvas.Top="-5"  />
+                                <ComboBox x:Name="CBSurging" Canvas.Left="300"  Width="200" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center"  
+                                               
+                                      Text="Select" DropDownClosed="CBSurging_DropDownClosed">
+                                    <ComboBoxItem>Yes</ComboBoxItem>
+                                    <ComboBoxItem>No</ComboBoxItem>
+
+                                </ComboBox>
+                            </Canvas>
+
+                            <Canvas Grid.Row="19" Grid.Column="1">
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Any affect of passing traffic?"   Style="{StaticResource LableText1}" />
+                                <Label Height="20" Content="*" FontFamily="Verdana" Foreground="Red" FontSize="16" Canvas.Left="188" Canvas.Top="-5"  />
+                                <ComboBox x:Name="CBAnyAffect" Canvas.Left="300"  Width="200" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center"  
+                                               
+                                      Text="Select" DropDownClosed="CBAnyAffect_DropDownClosed">
+
+                                    <ComboBoxItem>No</ComboBoxItem>
+                                    <ComboBoxItem>Yes</ComboBoxItem>
+
+                                </ComboBox>
+                            </Canvas>
+
+                            <Canvas Grid.Row="20" Grid.Column="1">
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Ship was continuously in contact with fender"   Style="{StaticResource LableText1}" />
+                                <Label Height="20" Content="*" FontFamily="Verdana" Foreground="Red" FontSize="16" Canvas.Left="285" Canvas.Top="-5"  />
+                                <ComboBox x:Name="CBShipWasContact" Canvas.Left="300"  Width="200" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center"  
+                                               
+                                      Text="Select" DropDownClosed="CBShipWasContact_DropDownClosed">
+
+                                    <ComboBoxItem>No</ComboBoxItem>
+                                    <ComboBoxItem>Yes</ComboBoxItem>
+                                </ComboBox>
+                            </Canvas>
+
+
+                            <TextBlock HorizontalAlignment="Left" Grid.Row="21" Grid.Column="1" Text="ENTER PORT DETAILS  >>"  FontWeight="Bold" Style="{StaticResource HeaderText1}" />
+
+                            <Canvas Grid.Row="22" Grid.Column="1">
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Master's Notes for this Port Call"   Style="{StaticResource LableText1}" />
+
+
+                                <TextBox x:Name="txtPortDetails" TextWrapping="Wrap" Height="55" VerticalScrollBarVisibility="Visible"   MaxLength="500" Canvas.Left="300" FontFamily="Verdana" Style="{StaticResource MOperationTextBox}" Text="{Binding MOperationBirth.PortDetails,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   />
+                            </Canvas>
+
+                            <Canvas Grid.Row="24" Grid.Column="1">
+                                <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Was any line damaged ?"   Style="{StaticResource LableText1}" />
+                                <ComboBox x:Name="DamagedCombo" Canvas.Left="300"  Width="200" SelectedIndex="0" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center"  
+                                               
+                                      Text="No" DropDownClosed="DamagedCombo_DropDownClosed" >
+
+                                    <ComboBoxItem >No</ComboBoxItem>
+                                    <ComboBoxItem>Yes</ComboBoxItem>
+                                </ComboBox>
+                            </Canvas>
+
+                            <Canvas Grid.Row="25" Grid.Column="1" HorizontalAlignment="Center" >
+
+                                <Button x:Name="btnSaveAll" IsEnabled="{Binding SaveEnable}"  Command="{Binding ElementName=WorkHoursContent,Path=DataContext.NavCommand}" CommandParameter="MooringOperationListing"  Width="65" Canvas.Left="-50" Style="{StaticResource HeaderButton1}" Canvas.Top="4" >
+                                    <TextBlock Name="lblSave"  Style="{StaticResource HeaderText1}"  HorizontalAlignment="Center" Text=" Save "/>
+
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Click">
+                                            <i:InvokeCommandAction Command="{Binding SaveCommand}" CommandParameter="{Binding}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+
+
+                                </Button>
+                                <Button x:Name="btnGOback"  Command="{Binding ElementName=WorkHoursContent,Path=DataContext.NavCommand}" CommandParameter="MooringOperationListing"  Width="100" Canvas.Left="-170" Style="{StaticResource HeaderButton1}" Canvas.Top="4" >
+                                    <TextBlock   Style="{StaticResource HeaderText1}"  HorizontalAlignment="Center" Text=" Back To List "/>
+
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Click">
+                                            <i:InvokeCommandAction Command="{Binding GoBackCommand}" CommandParameter="{Binding}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+
+                                </Button>
+
+
+                            </Canvas>
+
+                        </Grid>
+
+
+
+                    </ScrollViewer>
+
+
+
+
+                </Grid>
+
+
+
+
+
+
+            </Grid>
+
+
+        </ScrollViewer>
+    </Grid>
+</UserControl>

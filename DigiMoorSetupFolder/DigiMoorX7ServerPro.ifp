@@ -1,0 +1,353 @@
+﻿
+[Header]
+ProjectFileVersion = 1.1
+[General]
+Program name = DigiMoorX7Server
+Program version = 1.1.2
+Windows 2000 = 0
+Windows XP = 1
+Windows Server 2003 = 1
+Windows Vista = 1
+Windows Server 2008 = 1
+Windows 7 = 1
+Windows 8 = 1
+Windows 10 = 1
+Windows Server 2016 = 1
+DoNotCheckOS = 0
+Company name = Aqua 49 WebStreet Technologies Pvt Ltd
+Website = https://mooringplan.com/
+SFA = 1
+DFA = 1
+Comp = 1
+[Graphics]
+Wizard image = C:\Program Files (x86)\solicus\InstallForge\images\Wizard_2.bmp
+Header image = C:\Program Files (x86)\solicus\InstallForge\images\Header_2.bmp
+Show Label = 1
+VisualStylesEnabled = 1
+[Files]
+Installation path = <ProgramFiles>\<AppName>\
+Autcip = 1
+[Uninstall]
+Vwau = 1
+Website = https://mooringplan.com/
+Include uninstaller = 1
+Uninstaller filename = Uninstall DigiMoorX7Server
+UseCustomDisplayIcon = 1
+CustomDisplayIcon = <InstallPath>\Images\DMX7logo.ico
+[Licence]
+Licence dialog = 1
+[Finish]
+Sart program = 1
+Reboot computer = 0
+Program = <InstallPath>\WorkShipVersionII.exe
+ProgramArguments = 
+[Shortcuts]
+Allowtc = 1
+Shortcut path = <Company>\<AppName>\
+[Serialoptions]
+Allows = 0
+Number = 1000
+Mask = #####-#####-#####-#####
+[SplashScreen]
+Image = 
+Sound = 
+Time = 2
+PlaySound = 0
+Allow = 0
+[Build]
+File = D:\9june2021\K-LINE\DigiMoor Server\DigiMoorSetupFolder\DigiMoorX7Server.exe
+SetupIconPath = C:\Program Files (x86)\solicus\InstallForge\icons\ancient.ico
+UninstallIconPath = C:\Program Files (x86)\solicus\InstallForge\icons\modern.ico
+CompressionMethod = 0
+CompressionLevel = 2
+[Updater]
+Allow = 0
+1 = <AppName>
+2 = <AppVersion>
+3 = http://
+4 = http://
+5 = http://
+6 = Update
+Language = 0
+RunProg = 
+RunProgs = 0
+Execdlls = 0
+[Languages]
+[Files/Dirs]
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\HtmlRenderer.pdb
+481.5 KB
+pdb
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\RDLCReportRunner.dll
+9 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\PdfSharp.Charting.dll
+92 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\PdfSharp.dll
+568 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\Microsoft.Expression.Interactions.dll
+105.6 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\Microsoft.ReportViewer.WebForms.dll
+2 MB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\Microsoft.ReportViewer.WebForms.xml
+132.1 KB
+xml
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\WorkshipManual - Copy
+N/A
+[Folder]
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\DataBuildingLayer.dll
+492.5 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\DataBuildingLayer.pdb
+783.5 KB
+pdb
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\WorkShipVersionII.exe
+3 MB
+exe
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\WorkShipVersionII.pdb
+3 MB
+pdb
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\WorkShipVersionII.exe.config
+4 KB
+config
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\banner-119803.jpg
+7.5 KB
+jpg
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\EnvDTE.dll
+255.6 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\Microsoft.MSXML.dll
+68 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\Microsoft.VisualStudio.OLE.Interop.dll
+116 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\Microsoft.VisualStudio.Shell.Interop.8.0.dll
+168 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\Microsoft.VisualStudio.Shell.Interop.dll
+259.8 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\Microsoft.VisualStudio.TextManager.Interop.8.0.dll
+56 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\Microsoft.VisualStudio.TextManager.Interop.dll
+112 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\stdole.dll
+31.6 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\digimoorlogo3224.png
+3.5 KB
+png
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\digimoorlogo8465.png
+3.5 KB
+png
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\Moorscript.sql
+340.3 KB
+sql
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\DigiMoorX7_MSMPR_PDF_16-Apr-2020_12_11_32.pdf
+18.4 KB
+pdf
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\LicenseDoc.rtf
+49.6 KB
+rtf
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\MOORING ROPES INSPECTION GUIDE.pdf
+1.4 MB
+pdf
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\itextsharp.xmlworker.dll
+166 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\itextsharp.dll
+3.9 MB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\itextsharp.xml
+3 MB
+xml
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\EntityFramework.SqlServer.dll
+579.4 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\EntityFramework.SqlServer.xml
+159.4 KB
+xml
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\EntityFramework.dll
+4.8 MB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\EntityFramework.xml
+3.5 MB
+xml
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\Newtonsoft.Json.xml
+584.6 KB
+xml
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\WorkShipVersionII.vshost.exe.config
+3.6 KB
+config
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\WorkShipVersionII.vshost.exe.manifest
+490 Byte
+manifest
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\WPFToolkit.Extended.dll
+391 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\shipment.sdf
+1.1 MB
+sdf
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\EntityFramework.SqlServerCompact.xml
+66 KB
+xml
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\alarm.wav
+23.5 KB
+wav
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\GalaSoft.MvvmLight.dll
+29.5 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\GalaSoft.MvvmLight.Extras.dll
+21 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\GalaSoft.MvvmLight.Extras.pdb
+35.5 KB
+pdb
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\GalaSoft.MvvmLight.Extras.xml
+26.7 KB
+xml
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\GalaSoft.MvvmLight.pdb
+93.5 KB
+pdb
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\GalaSoft.MvvmLight.Platform.dll
+13.5 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\GalaSoft.MvvmLight.Platform.pdb
+31.5 KB
+pdb
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\GalaSoft.MvvmLight.Platform.xml
+20.7 KB
+xml
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\GalaSoft.MvvmLight.xml
+106.3 KB
+xml
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\System.Windows.Interactivity.dll
+54.6 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\Microsoft.SqlServer.Types.dll
+382.7 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\System.Data.SqlServerCe.dll
+459.2 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\Microsoft.ReportViewer.Common.dll
+8.9 MB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\Microsoft.ReportViewer.DataVisualization.dll
+5.1 MB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\Microsoft.ReportViewer.Design.dll
+91.2 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\Microsoft.ReportViewer.ProcessingObjectModel.dll
+114.2 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\Microsoft.ReportViewer.WinForms.dll
+610.7 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\Expression.Samples.Interactivity.dll
+52.5 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\CommonServiceLocator.dll
+9.5 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\DataBuildingLayer.dll.config
+1.6 KB
+config
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\ClosedXML.dll
+1.1 MB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\ClosedXML.pdb
+367.2 KB
+pdb
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\ClosedXML.xml
+229.6 KB
+xml
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\FastMember.dll
+23 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\ExcelNumberFormat.dll
+26.5 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\ExcelNumberFormat.xml
+4 KB
+xml
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\DocumentFormat.OpenXml.dll
+5.4 MB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\DocumentFormat.OpenXml.xml
+15.5 MB
+xml
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\System.IO.Packaging.dll
+50.7 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\System.IO.FileSystem.Primitives.dll
+22.3 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\Newtonsoft.Json.dll
+492.5 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\HtmlRenderer.PdfSharp.dll
+21 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\HtmlRenderer.PdfSharp.pdb
+69.5 KB
+pdb
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\bin\Release\HtmlRenderer.dll
+216.5 KB
+dll
+D:\9june2021\K-LINE\DigiMoor Server\WorkShipVersionII\Images
+N/A
+[Folder]
+[Licence_Begin]
+4301
+{\rtf1\fbidis\ansi\ansicpg1252\deff0\deflang16393\deflangfe16393{\fonttbl{\f0\fswiss\fprq2\fcharset0 Verdana;}{\f1\fswiss\fprq2\fcharset0 Calibri;}{\f2\fnil\fcharset2 Symbol;}}
+{\colortbl ;\red0\green0\blue0;\red0\green0\blue255;}
+\viewkind4\uc1\pard\ltrpar\nowidctlpar\lang9\b\f0\fs22 Definitions  \par
+\pard\ltrpar\nowidctlpar\qj\b0 We: Means Software Development Company - "Aqua 49Webstreet Technologies Pvt. Ltd." You: Means the User or the Vessel or the Company / Organization, Using DigiMoorX7 software, as an end-User. DigiMoorX7 Software : Means all Software products as developed, marketed or Sold by " Aqua 49Webstreet Technologies Pvt. Ltd."\par
+\f1\par
+\pard\ltrpar\nowidctlpar\b\f0 DISCLAIMER\par
+\pard\ltrpar\nowidctlpar\qj\b0 Use of DigiMoorX7 Software is at the sole risk of the Subscriber. Neither DigiMoorX7, nor the Agent, nor any lower tier data or service provider shall accept any responsibility for non supply or for disruption to the DigiMoorX7 Service or for the accuracy or reliability of the information as displayed on the Subscriber's equipment, nor damages that are caused by the DigiMoorX7 Software or services, whatsoever, and make NO warranty or representation, either express or implied, including the implied warranties of merchantability and fitness for a particular purpose, with respect to the DigiMoorX7 Software and / or services. \par
+Further more, neither Us, nor the Agent, nor any lower tier data or service provider warrant that DigiMoorX7 will meet the Subscriber's requirements or that its operation will be uninterrupted or error free. \par
+The DigiMoorX7 Software is provided "AS IS" and the Subscriber assumes the entire risk when using it. It is the responsibility of the Subscriber to ensure that the Vessel carries all relevant documents as required by International Conventions and Regulations. The information produced by the DigiMoorX7 Software is for use aboard the Vessel for which this Subscription Agreement is valid and may not be copied, sold or otherwise distributed for any other purpose.\par
+\f1\par
+\pard\ltrpar\nowidctlpar\b\f0 COPYRIGHT NOTICE\par
+\pard\ltrpar\nowidctlpar\qj\b0 The DigiMoorX7 software and all software components therein are protected by Copyright. Engaging in any of the activities listed below is strictly forbidden \par
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\ltrpar\nowidctlpar\fi-360\li720\qj  Distribution of any software, components or other files contained in this software package, other than as instructed by Us. \par
+{\pntext\f2\'B7\tab} Modification, de-compilation, de-cryption, disassembly, reverse engineering or translation of the Software. \par
+{\pntext\f2\'B7\tab} Removal of Proprietary Notices, labels or marks from the Software or Software Documentation. \par
+{\pntext\f2\'B7\tab} Inclusion of this Software, or any component, within any other Software or a Development environment. \par
+\pard\ltrpar\nowidctlpar\li360\qj\f1\par
+\pard\ltrpar\nowidctlpar\cf1\b\f0 TERMS OF USE - DigiMoorX7 Software\par
+\pard\ltrpar\b0 By accessing and Using DigiMoorX7 software, you shall be deemed to have accepted the below Terms and Conditions in force from time to time and located at \cf2\ul http://DigiMoorX7.com/terms-of-Use\cf1\ulnone  \par
+In case you do not accept these terms and conditions in full, you must not access DigiMoorX7 Software and inform Us. \par
+Unless otherwise stated, the copyright and all other intellectual property rights in DigiMoorX7 Software, including without limitation data, photographs and graphical images, incorporated or Used in concomitance with the DigiMoorX7 software are owned by Us. The copyright and all other intellectual property rights in the DigiMoorX7 software are owned by Us. Any access and use of Data extracted from DigiMoorX7 Software other than in accordance with DigiMoorX7 Terms and Conditions is strictly prohibited.\par
+Any external third party website or other links/mention are provided solely for your convenience. We have not reveiwed all of these and do not control and is not responsible for these websites or their content or availability. If you decide to access any of these links/mention you do entirely at your own risk.\par
+\pard\ltrpar\nowidctlpar\sa200\sl276\slmult1\cf0\f1\par
+}
+ [Licence_End]
+[Registry]
+[Variables]
+[SCs]
+Desktop
+DigiMoorX7Server
+<InstallPath>\WorkShipVersionII.exe
+
+<InstallPath>\Images\DMX7logo.ico
+0
+Startmenu
+DigiMoorX7Server
+<InstallPath>\WorkShipVersionII.exe
+
+<InstallPath>\Images\DMX7logo.ico
+0
+[IFP_End]
+[Serials]
+[Serials_End]
+[Commands]

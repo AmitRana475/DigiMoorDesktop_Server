@@ -6,12 +6,11 @@
         xmlns:vm="clr-namespace:WorkShipVersionII.LoginViewModel"
         xmlns:views="clr-namespace:WorkShipVersionII.LoginView"
         mc:Ignorable="d"
-        Title="Work-Ship"
-         d:DesignHeight="889"
-         d:DesignWidth="1365"
-         Background="WhiteSmoke"
-         WindowState="Maximized"
-        WindowStyle="ThreeDBorderWindow"  Icon="Images\softwareicon.ico" FontSize="12" WindowStartupLocation="CenterScreen">
+        Title="DigiMoor X7 Server"       
+         Background="WhiteSmoke"        
+      WindowState="Maximized"
+        ResizeMode="CanResize"
+        WindowStyle="ThreeDBorderWindow"  Icon="Images\DMX7logo.ico" FontSize="12" WindowStartupLocation="CenterScreen">
 
     <Window.DataContext>
         <vm:LoginMainViewModel/>

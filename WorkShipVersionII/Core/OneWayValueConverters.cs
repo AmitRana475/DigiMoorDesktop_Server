@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace WorkShipVersionII.Core
 {
-    public abstract class OneWayMultiValueConverter : IMultiValueConverter
+       public abstract class OneWayMultiValueConverter : IMultiValueConverter
     {
         /// <summary>
         /// Converts a value. Used in data binding. Override this method (sealed).

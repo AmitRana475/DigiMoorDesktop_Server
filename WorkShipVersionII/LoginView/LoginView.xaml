@@ -18,7 +18,7 @@
                 </Grid.RowDefinitions>
 
                 <Grid Height="Auto" x:Name="grid1b"  DockPanel.Dock="Top"   Background="#003366" >
-                    <TextBlock  Text="WELCOME TO WORK-SHIP" Foreground="WhiteSmoke" FontFamily="Verdana" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock  Text="WELCOME TO DigiMoor-X7" Foreground="WhiteSmoke" FontFamily="Verdana" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Grid>
 
                 <Grid Grid.Row="1">
@@ -65,14 +65,14 @@
                                 <TextBlock Text="Password"  FontFamily="Verdana" FontSize="14"  Foreground="WhiteSmoke" Canvas.Top="26" Canvas.Left="73"   />
                             </Canvas>
                             <Canvas Grid.Row="1" Grid.Column="1">
-                                <TextBox x:Name="txtUserName"  Text="{Binding AdminLogin.uname,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Height="35"  VerticalContentAlignment="Center" FontSize="14" Width="242" Canvas.Top="22" Canvas.Left="2" />
-                                <TextBlock Text="{Binding AddLoginMessage.UserNameMessage,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Foreground="Red" FontFamily="Verdana" FontSize="15" Canvas.Top="63" Canvas.Left="1" />
+                                <TextBox x:Name="txtUserName"  Text="{Binding AdminLogin.uname,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Height="35"  VerticalContentAlignment="Center" FontSize="14" Width="242" Canvas.Top="22" MaxLength="20" Canvas.Left="2" />
+                                <TextBlock Text="{Binding AddLoginMessage.UserNameMessage,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  Foreground="Red" FontFamily="Verdana" FontSize="15" Canvas.Top="63" Canvas.Left="1" />
                             </Canvas>
 
                             <Canvas Grid.Row="2" Grid.Column="1">
                                 <PasswordBox x:Name="txtPassword" w:PasswordHelper.Attach="True" 
                            w:PasswordHelper.Password="{Binding AdminLogin.pswd,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                           Height="35" VerticalContentAlignment="Center" FontSize="14" Width="242" Canvas.Top="15" Canvas.Left="2" >
+                           Height="35" VerticalContentAlignment="Center" FontSize="14" Width="242" Canvas.Top="15" MaxLength="20" Canvas.Left="2" >
 
 
                                     <PasswordBox.InputBindings>
@@ -92,10 +92,12 @@
 
                             </Canvas>
 
+                           
+                                <Button Grid.Row="3" Grid.Column="1" Content="Login" Visibility="{Binding BtnVisible,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  Width="100" 
+                                    Command="{Binding LoginCommand}" CommandParameter="{Binding AdminLogin}" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{StaticResource HeaderButton1}"   />
+
                             <Canvas Grid.Row="3" Grid.ColumnSpan="2">
-                                <Button Content="Login" Visibility="{Binding BtnVisible,UpdateSourceTrigger=PropertyChanged}"  Width="100" 
-                                    Command="{Binding LoginCommand}" CommandParameter="{Binding AdminLogin}" HorizontalAlignment="Left" Style="{StaticResource HeaderButton1}"   Canvas.Top="4" Canvas.Left="227" />
-                                <TextBlock HorizontalAlignment="Center"  Text="{Binding ErrorMessage,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Foreground="Red" FontFamily="Verdana" FontSize="15" Canvas.Top="46" Canvas.Left="15" />
+                            <TextBlock HorizontalAlignment="Center"  Text="{Binding ErrorMessage,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Foreground="Red" FontFamily="Verdana" FontSize="15" Canvas.Top="46" Canvas.Left="15" />
                             </Canvas>
 
                         </Grid>
@@ -121,26 +123,27 @@
                             </Canvas>
 
                             <Canvas  Grid.Column="1" Grid.Row="0" VerticalAlignment="Center">
-                                <TextBlock Text="Work-Ship"  FontFamily="Verdana" FontSize="14"   HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="-9"/>
+                                <TextBlock Text="DigiMoor-X7"  FontFamily="Verdana" FontSize="14"   HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="-9"/>
                                 <TextBlock Text="{Binding ExpiryMessage,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  FontFamily="Verdana" FontSize="14"  Foreground="Red"  HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="-9" Canvas.Left="150"/>
                                 <TextBlock Text="{Binding RemainingMessage,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  FontFamily="Verdana" FontSize="14"  Foreground="Red"  HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="-9" Canvas.Left="377"/>
 
 
                             </Canvas>
 
-                            <Canvas  Grid.Row="1" VerticalAlignment="Center">
-                                <TextBlock Text="Licence Key"  FontFamily="Verdana" FontSize="14"   HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="-7" Canvas.Left="4"/>
-                                <Label Height="20" Content="*" Foreground="Red" FontSize="16" Canvas.Left="83" Canvas.Top="-14" />
+                            <Canvas  Grid.Row="1" VerticalAlignment="Top">
+                                <TextBlock Text="Licence Key"  FontFamily="Verdana" FontSize="14"   HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="7" Canvas.Left="4"/>
+                                <Label Height="20" Content="*" Foreground="Red" FontSize="16" Canvas.Left="83" Canvas.Top="-7" />
                             </Canvas>
 
                             <Canvas Grid.Column="1" Grid.Row="1"  >
-                                <TextBox x:Name="txt1" MaxLength="4" Text="{Binding ProductInfoValidate.Text1,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center" Width="60" Height="27"  Canvas.Left="2" Canvas.Top="16" TextChanged="Txt1_TextChanged"/>
+                                <TextBox x:Name="txtmain" Text="{Binding ProductInfoValidate.TextMain,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center" Width="510"  Height="27"  Canvas.Left="2" Canvas.Top="0" PreviewKeyDown="txtmain_PreviewKeyDown" />
+                                <!--<TextBox x:Name="txt1" MaxLength="4" Text="{Binding ProductInfoValidate.Text1,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center" Width="60" Height="27"  Canvas.Left="2" Canvas.Top="16" TextChanged="Txt1_TextChanged"/>
                                 <TextBox x:Name="txt2" MaxLength="4" Text="{Binding ProductInfoValidate.Text2,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center" Width="60" Height="27" Canvas.Left="72" Canvas.Top="16"  TextChanged="Txt2_TextChanged"/>
                                 <TextBox x:Name="txt3" MaxLength="4" Text="{Binding ProductInfoValidate.Text3,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center" Width="60" Height="27" Canvas.Left="144" Canvas.Top="16"  TextChanged="Txt3_TextChanged"/>
                                 <TextBox x:Name="txt4" MaxLength="4" Text="{Binding ProductInfoValidate.Text4,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center" Width="60" Height="27" Canvas.Left="217" Canvas.Top="16"   TextChanged="Txt4_TextChanged"/>
-                                <TextBox x:Name="txt5" MaxLength="4" Text="{Binding ProductInfoValidate.Text5,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center" Width="60" Height="27" Canvas.Left="291" Canvas.Top="16"  TextChanged="Txt5_TextChanged"/>
+                                <TextBox x:Name="txt5" MaxLength="4" Text="{Binding ProductInfoValidate.Text5,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center" Width="60" Height="27" Canvas.Left="291" Canvas.Top="16"  TextChanged="Txt5_TextChanged"/>-->
 
-                                <Button x:Name="btnEvalidity" Content="Validate"  HorizontalAlignment="Right" Command="{Binding ValidateCommand}" CommandParameter="{Binding ProductInfoValidate }" VerticalAlignment="Top" Style="{StaticResource HeaderButton1}" Width="78" Canvas.Left="373" Canvas.Top="13"  />
+                                <Button x:Name="btnEvalidity" Content="Validate"  HorizontalAlignment="Right" Command="{Binding ValidateCommand}" CommandParameter="{Binding ProductInfoValidate }" VerticalAlignment="Top" Style="{StaticResource HeaderButton1}" Width="78" Canvas.Left="230" Canvas.Top="35"  />
 
                             </Canvas>
 

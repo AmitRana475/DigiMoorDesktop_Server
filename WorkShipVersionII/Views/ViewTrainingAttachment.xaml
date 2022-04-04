@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="WorkShipVersionII.Views.ViewTrainingAttachment"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+               xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WorkShipVersionII.WorkHoursView"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+             mc:Ignorable="d" 
+              Margin="60,0,0,0"
+             Height="350" Width="780" Background="WhiteSmoke"  VerticalAlignment="Top">
+
+    <ScrollViewer>
+        <Grid >
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+
+            </Grid.RowDefinitions>
+
+            <UniformGrid Grid.Row="0" MinHeight="31" Margin="0,0,0,5" x:Name="AddCrewUniformGrid" Columns="1">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="85*"/>
+                        <ColumnDefinition Width="15*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--<TextBlock Grid.Column="1"  HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="Blue" FontFamily="Verdana" FontSize="14"  Text="Help" Padding="0,0,10,0"   />-->
+                </Grid>
+            </UniformGrid>
+
+            <!--<TextBlock Style="{StaticResource HeaderText1}" TextAlignment="Center" Foreground="Blue" Background="Azure" FontWeight="Bold" Text="ASSIGN ROPE TO WINCH"></TextBlock>-->
+
+           
+            <Button Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Right"  VerticalAlignment="Top"   Click="Button_Click" >
+                <StackPanel>
+                    <Image Height="22" Width="22"   Source="/WorkShipVersionII;component/Images/closebtnRed.png" />
+                </StackPanel>
+            </Button>
+        </Grid>
+    </ScrollViewer>
+</UserControl>
+

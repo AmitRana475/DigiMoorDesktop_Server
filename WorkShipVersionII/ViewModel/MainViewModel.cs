@@ -6,21 +6,32 @@ using System;
 using System.Linq;
 using System.Windows;
 using DataBuildingLayer;
+using System.Windows.Threading;
+using WorkShipVersionII.WorkHoursViewModel;
+using System.Collections.ObjectModel;
+using System.Windows.Data;
+using WorkShipVersionII.ViewModelAdministration;
 
 namespace WorkShipVersionII.ViewModel
 {
 
        public class MainViewModel : ViewModelBase
        {
+
+
               private ViewModelBase _currentViewModel;
 
-              readonly static NotificationViewModel _notificationViewModel = new NotificationViewModel();
+              //readonly static NotificationViewModel _notificationViewModel = new NotificationViewModel();
+              readonly static NotificationsViewModel _notificationsViewModel = new NotificationsViewModel();
               readonly static CrewManagementViewModel _crewManagementViewModel = new CrewManagementViewModel();
               readonly static WorkRestHoursViewModel _workRestHoursViewModel = new WorkRestHoursViewModel();
-              readonly static ReportsViewModel _reportsViewModel = new ReportsViewModel();
+              //readonly static ReportsViewModel _reportsViewModel = new ReportsViewModel();
               readonly static AdministrationViewModel _administrationViewModel = new AdministrationViewModel();
-              readonly static CertificationViewModel _certificationViewModel = new CertificationViewModel();
+              // readonly static CertificationViewModel _certificationViewModel = new CertificationViewModel();
+              readonly static TrainingAttachmentViewModell _trainingAttViewModel = new TrainingAttachmentViewModell();
+              readonly static MooringCalculatorViewModel _mooringCalculatorViewModel = new MooringCalculatorViewModel();
 
+              BackupViewModel ss = new BackupViewModel();
 
               //readonly static WorkHoursCalenderViewModel _workHoursCalenderViewModel = new WorkHoursCalenderViewModel();
 
@@ -42,7 +53,7 @@ namespace WorkShipVersionII.ViewModel
 
 
 
-
+              public ICommand HelpCommand { get; private set; }
               public ICommand NotificationCommand { get; private set; }
               public ICommand CrewManagementCommand { get; private set; }
               public ICommand WorkRestHoursCommand { get; private set; }
@@ -50,6 +61,8 @@ namespace WorkShipVersionII.ViewModel
               public ICommand AdministrationCommand { get; private set; }
               public ICommand CertificationCommand { get; private set; }
               public ICommand LogoutCommand { get; private set; }
+
+              public ICommand MooringCalculatorCommand { get; private set; }
 
               //public ICommand CalenderCommand { get; private set; }
 
@@ -59,16 +72,22 @@ namespace WorkShipVersionII.ViewModel
               {
 
 
-                     //if (sc == null)
-                     //{
-                     //    sc = new AdministrationContaxt();
-                     //    sc.Configuration.ProxyCreationEnabled = false;
-                     //}
+                     DispatcherTimer timerB = new DispatcherTimer();
+                     timerB.Interval = TimeSpan.FromMinutes(3);
+                     timerB.Tick += TimerB_Tick;
+                     timerB.Start();
+
+                     DispatcherTimer timer = new DispatcherTimer();
+                     timer.Interval = TimeSpan.FromMilliseconds(800);
+                     timer.Tick += Timer_Tick;
+                     timer.Start();
 
 
+                     StaticHelper.HelpFor = @"2.1 NOTIFICATIONS.htm";
+                     HelpCommand = new RelayCommand(() => StaticHelper.HelpMethod(StaticHelper.HelpFor));
                      if (UserTypeClass.UserTypes == "HOD")
                      {
-                            new NotificationViewModel();
+                            // new NotificationViewModel();
 
                             var data = UserTypeClass.HODAccess;
                             if (data != null)
@@ -155,7 +174,9 @@ namespace WorkShipVersionII.ViewModel
                      {
                             // new NotificationViewModel();
 
-                            CurrentViewModel = MainViewModel._notificationViewModel;
+                            // CurrentViewModel = MainViewModel._notificationViewModel;
+                            // _notificationsViewModel.GetNotificationList();
+                            CurrentViewModel = _notificationsViewModel;
                             NotificationCommand = new RelayCommand(() => ExecuteNotificationCommand());
                             CrewManagementCommand = new RelayCommand(() => ExecuteCrewManagementCommand());
                             WorkRestHoursCommand = new RelayCommand(() => ExecuteWorkRestHoursCommand());
@@ -163,13 +184,56 @@ namespace WorkShipVersionII.ViewModel
                             AdministrationCommand = new RelayCommand(() => ExecuteAdministrationCommand());
                             CertificationCommand = new RelayCommand(() => ExecuteCertificationCommand());
                             LogoutCommand = new RelayCommand(() => ExcuteLogoutCommand());
+                            MooringCalculatorCommand = new RelayCommand(() => ExecuteMooringCalculatorCommand());
                             //CalenderCommand = new RelayCommand(() => ExecuteCalenderCommand());
 
-                            ShowChildwindowCommandCertificates = new RelayCommand(ShowPopupCertificates); //ChildWindows for Add Department
-                            ShowChildwindowCertificatesExportList = new RelayCommand(ShowPopupCertificatesExportList);
+
                      }
               }
 
+              int TimerOn = 0;
+              private void TimerB_Tick(object sender, EventArgs e)
+              {
+                     if (TimerOn == 0)
+                     {
+                            TimerOn = 1;
+                            ss.CreateAutoBackup();
+                           
+                     }
+
+              }
+
+              public static string colorchange;
+              public string ColorChange
+              {
+                     get
+                     {
+                            if (colorchange == null)
+                                   colorchange = "Hidden";
+                            return colorchange;
+                     }
+                     set
+                     {
+                            colorchange = value;
+                            RaisePropertyChanged("ColorChange");
+                     }
+              }
+
+              public static string colorchangeRed;
+              public string ColorChangeRed
+              {
+                     get
+                     {
+                            if (colorchangeRed == null)
+                                   colorchangeRed = "Visible";
+                            return colorchangeRed;
+                     }
+                     set
+                     {
+                            colorchangeRed = value;
+                            RaisePropertyChanged("ColorChangeRed");
+                     }
+              }
 
 
               public static CommonPropertiesDeviation _CommonDeviation;
@@ -188,226 +252,149 @@ namespace WorkShipVersionII.ViewModel
                             RaisePropertyChanged("CommonDeviation");
                      }
               }
+              public static string LoderVisibility = "Hidden";
 
-
+              public string MyLoderVisibility
+              {
+                     get { return LoderVisibility; }
+                     set
+                     {
+                            LoderVisibility = value;
+                            RaisePropertyChanged("MyLoderVisibility");
+                     }
+              }
+              private void Timer_Tick(object sender, EventArgs e)
+              {
+                     LoderVisibility = "Hidden";
+                     RaisePropertyChanged("MyLoderVisibility");
+              }
               private void ExecuteNotificationCommand()
               {
                      //if (ChildWindowManager.Instance.XmlContent == null)
                      //       CurrentViewModel = MainViewModel._notificationViewModel;
 
-                     if (StaticHelper.Editing == false)
-                     {
-
-
-                            if (ChildWindowManager.Instance.XmlContent == null)
-                            {
-                                   StaticHelper.TabButtonMenuName = "btnNotification";
-                                   CurrentViewModel = MainViewModel._notificationViewModel;
-                            }
-                     }
-                     else
-                     {
-                            if (MessageBox.Show("Do you want to leave this page without saving record?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                            {
-                                   // Yes
-                                   StaticHelper.Editing = false;
-                                   // CheckErrorMessage.CheckErrorMessages = false;
-                                   if (ChildWindowManager.Instance.XmlContent == null)
-                                   {
-                                          StaticHelper.TabButtonMenuName = "btnNotification";
-                                          CurrentViewModel = MainViewModel._notificationViewModel;
-                                   }
-                            }
-                            else
-                            {
-                                   // No
-
-                                   MainWindow.MyClickFunctionMainTabButton(StaticHelper.TabButtonMenuName);
-                            }
-                     }
-
-              }
-              private void ExecuteCrewManagementCommand()
-              {
-                     //if (ChildWindowManager.Instance.XmlContent == null)
+                     //if (StaticHelper.Editing == false)
                      //{
-                     //       StaticHelper.TabButtonMenuName = "btnCrewManagement";
-                     //       CurrentViewModel = MainViewModel._crewManagementViewModel;
-                     //}
-                     
-                     if (StaticHelper.Editing == false)
+
+
+                     if (ChildWindowManager.Instance.XmlContent == null)
                      {
-
-
-                            if (ChildWindowManager.Instance.XmlContent == null)
-                            {
-                                   StaticHelper.TabButtonMenuName = "btnCrewManagement";
-                                   CurrentViewModel = MainViewModel._crewManagementViewModel;
-                            }
+                            StaticHelper.HelpFor = @"2.1 NOTIFICATIONS.htm";
+                            StaticHelper.TabButtonMenuName = "btnNotification";
+                            //CurrentViewModel = MainViewModel._notificationViewModel;
+                            // _notificationsViewModel.refreshdata();
+                            _notificationsViewModel.GetNotificationList();
+                            CurrentViewModel = _notificationsViewModel;
                      }
-                     else
-                     {
-                            if (MessageBox.Show("Do you want to leave this page without saving record?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                            {
-                                   // Yes
-                                   StaticHelper.Editing = false;
-                                   // CheckErrorMessage.CheckErrorMessages = false;
-                                   if (ChildWindowManager.Instance.XmlContent == null)
-                                   {
-                                          StaticHelper.TabButtonMenuName = "btnCrewManagement";
-                                          CurrentViewModel = MainViewModel._crewManagementViewModel;
-                                   }
-                            }
-                            else
-                            {
-                                   // No
 
-                                   MainWindow.MyClickFunctionMainTabButton(StaticHelper.TabButtonMenuName);
-                            }
-                     }
               }
-              private void ExecuteWorkRestHoursCommand()
+              public void ExecuteCrewManagementCommand()
               {
-                     
-                     if (StaticHelper.Editing == false)
+                     LoderVisibility = "Hidden";
+                     RaisePropertyChanged("MyLoderVisibility");
+
+                     if (ChildWindowManager.Instance.XmlContent == null)
                      {
+                            StaticHelper.HelpFor = @"3.0 MOORING MANUAL.htm";
+                            StaticHelper.TabButtonMenuName = "btnCrewManagement";
+                            CurrentViewModel = MainViewModel._crewManagementViewModel;
+
+                     }
+
+              }
+              public void ExecuteWorkRestHoursCommand()
+              {
+
+                     //if (StaticHelper.Editing == false)
+                     //{
 
 
-                            if (ChildWindowManager.Instance.XmlContent == null)
-                            {
-                                   StaticHelper.TabButtonMenuName = "btnWorkRestHours";
-                                   CurrentViewModel = MainViewModel._workRestHoursViewModel;
-                            }
-                     }
-                     else
+                     if (ChildWindowManager.Instance.XmlContent == null)
                      {
-                            if (MessageBox.Show("Do you want to leave this page without saving record?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                            {
-                                   // Yes
-                                   StaticHelper.Editing = false;
-                                   // CheckErrorMessage.CheckErrorMessages = false;
-                                   if (ChildWindowManager.Instance.XmlContent == null)
-                                   {
-                                          StaticHelper.TabButtonMenuName = "btnWorkRestHours";
-                                          CurrentViewModel = MainViewModel._workRestHoursViewModel;
-                                   }
-                            }
-                            else
-                            {
-                                   // No
-                                 
-                                   MainWindow.MyClickFunctionMainTabButton(StaticHelper.TabButtonMenuName);
-                            }
+                            StaticHelper.HelpFor = @"4.1.1__MOORING_OPERATION_RECORDS.htm";
+                            StaticHelper.TabButtonMenuName = "btnWorkRestHours";
+                            CurrentViewModel = MainViewModel._workRestHoursViewModel;
+
+                            StaticHelper.Autoportname = null;
+
+                            MooringOPRListingViewModel._SDateFrom = null;
+                            MooringOPRListingViewModel._SDateTo = null;
+                            MooringOPRListingViewModel._DateFrom = null;
+                            MooringOPRListingViewModel._DateTo = null;
+
                      }
+
 
               }
               private void ExecuteReportsCommand()
               {
-                     //if (ChildWindowManager.Instance.XmlContent == null)
-                     //       CurrentViewModel = MainViewModel._reportsViewModel;
 
-                     if (StaticHelper.Editing == false)
+
+                     if (ChildWindowManager.Instance.XmlContent == null)
                      {
-
-
-                            if (ChildWindowManager.Instance.XmlContent == null)
-                            {
-                                   StaticHelper.TabButtonMenuName = "btnReports";
-                                   CurrentViewModel = MainViewModel._reportsViewModel;
-                            }
+                            StaticHelper.TabButtonMenuName = "btnReports";
+                            //CurrentViewModel = MainViewModel._reportsViewModel;
                      }
-                     else
-                     {
-                            if (MessageBox.Show("Do you want to leave this page without saving record?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                            {
-                                   // Yes
-                                   StaticHelper.Editing = false;
-                                   // CheckErrorMessage.CheckErrorMessages = false;
-                                   if (ChildWindowManager.Instance.XmlContent == null)
-                                   {
-                                          StaticHelper.TabButtonMenuName = "btnReports";
-                                          CurrentViewModel = MainViewModel._reportsViewModel;
-                                   }
-                            }
-                            else
-                            {
-                                   // No
 
-                                   MainWindow.MyClickFunctionMainTabButton(StaticHelper.TabButtonMenuName);
-                            }
+              }
+
+              private void ExecuteMooringCalculatorCommand()
+              {
+                     if (ChildWindowManager.Instance.XmlContent == null)
+                     {
+                            StaticHelper.HelpFor = @"5.0  MOORING CALCULATOR.htm";
+                            StaticHelper.TabButtonMenuName = "btnReports";
+                            CurrentViewModel = MainViewModel._mooringCalculatorViewModel;
                      }
               }
               private void ExecuteAdministrationCommand()
               {
-                     //if (ChildWindowManager.Instance.XmlContent == null)
-                     //       CurrentViewModel = MainViewModel._administrationViewModel;
 
-                     if (StaticHelper.Editing == false)
+
+                     if (ChildWindowManager.Instance.XmlContent == null)
                      {
-
-
-                            if (ChildWindowManager.Instance.XmlContent == null)
-                            {
-                                   StaticHelper.TabButtonMenuName = "btnAdministration";
-                                   CurrentViewModel = MainViewModel._administrationViewModel;
-                            }
+                            StaticHelper.HelpFor = @"6.1  IMPORT  EXPORT.htm";
+                            StaticHelper.TabButtonMenuName = "btnAdministration";
+                            CurrentViewModel = MainViewModel._administrationViewModel;
                      }
-                     else
-                     {
-                            if (MessageBox.Show("Do you want to leave this page without saving record?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                            {
-                                   // Yes
-                                   StaticHelper.Editing = false;
-                                   // CheckErrorMessage.CheckErrorMessages = false;
-                                   if (ChildWindowManager.Instance.XmlContent == null)
-                                   {
-                                          StaticHelper.TabButtonMenuName = "btnAdministration";
-                                          CurrentViewModel = MainViewModel._administrationViewModel;
-                                   }
-                            }
-                            else
-                            {
-                                   // No
 
-                                   MainWindow.MyClickFunctionMainTabButton(StaticHelper.TabButtonMenuName);
-                            }
-                     }
               }
               private void ExecuteCertificationCommand()
               {
                      //if (ChildWindowManager.Instance.XmlContent == null)
                      //       CurrentViewModel = MainViewModel._certificationViewModel;
 
-                     if (StaticHelper.Editing == false)
+                     //if (StaticHelper.Editing == false)
+                     //{
+
+
+                     if (ChildWindowManager.Instance.XmlContent == null)
                      {
-
-
-                            if (ChildWindowManager.Instance.XmlContent == null)
-                            {
-                                   StaticHelper.TabButtonMenuName = "btnCertification";
-                                   CurrentViewModel = MainViewModel._certificationViewModel;
-                            }
+                            StaticHelper.HelpFor = @"7.1_TYPES_OF_FILES_ALLOWED_TO_BE_UPLOADED_.htm";
+                            StaticHelper.TabButtonMenuName = "btnCertification";
+                            CurrentViewModel = MainViewModel._trainingAttViewModel;
                      }
-                     else
-                     {
-                            if (MessageBox.Show("Do you want to leave this page without saving record?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                            {
-                                   // Yes
-                                   StaticHelper.Editing = false;
-                                   // CheckErrorMessage.CheckErrorMessages = false;
-                                   if (ChildWindowManager.Instance.XmlContent == null)
-                                   {
-                                          StaticHelper.TabButtonMenuName = "btnCertification";
-                                          CurrentViewModel = MainViewModel._certificationViewModel;
-                                   }
-                            }
-                            else
-                            {
-                                   // No
+                     // }
+                     //else
+                     //{
+                     //       if (MessageBox.Show("Do you want to leave this page without saving record?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                     //       {
+                     //              // Yes
+                     //              StaticHelper.Editing = false;
+                     //              // CheckErrorMessage.CheckErrorMessages = false;
+                     //              if (ChildWindowManager.Instance.XmlContent == null)
+                     //              {
+                     //                     StaticHelper.TabButtonMenuName = "btnCertification";
+                     //                     CurrentViewModel = MainViewModel._certificationViewModel;
+                     //              }
+                     //       }
+                     //       else
+                     //       {
+                     //              // No
 
-                                   MainWindow.MyClickFunctionMainTabButton(StaticHelper.TabButtonMenuName);
-                            }
-                     }
+                     //              MainWindow.MyClickFunctionMainTabButton(StaticHelper.TabButtonMenuName);
+                     //       }
+                     //}
               }
 
               private void ExcuteLogoutCommand()
@@ -445,17 +432,7 @@ namespace WorkShipVersionII.ViewModel
               public RelayCommand ShowChildwindowCommandCertificates { get; }
               public RelayCommand ShowChildwindowCertificatesExportList { get; }
 
-              private void ShowPopupCertificates()
-              {
-                     AddCertificateViewModel vmc = new AddCertificateViewModel();
-                     ChildWindowManager.Instance.ShowChildWindow(new AddCertificateListView() { DataContext = vmc });
-              }
 
-              private void ShowPopupCertificatesExportList()
-              {
-                     CertificationExportListViewModel vmc = new CertificationExportListViewModel();
-                     ChildWindowManager.Instance.ShowChildWindow(new CertificationExportList() { DataContext = vmc });
-              }
 
 
 

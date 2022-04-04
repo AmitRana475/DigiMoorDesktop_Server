@@ -7,7 +7,7 @@ namespace DataBuildingLayer
     {
         void CreateLog(string modulename, string actionname, DateTime? edate);
         void ErrorLog(Exception ex);
-        void refreshmessage(CertificatesClass obj);
+      
         System.Data.DataTable LINQResultToDataTable<T>(IEnumerable<T> Linqlist);
     }
 }

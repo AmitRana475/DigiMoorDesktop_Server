@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DataBuildingLayer</RootNamespace>
     <AssemblyName>DataBuildingLayer</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -67,60 +68,107 @@
     <Compile Include="AddGroupClass.cs" />
     <Compile Include="AdministrationContaxt.cs" />
     <Compile Include="AdminLoginClass.cs" />
+    <Compile Include="AssignLooseEquipTypeClass.cs" />
+    <Compile Include="AssignModuleToWinchClass.cs" />
     <Compile Include="BackupFileClass.cs" />
-    <Compile Include="CertificateNC.cs" />
-    <Compile Include="CertificateNotificationClass.cs" />
-    <Compile Include="CertificateOrderClass.cs" />
-    <Compile Include="CertificatesClass.cs" />
+    <Compile Include="ChafeGuardClass.cs" />
+    <Compile Include="ChainStopperClass.cs" />
     <Compile Include="CommentofVSClass.cs" />
     <Compile Include="ConnectionBulder.cs" />
-    <Compile Include="CrewDetailClass.cs" />
-    <Compile Include="CrewRankClass.cs" />
-    <Compile Include="CurrencyClass.cs" />
-    <Compile Include="DefineRulesClass.cs" />
-    <Compile Include="DepartmentClass.cs" />
+    <Compile Include="CrossShiftingWinchClass.cs" />
+    <Compile Include="CurrentLoad.cs" />
+    <Compile Include="DamageobservedClass .cs" />
+    <Compile Include="DocsPages.cs" />
     <Compile Include="FreezeClass.cs" />
+    <Compile Include="GeneralP.cs" />
     <Compile Include="GroupPlannerClass.cs" />
-    <Compile Include="HoliDayGroupNameClass.cs" />
-    <Compile Include="HolidaysClass.cs" />
     <Compile Include="ILogBase.cs" />
     <Compile Include="InfoLogClass.cs" />
+    <Compile Include="InputGeneralParticulars.cs" />
+    <Compile Include="InputMooringCalculation.cs" />
+    <Compile Include="InputPrincipalParticulars.cs" />
+    <Compile Include="InputWindAndCurrentParameters.cs" />
+    <Compile Include="InputWindArea.cs" />
     <Compile Include="InternationalClass.cs" />
+    <Compile Include="IRepository.cs" />
     <Compile Include="IWkShedule.cs" />
+    <Compile Include="JoiningShackleClass.cs" />
     <Compile Include="LogbookClass.cs" />
-    <Compile Include="Migrations\201804171333550_migrations.cs" />
-    <Compile Include="Migrations\201804171333550_migrations.Designer.cs">
-      <DependentUpon>201804171333550_migrations.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="NotificationContaxt.cs" />
-    <Compile Include="OPAStartStopClass.cs" />
+    <Compile Include="LooseEDamageRecordClass.cs" />
+    <Compile Include="LooseEDisposalClass.cs" />
+    <Compile Include="LooseEquipDiscardClass.cs" />
+    <Compile Include="LooseEquipInspectionSettingClass.cs" />
+    <Compile Include="LooseETypeClass.cs" />
+    <Compile Include="MenuNameClass.cs" />
+    <Compile Include="MinimumRopeAndTailsClass.cs" />
+    <Compile Include="MODamageRopeClass.cs" />
+    <Compile Include="MooringLines.cs" />
+    <Compile Include="MooringLooseEquipInspectionClass.cs" />
+    <Compile Include="MooringRopeInspectionClass.cs" />
+    <Compile Include="MooringWinchClass.cs" />
+    <Compile Include="MooringWinchRopeClass.cs" />
+    <Compile Include="MOperationBirthDetail.cs" />
+    <Compile Include="MOUsedWinchTbl.cs" />
+    <Compile Include="MSMPMenus.cs" />
+    <Compile Include="NotificationCommentsClass.cs" />
+    <Compile Include="NotificationsClass.cs" />
+    <Compile Include="OutofserviceReasonClass.cs" />
+    <Compile Include="OutputBasicCurrentParametersClass.cs" />
+    <Compile Include="OutputBasicWindPartameters.cs" />
+    <Compile Include="OutputCurrentWindLoads.cs" />
+    <Compile Include="OutputCuurentForceCoefficients.cs" />
+    <Compile Include="OutputFinalForcesAndMoments.cs" />
+    <Compile Include="OutputMorringForcesCalculation.cs" />
+    <Compile Include="OutputWindForceCoefficients.cs" />
+    <Compile Include="OutputWindLoads.cs" />
     <Compile Include="OverTimeClass.cs" />
+    <Compile Include="PortListClass.cs" />
+    <Compile Include="PortWiseListingClass.cs" />
     <Compile Include="ProductInfoClass.cs" />
     <Compile Include="ProductKeyClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportsMataDataClass.cs" />
+    <Compile Include="Repository.cs" />
     <Compile Include="ResetPasswordClass.cs" />
+    <Compile Include="ResidualLabTestClass.cs" />
     <Compile Include="RetardtblClass.cs" />
+    <Compile Include="RevisionClass.cs" />
+    <Compile Include="RopeBasedCalculationsClass.cs" />
+    <Compile Include="RopeCroppingClass.cs" />
+    <Compile Include="RopeDamageRecordClass.cs" />
+    <Compile Include="RopeDiscardRecordClass.cs" />
+    <Compile Include="RopeDisposalClass.cs" />
+    <Compile Include="RopeEndtoEnd2Class.cs" />
+    <Compile Include="RopeEndtoEndClass.cs" />
+    <Compile Include="RopeInspectionSettingClass.cs" />
+    <Compile Include="RopeSplicingClass.cs" />
+    <Compile Include="RopeTailClass.cs" />
+    <Compile Include="RopeTailInspectionSettingClass.cs" />
+    <Compile Include="RopeTypeClass.cs" />
     <Compile Include="RuffCodeClass.cs" />
-    <Compile Include="RuleTableClass.cs" />
     <Compile Include="ShipmentContaxt.cs" />
+    <Compile Include="ShipSpecificAttachment.cs" />
+    <Compile Include="ShipSpecificContent.cs" />
+    <Compile Include="SmartMenuClass.cs" />
+    <Compile Include="TblCommonClass.cs" />
+    <Compile Include="TempMooringLine.cs" />
+    <Compile Include="TrainingAttachmentClass.cs" />
     <Compile Include="UserAccessClass.cs" />
     <Compile Include="UserTypeClass.cs" />
     <Compile Include="versionClass.cs" />
     <Compile Include="VesselClass.cs" />
-    <Compile Include="WorkHoursClass.cs" />
-    <Compile Include="WorkHoursNC.cs" />
-    <Compile Include="WorkHoursPlannerClass.cs" />
+    <Compile Include="VesselP.cs" />
+    <Compile Include="WBTestKitClass.cs" />
+    <Compile Include="WinchBrakeTestAttachmentClass.cs" />
+    <Compile Include="WinchRotationSettingClass.cs" />
+    <Compile Include="WindandCurrent.cs" />
+    <Compile Include="WindAreas.cs" />
+    <Compile Include="WindForceCoefficients.cs" />
+    <Compile Include="WindLoads.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804171333550_migrations.resx">
-      <DependentUpon>201804171333550_migrations.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

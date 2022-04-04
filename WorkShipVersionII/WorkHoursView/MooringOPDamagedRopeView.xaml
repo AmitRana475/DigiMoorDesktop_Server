@@ -1,0 +1,583 @@
+﻿<UserControl x:Class="WorkShipVersionII.WorkHoursView.MooringOPDamagedRopeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+              xmlns:vm="clr-namespace:WorkShipVersionII.WorkHoursViewModel"  
+              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:control="clr-namespace:WorkShipVersionII.Control"
+             xmlns:local="clr-namespace:WorkShipVersionII.WorkHoursView"
+             mc:Ignorable="d" 
+             Height="510" Width="680" Background="WhiteSmoke"  VerticalAlignment="Top">
+    <Grid >
+
+        <!--<GroupBox Margin="15,15,15,15" Header=" Add MooringWinchDetails " FontFamily="Verdana" FontSize="14" BorderBrush="LightGray">
+            <Canvas>
+                <TextBlock Text="MooringWinch Ship Assigned Number" Style="{StaticResource HeaderText1}" Canvas.Left="24" Canvas.Top="39" />
+
+                <TextBox x:Name="txtAssingNumber" MaxLength="50"  Text="{Binding AddMooringWinch.AssignedNumber,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Height="31" FontFamily="Verdana" FontSize="14" Width="210" VerticalAlignment="Center"  Canvas.Left="315" Canvas.Top="30"/>
+                <Label Height="20" Content="*" Foreground="Red" FontSize="16" Canvas.Left="290" Canvas.Top="35"  />
+
+                <TextBlock Text="MooringWinch Location" Style="{StaticResource HeaderText1}" Canvas.Left="24" Canvas.Top="69" />
+
+                <TextBox x:Name="txtLocation" MaxLength="51"  Text="{Binding AddMooringWinch.Location,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Height="31" FontFamily="Verdana" FontSize="14" Width="210" VerticalAlignment="Center"  Canvas.Left="315" Canvas.Top="70"/>
+                <Label Height="20" Content="*" Foreground="Red" FontSize="16" Canvas.Left="188" Canvas.Top="65"  />
+
+
+                <TextBlock  Text="{Binding DepartmentMessage, Mode=TwoWay}"  Foreground="Red" FontSize="13" Canvas.Left="139" Canvas.Top="99"  />
+
+                <Button Width="100" Height="31" Style="{StaticResource HeaderButton1}" Content="Save" Command="{Binding SaveCommand}" CommandParameter="{Binding AddMooringWinch}" Canvas.Left="158" Canvas.Top="118" />
+                <Button Width="100" Height="31" Style="{StaticResource HeaderButton1}" Content="Cancel" Command="{Binding CancelCommand}" Canvas.Left="269" Canvas.Top="118" />
+            </Canvas>
+        </GroupBox>-->
+
+        <GroupBox Visibility="{Binding GListBox1Visibility,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" x:Name="GListBox1" Margin="15,15,15,15" FontFamily="Verdana" FontSize="14" BorderBrush="LightGray">
+            <GroupBox.Header>
+                <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Damaged Line List" FontWeight="Bold"   Style="{StaticResource LableText1}" />
+            </GroupBox.Header>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="90*"/>
+                </Grid.RowDefinitions>
+                <Canvas Grid.Row="0">
+
+                    <Button Width="80" Height="31" Style="{StaticResource HeaderButton1}" Content="&lt;&lt;  Back" Command="{Binding ElementName=WorkHoursContent,Path=DataContext.NavCommand}" CommandParameter="MooringOperationListing" Canvas.Left="0"  >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding CancelCommand}" CommandParameter="{Binding }"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                    <Button x:Name="AddRopeDamage" Width="160" Height="31" Style="{StaticResource HeaderButton1}" Content="Add Damaged Line"  Canvas.Right="0" Command="{Binding AddDamageCommand}" Click="AddRopeDamage_Click"/>
+                    <TextBlock Grid.Column="1" Margin="340,10,0,0"  HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="Blue" FontFamily="Verdana" FontSize="14"   Padding="0,0,10,0"   >
+                      <Hyperlink Command="{Binding HelpCommand}" Name="Help" Foreground="#0000cc">Help</Hyperlink>
+                    </TextBlock>
+                </Canvas>
+
+                <DataGrid Grid.Row="1" x:Name="OnboardGrid"  BorderThickness="0" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" ItemsSource="{Binding LoadMooringOpBDamagedList}"
+                      GridLinesVisibility="Horizontal" SelectionUnit="FullRow"  SelectionMode="Single" CanUserAddRows="False" HeadersVisibility="Column"  BorderBrush="LightGray"  ColumnWidth="Auto" 
+                 CanUserDeleteRows="False"     AutoGenerateColumns="False"  VerticalScrollBarVisibility="Auto" VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray" >
+
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="BorderThickness" Value="0.2,0,0.2,0"/>
+                        <Setter Property="BorderBrush" Value="Gray"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background"  Value="WhiteSmoke" />
+                                <Setter Property="Foreground" Value="Black" />
+                                <Setter Property="BorderBrush" Value="Black"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.CellStyle>
+
+
+
+
+                <DataGrid.Columns >
+                    <DataGridTextColumn Binding="{Binding Path= Id,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Header="Id" Visibility="Hidden"/>
+
+                    <DataGridTextColumn  Binding="{Binding Path=CertificateNumber}" IsReadOnly="True"  Header="Certificate No." MaxWidth="190" Width="*"   >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="Margin" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn  Binding="{Binding Path=AssignedNumber}" IsReadOnly="True" Header="Assigned Winch" MaxWidth="150" Width="*">
+
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+
+                    </DataGridTextColumn>
+
+                    <!--<DataGridTextColumn  Binding="{Binding Path=AssignedLocation}" IsReadOnly="True" Header="AssignedLocation" MaxWidth="185" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>-->
+
+                    <!--<DataGridTextColumn  Binding="{Binding Path=DamageObserved}" IsReadOnly="True" Header="Damage Observed" MaxWidth="135" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>-->
+
+                        <DataGridTextColumn  Binding="{Binding Path=IncidentReport}" IsReadOnly="True" Header="Incident Report" MaxWidth="350" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                        <DataGridTextColumn  Binding="{Binding Path=IncidentActlion}" IsReadOnly="True" Header="Incident Action" MaxWidth="350" Width="*">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                    
+                    
+                    
+
+                        <!--<DataGridTextColumn  Binding="{Binding Path=MooringOperation}" IsReadOnly="True" Header="Mooring Operation" MaxWidth="150" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>-->
+
+
+
+
+                    <!--<DataGridTemplateColumn MaxWidth="60" Width="*" Header="Edit">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Width="70"  FontWeight="Normal"  FontSize="13" FontFamily="Verdana" VerticalAlignment="Center" HorizontalContentAlignment="Center">
+                                        <Hyperlink Command="{Binding ElementName=WorkHoursContent,Path=DataContext.NavCommand4}" CommandParameter="{Binding}"   Name="Edit" Foreground="#0000cc">Edit</Hyperlink>
+                                       
+                                    </Label>
+
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>-->
+
+                        <!--<DataGridTemplateColumn MaxWidth="60" Width="*" Header="View">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Width="50"  FontWeight="Normal"   FontSize="13" FontFamily="Verdana" VerticalAlignment="Center" HorizontalContentAlignment="Center">
+                                            <Hyperlink  Command="{Binding Path=DataContext.ViewCommand,RelativeSource={RelativeSource AncestorType=DataGrid}}" 
+                                        CommandParameter="{Binding}"  Name="Edit" Foreground="#0000cc">View</Hyperlink>
+                                        </Label>
+
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>-->
+                       
+                    <DataGridTemplateColumn MaxWidth="70" Width="*" Header="Delete">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Width="70"  FontWeight="Normal"  FontSize="13" FontFamily="Verdana" VerticalAlignment="Center" HorizontalContentAlignment="Center">
+                                        <Hyperlink  Name="Delete" Command="{Binding Path=DataContext.DeleteCommand,RelativeSource={RelativeSource AncestorType=DataGrid}}"  CommandParameter="{Binding}" Foreground="#0000cc">Delete</Hyperlink>
+                                    </Label>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+
+            </DataGrid>
+            </Grid>
+
+
+        </GroupBox>
+
+
+        <GroupBox x:Name="FieldBox2" Visibility="{Binding FieldBox2Visibility,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="15,15,15,15" FontFamily="Verdana" FontSize="14" BorderBrush="LightGray">
+            <GroupBox.Header>
+                <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Damaged Line" FontWeight="Bold"   Style="{StaticResource LableText1}" />
+            </GroupBox.Header>
+            <Grid Margin="20,20,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="12*"  />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="18*" />
+                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="5*" />
+
+                </Grid.RowDefinitions>
+
+
+                <Grid x:Name="DefaultGrid" Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+
+                    </Grid.RowDefinitions>
+                    <Canvas Grid.Row="0" >
+                        <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Winch on which damaged line was reeled"   Style="{StaticResource LableText1}" />
+                        <!--<ComboBox Canvas.Left="300"  Width="200" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center"  
+                                               
+                                      Text="Bind winches from DB">
+                            <ComboBoxItem>Loading</ComboBoxItem>
+                            <ComboBoxItem>Discharging</ComboBoxItem>
+                            <ComboBoxItem>Lay-by</ComboBoxItem>
+                            <ComboBoxItem>Bunkering</ComboBoxItem>
+                        </ComboBox>-->
+
+                        <ComboBox x:Name="comboAssrope" Grid.Column="2"  Grid.Row="7" Text="--Select--"   Canvas.Left="300"  Width="200" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center" DropDownClosed="comboAssrope_DropDownClosed"   ItemsSource="{Binding Path = AssignRope,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DisplayMemberPath="AssignedNumber" SelectedValue="{Binding Path = SRopeAss.Id,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" SelectedItem="{Binding Path = SRopeAss,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" VerticalContentAlignment="Center" SelectionChanged="comboAssrope_SelectionChanged"  >
+
+
+                        </ComboBox>
+                    </Canvas>
+
+                    <!--<Canvas Grid.Row="1" Grid.Column="1">
+                        <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Berth Name / Number"   Style="{StaticResource LableText1}" />
+                        <TextBox x:Name="txtRopeCertino" IsReadOnly="True" Canvas.Left="300" FontFamily="Verdana" Style="{StaticResource MOperationTextBox}" Text="{Binding MooringInspect.InspectBy,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   />
+                    </Canvas>-->
+
+                    <Canvas Grid.Row="1" >
+                        <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Damage location"   Style="{StaticResource LableText1}" />
+                        <ComboBox Name="ComboBox" Canvas.Left="300"  Width="200" IsEditable="True" IsReadOnly="True" DropDownClosed="ComboBox_DropDownClosed" HorizontalAlignment="Center"  
+                                               
+                                      Text="--Select--">
+                            <ComboBoxItem>Outboard - A</ComboBoxItem>
+                            <ComboBoxItem>Outboard - B</ComboBoxItem>
+                            <ComboBoxItem>Zone A</ComboBoxItem>
+                            <ComboBoxItem>Zone B</ComboBoxItem>
+                            <ComboBoxItem>Other</ComboBoxItem>
+                        </ComboBox>
+
+
+                    </Canvas>
+
+                    <Canvas Grid.Row="2" >
+                        <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Damage reason"   Style="{StaticResource LableText1}" />
+                        <ComboBox Name="cmbDmgReason" Canvas.Left="300" DropDownClosed="cmbDmgReason_DropDownClosed"  Width="200" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center"  
+                                               
+                                      Text="--Select--">
+                            <ComboBoxItem>Mooring arrangement design</ComboBoxItem>
+                            <ComboBoxItem>During tightening</ComboBoxItem>
+                            <ComboBoxItem>During lowering</ComboBoxItem>
+                            <ComboBoxItem>Entagled in Jetty</ComboBoxItem>
+                            <ComboBoxItem>Entangled onboard</ComboBoxItem>
+                            <ComboBoxItem>Surging</ComboBoxItem>
+                            <ComboBoxItem>High Wind</ComboBoxItem>
+                        </ComboBox>
+
+
+                    </Canvas>
+
+                    <Canvas Grid.Row="3" Grid.Column="1">
+                        <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Incident Report"   Style="{StaticResource LableText1}" />
+                        <ComboBox x:Name="CBIncident" Canvas.Left="300"  Width="200" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center"  
+                                               
+                                      Text="--Select--" DropDownClosed="CBIncident_DropDownClosed">
+                            <ComboBoxItem>Yes</ComboBoxItem>
+                            <ComboBoxItem>No</ComboBoxItem>
+
+                        </ComboBox>
+                    </Canvas>
+
+                    <Canvas Grid.Row="4" >
+                        <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Action to the line after damage"   Style="{StaticResource LableText1}" />
+                        <ComboBox x:Name="cbRopeAction" Canvas.Left="300"  Width="200" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center"  DropDownClosed="cbRopeAction_DropDownClosed"
+                                               
+                                      Text="--Select--">
+                            <ComboBoxItem>Spliced</ComboBoxItem>
+                            <ComboBoxItem>Cropped</ComboBoxItem>
+                            <ComboBoxItem>Discarded</ComboBoxItem>
+                            <ComboBoxItem>End-to-end</ComboBoxItem>
+                          
+                        </ComboBox>
+
+
+                    </Canvas>
+
+                </Grid>
+
+                <Grid x:Name="SplicedGrid" Grid.Row="2" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+
+                    </Grid.RowDefinitions>
+                    <Canvas Grid.Row="0" >
+                        <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Spliced date"   Style="{StaticResource LableText1}" />
+                        <!--<DatePicker x:Name="DpSplicingDate" Canvas.Left="300" CalendarClosed="DpSplicingDate_CalendarClosed" SelectedDateChanged="DpSplicingDate_SelectedDateChanged" Width="200" CalendarStyle="{StaticResource styleCalendar}"  Text="{Binding FastDate,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  FontFamily="Verdana" FontSize="13" VerticalContentAlignment="Center"   >
+                            <DatePicker.Resources>
+                                <Style TargetType="DatePickerTextBox">
+                                    <Setter Property="IsReadOnly" Value="True"/>
+                                    <Setter Property="Height" Value="Auto"/>
+                                </Style>
+                            </DatePicker.Resources>
+                        </DatePicker>-->
+
+                        <ComboBox x:Name="DpSplicingDate" Canvas.Left="300" Width="200"  IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=SubDates}" Text="{Binding Path=FastDate,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14"  Height="22" SelectionChanged="DpSplicingDate_SelectionChanged"    />
+
+                    </Canvas>
+
+                    <Canvas Grid.Row="1" Grid.Column="0">
+                        <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Spliced method"   Style="{StaticResource LableText1}" />
+                        <TextBox x:Name="txtSplicing_method" LostFocus="txtSplicing_method_LostFocus"  Canvas.Left="300" MaxLength="40" FontFamily="Verdana" Style="{StaticResource MOperationTextBox}" Text="{Binding MooringInspect.InspectBy,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   />
+                    </Canvas>
+
+                    <Canvas Grid.Row="2" >
+                        <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Spliced by "   Style="{StaticResource LableText1}" />
+                        <ComboBox Name="cmbSplicedBy"  Canvas.Left="300"  Width="200" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center" DropDownClosed="ComboBox_DropDownClosed_1"  
+                                               
+                                      Text="--Select--">
+                            <ComboBoxItem>Shore assistance</ComboBoxItem>
+                            <ComboBoxItem>Onboard</ComboBoxItem>
+
+                        </ComboBox>
+
+
+                    </Canvas>
+
+                    <Canvas Grid.Row="3" >
+                     
+                        <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Is Line Cropped "   Style="{StaticResource LableText1}" />
+
+                        <ComboBox x:Name="CBwasshift" Visibility="Visible" Canvas.Left="300"  Width="200" HorizontalAlignment="Center" IsEditable="True" IsReadOnly="True" VerticalContentAlignment="Center"  DropDownClosed="CBwasshift_DropDownClosed" 
+                                               
+                                      Text="--Select--" >
+                            <ComboBoxItem>No</ComboBoxItem>
+                            <ComboBoxItem>Yes</ComboBoxItem>
+
+
+                        </ComboBox>
+
+
+                    </Canvas>
+
+
+                    <Canvas Name="cnvs1" Visibility="Hidden"  Grid.Row="4" >
+                        <TextBlock Text="Cropped Outboard End"  Style="{StaticResource HeaderText1}" />
+                        <ComboBox Name="cmbcrpOut1" Canvas.Left="300"  Width="200" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center" DropDownClosed="cmbcrpOut1_DropDownClosed"  
+                                               
+                                      Text="--Select--">
+                            <ComboBoxItem>A</ComboBoxItem>
+                            <ComboBoxItem>B</ComboBoxItem>
+
+                        </ComboBox>
+                    </Canvas>
+
+                    <Canvas Name="cnvs2" Visibility="Hidden"  Grid.Row="5" >
+                        <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Cropped Line Lt.(mtrs) "   Style="{StaticResource LableText1}" />
+                        <TextBox x:Name="txtcrpdrope" TextChanged="txtcrpdrope_TextChanged"  LostFocus="txtcrpdrope_LostFocus" Canvas.Left="300" PreviewTextInput="txtcrpdrope_PreviewTextInput" MaxLength="6"  Width="200"  VerticalContentAlignment="Center"  >                       
+                        </TextBox>
+                    </Canvas>
+
+                    <Canvas Name="cnvs3" Visibility="Hidden"  Grid.Row="6" >
+                        <TextBlock Text="Reason for Cropping"   Style="{StaticResource HeaderText1}" />
+                        <control:MultiSelectComboBox  x:Name="cbCropingReason1" Canvas.Left="300"  Width="200" Height="auto" ItemsSource="{Binding Items}"  SelectedItems="{Binding SelectedItems}"  ToolTip="{Binding Path=Text, RelativeSource={RelativeSource Self}}"  MouseLeave="cbCropingReason1_MouseLeave"   />
+                        <TextBox x:Name="txtCropingReason1" Visibility="Hidden"   MaxLength="20" Text="{Binding RopeCropping.ReasonofCropping,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center"  >
+
+                        </TextBox>
+                    </Canvas>
+
+                </Grid>
+
+                <Grid x:Name="CroppedGrid" Grid.Row="2" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+
+
+                    </Grid.RowDefinitions>
+                    <Canvas Grid.Row="0" >
+                        <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Cropped date"   Style="{StaticResource LableText1}" />
+                        <!--<DatePicker x:Name="DpCroppedDate" SelectedDateChanged="DpCroppedDate_SelectedDateChanged" Canvas.Left="300" Width="200" CalendarStyle="{StaticResource styleCalendar}"  Text="{Binding FastDate,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  FontFamily="Verdana" FontSize="13" VerticalContentAlignment="Center"   >
+                            <DatePicker.Resources>
+                                <Style TargetType="DatePickerTextBox">
+                                    <Setter Property="IsReadOnly" Value="True"/>
+                                    <Setter Property="Height" Value="Auto"/>
+                                </Style>
+                            </DatePicker.Resources>
+                        </DatePicker>-->
+                        <ComboBox x:Name="DpCroppedDate" Canvas.Left="300" Width="200"  IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=SubDates}" Text="{Binding Path=FastDate,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14"  Height="22" SelectionChanged="DpCroppedDate_SelectionChanged"    />
+                    </Canvas>
+                    <Canvas Grid.Row="1" >
+                        <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Cropped Outboard End"   Style="{StaticResource LableText1}" />
+                        <ComboBox Name="cmbcrpOut" Canvas.Left="300"  Width="200" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center" DropDownClosed="ComboBox_DropDownClosed_2"  
+                                               
+                                      Text="--Select--">
+                            <ComboBoxItem>A</ComboBoxItem>
+                            <ComboBoxItem>B</ComboBoxItem>
+
+                        </ComboBox>
+
+
+                    </Canvas>
+
+                    <Canvas Grid.Row="2" Grid.Column="1">
+                        <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Length of line cropped (mtrs)"   Style="{StaticResource LableText1}" />
+                        <!--<TextBox x:Name="txtCropped_Length" LostFocus="txtCropped_Length_LostFocus" PreviewTextInput="NumberValidationTextBox" MaxLength="3"  IsReadOnly="True" Canvas.Left="300" FontFamily="Verdana" Style="{StaticResource MOperationTextBox}"  />-->
+                        <TextBox x:Name="txtCropped_Length" PreviewTextInput="NumberValidationTextBox" MaxLength="6" Canvas.Left="300" FontFamily="Verdana" Style="{StaticResource MOperationTextBox}" TextChanged="TxtCropped_Length_TextChanged"  />
+                    </Canvas>
+
+                    <Canvas Grid.Row="3" >
+                        <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Reason for cropping"   Style="{StaticResource LableText1}" />
+                        <control:MultiSelectComboBox  x:Name="cbCropingReason" Canvas.Left="300"  Width="200" Height="auto" ItemsSource="{Binding Items}"  SelectedItems="{Binding SelectedItems}"  ToolTip="{Binding Path=Text, RelativeSource={RelativeSource Self}}"  MouseLeave="cbCropingReason_MouseLeave"   />
+                        <TextBox x:Name="txtCropingReason" Visibility="Hidden"   MaxLength="20" Text="{Binding RopeCropping.ReasonofCropping,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center"  >
+
+                        </TextBox>
+                    </Canvas>
+
+                </Grid>
+
+                <Grid x:Name="DiscardedGrid" Grid.Row="2" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                    </Grid.RowDefinitions>
+                    <Canvas Grid.Row="0" >
+                        <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Discarded date"   Style="{StaticResource LableText1}" />
+                        <!--<DatePicker x:Name="DpDiscardedDate" SelectedDateChanged="DpDiscardedDate_SelectedDateChanged" Canvas.Left="300" Width="200" CalendarStyle="{StaticResource styleCalendar}"  Text="{Binding FastDate,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  FontFamily="Verdana" FontSize="13" VerticalContentAlignment="Center"    >
+                            <DatePicker.Resources>
+                                <Style TargetType="DatePickerTextBox">
+                                    <Setter Property="IsReadOnly" Value="True"/>
+                                    <Setter Property="Height" Value="Auto"/>
+                                </Style>
+                            </DatePicker.Resources>
+                        </DatePicker>-->
+                        <ComboBox x:Name="DpDiscardedDate" Canvas.Left="300" Width="200"  IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=SubDates}" Text="{Binding Path=FastDate,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14"  Height="22" SelectionChanged="DpDiscardedDate_SelectionChanged"    />
+
+                    </Canvas>
+
+                    <Canvas Grid.Row="1"  >
+                        <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Reason for Out of Service"   Style="{StaticResource LableText1}" />
+                        <ComboBox Name="lblReasOutOf" Canvas.Left="300"  Width="200" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center"  DropDownClosed="ComboBox_DropDownClosed_3"
+                                               
+                                      Text="--Select--">
+                            <ComboBoxItem>Completed running hours</ComboBoxItem>
+                            <ComboBoxItem>Damaged</ComboBoxItem>
+                            <ComboBoxItem>Other</ComboBoxItem>
+                        </ComboBox>
+
+
+                    </Canvas>
+                    <Canvas Visibility="Hidden" Name="lblOtherR" Grid.Row="2"  >
+                        <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Other Reason"   Style="{StaticResource LableText1}" />
+                      
+                        <TextBox x:Name="txtotherreason" Canvas.Left="300"  Width="200" LostFocus="txtotherreason_LostFocus"   MaxLength="500"  VerticalContentAlignment="Center"  >
+                           
+                        </TextBox>
+
+
+                    </Canvas>
+                    <Canvas Visibility="Hidden" Name="lblDamageOb" Grid.Row="2"  >
+                        <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Damage Observed"   Style="{StaticResource LableText1}" />
+                        <ComboBox Name="cmbMoor" Canvas.Left="300"  Width="200" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center"  DropDownClosed="cmbMoor_DropDownClosed"
+                                               
+                                      Text="--Select--">
+                            <ComboBoxItem>Inspection</ComboBoxItem>
+                            <ComboBoxItem>Mooring Operation</ComboBoxItem>
+
+                        </ComboBox>
+
+
+                    </Canvas>
+                    <Canvas Visibility="Hidden" Name="lblMoorOp" Grid.Row="3"  >
+                        <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Mooring Operation"   Style="{StaticResource LableText1}" />
+                        <ComboBox Name="cmbMooringOp" DropDownClosed="ComboBox_DropDownClosed_4" Canvas.Left="300"  Width="200" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Center"  
+                                               
+                                      Text="--Select--">
+                            <ComboBoxItem>All Operation</ComboBoxItem>
+                            <ComboBoxItem>Port Name</ComboBoxItem>
+                            <ComboBoxItem>All Past Date</ComboBoxItem>
+
+                        </ComboBox>
+
+
+                    </Canvas>
+
+                </Grid>
+
+                <Grid x:Name="EndToEndGrid" Grid.Row="2" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="10*" />
+
+                    </Grid.RowDefinitions>
+                    <Canvas Grid.Row="0" >
+                        <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="EndToEndDoneDate"   Style="{StaticResource LableText1}" />
+                        <!--<DatePicker x:Name="DpEndToEndDoneDate" Canvas.Left="300" Width="200" CalendarStyle="{StaticResource styleCalendar}"  SelectedDateChanged="DpEndToEndDoneDate_SelectedDateChanged"  FontFamily="Verdana" FontSize="13" VerticalContentAlignment="Center"   >
+                            <DatePicker.Resources>
+                                <Style TargetType="DatePickerTextBox">
+                                    <Setter Property="IsReadOnly" Value="True"/>
+                                    <Setter Property="Height" Value="Auto"/>
+                                </Style>
+                            </DatePicker.Resources>
+                        </DatePicker>-->
+
+                        <ComboBox x:Name="DpEndToEndDoneDate" Canvas.Left="300" Width="200"  IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=SubDates}" Text="{Binding Path=FastDate,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14"  Height="22" SelectionChanged="DpEndToEndDoneDate_SelectionChanged"    />
+
+                    </Canvas>
+
+                    <Canvas Grid.Row="1" >
+                        <TextBlock HorizontalAlignment="Center" Canvas.Left="0"  Text="Shifted Outboard End to:"  Style="{StaticResource LableText1}" />
+                        <!--<TextBox x:Name="txtShiftedOutboardEnd" IsReadOnly="True" Canvas.Left="300" FontFamily="Verdana" Style="{StaticResource MOperationTextBox}" Text="{Binding MooringInspect.InspectBy,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   />-->
+                        <TextBlock x:Name="txtShiftedOutboardEnd" HorizontalAlignment="Center"  Text="--" Canvas.Left="300" FontFamily="Verdana" Style="{StaticResource LableText1}" />
+                    </Canvas>
+
+                </Grid>
+
+                <Grid x:Name="SaveDamagedGrid" Grid.Row="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Canvas HorizontalAlignment="Center" >
+                        <!--<Button x:Name="btnSave"  Command="{Binding SaveCommand}" CommandParameter="{Binding}" Width="65" Canvas.Left="-40" Style="{StaticResource HeaderButton1}" Canvas.Top="4" >
+                            <TextBlock  Style="{StaticResource HeaderText1}"  HorizontalAlignment="Center" Text=" Save "/>
+                            Command="{Binding ElementName=CrewManagementContent,Path=DataContext.NavCommand}" CommandParameter="NextCrewDetail"
+                            <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="Click">
+                                                        <i:InvokeCommandAction Command="{Binding SaveCommand}" CommandParameter="{Binding RopeEndToEnd}"/>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+
+
+                        </Button>-->
+
+                        <Button Width="100" Name="btnSave" Height="31" Style="{StaticResource HeaderButton1}" Content="Save" Command="{Binding SaveCommand}" CommandParameter="{Binding MOPDamageRope}" Canvas.Left="-100" />
+                        <!--<Button Width="100" Height="31" Style="{StaticResource HeaderButton1}" Content="Cancel" Command="{Binding CancelCommand}" Canvas.Left="30"  />-->
+                        <Button x:Name="GoList" Width="120" Height="31" Style="{StaticResource HeaderButton1}" Content="Back to List"  Canvas.Left="30" Command="{Binding BackToListCommand}"  />
+                    </Canvas>
+                </Grid>
+
+            </Grid>
+        </GroupBox>
+        
+        
+        <Button Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Right"  VerticalAlignment="Top"   Command="{Binding CancelCommand}" >
+            <StackPanel>
+                <Image Height="22" Width="22"   Source="/WorkShipVersionII;component/Images/closebtnRed.png" />
+            </StackPanel>
+        </Button>
+    </Grid>
+</UserControl>

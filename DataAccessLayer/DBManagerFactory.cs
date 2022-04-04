@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Odbc;
-using System.Data.OleDb;
-using System.Data.OracleClient;
+﻿using System.Data;
+//using System.Data.Odbc;
+//using System.Data.OleDb;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-    public sealed class DBManagerFactory
+       public sealed class DBManagerFactory
     {
         private DBManagerFactory() { }
 
@@ -23,12 +17,12 @@ namespace DataAccessLayer
                 case DataProvider.SQLServer:
                     iDbConnection = new SqlConnection();
                     break;
-                case DataProvider.OleDb:
-                    iDbConnection = new OleDbConnection();
-                    break;
-                case DataProvider.Odbc:
-                    iDbConnection = new OdbcConnection();
-                    break;
+                //case DataProvider.OleDb:
+                //    iDbConnection = new OleDbConnection();
+                //    break;
+                //case DataProvider.Odbc:
+                //    iDbConnection = new OdbcConnection();
+                //    break;
                 
                 default:
                     return null;
@@ -42,10 +36,10 @@ namespace DataAccessLayer
             {
                 case DataProvider.SQLServer:
                     return new SqlCommand();
-                case DataProvider.OleDb:
-                    return new OleDbCommand();
-                case DataProvider.Odbc:
-                    return new OdbcCommand();
+                //case DataProvider.OleDb:
+                //    return new OleDbCommand();
+                //case DataProvider.Odbc:
+                //    return new OdbcCommand();
                 default:
                     return null;
             }
@@ -57,10 +51,10 @@ namespace DataAccessLayer
             {
                 case DataProvider.SQLServer:
                     return new SqlDataAdapter();
-                case DataProvider.OleDb:
-                    return new OleDbDataAdapter();
-                case DataProvider.Odbc:
-                    return new OdbcDataAdapter();
+                //case DataProvider.OleDb:
+                //    return new OleDbDataAdapter();
+                //case DataProvider.Odbc:
+                //    return new OdbcDataAdapter();
                 default:
                     return null;
             }
@@ -81,12 +75,12 @@ namespace DataAccessLayer
                 case DataProvider.SQLServer:
                     iDataParameter = new SqlParameter();
                     break;
-                case DataProvider.OleDb:
-                    iDataParameter = new OleDbParameter();
-                    break;
-                case DataProvider.Odbc:
-                    iDataParameter = new OdbcParameter();
-                    break;
+                //case DataProvider.OleDb:
+                //    iDataParameter = new OleDbParameter();
+                //    break;
+                //case DataProvider.Odbc:
+                //    iDataParameter = new OdbcParameter();
+                //    break;
                
 
             }
@@ -105,18 +99,18 @@ namespace DataAccessLayer
                         idbParams[i] = new SqlParameter();
                     }
                     break;
-                case DataProvider.OleDb:
-                    for (int i = 0; i < paramsCount; ++i)
-                    {
-                        idbParams[i] = new OleDbParameter();
-                    }
-                    break;
-                case DataProvider.Odbc:
-                    for (int i = 0; i < paramsCount; ++i)
-                    {
-                        idbParams[i] = new OdbcParameter();
-                    }
-                    break;
+                //case DataProvider.OleDb:
+                //    for (int i = 0; i < paramsCount; ++i)
+                //    {
+                //        idbParams[i] = new OleDbParameter();
+                //    }
+                //    break;
+                //case DataProvider.Odbc:
+                //    for (int i = 0; i < paramsCount; ++i)
+                //    {
+                //        idbParams[i] = new OdbcParameter();
+                //    }
+                //    break;
                 
                 default:
                     idbParams = null;

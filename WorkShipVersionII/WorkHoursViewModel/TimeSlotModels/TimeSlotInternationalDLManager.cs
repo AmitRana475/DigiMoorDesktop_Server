@@ -63,7 +63,7 @@ namespace WorkShipVersionII.WorkHoursViewModel.TimeSlotModels
 
                 foreach (var li1 in workhoursUsers)
                 {
-                   
+
                     var obj1 = WorkhoursList.OrderByDescending(x => x.dates).Where(x => x.UserName == li1 && x.dates.Month == startdate.Month && x.dates.Year == startdate.Year).ToList();
                     if (obj1 != null)
                     {
@@ -278,7 +278,7 @@ namespace WorkShipVersionII.WorkHoursViewModel.TimeSlotModels
                                 string wrid = user.WRID;
 
                                 var CrewDetailList1 = CrewDetailList(user);
-                           
+
 
                                 WorkHoursList1 = WorkHoursList(user);
                                 var MaxFutureDate1 = MaxFutureDate;
@@ -331,7 +331,7 @@ namespace WorkShipVersionII.WorkHoursViewModel.TimeSlotModels
                                         user.dates = checkIDL.Item1;
                                         user.WRID = checkIDL.Item2;
                                         user.wid = wid;
-                                       
+
                                     }
 
 
@@ -377,7 +377,7 @@ namespace WorkShipVersionII.WorkHoursViewModel.TimeSlotModels
                                         user.dates = checkIDL.Item1;
                                         user.WRID = checkIDL.Item2;
                                         user.wid = wid;
-                                      
+
                                     }
 
 
@@ -661,7 +661,7 @@ namespace WorkShipVersionII.WorkHoursViewModel.TimeSlotModels
                                         user.dates = checkIDL.Item1;
                                         user.WRID = checkIDL.Item2;
                                         user.wid = wid;
-                                        
+
                                     }
 
 
@@ -708,7 +708,7 @@ namespace WorkShipVersionII.WorkHoursViewModel.TimeSlotModels
                                         user.dates = checkIDL.Item1;
                                         user.WRID = checkIDL.Item2;
                                         user.wid = wid;
-                                        
+
                                     }
 
 
@@ -761,8 +761,8 @@ namespace WorkShipVersionII.WorkHoursViewModel.TimeSlotModels
                     CheckRetar = sc1.Retardtbls.ToList();
                 }
 
-               
-             
+
+
 
                 //......Planner.....
 
@@ -1070,12 +1070,15 @@ namespace WorkShipVersionII.WorkHoursViewModel.TimeSlotModels
                                 {
                                     user = WorkHoursList1.Where(x => x.UserName.Equals(username) && x.dates.Date == startdate.Date && x.WRID == wrid).FirstOrDefault();
 
-                                    wid = user.wid;
+                                    if (user != null)
+                                    {
+                                        wid = user.wid;
 
-                                    WorkhoursInstanse.TimeSlotPageLoadMethod(user, WorkHoursList1, CrewDetailList1, DynamicGrid, DefineRules, Opa90Rule, CheckIDL, MaxFutureDate);
+                                        WorkhoursInstanse.TimeSlotPageLoadMethod(user, WorkHoursList1, CrewDetailList1, DynamicGrid, DefineRules, Opa90Rule, CheckIDL, MaxFutureDate);
 
-                                    user.wid = wid;
-                                    WorkhoursInstanse.Update(user);
+                                        user.wid = wid;
+                                        WorkhoursInstanse.Update(user);
+                                    }
                                 }
 
 
@@ -1187,7 +1190,7 @@ namespace WorkShipVersionII.WorkHoursViewModel.TimeSlotModels
 
                 foreach (var li1 in workhoursUsersP)
                 {
-                   
+
 
                     var obj1 = WorkhoursListP.OrderByDescending(x => x.dates).Where(x => x.UserName == li1 && x.dates.Month == startdate.Month && x.dates.Year == startdate.Year).ToList();
                     if (obj1 != null)
@@ -1924,7 +1927,7 @@ namespace WorkShipVersionII.WorkHoursViewModel.TimeSlotModels
         //                            user.dates = checkIDL.Item1;
         //                            user.WRID = checkIDL.Item2;
         //                            IDL = checkIDL.Item3;
-                                  
+
         //                            //WorkHoursList1 = WorkHoursList(user);
         //                            MaxFutureDate = null;
 
@@ -2290,7 +2293,7 @@ namespace WorkShipVersionII.WorkHoursViewModel.TimeSlotModels
         //                            user.WRID = checkIDL.Item2;
         //                            IDL = checkIDL.Item3;
 
-                                    
+
         //                            //WorkHoursList1 = WorkHoursList(user);
         //                            MaxFutureDate = null;
 
@@ -2336,7 +2339,7 @@ namespace WorkShipVersionII.WorkHoursViewModel.TimeSlotModels
         //                            user.WRID = checkIDL.Item2;
         //                            IDL = checkIDL.Item3;
 
-                                 
+
         //                            //WorkHoursList1 = WorkHoursList(user);
         //                            MaxFutureDate = null;
 
@@ -2434,7 +2437,7 @@ namespace WorkShipVersionII.WorkHoursViewModel.TimeSlotModels
                 _CheckIDL = value;
             }
         }
-        public CrewDetailClass CrewDetailListPlanner(string UserName,string Position,string Department)
+        public CrewDetailClass CrewDetailListPlanner(string UserName, string Position, string Department)
         {
             var _CrewDetailList = sc.CrewDetails.Where(x => x.UserName.Equals(UserName) && x.position.Equals(Position) && x.department.Equals(Department)).FirstOrDefault();
             return _CrewDetailList;

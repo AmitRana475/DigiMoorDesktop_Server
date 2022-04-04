@@ -1,7 +1,8 @@
-﻿using DataBuildingLayer;
+﻿using ClosedXML.Excel;
+using DataBuildingLayer;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using Microsoft.Office.Interop.Excel;
+//using Microsoft.Office.Interop.Excel;
 using Microsoft.Win32;
 using System;
 using System.Collections.ObjectModel;
@@ -15,7 +16,7 @@ using System.Windows.Input;
 
 namespace WorkShipVersionII.ViewModelAdministration
 {
-    public class ApplicationLogViewModel: ViewModelBase
+       public class ApplicationLogViewModel: ViewModelBase
     {
         private readonly ShipmentContaxt sc;
         private BackgroundWorker _Worker;
@@ -205,7 +206,7 @@ namespace WorkShipVersionII.ViewModelAdministration
             try
             {
                 SaveFileDialog sfd = new SaveFileDialog();
-                sfd.FileName = "Work-Ship_System_Log_" + DateTime.Now.ToString("dd-MMM-yyyy");
+                sfd.FileName = "DigiMoor_X7_System_Log_" + DateTime.Now.ToString("dd-MMM-yyyy");
                 sfd.DefaultExt = "xlsx";
                 sfd.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
                 if (sfd.ShowDialog() == true)
@@ -236,62 +237,83 @@ namespace WorkShipVersionII.ViewModelAdministration
                     dataSet.Tables.Add(dtbl1);
 
 
-                    ApplicationClass ExcelApp = new ApplicationClass();
-                    ExcelApp.Application.Workbooks.Add(Type.Missing);
-                    Workbook xlWorkbook = ExcelApp.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
-
-                    // Loop over DataTables in DataSet.
-                    DataTableCollection collection = dataSet.Tables;
-                    dataSet.Dispose();
-
-                    var a = ib;
-                    var cons = collection.Count;
-                    for (int i = cons; i > 0; i--)
+                    using (XLWorkbook wb = new XLWorkbook())
                     {
-                        ib = ib + i;
-                        _Worker.ReportProgress(ib * (100 / cons + a));
-
-                        Sheets xlSheets = null;
-                        Worksheet xlWorksheet = null;
-                        //Create Excel Sheets
-                        xlSheets = ExcelApp.Sheets;
-                        xlWorksheet = (Worksheet)xlSheets.Add(xlSheets[1],
-                                       Type.Missing, Type.Missing, Type.Missing);
-
-                        System.Data.DataTable table = collection[i - 1];
-                        xlWorksheet.Name = table.TableName;
-                        var tcoun = table.Columns.Count;
-                        for (int j = 1; j < tcoun + 1; j++)
+                        foreach (DataTable item in dataSet.Tables)
                         {
-                            ExcelApp.Cells[1, j] = table.Columns[j - 1].ColumnName;
+                            var mytbl = item.TableName;
+                            var protectedsheet = wb.Worksheets.Add(item);
+                            protectedsheet.Name = item.TableName;
+                            var projection = protectedsheet.Protect("49WEB$TREET#");
+                            projection.InsertColumns = true;
+                            projection.InsertRows = true;
+
+                            wb.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                            wb.Style.Font.Bold = true;
                         }
+                        wb.SaveAs(sfd.FileName);
+                        //  MessageBox.Show("Export process has been completed!", "", MessageBoxButton.OK, MessageBoxImage.Information);
 
 
-                        // Storing Each row and column value to excel sheet
-                        var rcoun = table.Rows.Count;
-                        var rcoun1 = table.Columns.Count;
-                        for (int k = 0; k < rcoun; k++)
-                        {
-
-                            for (int l = 0; l < rcoun1; l++)
-                            {
-                                ExcelApp.Cells[k + 2, l + 1] =
-                                table.Rows[k].ItemArray[l].ToString();
-                            }
-
-
-                        }
-
-                        ExcelApp.Columns.AutoFit();
-                        ((Worksheet)ExcelApp.ActiveWorkbook.Sheets[xlWorksheet.Name]).Protect("49WEB$TREET#");
 
                     }
 
-                    ((Worksheet)ExcelApp.ActiveWorkbook.Sheets[ExcelApp.ActiveWorkbook.Sheets.Count]).Delete();
+                    //ApplicationClass ExcelApp = new ApplicationClass();
+                    //ExcelApp.Application.Workbooks.Add(Type.Missing);
+                    //Workbook xlWorkbook = ExcelApp.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
 
-                    ((Worksheet)ExcelApp.ActiveWorkbook.Sheets[ExcelApp.ActiveWorkbook.Sheets.Count]).SaveAs(sfd.FileName);
-                    ExcelApp.ActiveWorkbook.Saved = true;
-                    ExcelApp.Quit();
+                    //// Loop over DataTables in DataSet.
+                    //DataTableCollection collection = dataSet.Tables;
+                    //dataSet.Dispose();
+
+                    //var a = ib;
+                    //var cons = collection.Count;
+                    //for (int i = cons; i > 0; i--)
+                    //{
+                    //    ib = ib + i;
+                    //    _Worker.ReportProgress(ib * (100 / cons + a));
+
+                    //    Sheets xlSheets = null;
+                    //    Worksheet xlWorksheet = null;
+                    //    //Create Excel Sheets
+                    //    xlSheets = ExcelApp.Sheets;
+                    //    xlWorksheet = (Worksheet)xlSheets.Add(xlSheets[1],
+                    //                   Type.Missing, Type.Missing, Type.Missing);
+
+                    //    System.Data.DataTable table = collection[i - 1];
+                    //    xlWorksheet.Name = table.TableName;
+                    //    var tcoun = table.Columns.Count;
+                    //    for (int j = 1; j < tcoun + 1; j++)
+                    //    {
+                    //        ExcelApp.Cells[1, j] = table.Columns[j - 1].ColumnName;
+                    //    }
+
+
+                    //    // Storing Each row and column value to excel sheet
+                    //    var rcoun = table.Rows.Count;
+                    //    var rcoun1 = table.Columns.Count;
+                    //    for (int k = 0; k < rcoun; k++)
+                    //    {
+
+                    //        for (int l = 0; l < rcoun1; l++)
+                    //        {
+                    //            ExcelApp.Cells[k + 2, l + 1] =
+                    //            table.Rows[k].ItemArray[l].ToString();
+                    //        }
+
+
+                    //    }
+
+                    //    ExcelApp.Columns.AutoFit();
+                    //    ((Worksheet)ExcelApp.ActiveWorkbook.Sheets[xlWorksheet.Name]).Protect("49WEB$TREET#");
+
+                    //}
+
+                    //((Worksheet)ExcelApp.ActiveWorkbook.Sheets[ExcelApp.ActiveWorkbook.Sheets.Count]).Delete();
+
+                    //((Worksheet)ExcelApp.ActiveWorkbook.Sheets[ExcelApp.ActiveWorkbook.Sheets.Count]).SaveAs(sfd.FileName);
+                    //ExcelApp.ActiveWorkbook.Saved = true;
+                    //ExcelApp.Quit();
 
 
                 }

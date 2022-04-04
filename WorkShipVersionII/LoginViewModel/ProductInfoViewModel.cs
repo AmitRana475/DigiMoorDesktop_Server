@@ -15,11 +15,8 @@ namespace WorkShipVersionII.LoginViewModel
     public class ProductInfoViewModel : ViewModelBase
     {
         private int erinfo;
-        private readonly AdministrationContaxt sc;
+        private readonly ShipmentContaxt sc;
 
-
-
-     
 
         string key1 = "";
         int year1 = 0; // year2 = 0, year3 = 0, year4 = 0, year5 = 0, year6 = 0, year7 = 0, year8 = 0, year9 = 0, year10 = 0, year11 = 0, year12 = 0, year13 = 0, year14 = 0, year15 = 0, year16 = 0, year17 = 0, year18 = 0, year19 = 0, year20 = 0, year21 = 0;
@@ -29,8 +26,9 @@ namespace WorkShipVersionII.LoginViewModel
         {
             if (sc == null)
             {
-                sc = new AdministrationContaxt();
+                sc = new ShipmentContaxt();
                 sc.Configuration.ProxyCreationEnabled = false;
+
             }
 
             validateCommand = new RelayCommand<ProductInfoClass>(ValidateMethod);
@@ -90,9 +88,18 @@ namespace WorkShipVersionII.LoginViewModel
             RefreshMessage(obj);
             if (CheckErrorMessage.CheckErrorMessages)
             {
-                string dtt = DateTime.Now.ToString("yyyy-MM-dd"); //dt.Rows[0][0].ToString(); //sr.ReadLine().ToString();
+
+                string dtt = DateTime.Now.ToString("yyyy-MM-dd");
                 DateTime dttt = Convert.ToDateTime(dtt);
 
+
+                var nowyear = DateTime.Now.Year;
+                //string sanmardate = "2020" + "-05-31";
+                //DateTime sanmardatedif = Convert.ToDateTime(sanmardate);
+
+                DateTime sanmardatedif = Convert.ToDateTime(dttt);
+                //sanmardatedif = sanmardatedif.AddDays(30);
+                // DateTime dttt = Convert.ToDateTime(sanmardatedif);
 
                 var vesseldetail = sc.Vessels.FirstOrDefault();
 
@@ -163,35 +170,48 @@ namespace WorkShipVersionII.LoginViewModel
 
                 //yr21 = yr20.AddYears(1);
                 //year21 = yr21.Year;
+                var key2p = sc.GetLicencekeys().ToList().Where(x => x.keyno == "key2").FirstOrDefault().keycode;
+                var key3p = sc.GetLicencekeys().ToList().Where(x => x.keyno == "key3").FirstOrDefault().keycode;
 
                 var key1p = sc.GetLicencekeys().ToList().Where(x => x.keyno == "key1").FirstOrDefault().keycode;
                 key1 = key1p;
 
-                string txtLicenseKey = obj.Text1.Trim().ToUpper() + "-" + obj.Text2.Trim().ToUpper() + "-" + obj.Text3.Trim().ToUpper() + "-" + obj.Text4.Trim().ToUpper() + "-" + obj.Text5.Trim().ToUpper();
-                if (txtLicenseKey == key1)
+                // string txtLicenseKey = obj.Text1.Trim().ToUpper() + "-" + obj.Text2.Trim().ToUpper() + "-" + obj.Text3.Trim().ToUpper() + "-" + obj.Text4.Trim().ToUpper() + "-" + obj.Text5.Trim().ToUpper();
+                string[] InputkeyList = { "A", "B" };
+                string DCodeKey = sc.Decrypt(obj.TextMain, StaticHelper.Key);
+                if (DCodeKey != null)
+                {
+                    InputkeyList = null;
+                    InputkeyList = DCodeKey.Split(',');
+                }
+
+                string txtLicenseKey = InputkeyList[0];
+                string InputSerialKey = InputkeyList[1];
+
+                if (txtLicenseKey == key1 && StaticHelper.CPU_ProcessorID == InputSerialKey)
                 {
                     if ((year1 % 4) == 0)
                     {
-                        expirydate = DateTime.Now.AddDays(366);
+                        expirydate = sanmardatedif.AddDays(366 - 1); //DateTime.Now.AddDays(366);
                     }
                     else
                     {
-                        expirydate = DateTime.Now.AddDays(365);
+                        expirydate = sanmardatedif.AddDays(365);
                     }
 
                     string RecordLoginInfo = string.Empty;
 
-                    var txtpathLastLogin = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "LastLoginV2.txt");
+                    var txtpathLastLogin = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "LoginDigiMoor.txt");
                     if (File.Exists(txtpathLastLogin))
                     {
                         if (new FileInfo(txtpathLastLogin).Length == 0)
                         {
                             StreamWriter writer = new StreamWriter(txtpathLastLogin);
 
-                            writer.Write(sc.Encrypt(DateTime.Now.ToString("yyyy-MM-dd") + "," + expirydate.ToString("yyyy-MM-dd"), "KKPrajapat"));
+                            writer.Write(sc.Encrypt(sanmardatedif.ToString("yyyy-MM-dd") + "," + expirydate.ToString("yyyy-MM-dd"), StaticHelper.Key));
                             writer.Close();
 
-                            RecordLoginInfo = sc.Encrypt(DateTime.Now.ToString("yyyy-MM-dd") + "," + expirydate.ToString("yyyy-MM-dd"), "KKPrajapat");
+                            RecordLoginInfo = sc.Encrypt(sanmardatedif.ToString("yyyy-MM-dd") + "," + expirydate.ToString("yyyy-MM-dd"), StaticHelper.Key);
 
 
                         }
@@ -200,17 +220,17 @@ namespace WorkShipVersionII.LoginViewModel
                     {
                         StreamWriter writer = new StreamWriter(txtpathLastLogin);
 
-                        writer.Write(sc.Encrypt(DateTime.Now.ToString("yyyy-MM-dd") + "," + expirydate.ToString("yyyy-MM-dd") , "KKPrajapat"));
+                        writer.Write(sc.Encrypt(sanmardatedif.ToString("yyyy-MM-dd") + "," + expirydate.ToString("yyyy-MM-dd"), StaticHelper.Key));
                         writer.Close();
 
 
-                        RecordLoginInfo = sc.Encrypt(DateTime.Now.ToString("yyyy-MM-dd") + "," + expirydate.ToString("yyyy-MM-dd"), "KKPrajapat");
+                        RecordLoginInfo = sc.Encrypt(sanmardatedif.ToString("yyyy-MM-dd") + "," + expirydate.ToString("yyyy-MM-dd"), StaticHelper.Key);
 
                     }
 
 
 
-                    var txtpath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "RecordWork49V2.txt");
+                    var txtpath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "RecordDigiMoor.txt");
 
                     if (File.Exists(txtpath))
                     {
@@ -219,10 +239,10 @@ namespace WorkShipVersionII.LoginViewModel
                         {
                             StreamWriter writer = new StreamWriter(txtpath);
 
-                            writer.Write(sc.Encrypt(DateTime.Now.ToString("yyyy-MM-dd") + "," + expirydate.ToString("yyyy-MM-dd") + "," + txtLicenseKey + "," + vesseldetail.VesselName, "KKPrajapat"));
+                            writer.Write(sc.Encrypt(sanmardatedif.ToString("yyyy-MM-dd") + "," + expirydate.ToString("yyyy-MM-dd") + "," + txtLicenseKey + "," + vesseldetail.VesselName, StaticHelper.Key));
                             writer.Close();
 
-                            string RecordWork49file = sc.Encrypt(DateTime.Now.ToString("yyyy-MM-dd") + "," + expirydate.ToString("yyyy-MM-dd") + "," + txtLicenseKey + "," + vesseldetail.VesselName, "KKPrajapat");
+                            string RecordWork49file = sc.Encrypt(sanmardatedif.ToString("yyyy-MM-dd") + "," + expirydate.ToString("yyyy-MM-dd") + "," + txtLicenseKey + "," + vesseldetail.VesselName, StaticHelper.Key);
 
                             var date = DateTime.Now.ToString("yyyy-MM-dd");
 
@@ -243,11 +263,11 @@ namespace WorkShipVersionII.LoginViewModel
                     {
                         StreamWriter writer = new StreamWriter(txtpath);
 
-                        writer.Write(sc.Encrypt(DateTime.Now.ToString("yyyy-MM-dd") + "," + expirydate.ToString("yyyy-MM-dd") + "," + txtLicenseKey + "," + vesseldetail.VesselName, "KKPrajapat"));
+                        writer.Write(sc.Encrypt(sanmardatedif.ToString("yyyy-MM-dd") + "," + expirydate.ToString("yyyy-MM-dd") + "," + txtLicenseKey + "," + vesseldetail.VesselName, StaticHelper.Key));
                         writer.Close();
 
 
-                        string RecordWork49file = sc.Encrypt(DateTime.Now.ToString("yyyy-MM-dd") + "," + expirydate.ToString("yyyy-MM-dd") + "," + txtLicenseKey + "," + vesseldetail.VesselName, "KKPrajapat");
+                        string RecordWork49file = sc.Encrypt(sanmardatedif.ToString("yyyy-MM-dd") + "," + expirydate.ToString("yyyy-MM-dd") + "," + txtLicenseKey + "," + vesseldetail.VesselName, StaticHelper.Key);
 
                         var date = DateTime.Now.ToString("yyyy-MM-dd");
 
@@ -274,13 +294,20 @@ namespace WorkShipVersionII.LoginViewModel
 
         private void RefreshMessage(ProductInfoClass obj)
         {
-            if (string.IsNullOrEmpty(obj.Text1) || string.IsNullOrEmpty(obj.Text2) || string.IsNullOrEmpty(obj.Text3) || string.IsNullOrEmpty(obj.Text4) || string.IsNullOrEmpty(obj.Text5) || obj.Text1.Length < 4 || obj.Text2.Length < 4 || obj.Text3.Length < 4 || obj.Text4.Length < 4 || obj.Text5.Length < 4)
+            // if (string.IsNullOrEmpty(obj.Text1) || string.IsNullOrEmpty(obj.Text2) || string.IsNullOrEmpty(obj.Text3) || string.IsNullOrEmpty(obj.Text4) || string.IsNullOrEmpty(obj.Text5) || obj.Text1.Length < 4 || obj.Text2.Length < 4 || obj.Text3.Length < 4 || obj.Text4.Length < 4 || obj.Text5.Length < 4)
+            if (string.IsNullOrEmpty(obj.TextMain))
             {
                 CheckErrorMessage.CheckErrorMessages = false;
                 productMessage = "Please Enter the Licence Key";
                 RaisePropertyChanged("ProductMessage");
             }
-            else if (!string.IsNullOrEmpty(obj.Text1) && !string.IsNullOrEmpty(obj.Text2) && !string.IsNullOrEmpty(obj.Text3) && !string.IsNullOrEmpty(obj.Text4) && !string.IsNullOrEmpty(obj.Text5))
+            else if (string.IsNullOrEmpty(obj.TextMain.Trim()))
+            {
+                CheckErrorMessage.CheckErrorMessages = false;
+                productMessage = "Please Enter the Licence Key";
+                RaisePropertyChanged("ProductMessage");
+            }
+            else //if (!string.IsNullOrEmpty(obj.Text1) && !string.IsNullOrEmpty(obj.Text2) && !string.IsNullOrEmpty(obj.Text3) && !string.IsNullOrEmpty(obj.Text4) && !string.IsNullOrEmpty(obj.Text5))
             {
                 CheckErrorMessage.CheckErrorMessages = true;
                 ProductMessage = string.Empty;

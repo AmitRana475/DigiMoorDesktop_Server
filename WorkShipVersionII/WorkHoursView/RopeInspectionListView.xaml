@@ -1,0 +1,156 @@
+﻿<UserControl x:Class="WorkShipVersionII.WorkHoursView.RopeInspectionListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WorkShipVersionII.WorkHoursView"
+                    xmlns:userControls="clr-namespace:WorkShipVersionII.Pagination"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="1300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="70*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="70*"/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Canvas Grid.Column="0" >
+                <TextBlock Text="Year" Canvas.Left="35" Canvas.Top="30" Style="{StaticResource HeaderText1}" />
+
+                <ComboBox x:Name="cbYear" Canvas.Left="80" Canvas.Top="25" Text="--Year--"   IsEditable="True" IsReadOnly="True" ItemsSource="{Binding Path=YearName}" SelectedItem="{Binding Path=SYearName}" VerticalContentAlignment="Center" FontFamily="Verdana" FontSize="14" Width="103" Height="30"     />
+
+                <Button Canvas.Left="200"  Canvas.Top="23"  Style="{StaticResource HeaderButton1}" Command="{Binding SearchCommand}"  >
+                        <TextBlock TextWrapping="Wrap"  Text=" Search "/>
+                </Button>
+
+                </Canvas>
+            <userControls:PaginationElements x:Name="DeviationPaging" Grid.Column="1" Margin="0,20,30,0"  Height="35" HorizontalAlignment="Center" VerticalAlignment="Center"  />
+            
+            <Canvas Grid.Column="2">
+
+                <Button  Canvas.Right="200" Canvas.Top="25"  Style="{StaticResource HeaderButton1}" Command="{Binding ElementName=WorkHoursContent,Path=DataContext.NavCommand}" CommandParameter="MooringRopeInspection" Margin="0,0,0,0" >
+                    <TextBlock TextWrapping="Wrap"  Text=" New Inspection "/>
+                </Button>
+
+                <Button x:Name="btnExport"  Canvas.Top="25"  Canvas.Right="110"   Command="{Binding ExportRopeInspectionCommands}" VerticalAlignment="Center"  Style="{StaticResource HeaderButton1}"  >
+                    <StackPanel Orientation="Horizontal" >
+                        <Image   Source="/WorkShipVersionII;component/Images/Excel.png" Height="20" HorizontalAlignment="Left" />
+                        <TextBlock  Style="{StaticResource HeaderText1}"  HorizontalAlignment="Center" Text=" Excel "/>
+                    </StackPanel>
+                </Button>
+
+                <TextBlock  Canvas.Right="50" Canvas.Top="30" HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="Blue" FontFamily="Verdana" FontSize="14"   Padding="0,0,10,0"   >
+                      <Hyperlink Command="{Binding HelpCommand}" Name="Help" >Help</Hyperlink>
+                </TextBlock>
+            </Canvas>
+        </Grid>
+
+
+            
+     
+
+       
+        <Grid Grid.Row="1" Grid.Column="1"  >
+
+        
+            <!--<DataGrid x:Name="DepartmentGrid" Margin="0,20,0,0"  ItemsSource="{Binding Path = LoadInspections,Mode=TwoWay}" BorderThickness="0" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" GridLinesVisibility="Horizontal" SelectionUnit="FullRow"  SelectionMode="Single" CanUserAddRows="False"-->
+            <DataGrid ColumnHeaderHeight="35" x:Name="DepartmentGrid"   ItemsSource="{Binding ViewList.View}" BorderThickness="0" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" GridLinesVisibility="Horizontal" SelectionUnit="FullRow"  SelectionMode="Single" CanUserAddRows="False"         
+        CanUserDeleteRows="False"    HeadersVisibility="Column"  BorderBrush="LightGray" ColumnWidth="Auto"   AutoGenerateColumns="False"   VerticalScrollBarVisibility="Auto"   VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray" >
+
+
+                <DataGrid.Columns >
+
+                   
+                    <DataGridTextColumn Binding="{Binding InspectBy,Mode=TwoWay}" FontSize="12" IsReadOnly="True" Header="Inspect By" MaxWidth="650" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="Margin" Value="5,0,0,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+
+                    <DataGridTextColumn  Binding="{Binding Path= InspectDate,StringFormat=\{0:dd-MMM-yyyy\},Mode=TwoWay}" IsReadOnly="True" Header="Inspected Date" MinWidth="200" Width="*" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTemplateColumn MaxWidth="150" Width="*" Header="View">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center"  >
+                                    <!--<Label Width="145"  FontWeight="Normal"   FontSize="13" FontFamily="Verdana" VerticalAlignment="Center" HorizontalContentAlignment="Center">
+                                        <Hyperlink  Command="{Binding ElementName=WorkHoursContent,Path=DataContext.NavCommand}" 
+                                        CommandParameter="ViewMooringRopeInspection"  Name="Edit" Foreground="#0000cc">View</Hyperlink>
+                                    </Label>-->
+                                    <!--<Label Width="50"  FontWeight="Normal"   FontSize="13" FontFamily="Verdana" VerticalAlignment="Center" HorizontalContentAlignment="Center">
+                                        <Hyperlink  Command="{Binding Path=DataContext.ViewCommand,RelativeSource={RelativeSource AncestorType=DataGrid}}" 
+                                        CommandParameter="{Binding}"  Name="Edit" Foreground="#0000cc">View</Hyperlink>
+                                    </Label>-->
+
+                                    <Label MaxWidth="150" Width="150"  FontWeight="Normal"  FontSize="13" FontFamily="Verdana" VerticalAlignment="Center"  HorizontalContentAlignment="Center">
+                                        <Hyperlink Command="{Binding ElementName=WorkHoursContent,Path=DataContext.NavCommand20}"  CommandParameter="{Binding}"    Name="Edit" Foreground="#0000cc">View</Hyperlink>
+                                        <!--<Hyperlink  Command="{Binding Path=DataContext.EditCommand,RelativeSource={RelativeSource AncestorType=DataGrid}}" 
+                                        CommandParameter="{Binding}"  Name="Edit" Foreground="#0000cc">Edit</Hyperlink>-->
+                                    </Label>
+
+                                </StackPanel>
+                                
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn MaxWidth="120" Width="*" Header="Edit">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Label MaxWidth="120" Width="120" FontWeight="Normal"  FontSize="13" FontFamily="Verdana" VerticalAlignment="Center" HorizontalContentAlignment="Center">
+                                        <!--<Hyperlink  Command="{Binding ElementName= CrewManagementContent,Path=DataContext.NavCommand2}" CommandParameter="{Binding}"   Name="Edit" Foreground="#0000cc">Edit</Hyperlink>-->
+                                        <Hyperlink  Command="{Binding ElementName=WorkHoursContent,Path=DataContext.NavCommand5}" CommandParameter="{Binding}"  Name="Edit" Foreground="#0000cc">Edit</Hyperlink>
+                                    </Label>
+
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+
+                    <DataGridTemplateColumn MaxWidth="100" Width="*" Header="Delete">
+                        <DataGridTemplateColumn.CellTemplate >
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+
+                                    <Label Width="98"  FontWeight="Normal"   FontSize="13" FontFamily="Verdana" VerticalAlignment="Center" HorizontalContentAlignment="Center">
+                                        <Hyperlink  Name="Delete" Command="{Binding Path=DataContext.DeleteCommand,RelativeSource={RelativeSource AncestorType=DataGrid}}"  CommandParameter="{Binding}" Foreground="#0000cc">Delete
+                                        </Hyperlink>
+                                    </Label>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+
+            </DataGrid>
+        </Grid>
+    </Grid>
+</UserControl>

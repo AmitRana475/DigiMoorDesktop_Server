@@ -24,7 +24,9 @@
 
 
 
-                <TextBlock Grid.Column="1"  HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="Blue" FontFamily="Verdana" FontSize="14"  Text="Help" Padding="0,0,10,0"   />
+                <TextBlock Grid.Column="1"  HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="Blue" FontFamily="Verdana" FontSize="14"   Padding="0,0,10,0" >
+                     <Hyperlink Command="{Binding HelpCommand}" Name="Help" Foreground="#0000cc">Help</Hyperlink>
+                </TextBlock> 
             </Grid>
         </UniformGrid>
 

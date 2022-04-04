@@ -15,7 +15,7 @@
                 </Grid.RowDefinitions>
 
                 <Grid Height="Auto" x:Name="grid1b"  DockPanel.Dock="Top"   Background="#003366" >
-                    <TextBlock  Text="WORK-SHIP" Foreground="WhiteSmoke" FontFamily="Verdana" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock  Text="DigiMoor-X7" Foreground="WhiteSmoke" FontFamily="Verdana" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Grid>
 
 
@@ -45,6 +45,7 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                                 <RowDefinition/>
+                                <RowDefinition/>
                             </Grid.RowDefinitions>
 
                             <Canvas  Grid.Column="1" Grid.Row="0" VerticalAlignment="Center">
@@ -60,23 +61,35 @@
                                 <Label Height="20" Content="*" Foreground="Red" FontSize="16" Canvas.Left="27" Canvas.Top="-17" />
                             </Canvas>
 
-                            <TextBox  Grid.Column="2" Grid.Row="0" Height="30" IsEnabled="False" Text="{Binding LoadVessel.VesselName,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" FontFamily="Verdana" FontSize="14"  VerticalContentAlignment="Center"  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,8" Width="234"/>
-                            <TextBox  Grid.Column="2" Grid.Row="1" Height="30" IsEnabled="False" Text="{Binding LoadVessel.imo,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" FontFamily="Verdana" FontSize="14"  VerticalContentAlignment="Center"  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,8" Width="234"/>
+                            <TextBox  Grid.Column="2" Grid.Row="0" Height="30"  Text="{Binding LoadVessel.VesselName,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" FontFamily="Verdana" FontSize="14"  VerticalContentAlignment="Center"  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,8" Width="234"/>
+                            <TextBox  Grid.Column="2" Grid.Row="1" Height="30"  Text="{Binding LoadVessel.vessel_ID,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" FontFamily="Verdana" FontSize="14"  VerticalContentAlignment="Center"  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,8" Width="234"/>
                             <TextBox  Grid.Column="2" Grid.Row="2" Height="30" Text="{Binding LoadVessel.Flag,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" FontFamily="Verdana" FontSize="14"   VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,8" Width="234"/>
 
+
+                            <Canvas Grid.Column="1" Grid.Row="3" VerticalAlignment="Center">
+                                <TextBlock Text="Serial number"  FontFamily="Verdana" FontSize="14" Canvas.Top="-9"  HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                <!--<Label Height="20" Content="*" Foreground="Red" FontSize="16" Canvas.Left="27" Canvas.Top="-17" />-->
+                            </Canvas>
+
+                            <Canvas Grid.Column="2" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <TextBox x:Name="TxtSerialKey" IsReadOnly="True" Canvas.Top="-18" Height="30" Text="" FontFamily="Verdana" FontSize="14"   VerticalContentAlignment="Center"   Width="234"/>
+                                <Button x:Name="BtnCopy" Canvas.Top="-18" Canvas.Left="260" Background="LightSkyBlue" Content="Copy"  Style="{StaticResource HeaderButton1}" Width="64" Click="BtnCopy_Click" />
+                            </Canvas>
+
+                            <TextBlock Grid.Column="1" Grid.Row="4" FontWeight="Bold" Grid.ColumnSpan="2" Text="For the Licence key please Copy the Serial Number and e-mail on cs@49webstreet.com"  FontFamily="Verdana" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
                         </Grid>
 
                     </GroupBox>
 
-                    <Button Grid.Column="1" Grid.Row="2" Content="Next" Command="{Binding ElementName=LoginContent,Path=DataContext.AdminLoginCommand}" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource HeaderButton1}" Width="64" Margin="0,3,10,0" >
+                    <Button Grid.Column="1" Grid.Row="2" Content="Next" Command="{Binding ElementName=LoginContent,Path=DataContext.AdminLoginCommand}"  HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource HeaderButton1}" Width="64" Margin="0,3,10,0" >
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
-                                <i:InvokeCommandAction Command="{Binding NextCommand}" CommandParameter="{Binding LoadVessel }"/>
+                                <i:InvokeCommandAction Command="{Binding NextCommand}" CommandParameter="{Binding LoadVessel}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Button>
-                    <!--<Button Grid.Column="1" Grid.Row="2" Content="Previous" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource HeaderButton1}" Width="79" Margin="0,3,80,0" />-->
+                  
 
 
                 </Grid>

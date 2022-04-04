@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace WorkShipVersionII.Core
 {
-    public class ComCalenders
-    {
-        private readonly ShipmentContaxt sc;
+       public class ComCalenders
+       {
+              private readonly ShipmentContaxt sc;
 
-        public ComCalenders()
-        {
-            sc = new ShipmentContaxt();
-        }
+              public ComCalenders()
+              {
+                     sc = new ShipmentContaxt();
+              }
 
         public List<string> CommonCalender(string syearname, string smonthname)
         {
-           
+
 
             syearname = syearname ?? DateTime.Now.Year.ToString();
             smonthname = smonthname ?? DateTime.Now.ToString("MMMM");

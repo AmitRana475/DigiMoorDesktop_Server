@@ -5,43 +5,617 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="clr-namespace:WorkShipVersionII.WorkHoursViewModel"
              xmlns:views="clr-namespace:WorkShipVersionII.WorkHoursView"
+                xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1300">
+             d:DesignHeight="600" d:DesignWidth="1200">
 
     <UserControl.DataContext>
         <vm:MainViewModelWorkHours/>
     </UserControl.DataContext>
 
     <UserControl.Resources>
-        <!--<Style TargetType="{x:Type DataGridColumnHeader}">
-            <Setter Property="Background" Value="Silver" />
-            <Setter Property="BorderBrush" Value="#A0A0A0"/>
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="Height" Value="30" />
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center" />
 
-        </Style>-->
+        <DataTemplate DataType="{x:Type vm:MooringWinchViewModel}">
+            <views:MooringWinchListView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:TailDiscardListViewModel}">
+            <views:TailDiscardListView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ViewModelInspectionSetting}">
+            <views:ViewInspectionSetting/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:RopeStatusViewModel}">
+            <views:RopeStatusView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:ViewModelMooringRopeDetail}">
+            <views:ViewMooringRopeDetailView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:TailResidualLabTestListViewModel}">
+            <views:TailResidualLabTestListView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:AddTailResidualLabTestViewModel}">
+            <views:AddTailResidualLabTestView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:RopeDetailListViewModel}">
+            <views:RopeDetailListView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:TailDiscardRecordViewModel}">
+            <views:TailDiscardRecordView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:RopeDisposalListViewModel}">
+            <views:RopeDisposalListView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:TailDisposalListViewModel}">
+            <views:TailDisposalListView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:RopeDiscardListViewModel}">
+            <views:RopeDiscardListView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:LooseEDisposalListViewModel}">
+            <views:LooseEDisposalListView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:RopeDiscardRecordViewModel}">
+            <views:RopeDiscardRecordView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:LooseETypeViewModel}">
+            <views:LooseETypesView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:LooseEquipDiscardRecordViewModel}">
+            <views:LooseEquipDiscardRecordView/>
+        </DataTemplate>
+
+
+        <DataTemplate DataType="{x:Type vm:AddMooringWinchRopeViewModel}">
+            <views:AddMooringWinchRopeView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:AddMooringWinchTailViewModel}">
+            <views:AddMooringWinchTailView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:LooseEquipInspectionListViewModel}">
+            <views:LooseEquipInspectionList/>
+        </DataTemplate>
+
+
+        <DataTemplate DataType="{x:Type vm:LooseEDiscardListViewModel}">
+            <views:LooseEDiscardListView/>
+        </DataTemplate>
+
+
+
+
+        <DataTemplate DataType="{x:Type vm:CrossShiftingWinchViewModel}">
+            <views:CrossShiftingWinchListView/>
+        </DataTemplate>
+
+
+        <DataTemplate DataType="{x:Type vm:AddRopeDamageRecordViewModel}">
+            <views:AddRopeDamageRecord/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:AddTailDamageRecordViewModel}">
+            <views:AddTailDamageRecord/>
+        </DataTemplate>
         
-        <DataTemplate DataType="{x:Type vm:DetailWorkRestHoursViewModel}">
-            <views:DetailWorkRestHoursView/>
+        <DataTemplate DataType="{x:Type vm:ViewModelLooseEInspecSetting}">
+            <views:ViewLooseEInspectionSetting/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:WorkHoursCalenderViewModel}">
-            <views:WorkHoursCalenderView/>
+
+        <DataTemplate DataType="{x:Type vm:RopeDamageRecordViewModel}">
+            <views:RopeDamageRecordListView/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:IDLClocksSettingViewModel}">
-            <views:IDLClocksSettingView/>
+
+        <DataTemplate DataType="{x:Type vm:TailDamageRecordViewModel}">
+            <views:TailDamageRecordListView/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:LogbookViewModel}">
-            <views:LogbookView/>
+
+        <DataTemplate DataType="{x:Type vm:AddLooseEDamageRecordViewModel}">
+            <views:AddLooseEDamageRecordView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:ModelViewMooringRopeInspection}">
+            <views:ViewMooringRopeInspection/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:LooseEDamageRecordListViewModel}">
+            <views:LooseEDamageRecordListView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:RopeSplicingViewModel}">
+            <views:RopeSplicingListView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:TailSplicingViewModel}">
+            <views:TailSplicingListView/>
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:RopeCroppingListViewModel}">
+            <views:RopeCroppingListView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:TailCroppingListViewModel}">
+            <views:TailCroppingListView/>
+        </DataTemplate>
+
+
+        <DataTemplate DataType="{x:Type vm:AddRopeCroppingViewModel}">
+            <views:AddRopeCropping/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:AddTailCroppingViewModel}">
+            <views:AddTailCropping/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:AddRopeSplicingViewModel}">
+            <views:AddRopeSplicing/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ResidualLabTestListViewModel}">
+            <views:ResidualLabTestListView/>
+        </DataTemplate>
+
+
+        <DataTemplate DataType="{x:Type vm:AddTailSplicingViewModel}">
+            <views:AddTailSplicing/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:AddLooseEquipmentViewModel}">
+            <views:AddLooseEquipmentDetailsView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:LooseEquipmentListViewModel}">
+            <views:LooseEquipmentListView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:MooringOPRListingViewModel}">
+            <views:MooringOPRListingView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:RopeEndtoEndViewModel}">
+            <views:RopeEndtoEndListView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:AddRopeEndtoEndViewModel}">
+            <views:AddRopeEndtoEndView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:AddCrossShiftingWinchViewModel}">
+            <views:AddCrossShifingWinch/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:AssignRopeToWinchViewModel}">
+            <views:AssignRopeToWinchView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:AssignTailToWinchViewModel}">
+            <views:AssignTailToWinchView/>
+        </DataTemplate>
+
+
+        <DataTemplate  DataType="{x:Type vm:AssignRopeToWinchDetailViewModel}">
+            <views:AssignRopeToWinchDetailVeiw/>
+        </DataTemplate>
+
+        <DataTemplate  DataType="{x:Type vm:AssignTailToWinchDetailViewModel}">
+            <views:AssignTailToWinchDetailVeiw/>
+        </DataTemplate>
+
+
+        <DataTemplate DataType="{x:Type vm:AssignLooseEquipToWinchViewModel}">
+            <views:AssignLooseEquipToWinchView/>
+        </DataTemplate>
+
+        <DataTemplate  DataType="{x:Type vm:AssignLooseEquipToWinchDetailsViewModel}">
+            <views:AssignLooseEquipToWinchDetailsView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:MooringWinchRopeViewModel}">
+            <views:MooringWinchRopeListView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:MooringWinchTailViewModel}">
+            <views:MooringWinchTailListView/>
+        </DataTemplate>
+
+
+        <DataTemplate DataType="{x:Type vm:AddMooringWinchDetailsViewModel}">
+            <views:MooringWinchListView/>
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:MooringRopeInspectionViewModel}">
+            <views:MooringRopeInspectionView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:AddResidualLabTestViewModel}">
+            <views:AddResidualLabTestView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:ModelViewMooringTailInspection}">
+            <views:ViewMooringTailInspection/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:LooseEquipInspectionDetailsViewModel}">
+            <views:LooseEquipInspectionDetailsView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:RopeInspectionListViewModel}">
+            <views:RopeInspectionListView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:TailInspectionListViewModel}">
+            <views:TailInspectionListView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:MooringTailInspectionViewModel}">
+            <views:MooringTailInspectionView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:MooringOPRViewModel}">
+            <views:MooringOPRView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:WinchBrakeTestRecordViewModel}">
+            <views:WinchBrakeTestRecordView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:WinchRotationSettingViewModel}">
+            <views:WinchRotationSettingView/>
         </DataTemplate>
     </UserControl.Resources>
-    
-    
-    <Grid Margin="0,0,10,0" x:Name = "WorkHoursContent"  DockPanel.Dock="Top"   VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+    <Grid>
+        <DockPanel >
+            <Menu x:Name="LMPRMenu"  MenuItem.Click="MenuItemClick"  Grid.Column="0"  Background="#003366"  >
+                <Menu.ItemsPanel >
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Orientation="Vertical" />
 
-        <ContentControl Content="{Binding CurrentViewModelWorkHours}"/>
-        
+                    </ItemsPanelTemplate>
+                </Menu.ItemsPanel>
+
+
+                <MenuItem x:Name="IntroMenu1" Style="{StaticResource EditSubMenuitem}" Header="Mooring Operation" Padding="10,6,0,6"  Background="#003366" Foreground="WhiteSmoke" >
+
+                    <MenuItem x:Name="MooringOperationRecord" Header="Mooring Operation Records"   Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="MooringOperationListing" FontSize="13" Padding="-20,8,0,5" BorderThickness="0"  MinWidth="250" MaxWidth="300" Background="#003366" >
+                        <!--<MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png" MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>-->
+
+                        <!--<MenuItem.Header>
+                            <TextBlock MaxWidth="220" MaxHeight="18" TextWrapping="Wrap" TextTrimming="CharacterEllipsis">
+                        This is my nice long long long long Header Continued
+                            </TextBlock>
+                        </MenuItem.Header>-->
+                    </MenuItem>
+
+
+                </MenuItem>
+
+                <MenuItem x:Name="MoorR" Style="{StaticResource EditSubMenuitem}" Click="MoorR_Click" Cursor="Hand" Header="Mooring Line" Background="#003366" Foreground="WhiteSmoke" CommandParameter="Help" Padding="10,6,0,6" >
+
+                    <MenuItem x:Name="MooringRopeInspection" BorderThickness="0"  Header="Mooring Line Inspection" FontSize="13" Padding="-20,8,0,5"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="RopeInspectionList"  Background="#003366" >
+                        <!--<MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png" MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>-->
+                    </MenuItem>
+
+                    <MenuItem x:Name="MoorRope" Header="Mooring Line Details" Click="MoorRope_Click" BorderThickness="0" FontSize="13" Padding="-20,8,0,5"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="MooringWinchRopeView"  Background="#003366" >
+                        <!--<MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png" MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>-->
+                    </MenuItem>
+
+                    <MenuItem x:Name="AssignRopeToWinch" BorderThickness="0" FontSize="13" Padding="-20,8,0,5"  Header="Assign Line To Winch"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="AssignRopeToWinchDetail"  MinWidth="250" MaxWidth="300" Background="#003366" >
+                        <!--<MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png" MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>-->
+                    </MenuItem>
+                    <MenuItem x:Name="RopeEndtoEnd" BorderThickness="0" Header="Line End to End" FontSize="13" Padding="-20,8,0,5"   Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="RopeEndtoEndListView"  MinWidth="250" MaxWidth="300" Background="#003366" >
+                        <!--<MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png" MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>-->
+                    </MenuItem>
+
+                    <!--<MenuItem x:Name="Ropecrossshift" BorderThickness="0" Header="Cross Shifting Record"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="CrossShiftingWinch" FontSize="13" Padding="-20,8,0,5"   MinWidth="250" MaxWidth="300" Background="#003366" >
+                        --><!--<MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png" MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>--><!--
+                    </MenuItem>-->
+
+                    <MenuItem x:Name="RopeSplicing" BorderThickness="0" Header="Line Splicing"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="RopeSplicingListView" FontSize="13" Padding="-20,8,0,5"  MinWidth="250" MaxWidth="300" Background="#003366" >
+                        <!--<MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png" MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>-->
+                    </MenuItem>
+
+                    <MenuItem x:Name="Ropecropping" BorderThickness="0" Header="Line Cropping"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="RopeCroppingListView" FontSize="13" Padding="-20,8,0,5"   MinWidth="250" MaxWidth="300" Background="#003366" >
+                        <!--<MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png" MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>-->
+                    </MenuItem>
+
+                    <MenuItem x:Name="RopeDamage" BorderThickness="0" Header="Line Damage"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="RopeDamageListView" FontSize="13" Padding="-20,8,0,5"   MinWidth="250" MaxWidth="300" Background="#003366" >
+                        <!--<MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png"  MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>-->
+                    </MenuItem>
+
+                    <MenuItem x:Name="RopeDiscard" BorderThickness="0" Header="Line Discard"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="RopeDiscardList" FontSize="13" Padding="-20,8,0,5"   MinWidth="250" MaxWidth="300" Background="#003366" >
+                        <!--<MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png"  MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>-->
+                    </MenuItem>
+
+                    <MenuItem x:Name="RopeDispsal" BorderThickness="0" Header="Line Disposal"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="RopeDisposalListView" FontSize="13" Padding="-20,8,0,5"   MinWidth="250" MaxWidth="300" Background="#003366" >
+                        <!--<MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png"  MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>-->
+                    </MenuItem>
+                </MenuItem>
+
+                <MenuItem x:Name="MoorRTail" Style="{StaticResource EditSubMenuitem}" Click="MoorRTail_Click" Cursor="Hand" Header="Mooring Rope Tail" Background="#003366" Foreground="WhiteSmoke" CommandParameter="Help" Padding="10,6,0,6" >
+
+                    <MenuItem x:Name="MooringRopeTailInspection" BorderThickness="0"  Header="Mooring Rope Tail Inspection" FontSize="13" Padding="-20,8,0,5"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="RopeTailInspectionList"  Background="#003366" >
+                        <!--<MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png" MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>-->
+                    </MenuItem>
+
+                    <MenuItem x:Name="MoorRopeTail" Header="Mooring Rope Tail Details" BorderThickness="0" FontSize="13" Padding="-20,8,0,5"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="MooringWinchRopeTailView"  Background="#003366" >
+                        <!--<MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png" MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>-->
+                    </MenuItem>
+
+                    <MenuItem x:Name="AssignRopeTailToWinch" BorderThickness="0" FontSize="13" Padding="-20,8,0,5"  Header="Assign Rope Tail To Winch"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="AssignRopeTailToWinchDetail"  MinWidth="250" MaxWidth="300" Background="#003366" >
+                        <!--<MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png" MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>-->
+                    </MenuItem>
+                    <!--<MenuItem x:Name="RopeTailEndtoEnd" BorderThickness="0" Header="Rope EndtoEnd" FontSize="13" Padding="-20,8,0,5"   Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="RopeEndtoEndListView"  MinWidth="250" MaxWidth="300" Background="#003366" >
+                      
+                    </MenuItem>-->
+
+                    <!--<MenuItem x:Name="Ropecrossshift" BorderThickness="0" Header="Cross Shifting Record"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="CrossShiftingWinch" FontSize="13" Padding="-20,8,0,5"   MinWidth="250" MaxWidth="300" Background="#003366" >
+                        -->
+                    <!--<MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png" MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>-->
+                    <!--
+                    </MenuItem>-->
+
+                    <MenuItem x:Name="RopeTailSplicing" BorderThickness="0" Header="Rope Tail Splicing"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="RopeTailSplicingListView" FontSize="13" Padding="-20,8,0,5"  MinWidth="250" MaxWidth="300" Background="#003366" >
+                        <!--<MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png" MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>-->
+                    </MenuItem>
+
+                    <MenuItem x:Name="RopeTailcropping" BorderThickness="0" Header="Rope Tail Cropping"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="RopeTailCroppingListView" FontSize="13" Padding="-20,8,0,5"   MinWidth="250" MaxWidth="300" Background="#003366" >
+                        <!--<MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png" MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>-->
+                    </MenuItem>
+
+                    <MenuItem x:Name="RopeTailDamage" BorderThickness="0" Header="Rope Tail Damage"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="RopeTailDamageListView" FontSize="13" Padding="-20,8,0,5"   MinWidth="250" MaxWidth="300" Background="#003366" >
+                        <!--<MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png"  MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>-->
+                    </MenuItem>
+
+                    <MenuItem x:Name="RopeTailDiscard" BorderThickness="0" Header="Rope Tail Discard"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="RopeTailDiscardList" FontSize="13" Padding="-20,8,0,5"   MinWidth="250" MaxWidth="300" Background="#003366" >
+                        <!--<MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png"  MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>-->
+                    </MenuItem>
+
+                    <MenuItem x:Name="RopeTailDispsal" BorderThickness="0" Header="Rope Tail Disposal"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="RopeTailDisposalListView" FontSize="13" Padding="-20,8,0,5"   MinWidth="250" MaxWidth="300" Background="#003366" >
+                        <!--<MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png"  MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>-->
+                    </MenuItem>
+                </MenuItem>
+
+                <MenuItem x:Name="MoorL" Style="{StaticResource EditSubMenuitem}" Click="MoorL_Click" Cursor="Hand" Header="Mooring Loose Equipment   " Background="#003366" Foreground="WhiteSmoke" CommandParameter="Help" FontSize="13" Padding="10,6,0,6"  >
+
+                    <MenuItem x:Name="MooringLooseInspection" BorderThickness="0" Header="Loose Equipment Inspection"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="LooseEInspectList" FontSize="13" Padding="-20,8,0,5"   MinWidth="250" MaxWidth="300" Background="#003366" >
+                        <!--<MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png" MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>-->
+                    </MenuItem>
+
+                    <MenuItem x:Name="MoorLooseE" BorderThickness="0" Header="Loose Equipment Details"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="LooseEDetails" FontSize="13" Padding="-20,8,0,5"  MinWidth="250" MaxWidth="300" Background="#003366" >
+                        <!--<MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png" MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>-->
+                    </MenuItem>
+
+                    <MenuItem x:Name="AssignLoose" BorderThickness="0" Visibility="Collapsed" Header="Assign Loose Equipment To Winch"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="AssignLooseEquipDetails" FontSize="13" Padding="-20,8,0,5"   MinWidth="250" MaxWidth="300" Background="#003366" >
+                        <!--<MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png" MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>-->
+                    </MenuItem>
+                    <MenuItem x:Name="MoorLEDamage" BorderThickness="0" Header="Loose Equipment Damage"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="LooseEDamageRList" FontSize="13" Padding="-20,8,0,5"   MinWidth="250" MaxWidth="300" Background="#003366" >
+                        <!--<MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png" MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>-->
+                    </MenuItem>
+                    <MenuItem x:Name="MoorLEDiscard" BorderThickness="0" Header="Loose Equipment Discard"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="LooseEDiscardList" FontSize="13" Padding="-20,8,0,5"   MinWidth="250" MaxWidth="300" Background="#003366" >
+                        <!--<MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png" MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>-->
+                    </MenuItem>
+
+
+                    <!--<MenuItem x:Name="MoorLHis" BorderThickness="0" Header="Loose Equipment Historical Records"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="" FontSize="13" Padding="-20,8,0,5"   MinWidth="250" MaxWidth="300" Background="#003366" >
+                       
+                    </MenuItem>-->
+
+                    <MenuItem x:Name="LDisposal" BorderThickness="0" Header="Loose Equipment Disposal"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="LooseEDisposalList" FontSize="13" Padding="-20,8,0,5"   MinWidth="250" MaxWidth="300" Background="#003366" >
+                        <!--<MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png" MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>-->
+                    </MenuItem>
+
+
+
+                </MenuItem>
+
+                <MenuItem x:Name="IntroMenu" Style="{StaticResource EditSubMenuitem}" Header="Mooring Winch" Padding="10,6,0,6" Command="{Binding NavCommand}" CommandParameter="AddMooringWinchView"  Background="#003366" Foreground="WhiteSmoke" >
+
+                    <!--<MenuItem x:Name="MoorW1" BorderThickness="0" Header="Mooring Winch Details"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="AddMooringWinchView" FontSize="13" Padding="-20,8,0,5"   MinWidth="250" MaxWidth="300" Background="#003366" >
+
+                     
+
+                    </MenuItem>-->
+                    
+                    <!--<MenuItem>
+                        <MenuItem.Header>
+                            <TextBlock MaxWidth="120" MaxHeight="18" TextWrapping="Wrap" TextTrimming="CharacterEllipsis">
+                        This is my nice long long long long Header Continued
+                            </TextBlock>
+                        </MenuItem.Header>
+                        <MenuItem>-->
+                            <!--<MenuItem x:Name="MoorW2" Visibility="Collapsed" BorderThickness="0" Header="Mooring Winch Historical Records"  Cursor="Hand" FontSize="13" Padding="-20,8,0,5"   MinWidth="250" MaxWidth="300" Background="#003366">
+
+                    </MenuItem>-->
+
+                </MenuItem>
+
+                <MenuItem x:Name="IntroMenu6" Style="{StaticResource EditSubMenuitem}" Header="Line Status" Padding="10,6,0,6" Command="{Binding NavCommand}" CommandParameter="RopeStatusView"  Background="#003366" Foreground="WhiteSmoke" >
+
+                    <!--<MenuItem x:Name="MoorW16" BorderThickness="0" Header="Mooring Rope Status"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="RopeStatusView" FontSize="13" Padding="-20,8,0,5"   MinWidth="250" MaxWidth="300" Background="#003366" >
+
+
+
+                    </MenuItem>-->
+
+                   
+                  
+
+                </MenuItem>
+
+                <MenuItem x:Name="IntroMenu61" Style="{StaticResource EditSubMenuitem}" Header="Rope Tail Status" Padding="10,6,0,6" Command="{Binding NavCommand}" CommandParameter="RopeTailStatusView"  Background="#003366" Foreground="WhiteSmoke" >
+
+                    <!--<MenuItem x:Name="MoorW161" BorderThickness="0" Header="Mooring Rope Tail Status"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="RopeTailStatusView" FontSize="13" Padding="-20,8,0,5"   MinWidth="250" MaxWidth="300" Background="#003366" >
+
+
+
+                    </MenuItem>-->
+
+
+
+
+                </MenuItem>
+
+
+                <!--<MenuItem x:Name="InspectSett" Style="{StaticResource EditSubMenuitem}" Header="Inspection Setting" Padding="10,6,0,6"  Background="#003366" Foreground="WhiteSmoke" >
+                    <MenuItem x:Name="MoorInsSett" BorderThickness="0" Header="Mooring Inspection Setting"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="RopeStatusView" FontSize="13" Padding="-20,8,0,5"   MinWidth="250" MaxWidth="300" Background="#003366" >
+                    </MenuItem>
+                </MenuItem>-->
+
+              
+
+                <MenuItem x:Name="IntroMenu612" Style="{StaticResource EditSubMenuitem}" Header="Line Residual Lab Test" Padding="10,6,0,6" Command="{Binding NavCommand}" CommandParameter="ResidualLabTestList"  Background="#003366" Foreground="WhiteSmoke" >
+                 </MenuItem>
+
+                <MenuItem x:Name="IntroMenu6123" Style="{StaticResource EditSubMenuitem}" Header="Tail Residual Lab Test" Padding="10,6,0,6" Command="{Binding NavCommand}" CommandParameter="TailResidualLabTestList"  Background="#003366" Foreground="WhiteSmoke" >
+                </MenuItem>
+
+                <MenuItem x:Name="IntroMenu6124" Style="{StaticResource EditSubMenuitem}" Header="Winch Brake Test Record" Padding="10,6,0,6" Command="{Binding NavCommand}" CommandParameter="WinchBrakeTestRecord"  Background="#003366" Foreground="WhiteSmoke" >
+                </MenuItem>
+
+
+                <MenuItem x:Name="IntroSetting" Visibility="Visible" Style="{StaticResource EditSubMenuitem}" Header="Pre-set Criteria " Padding="10,6,0,6" Width="260"  Background="#003366" Foreground="WhiteSmoke" >
+
+                    <MenuItem x:Name="MoorSR" BorderThickness="0" Header="Line / Rope Tail"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="InspectionSetting" FontSize="13" Padding="-20,8,0,5"   MinWidth="250" MaxWidth="300" Background="#003366" >
+
+                    </MenuItem>
+                    <MenuItem x:Name="MoorSL" BorderThickness="0" Visibility="Visible" Header="Loose Equipment" Command="{Binding NavCommand}" CommandParameter="LooseInspectionSetting"  Cursor="Hand" FontSize="13" Padding="-20,8,0,5"   MinWidth="250" MaxWidth="300" Background="#003366">
+
+                    </MenuItem>
+
+                    <MenuItem x:Name="MoorWR" BorderThickness="0" Visibility="Visible" Header="Winch Rotation" Command="{Binding NavCommand}" CommandParameter="WinchRotationSetting"  Cursor="Hand" FontSize="13" Padding="-20,8,0,5"   MinWidth="250" MaxWidth="300" Background="#003366">
+
+                    </MenuItem>
+
+                </MenuItem>
+
+
+
+            </Menu>
+
+
+            <Grid x:Name = "WorkHoursContent" DockPanel.Dock="Top"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,0,0,0"  >
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="540*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock x:Name="HeaderTitle" Text="Mooring Operation Records" TextAlignment="Center" Margin="10,10,0,0" FontSize="18" Style="{StaticResource HeaderText1}" Canvas.Left="24" Canvas.Top="39" />
+                    <ContentControl Grid.Row="1"  Content="{Binding CurrentViewModelWorkHours}"/>
+                </Grid>
+
+            </Grid>
+
+        </DockPanel>
     </Grid>
-   
+
 </UserControl>
+
+<!--<Window x:Class="WpfApp1Menutest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+       
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1Menutest"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
+    <TreeView Margin="0,0,0,0"  Name="TreeView1"  Foreground="WhiteSmoke" Background="#003366" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="900">
+        <TreeView.Resources>
+            <Style TargetType="{x:Type TreeViewItem}">
+                <Setter Property="HeaderTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <TextBlock  Width="150"
+                                   TextWrapping="Wrap"
+                                   Text="{Binding}" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </TreeView.Resources>
+
+        <TreeViewItem x:Name="IntroMenu1" Header="Mooring Operation" Padding="4,2,4,2" Foreground="WhiteSmoke" Background="#003366">
+            <TreeViewItem x:Name="MooringOperationRecord" Padding="4,2,4,2" Header="Mooring Operation Records" Margin="-15,10,0,0"  Foreground="WhiteSmoke"></TreeViewItem>
+            <TreeViewItem Margin="-15,10,0,0" Padding="4,2,4,2" Header="Pepsi"  Foreground="WhiteSmoke"></TreeViewItem>
+            <TreeViewItem Margin="-15,10,0,0" Header="Orange Juice"  Foreground="WhiteSmoke"></TreeViewItem>
+            <TreeViewItem Margin="-15,0,0,0" Padding="5,5,5,5" Header="Milk"  Foreground="WhiteSmoke" ></TreeViewItem>
+            <TreeViewItem Margin="-15,10,0,0" Header="Iced Tea"  Foreground="WhiteSmoke"></TreeViewItem>
+            <TreeViewItem Margin="-15,10,0,0" Header="Mango Shake"  Foreground="WhiteSmoke"></TreeViewItem>
+        </TreeViewItem>
+        <TreeViewItem Header="Soft Drinks" Foreground="WhiteSmoke" Background="#003366">
+            <TreeViewItem Header="Coke" Foreground="WhiteSmoke"></TreeViewItem>
+            <TreeViewItem Header="Pepsi" Foreground="WhiteSmoke"></TreeViewItem>
+            <TreeViewItem Header="Orange Juice" Foreground="WhiteSmoke"></TreeViewItem>
+            <TreeViewItem Header="Iced Tea"  Foreground="WhiteSmoke"></TreeViewItem>
+            <TreeViewItem Header="Mango Shake"  Foreground="WhiteSmoke"></TreeViewItem>
+        </TreeViewItem>
+    </TreeView>
+
+   
+</Window>-->

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -1202,7 +1203,7 @@ namespace WorkShipVersionII.WorkHoursViewModel.TimeSlotModels
 
                     //..........Opa for 3 days...................
 
-                    var sdaopastatr = sc.OPAStartStops.Where(x => (obj.dates >= x.OPAStart && obj.dates <= x.OPAStop)).FirstOrDefault();
+                    var sdaopastatr = sc.OPAStartStops.Where(x => (obj.dates.Date >= DbFunctions.TruncateTime(x.OPAStart) && obj.dates.Date <= x.OPAStop)).FirstOrDefault();
 
                     bool b11;
                     bool chkOPAforallday = false;
@@ -1334,579 +1335,579 @@ namespace WorkShipVersionII.WorkHoursViewModel.TimeSlotModels
                         startdateop = obj.dates.Add(TimeSpan.Parse(startdateop)).ToString();
                         enddateop = obj.dates.Add(TimeSpan.Parse(enddateop)).ToString();
 
-                        if (index1 == 48 && GetNextValues(obj.dates, obj.IDL, WorkHoursList, CheckIDL))
+                        //if (index1 == 48 && GetNextValues(obj.dates, obj.IDL, WorkHoursList, CheckIDL))
+                        //{
+                        //    //Stop check point if filled "0" index in next day....
+                        //    if (today.Length == 1)
+                        //    {
+                        //        GetbackhoursValuesPlanner(obj, WorkHoursList, CheckIDL);  //It have to Impleament to get 77 hrs values
+
+                        //        //_CommonData1.RestHour7day = obj.RestHour7day;
+                        //        //RaisePropertyChanged("CommonData1");
+
+                        //    }
+                        //}
+                        //else
+                        //{
+                        int count = 0;
+                        count = index1 + 48;
+
+
+                        double total = 0;
+                        List<double> lista = new List<double>();
+                        lista.Clear();
+
+                        //....................
+                        string[] results = new string[48];
+                        Array.Copy(conc, index1, results, 0, 48);
+                        //................
+
+                        string[] nums = conc.Skip(index1).Take(48).ToArray();
+
+
+                        int norm9 = 0;
+                        norm9 = nums.Length;
+                        for (long i = 0; i < norm9; i++)
                         {
-                            //Stop check point if filled "0" index in next day....
-                            if (today.Length == 1)
+
+                            if (Convert.ToInt32(nums[i]) == 0)
                             {
-                                GetbackhoursValuesPlanner(obj, WorkHoursList, CheckIDL);  //It have to Impleament to get 77 hrs values
-
-                                //_CommonData1.RestHour7day = obj.RestHour7day;
-                                //RaisePropertyChanged("CommonData1");
-
+                                total += 0.5;
                             }
+                            else if (Convert.ToInt32(nums[i]) == 1)
+                            {
+                                if (total != 0)
+                                {
+                                    lista.Add(total);
+                                    total = 0;
+                                }
+                            }
+                            if (i == nums.Length - 1)
+                            {
+                                if (total != 0)
+                                {
+                                    lista.Add(total);
+                                    total = 0;
+                                }
+                            }
+
                         }
-                        else
+
+                        if (lista.Count() == 0)
+                            lista.Add(0);
+                        double abc22 = lista.Sum();
+
+
+
+                        ab10rest.Add(abc22);
+                        ab10rest.Sort();
+                        txtRH = ab10rest[0].ToString();
+                        //_CommonData1.RestHours = Convert.ToDecimal(txtRH);
+                        //RaisePropertyChanged("CommonData1");
+                        obj.RestHours = Convert.ToDecimal(txtRH);
+                        obj.RestHourAny24 = txtRH;
+
+                        //string[] restPeriods = label34.TrimEnd(',').Split(',');
+
+                        var asd = lista.Where(element => element >= (double)DefineRules.Rule6Hrs).FirstOrDefault();
+                        if (asd == 0 && lista.Count > 0)
                         {
-                            int count = 0;
-                            count = index1 + 48;
+                            obj.NC1 = "No minimum 6 hour consecutive rest period";
 
 
-                            double total = 0;
-                            List<double> lista = new List<double>();
-                            lista.Clear();
-
-                            //....................
-                            string[] results = new string[48];
-                            Array.Copy(conc, index1, results, 0, 48);
-                            //................
-
-                            string[] nums = conc.Skip(index1).Take(48).ToArray();
-
-
-                            int norm9 = 0;
-                            norm9 = nums.Length;
-                            for (long i = 0; i < norm9; i++)
+                            int bc = Convert.ToInt32(today[y1]);
+                            foreach (var item in DynamicGridBorders)
                             {
 
-                                if (Convert.ToInt32(nums[i]) == 0)
+                                if (item.Name == "BP" + bc)
                                 {
-                                    total += 0.5;
-                                }
-                                else if (Convert.ToInt32(nums[i]) == 1)
-                                {
-                                    if (total != 0)
+                                    var ss1 = item.Background;
+                                    if (((SolidColorBrush)ss1).Color.ToString() == colorValue1)
                                     {
-                                        lista.Add(total);
-                                        total = 0;
+                                        item.Background = new SolidColorBrush(Colors.Red);
                                     }
-                                }
-                                if (i == nums.Length - 1)
-                                {
-                                    if (total != 0)
-                                    {
-                                        lista.Add(total);
-                                        total = 0;
-                                    }
+
+                                    break;
+
                                 }
 
                             }
 
-                            if (lista.Count() == 0)
-                                lista.Add(0);
-                            double abc22 = lista.Sum();
+                        }//10 hrs Condition....
 
 
+                        var hrs10Count = lista.Sum();
 
-                            ab10rest.Add(abc22);
-                            ab10rest.Sort();
-                            txtRH = ab10rest[0].ToString();
-                            //_CommonData1.RestHours = Convert.ToDecimal(txtRH);
-                            //RaisePropertyChanged("CommonData1");
-                            obj.RestHours = Convert.ToDecimal(txtRH);
-                            obj.RestHourAny24 = txtRH;
+                        int hrs10 = (int)(DefineRules.Rule10Hrs);
+                        if (hrs10Count < hrs10)
+                        {
+                            obj.NC2 = "Less than 10 hours total rest in 24 hour period";
 
-                            //string[] restPeriods = label34.TrimEnd(',').Split(',');
-
-                            var asd = lista.Where(element => element >= (double)DefineRules.Rule6Hrs).FirstOrDefault();
-                            if (asd == 0 && lista.Count > 0)
+                            int bc = Convert.ToInt32(today[y1]);
+                            foreach (var item in DynamicGridBorders)
                             {
-                                obj.NC1 = "No minimum 6 hour consecutive rest period";
-
-
-                                int bc = Convert.ToInt32(today[y1]);
-                                foreach (var item in DynamicGridBorders)
+                                if (item.Name == "BP" + bc)
                                 {
-
-                                    if (item.Name == "BP" + bc)
+                                    var ss1 = item.Background;
+                                    if (((SolidColorBrush)ss1).Color.ToString() == colorValue1)
                                     {
-                                        var ss1 = item.Background;
-                                        if (((SolidColorBrush)ss1).Color.ToString() == colorValue1)
-                                        {
-                                            item.Background = new SolidColorBrush(Colors.Red);
-                                        }
+                                        item.Background = new SolidColorBrush(Colors.Red);
+                                    }
 
-                                        break;
+                                    break;
+                                }
+                            }
+
+
+                        }   //for 10 / 2 next Condition
+
+
+                        if (lista.Count >= 2 && DefineRules.Rule10DevideTwo && hrs10Count >= 10)
+                        {
+
+                            double A = 0, B = 0, C = 0, D = 0, E = 0, F = 0, G = 0, H = 0, I = 0, J = 0, K = 0, L = 0, M = 0, N = 0, O = 0, P = 0, Q = 0, R = 0, S = 0, A1 = 0, B1 = 0, C1 = 0, D1 = 0, E1 = 0, F1 = 0, G1 = 0, H1 = 0, I1 = 0, J1 = 0, K1 = 0, L1 = 0, M1 = 0, N1 = 0, O1 = 0, P1 = 0, Q1 = 0, R1 = 0, S1 = 0;
+
+                            int aa1 = 0;
+                            foreach (var abc1 in lista)
+                            {
+
+                                if (abc1 >= 10)
+                                {
+                                    aa1 = aa1 + 1;
+                                    break;
+                                }
+
+                                else
+                                {
+                                    if (abc1 == 9.5)
+                                    {
+                                        if (A == 9.5)
+                                            A1 = abc1;
+
+                                        else
+                                            A = abc1;
+                                    }
+                                    else if (abc1 == 9.0)
+                                    {
+                                        if (B == 9.0)
+                                            B1 = abc1;
+
+                                        else
+                                            B = abc1;
+
+                                    }
+
+                                    else if (abc1 == 8.5)
+                                    {
+                                        if (C == 8.5)
+                                            C1 = abc1;
+
+                                        else
+                                            C = abc1;
+
+                                    }
+                                    else if (abc1 == 8.0)
+                                    {
+                                        if (D == 8.0)
+                                            D1 = abc1;
+
+                                        else
+                                            D = abc1;
+
+                                    }
+                                    else if (abc1 == 7.5)
+                                    {
+                                        if (E == 7.5)
+                                            E1 = abc1;
+
+                                        else
+                                            E = abc1;
+
+                                    }
+                                    else if (abc1 == 7.0)
+                                    {
+                                        if (F == 7.0)
+                                            F1 = abc1;
+
+                                        else
+                                            F = abc1;
+
+                                    }
+                                    else if (abc1 == 6.5)
+                                    {
+                                        if (G == 6.5)
+                                            G1 = abc1;
+
+                                        else
+                                            G = abc1;
+
+                                    }
+                                    else if (abc1 == 6.0)
+                                    {
+                                        if (H == 6.0)
+                                            H1 = abc1;
+
+                                        else
+                                            H = abc1;
+
+                                    }
+                                    else if (abc1 == 5.5)
+                                    {
+                                        if (I == 5.5)
+                                            I1 = abc1;
+
+                                        else
+                                            I = abc1;
+
+                                    }
+                                    else if (abc1 == 5.0)
+                                    {
+                                        if (J == 5.0)
+                                            J1 = abc1;
+
+                                        else
+                                            J = abc1;
+
+                                    }
+                                    else if (abc1 == 4.5)
+                                    {
+                                        if (K == 4.5)
+                                            K1 = abc1;
+
+                                        else
+                                            K = abc1;
+
+                                    }
+                                    else if (abc1 == 4.0)
+                                    {
+                                        if (L == 4.0)
+                                            L1 = abc1;
+
+                                        else
+                                            L = abc1;
+
+                                    }
+                                    else if (abc1 == 3.5)
+                                    {
+                                        if (M == 3.5)
+                                            M1 = abc1;
+
+                                        else
+                                            M = abc1;
+
+                                    }
+                                    else if (abc1 == 3.0)
+                                    {
+                                        if (N == 3.0)
+                                            N1 = abc1;
+
+                                        else
+                                            N1 = abc1;
+
+                                    }
+                                    else if (abc1 == 2.5)
+                                    {
+                                        if (O == 2.5)
+                                            O1 = abc1;
+
+                                        else
+                                            O = abc1;
+
+                                    }
+                                    else if (abc1 == 2.0)
+                                    {
+                                        if (P == 2.0)
+                                            P1 = abc1;
+
+                                        else
+                                            P = abc1;
+
+                                    }
+
+                                    else if (abc1 == 1.5)
+                                    {
+                                        if (Q == 1.5)
+                                            Q1 = abc1;
+
+                                        else
+                                            Q = abc1;
+
+                                    }
+                                    else if (abc1 == 1.0)
+                                    {
+                                        if (R == 1.0)
+                                            R1 = abc1;
+
+                                        else
+                                            R = abc1;
+
+                                    }
+                                    else if (abc1 == 0.5)
+                                    {
+                                        if (S == 0.5)
+                                            S1 = abc1;
+
+                                        else
+                                            S = abc1;
 
                                     }
 
                                 }
 
-                            }//10 hrs Condition....
-
-
-                            var hrs10Count = lista.Sum();
-
-                            int hrs10 = (int)(DefineRules.Rule10Hrs);
-                            if (hrs10Count < hrs10)
+                            }
+                            if (aa1 != 1)
                             {
-                                obj.NC2 = "Less than 10 hours total rest in 24 hour period";
-
-                                int bc = Convert.ToInt32(today[y1]);
-                                foreach (var item in DynamicGridBorders)
+                                if ((A + B) >= 10 || (A + C) >= 10 || (A + D) >= 10 || (A + E) >= 10 || (A + F) >= 10 || (A + G) >= 10 || (A + H) >= 10 || (A + I) >= 10 || (A + J) >= 10 || (A + K) >= 10 || (A + L) >= 10 || (A + M) >= 10 || (A + N) >= 10 || (A + O) >= 10 || (A + P) >= 10 || (A + Q) >= 10 || (A + R) >= 10 || (A + S) >= 10 || (A + A1) >= 10 || (A + B1) >= 10 || (A + C1) >= 10 || (A + D1) >= 10 || (A + E1) >= 10 || (A + F1) >= 10 || (A + G1) >= 10 || (A + H1) >= 10 || (A + I1) >= 10 || (A + J1) >= 10 || (A + K1) >= 10 || (A + L1) >= 10 || (A + M1) >= 10 || (A + N1) >= 10 || (A + O1) >= 10 || (A + P1) >= 10 || (A + Q1) >= 10 || (A + R1) >= 10 || (A + S1) >= 10 ||
+                                    (B + C) >= 10 || (B + D) >= 10 || (B + E) >= 10 || (B + F) >= 10 || (B + G) >= 10 || (B + H) >= 10 || (B + I) >= 10 || (B + J) >= 10 || (B + K) >= 10 || (B + L) >= 10 || (B + M) >= 10 || (B + N) >= 10 || (B + O) >= 10 || (B + P) >= 10 || (B + Q) >= 10 || (B + R) >= 10 || (B + S) >= 10 || (B + A1) >= 10 || (B + B1) >= 10 || (B + C1) >= 10 || (B + D1) >= 10 || (B + E1) >= 10 || (B + F1) >= 10 || (B + G1) >= 10 || (B + H1) >= 10 || (B + I1) >= 10 || (B + J1) >= 10 || (B + K1) >= 10 || (B + L1) >= 10 || (B + M1) >= 10 || (B + N1) >= 10 || (B + O1) >= 10 || (B + P1) >= 10 || (B + Q1) >= 10 || (B + R1) >= 10 || (B + S1) >= 10 ||
+                                    (C + D) >= 10 || (C + E) >= 10 || (C + F) >= 10 || (C + F) >= 10 || (C + G) >= 10 || (C + H) >= 10 || (C + I) >= 10 || (C + J) >= 10 || (C + K) >= 10 || (C + L) >= 10 || (C + M) >= 10 || (C + N) >= 10 || (C + O) >= 10 || (C + P) >= 10 || (C + Q) >= 10 || (C + R) >= 10 || (C + S) >= 10 || (C + A1) >= 10 || (C + B1) >= 10 || (C + C1) >= 10 || (C + D1) >= 10 || (C + E1) >= 10 || (C + F1) >= 10 || (C + G1) >= 10 || (C + H1) >= 10 || (C + I1) >= 10 || (C + J1) >= 10 || (C + K1) >= 10 || (C + L1) >= 10 || (C + M1) >= 10 || (C + N1) >= 10 || (C + O1) >= 10 || (C + P1) >= 10 || (C + Q1) >= 10 || (C + R1) >= 10 || (C + S1) >= 10 ||
+                                    (D + E) >= 10 || (D + F) >= 10 || (D + G) >= 10 || (D + H) >= 10 || (D + I) >= 10 || (D + J) >= 10 || (D + K) >= 10 || (D + L) >= 10 || (D + M) >= 10 || (D + N) >= 10 || (D + O) >= 10 || (D + P) >= 10 || (D + Q) >= 10 || (D + R) >= 10 || (D + S) >= 10 || (D + A1) >= 10 || (D + B1) >= 10 || (D + C1) >= 10 || (D + D1) >= 10 || (D + E1) >= 10 || (D + F1) >= 10 || (D + G1) >= 10 || (D + H1) >= 10 || (D + I1) >= 10 || (D + J1) >= 10 || (D + K1) >= 10 || (D + L1) >= 10 || (D + M1) >= 10 || (D + N1) >= 10 || (D + O1) >= 10 || (D + P1) >= 10 || (D + Q1) >= 10 || (D + R1) >= 10 || (D + S1) >= 10 ||
+                                    (E + F) >= 10 || (E + G) >= 10 || (E + H) >= 10 || (E + I) >= 10 || (E + J) >= 10 || (E + K) >= 10 || (E + L) >= 10 || (E + M) >= 10 || (E + N) >= 10 || (E + O) >= 10 || (E + P) >= 10 || (E + Q) >= 10 || (E + R) >= 10 || (E + S) >= 10 || (E + A1) >= 10 || (E + B1) >= 10 || (E + C1) >= 10 || (E + D1) >= 10 || (E + E1) >= 10 || (E + F1) >= 10 || (E + G1) >= 10 || (E + H1) >= 10 || (E + I1) >= 10 || (E + J1) >= 10 || (E + K1) >= 10 || (E + L1) >= 10 || (E + M1) >= 10 || (E + N1) >= 10 || (E + O1) >= 10 || (E + P1) >= 10 || (E + Q1) >= 10 || (E + R1) >= 10 || (E + S1) >= 10 ||
+                                    (F + G) >= 10 || (F + H) >= 10 || (F + I) >= 10 || (F + J) >= 10 || (F + K) >= 10 || (F + L) >= 10 || (F + M) >= 10 || (F + N) >= 10 || (F + O) >= 10 || (F + P) >= 10 || (F + Q) >= 10 || (F + R) >= 10 || (F + S) >= 10 || (F + A1) >= 10 || (F + B1) >= 10 || (F + C1) >= 10 || (F + D1) >= 10 || (F + E1) >= 10 || (F + F1) >= 10 || (F + G1) >= 10 || (F + H1) >= 10 || (F + I1) >= 10 || (F + J1) >= 10 || (F + K1) >= 10 || (F + L1) >= 10 || (F + M1) >= 10 || (F + N1) >= 10 || (F + O1) >= 10 || (F + P1) >= 10 || (F + Q1) >= 10 || (F + R1) >= 10 || (F + S1) >= 10 ||
+                                    (G + H) >= 10 || (G + I) >= 10 || (G + J) >= 10 || (G + K) >= 10 || (G + L) >= 10 || (G + M) >= 10 || (G + N) >= 10 || (G + O) >= 10 || (G + P) >= 10 || (G + Q) >= 10 || (G + R) >= 10 || (G + S) >= 10 || (G + A1) >= 10 || (G + B1) >= 10 || (G + C1) >= 10 || (G + D1) >= 10 || (G + E1) >= 10 || (G + F1) >= 10 || (G + G1) >= 10 || (G + H1) >= 10 || (G + I1) >= 10 || (G + J1) >= 10 || (G + K1) >= 10 || (G + L1) >= 10 || (G + M1) >= 10 || (G + N1) >= 10 || (G + O1) >= 10 || (G + P1) >= 10 || (G + Q1) >= 10 || (G + R1) >= 10 || (G + S1) >= 10 ||
+                                    (H + I) >= 10 || (H + J) >= 10 || (H + K) >= 10 || (H + L) >= 10 || (H + M) >= 10 || (H + N) >= 10 || (H + O) >= 10 || (H + P) >= 10 || (H + Q) >= 10 || (H + R) >= 10 || (H + S) >= 10 || (H + A1) >= 10 || (H + B1) >= 10 || (H + C1) >= 10 || (H + D1) >= 10 || (H + E1) >= 10 || (H + F1) >= 10 || (H + G1) >= 10 || (H + H1) >= 10 || (H + I1) >= 10 || (H + J1) >= 10 || (H + K1) >= 10 || (H + L1) >= 10 || (H + M1) >= 10 || (H + N1) >= 10 || (H + O1) >= 10 || (H + P1) >= 10 || (H + Q1) >= 10 || (H + R1) >= 10 || (H + S1) >= 10 ||
+                                    (I + J) >= 10 || (I + K) >= 10 || (I + L) >= 10 || (I + M) >= 10 || (I + N) >= 10 || (I + O) >= 10 || (I + P) >= 10 || (I + Q) >= 10 || (I + R) >= 10 || (I + S) >= 10 || (I + A1) >= 10 || (I + B1) >= 10 || (I + C1) >= 10 || (I + D1) >= 10 || (I + E1) >= 10 || (I + F1) >= 10 || (I + G1) >= 10 || (I + H1) >= 10 || (I + I1) >= 10 || (I + J1) >= 10 || (I + K1) >= 10 || (I + L1) >= 10 || (I + M1) >= 10 || (I + N1) >= 10 || (I + O1) >= 10 || (I + P1) >= 10 || (I + Q1) >= 10 || (I + R1) >= 10 || (I + S1) >= 10 ||
+                                    (J + K) >= 10 || (J + L) >= 10 || (J + M) >= 10 || (J + N) >= 10 || (J + O) >= 10 || (J + P) >= 10 || (J + Q) >= 10 || (J + R) >= 10 || (J + S) >= 10 || (J + A1) >= 10 || (J + B1) >= 10 || (J + C1) >= 10 || (J + D1) >= 10 || (J + E1) >= 10 || (J + F1) >= 10 || (J + G1) >= 10 || (J + H1) >= 10 || (J + I1) >= 10 || (J + J1) >= 10 || (J + K1) >= 10 || (J + L1) >= 10 || (J + M1) >= 10 || (J + N1) >= 10 || (J + O1) >= 10 || (J + P1) >= 10 || (J + Q1) >= 10 || (J + R1) >= 10 || (J + S1) >= 10 ||
+                                    (K + L) >= 10 || (K + M) >= 10 || (K + N) >= 10 || (K + O) >= 10 || (K + P) >= 10 || (K + Q) >= 10 || (K + R) >= 10 || (K + S) >= 10 || (K + A1) >= 10 || (K + B1) >= 10 || (K + C1) >= 10 || (K + D1) >= 10 || (K + E1) >= 10 || (K + F1) >= 10 || (K + G1) >= 10 || (K + H1) >= 10 || (K + I1) >= 10 || (K + J1) >= 10 || (K + K1) >= 10 || (K + L1) >= 10 || (K + M1) >= 10 || (K + N1) >= 10 || (K + O1) >= 10 || (K + P1) >= 10 || (K + Q1) >= 10 || (K + R1) >= 10 || (K + S1) >= 10 ||
+                                    (L + M) >= 10 || (L + N) >= 10 || (L + O) >= 10 || (L + P) >= 10 || (L + Q) >= 10 || (L + R) >= 10 || (L + S) >= 10 || (L + A1) >= 10 || (L + B1) >= 10 || (L + C1) >= 10 || (L + D1) >= 10 || (L + E1) >= 10 || (L + F1) >= 10 || (L + G1) >= 10 || (L + H1) >= 10 || (L + I1) >= 10 || (L + J1) >= 10 || (L + K1) >= 10 || (L + L1) >= 10 || (L + M1) >= 10 || (L + N1) >= 10 || (L + O1) >= 10 || (L + P1) >= 10 || (L + Q1) >= 10 || (L + R1) >= 10 || (L + S1) >= 10 ||
+                                    (M + N) >= 10 || (M + O) >= 10 || (M + P) >= 10 || (M + Q) >= 10 || (M + R) >= 10 || (M + S) >= 10 || (M + A1) >= 10 || (M + B1) >= 10 || (M + C1) >= 10 || (M + D1) >= 10 || (M + E1) >= 10 || (M + F1) >= 10 || (M + G1) >= 10 || (M + H1) >= 10 || (M + I1) >= 10 || (M + J1) >= 10 || (M + K1) >= 10 || (M + L1) >= 10 || (M + M1) >= 10 || (M + N1) >= 10 || (M + O1) >= 10 || (M + P1) >= 10 || (M + Q1) >= 10 || (M + R1) >= 10 || (M + S1) >= 10 ||
+                                    (N + O) >= 10 || (N + P) >= 10 || (N + Q) >= 10 || (N + R) >= 10 || (N + S) >= 10 || (N + A1) >= 10 || (N + B1) >= 10 || (N + C1) >= 10 || (N + D1) >= 10 || (N + E1) >= 10 || (N + F1) >= 10 || (N + G1) >= 10 || (N + H1) >= 10 || (N + I1) >= 10 || (N + J1) >= 10 || (N + K1) >= 10 || (N + L1) >= 10 || (N + M1) >= 10 || (N + N1) >= 10 || (N + O1) >= 10 || (N + P1) >= 10 || (N + Q1) >= 10 || (N + R1) >= 10 || (N + S1) >= 10 ||
+                                    (O + P) >= 10 || (O + Q) >= 10 || (O + R) >= 10 || (O + S) >= 10 || (O + A1) >= 10 || (O + B1) >= 10 || (O + C1) >= 10 || (O + D1) >= 10 || (O + E1) >= 10 || (O + F1) >= 10 || (O + G1) >= 10 || (O + H1) >= 10 || (O + I1) >= 10 || (O + J1) >= 10 || (O + K1) >= 10 || (O + L1) >= 10 || (O + M1) >= 10 || (O + N1) >= 10 || (O + O1) >= 10 || (O + P1) >= 10 || (O + Q1) >= 10 || (O + R1) >= 10 || (O + S1) >= 10 ||
+                                    (P + Q) >= 10 || (P + R) >= 10 || (P + S) >= 10 || (P + A1) >= 10 || (P + B1) >= 10 || (P + C1) >= 10 || (P + D1) >= 10 || (P + E1) >= 10 || (P + F1) >= 10 || (P + G1) >= 10 || (P + H1) >= 10 || (P + I1) >= 10 || (P + J1) >= 10 || (P + K1) >= 10 || (P + L1) >= 10 || (P + M1) >= 10 || (P + N1) >= 10 || (P + O1) >= 10 || (P + P1) >= 10 || (P + Q1) >= 10 || (P + R1) >= 10 || (P + S1) >= 10 ||
+                                    (Q + R) >= 10 || (Q + S) >= 10 || (Q + A1) >= 10 || (Q + B1) >= 10 || (Q + C1) >= 10 || (Q + D1) >= 10 || (Q + E1) >= 10 || (Q + F1) >= 10 || (Q + G1) >= 10 || (Q + H1) >= 10 || (Q + I1) >= 10 || (Q + J1) >= 10 || (Q + K1) >= 10 || (Q + L1) >= 10 || (Q + M1) >= 10 || (Q + N1) >= 10 || (Q + O1) >= 10 || (Q + P1) >= 10 || (Q + Q1) >= 10 || (Q + R1) >= 10 || (Q + S1) >= 10 ||
+                                    (R + S) >= 10 || (R + A1) >= 10 || (R + B1) >= 10 || (R + C1) >= 10 || (R + D1) >= 10 || (R + E1) >= 10 || (R + F1) >= 10 || (R + G1) >= 10 || (R + H1) >= 10 || (R + I1) >= 10 || (R + J1) >= 10 || (R + K1) >= 10 || (R + L1) >= 10 || (R + M1) >= 10 || (R + N1) >= 10 || (R + O1) >= 10 || (R + P1) >= 10 || (R + Q1) >= 10 || (R + R1) >= 10 || (R + S1) >= 10 ||
+                                    (S + A1) >= 10 || (S + B1) >= 10 || (S + C1) >= 10 || (S + D1) >= 10 || (S + E1) >= 10 || (S + F1) >= 10 || (S + G1) >= 10 || (S + H1) >= 10 || (S + I1) >= 10 || (S + J1) >= 10 || (S + K1) >= 10 || (S + L1) >= 10 || (S + M1) >= 10 || (S + N1) >= 10 || (S + O1) >= 10 || (S + P1) >= 10 || (S + Q1) >= 10 || (S + R1) >= 10 || (S + S1) >= 10 ||
+                                    (A1 + B1) >= 10 || (A1 + C1) >= 10 || (A1 + D1) >= 10 || (A1 + E1) >= 10 || (A1 + F1) >= 10 || (A1 + G1) >= 10 || (A1 + H1) >= 10 || (A1 + I1) >= 10 || (A1 + J1) >= 10 || (A1 + K1) >= 10 || (A1 + L1) >= 10 || (A1 + M1) >= 10 || (A1 + N1) >= 10 || (A1 + O1) >= 10 || (A1 + P1) >= 10 || (A1 + Q1) >= 10 || (A1 + R1) >= 10 || (A1 + S1) >= 10 ||
+                                    (B1 + C1) >= 10 || (B1 + D1) >= 10 || (B1 + E1) >= 10 || (B1 + F1) >= 10 || (B1 + G1) >= 10 || (B1 + H1) >= 10 || (B1 + I1) >= 10 || (B1 + J1) >= 10 || (B1 + K1) >= 10 || (B1 + L1) >= 10 || (B1 + M1) >= 10 || (B1 + N1) >= 10 || (B1 + O1) >= 10 || (B1 + P1) >= 10 || (B1 + Q1) >= 10 || (B1 + R1) >= 10 || (B1 + S1) >= 10 ||
+                                    (C1 + D1) >= 10 || (C1 + E1) >= 10 || (C1 + F1) >= 10 || (C1 + G1) >= 10 || (C1 + H1) >= 10 || (C1 + I1) >= 10 || (C1 + J1) >= 10 || (C1 + K1) >= 10 || (C1 + L1) >= 10 || (C1 + M1) >= 10 || (C1 + N1) >= 10 || (C1 + O1) >= 10 || (C1 + P1) >= 10 || (C1 + Q1) >= 10 || (C1 + R1) >= 10 || (C1 + S1) >= 10 ||
+                                    (D1 + E1) >= 10 || (D1 + F1) >= 10 || (D1 + G1) >= 10 || (D1 + H1) >= 10 || (D1 + I1) >= 10 || (D1 + J1) >= 10 || (D1 + K1) >= 10 || (D1 + L1) >= 10 || (D1 + M1) >= 10 || (D1 + N1) >= 10 || (D1 + O1) >= 10 || (D1 + P1) >= 10 || (D1 + Q1) >= 10 || (D1 + R1) >= 10 || (D1 + S1) >= 10 ||
+                                    (E1 + F1) >= 10 || (E1 + G1) >= 10 || (E1 + H1) >= 10 || (E1 + I1) >= 10 || (E1 + J1) >= 10 || (E1 + K1) >= 10 || (E1 + L1) >= 10 || (E1 + M1) >= 10 || (E1 + N1) >= 10 || (E1 + O1) >= 10 || (E1 + P1) >= 10 || (E1 + Q1) >= 10 || (E1 + R1) >= 10 || (E1 + S1) >= 10 ||
+                                    (F1 + G1) >= 10 || (F1 + H1) >= 10 || (F1 + I1) >= 10 || (F1 + J1) >= 10 || (F1 + K1) >= 10 || (F1 + L1) >= 10 || (F1 + M1) >= 10 || (F1 + N1) >= 10 || (F1 + O1) >= 10 || (F1 + P1) >= 10 || (F1 + Q1) >= 10 || (F1 + R1) >= 10 || (F1 + S1) >= 10 ||
+                                    (G1 + H1) >= 10 || (G1 + I1) >= 10 || (G1 + J1) >= 10 || (G1 + K1) >= 10 || (G1 + L1) >= 10 || (G1 + M1) >= 10 || (G1 + N1) >= 10 || (G1 + O1) >= 10 || (G1 + P1) >= 10 || (G1 + Q1) >= 10 || (G1 + R1) >= 10 || (G1 + S1) >= 10 ||
+                                    (H1 + I1) >= 10 || (H1 + J1) >= 10 || (H1 + K1) >= 10 || (H1 + L1) >= 10 || (H1 + M1) >= 10 || (H1 + N1) >= 10 || (H1 + O1) >= 10 || (H1 + P1) >= 10 || (H1 + Q1) >= 10 || (H1 + R1) >= 10 || (H1 + S1) >= 10 ||
+                                    (I1 + J1) >= 10 || (I1 + K1) >= 10 || (I1 + L1) >= 10 || (I1 + M1) >= 10 || (I1 + N1) >= 10 || (I1 + O1) >= 10 || (I1 + P1) >= 10 || (I1 + Q1) >= 10 || (I1 + R1) >= 10 || (I1 + S1) >= 10 ||
+                                    (J1 + K1) >= 10 || (J1 + L1) >= 10 || (J1 + M1) >= 10 || (J1 + N1) >= 10 || (J1 + O1) >= 10 || (J1 + P1) >= 10 || (J1 + Q1) >= 10 || (J1 + R1) >= 10 || (J1 + S1) >= 10 ||
+                                    (K1 + L1) >= 10 || (K1 + M1) >= 10 || (K1 + N1) >= 10 || (K1 + O1) >= 10 || (K1 + P1) >= 10 || (K1 + Q1) >= 10 || (K1 + R1) >= 10 || (K1 + S1) >= 10 ||
+                                    (L1 + M1) >= 10 || (L1 + N1) >= 10 || (L1 + O1) >= 10 || (L1 + P1) >= 10 || (L1 + Q1) >= 10 || (L1 + R1) >= 10 || (L1 + S1) >= 10 ||
+                                    (M1 + N1) >= 10 || (M1 + O1) >= 10 || (M1 + P1) >= 10 || (M1 + Q1) >= 10 || (M1 + R1) >= 10 || (M1 + S1) >= 10 ||
+                                    (N1 + O1) >= 10 || (N1 + P1) >= 10 || (N1 + Q1) >= 10 || (N1 + R1) >= 10 || (N1 + S1) >= 10 ||
+                                    (O1 + P1) >= 10 || (O1 + Q1) >= 10 || (O1 + R1) >= 10 || (O1 + S1) >= 10 ||
+                                    (P1 + Q1) >= 10 || (P1 + R1) >= 10 || (P1 + S1) >= 10 ||
+                                    (Q1 + R1) >= 10 || (Q1 + S1) >= 10 ||
+                                    (R1 + S1) >= 10)
                                 {
-                                    if (item.Name == "BP" + bc)
-                                    {
-                                        var ss1 = item.Background;
-                                        if (((SolidColorBrush)ss1).Color.ToString() == colorValue1)
-                                        {
-                                            item.Background = new SolidColorBrush(Colors.Red);
-                                        }
-
-                                        break;
-                                    }
-                                }
-
-
-                            }   //for 10 / 2 next Condition
-
-
-                            if (lista.Count >= 2 && DefineRules.Rule10DevideTwo && hrs10Count >= 10)
-                            {
-
-                                double A = 0, B = 0, C = 0, D = 0, E = 0, F = 0, G = 0, H = 0, I = 0, J = 0, K = 0, L = 0, M = 0, N = 0, O = 0, P = 0, Q = 0, R = 0, S = 0, A1 = 0, B1 = 0, C1 = 0, D1 = 0, E1 = 0, F1 = 0, G1 = 0, H1 = 0, I1 = 0, J1 = 0, K1 = 0, L1 = 0, M1 = 0, N1 = 0, O1 = 0, P1 = 0, Q1 = 0, R1 = 0, S1 = 0;
-
-                                int aa1 = 0;
-                                foreach (var abc1 in lista)
-                                {
-
-                                    if (abc1 >= 10)
-                                    {
-                                        aa1 = aa1 + 1;
-                                        break;
-                                    }
-
-                                    else
-                                    {
-                                        if (abc1 == 9.5)
-                                        {
-                                            if (A == 9.5)
-                                                A1 = abc1;
-
-                                            else
-                                                A = abc1;
-                                        }
-                                        else if (abc1 == 9.0)
-                                        {
-                                            if (B == 9.0)
-                                                B1 = abc1;
-
-                                            else
-                                                B = abc1;
-
-                                        }
-
-                                        else if (abc1 == 8.5)
-                                        {
-                                            if (C == 8.5)
-                                                C1 = abc1;
-
-                                            else
-                                                C = abc1;
-
-                                        }
-                                        else if (abc1 == 8.0)
-                                        {
-                                            if (D == 8.0)
-                                                D1 = abc1;
-
-                                            else
-                                                D = abc1;
-
-                                        }
-                                        else if (abc1 == 7.5)
-                                        {
-                                            if (E == 7.5)
-                                                E1 = abc1;
-
-                                            else
-                                                E = abc1;
-
-                                        }
-                                        else if (abc1 == 7.0)
-                                        {
-                                            if (F == 7.0)
-                                                F1 = abc1;
-
-                                            else
-                                                F = abc1;
-
-                                        }
-                                        else if (abc1 == 6.5)
-                                        {
-                                            if (G == 6.5)
-                                                G1 = abc1;
-
-                                            else
-                                                G = abc1;
-
-                                        }
-                                        else if (abc1 == 6.0)
-                                        {
-                                            if (H == 6.0)
-                                                H1 = abc1;
-
-                                            else
-                                                H = abc1;
-
-                                        }
-                                        else if (abc1 == 5.5)
-                                        {
-                                            if (I == 5.5)
-                                                I1 = abc1;
-
-                                            else
-                                                I = abc1;
-
-                                        }
-                                        else if (abc1 == 5.0)
-                                        {
-                                            if (J == 5.0)
-                                                J1 = abc1;
-
-                                            else
-                                                J = abc1;
-
-                                        }
-                                        else if (abc1 == 4.5)
-                                        {
-                                            if (K == 4.5)
-                                                K1 = abc1;
-
-                                            else
-                                                K = abc1;
-
-                                        }
-                                        else if (abc1 == 4.0)
-                                        {
-                                            if (L == 4.0)
-                                                L1 = abc1;
-
-                                            else
-                                                L = abc1;
-
-                                        }
-                                        else if (abc1 == 3.5)
-                                        {
-                                            if (M == 3.5)
-                                                M1 = abc1;
-
-                                            else
-                                                M = abc1;
-
-                                        }
-                                        else if (abc1 == 3.0)
-                                        {
-                                            if (N == 3.0)
-                                                N1 = abc1;
-
-                                            else
-                                                N1 = abc1;
-
-                                        }
-                                        else if (abc1 == 2.5)
-                                        {
-                                            if (O == 2.5)
-                                                O1 = abc1;
-
-                                            else
-                                                O = abc1;
-
-                                        }
-                                        else if (abc1 == 2.0)
-                                        {
-                                            if (P == 2.0)
-                                                P1 = abc1;
-
-                                            else
-                                                P = abc1;
-
-                                        }
-
-                                        else if (abc1 == 1.5)
-                                        {
-                                            if (Q == 1.5)
-                                                Q1 = abc1;
-
-                                            else
-                                                Q = abc1;
-
-                                        }
-                                        else if (abc1 == 1.0)
-                                        {
-                                            if (R == 1.0)
-                                                R1 = abc1;
-
-                                            else
-                                                R = abc1;
-
-                                        }
-                                        else if (abc1 == 0.5)
-                                        {
-                                            if (S == 0.5)
-                                                S1 = abc1;
-
-                                            else
-                                                S = abc1;
-
-                                        }
-
-                                    }
 
                                 }
-                                if (aa1 != 1)
+                                else
                                 {
-                                    if ((A + B) >= 10 || (A + C) >= 10 || (A + D) >= 10 || (A + E) >= 10 || (A + F) >= 10 || (A + G) >= 10 || (A + H) >= 10 || (A + I) >= 10 || (A + J) >= 10 || (A + K) >= 10 || (A + L) >= 10 || (A + M) >= 10 || (A + N) >= 10 || (A + O) >= 10 || (A + P) >= 10 || (A + Q) >= 10 || (A + R) >= 10 || (A + S) >= 10 || (A + A1) >= 10 || (A + B1) >= 10 || (A + C1) >= 10 || (A + D1) >= 10 || (A + E1) >= 10 || (A + F1) >= 10 || (A + G1) >= 10 || (A + H1) >= 10 || (A + I1) >= 10 || (A + J1) >= 10 || (A + K1) >= 10 || (A + L1) >= 10 || (A + M1) >= 10 || (A + N1) >= 10 || (A + O1) >= 10 || (A + P1) >= 10 || (A + Q1) >= 10 || (A + R1) >= 10 || (A + S1) >= 10 ||
-                                        (B + C) >= 10 || (B + D) >= 10 || (B + E) >= 10 || (B + F) >= 10 || (B + G) >= 10 || (B + H) >= 10 || (B + I) >= 10 || (B + J) >= 10 || (B + K) >= 10 || (B + L) >= 10 || (B + M) >= 10 || (B + N) >= 10 || (B + O) >= 10 || (B + P) >= 10 || (B + Q) >= 10 || (B + R) >= 10 || (B + S) >= 10 || (B + A1) >= 10 || (B + B1) >= 10 || (B + C1) >= 10 || (B + D1) >= 10 || (B + E1) >= 10 || (B + F1) >= 10 || (B + G1) >= 10 || (B + H1) >= 10 || (B + I1) >= 10 || (B + J1) >= 10 || (B + K1) >= 10 || (B + L1) >= 10 || (B + M1) >= 10 || (B + N1) >= 10 || (B + O1) >= 10 || (B + P1) >= 10 || (B + Q1) >= 10 || (B + R1) >= 10 || (B + S1) >= 10 ||
-                                        (C + D) >= 10 || (C + E) >= 10 || (C + F) >= 10 || (C + F) >= 10 || (C + G) >= 10 || (C + H) >= 10 || (C + I) >= 10 || (C + J) >= 10 || (C + K) >= 10 || (C + L) >= 10 || (C + M) >= 10 || (C + N) >= 10 || (C + O) >= 10 || (C + P) >= 10 || (C + Q) >= 10 || (C + R) >= 10 || (C + S) >= 10 || (C + A1) >= 10 || (C + B1) >= 10 || (C + C1) >= 10 || (C + D1) >= 10 || (C + E1) >= 10 || (C + F1) >= 10 || (C + G1) >= 10 || (C + H1) >= 10 || (C + I1) >= 10 || (C + J1) >= 10 || (C + K1) >= 10 || (C + L1) >= 10 || (C + M1) >= 10 || (C + N1) >= 10 || (C + O1) >= 10 || (C + P1) >= 10 || (C + Q1) >= 10 || (C + R1) >= 10 || (C + S1) >= 10 ||
-                                        (D + E) >= 10 || (D + F) >= 10 || (D + G) >= 10 || (D + H) >= 10 || (D + I) >= 10 || (D + J) >= 10 || (D + K) >= 10 || (D + L) >= 10 || (D + M) >= 10 || (D + N) >= 10 || (D + O) >= 10 || (D + P) >= 10 || (D + Q) >= 10 || (D + R) >= 10 || (D + S) >= 10 || (D + A1) >= 10 || (D + B1) >= 10 || (D + C1) >= 10 || (D + D1) >= 10 || (D + E1) >= 10 || (D + F1) >= 10 || (D + G1) >= 10 || (D + H1) >= 10 || (D + I1) >= 10 || (D + J1) >= 10 || (D + K1) >= 10 || (D + L1) >= 10 || (D + M1) >= 10 || (D + N1) >= 10 || (D + O1) >= 10 || (D + P1) >= 10 || (D + Q1) >= 10 || (D + R1) >= 10 || (D + S1) >= 10 ||
-                                        (E + F) >= 10 || (E + G) >= 10 || (E + H) >= 10 || (E + I) >= 10 || (E + J) >= 10 || (E + K) >= 10 || (E + L) >= 10 || (E + M) >= 10 || (E + N) >= 10 || (E + O) >= 10 || (E + P) >= 10 || (E + Q) >= 10 || (E + R) >= 10 || (E + S) >= 10 || (E + A1) >= 10 || (E + B1) >= 10 || (E + C1) >= 10 || (E + D1) >= 10 || (E + E1) >= 10 || (E + F1) >= 10 || (E + G1) >= 10 || (E + H1) >= 10 || (E + I1) >= 10 || (E + J1) >= 10 || (E + K1) >= 10 || (E + L1) >= 10 || (E + M1) >= 10 || (E + N1) >= 10 || (E + O1) >= 10 || (E + P1) >= 10 || (E + Q1) >= 10 || (E + R1) >= 10 || (E + S1) >= 10 ||
-                                        (F + G) >= 10 || (F + H) >= 10 || (F + I) >= 10 || (F + J) >= 10 || (F + K) >= 10 || (F + L) >= 10 || (F + M) >= 10 || (F + N) >= 10 || (F + O) >= 10 || (F + P) >= 10 || (F + Q) >= 10 || (F + R) >= 10 || (F + S) >= 10 || (F + A1) >= 10 || (F + B1) >= 10 || (F + C1) >= 10 || (F + D1) >= 10 || (F + E1) >= 10 || (F + F1) >= 10 || (F + G1) >= 10 || (F + H1) >= 10 || (F + I1) >= 10 || (F + J1) >= 10 || (F + K1) >= 10 || (F + L1) >= 10 || (F + M1) >= 10 || (F + N1) >= 10 || (F + O1) >= 10 || (F + P1) >= 10 || (F + Q1) >= 10 || (F + R1) >= 10 || (F + S1) >= 10 ||
-                                        (G + H) >= 10 || (G + I) >= 10 || (G + J) >= 10 || (G + K) >= 10 || (G + L) >= 10 || (G + M) >= 10 || (G + N) >= 10 || (G + O) >= 10 || (G + P) >= 10 || (G + Q) >= 10 || (G + R) >= 10 || (G + S) >= 10 || (G + A1) >= 10 || (G + B1) >= 10 || (G + C1) >= 10 || (G + D1) >= 10 || (G + E1) >= 10 || (G + F1) >= 10 || (G + G1) >= 10 || (G + H1) >= 10 || (G + I1) >= 10 || (G + J1) >= 10 || (G + K1) >= 10 || (G + L1) >= 10 || (G + M1) >= 10 || (G + N1) >= 10 || (G + O1) >= 10 || (G + P1) >= 10 || (G + Q1) >= 10 || (G + R1) >= 10 || (G + S1) >= 10 ||
-                                        (H + I) >= 10 || (H + J) >= 10 || (H + K) >= 10 || (H + L) >= 10 || (H + M) >= 10 || (H + N) >= 10 || (H + O) >= 10 || (H + P) >= 10 || (H + Q) >= 10 || (H + R) >= 10 || (H + S) >= 10 || (H + A1) >= 10 || (H + B1) >= 10 || (H + C1) >= 10 || (H + D1) >= 10 || (H + E1) >= 10 || (H + F1) >= 10 || (H + G1) >= 10 || (H + H1) >= 10 || (H + I1) >= 10 || (H + J1) >= 10 || (H + K1) >= 10 || (H + L1) >= 10 || (H + M1) >= 10 || (H + N1) >= 10 || (H + O1) >= 10 || (H + P1) >= 10 || (H + Q1) >= 10 || (H + R1) >= 10 || (H + S1) >= 10 ||
-                                        (I + J) >= 10 || (I + K) >= 10 || (I + L) >= 10 || (I + M) >= 10 || (I + N) >= 10 || (I + O) >= 10 || (I + P) >= 10 || (I + Q) >= 10 || (I + R) >= 10 || (I + S) >= 10 || (I + A1) >= 10 || (I + B1) >= 10 || (I + C1) >= 10 || (I + D1) >= 10 || (I + E1) >= 10 || (I + F1) >= 10 || (I + G1) >= 10 || (I + H1) >= 10 || (I + I1) >= 10 || (I + J1) >= 10 || (I + K1) >= 10 || (I + L1) >= 10 || (I + M1) >= 10 || (I + N1) >= 10 || (I + O1) >= 10 || (I + P1) >= 10 || (I + Q1) >= 10 || (I + R1) >= 10 || (I + S1) >= 10 ||
-                                        (J + K) >= 10 || (J + L) >= 10 || (J + M) >= 10 || (J + N) >= 10 || (J + O) >= 10 || (J + P) >= 10 || (J + Q) >= 10 || (J + R) >= 10 || (J + S) >= 10 || (J + A1) >= 10 || (J + B1) >= 10 || (J + C1) >= 10 || (J + D1) >= 10 || (J + E1) >= 10 || (J + F1) >= 10 || (J + G1) >= 10 || (J + H1) >= 10 || (J + I1) >= 10 || (J + J1) >= 10 || (J + K1) >= 10 || (J + L1) >= 10 || (J + M1) >= 10 || (J + N1) >= 10 || (J + O1) >= 10 || (J + P1) >= 10 || (J + Q1) >= 10 || (J + R1) >= 10 || (J + S1) >= 10 ||
-                                        (K + L) >= 10 || (K + M) >= 10 || (K + N) >= 10 || (K + O) >= 10 || (K + P) >= 10 || (K + Q) >= 10 || (K + R) >= 10 || (K + S) >= 10 || (K + A1) >= 10 || (K + B1) >= 10 || (K + C1) >= 10 || (K + D1) >= 10 || (K + E1) >= 10 || (K + F1) >= 10 || (K + G1) >= 10 || (K + H1) >= 10 || (K + I1) >= 10 || (K + J1) >= 10 || (K + K1) >= 10 || (K + L1) >= 10 || (K + M1) >= 10 || (K + N1) >= 10 || (K + O1) >= 10 || (K + P1) >= 10 || (K + Q1) >= 10 || (K + R1) >= 10 || (K + S1) >= 10 ||
-                                        (L + M) >= 10 || (L + N) >= 10 || (L + O) >= 10 || (L + P) >= 10 || (L + Q) >= 10 || (L + R) >= 10 || (L + S) >= 10 || (L + A1) >= 10 || (L + B1) >= 10 || (L + C1) >= 10 || (L + D1) >= 10 || (L + E1) >= 10 || (L + F1) >= 10 || (L + G1) >= 10 || (L + H1) >= 10 || (L + I1) >= 10 || (L + J1) >= 10 || (L + K1) >= 10 || (L + L1) >= 10 || (L + M1) >= 10 || (L + N1) >= 10 || (L + O1) >= 10 || (L + P1) >= 10 || (L + Q1) >= 10 || (L + R1) >= 10 || (L + S1) >= 10 ||
-                                        (M + N) >= 10 || (M + O) >= 10 || (M + P) >= 10 || (M + Q) >= 10 || (M + R) >= 10 || (M + S) >= 10 || (M + A1) >= 10 || (M + B1) >= 10 || (M + C1) >= 10 || (M + D1) >= 10 || (M + E1) >= 10 || (M + F1) >= 10 || (M + G1) >= 10 || (M + H1) >= 10 || (M + I1) >= 10 || (M + J1) >= 10 || (M + K1) >= 10 || (M + L1) >= 10 || (M + M1) >= 10 || (M + N1) >= 10 || (M + O1) >= 10 || (M + P1) >= 10 || (M + Q1) >= 10 || (M + R1) >= 10 || (M + S1) >= 10 ||
-                                        (N + O) >= 10 || (N + P) >= 10 || (N + Q) >= 10 || (N + R) >= 10 || (N + S) >= 10 || (N + A1) >= 10 || (N + B1) >= 10 || (N + C1) >= 10 || (N + D1) >= 10 || (N + E1) >= 10 || (N + F1) >= 10 || (N + G1) >= 10 || (N + H1) >= 10 || (N + I1) >= 10 || (N + J1) >= 10 || (N + K1) >= 10 || (N + L1) >= 10 || (N + M1) >= 10 || (N + N1) >= 10 || (N + O1) >= 10 || (N + P1) >= 10 || (N + Q1) >= 10 || (N + R1) >= 10 || (N + S1) >= 10 ||
-                                        (O + P) >= 10 || (O + Q) >= 10 || (O + R) >= 10 || (O + S) >= 10 || (O + A1) >= 10 || (O + B1) >= 10 || (O + C1) >= 10 || (O + D1) >= 10 || (O + E1) >= 10 || (O + F1) >= 10 || (O + G1) >= 10 || (O + H1) >= 10 || (O + I1) >= 10 || (O + J1) >= 10 || (O + K1) >= 10 || (O + L1) >= 10 || (O + M1) >= 10 || (O + N1) >= 10 || (O + O1) >= 10 || (O + P1) >= 10 || (O + Q1) >= 10 || (O + R1) >= 10 || (O + S1) >= 10 ||
-                                        (P + Q) >= 10 || (P + R) >= 10 || (P + S) >= 10 || (P + A1) >= 10 || (P + B1) >= 10 || (P + C1) >= 10 || (P + D1) >= 10 || (P + E1) >= 10 || (P + F1) >= 10 || (P + G1) >= 10 || (P + H1) >= 10 || (P + I1) >= 10 || (P + J1) >= 10 || (P + K1) >= 10 || (P + L1) >= 10 || (P + M1) >= 10 || (P + N1) >= 10 || (P + O1) >= 10 || (P + P1) >= 10 || (P + Q1) >= 10 || (P + R1) >= 10 || (P + S1) >= 10 ||
-                                        (Q + R) >= 10 || (Q + S) >= 10 || (Q + A1) >= 10 || (Q + B1) >= 10 || (Q + C1) >= 10 || (Q + D1) >= 10 || (Q + E1) >= 10 || (Q + F1) >= 10 || (Q + G1) >= 10 || (Q + H1) >= 10 || (Q + I1) >= 10 || (Q + J1) >= 10 || (Q + K1) >= 10 || (Q + L1) >= 10 || (Q + M1) >= 10 || (Q + N1) >= 10 || (Q + O1) >= 10 || (Q + P1) >= 10 || (Q + Q1) >= 10 || (Q + R1) >= 10 || (Q + S1) >= 10 ||
-                                        (R + S) >= 10 || (R + A1) >= 10 || (R + B1) >= 10 || (R + C1) >= 10 || (R + D1) >= 10 || (R + E1) >= 10 || (R + F1) >= 10 || (R + G1) >= 10 || (R + H1) >= 10 || (R + I1) >= 10 || (R + J1) >= 10 || (R + K1) >= 10 || (R + L1) >= 10 || (R + M1) >= 10 || (R + N1) >= 10 || (R + O1) >= 10 || (R + P1) >= 10 || (R + Q1) >= 10 || (R + R1) >= 10 || (R + S1) >= 10 ||
-                                        (S + A1) >= 10 || (S + B1) >= 10 || (S + C1) >= 10 || (S + D1) >= 10 || (S + E1) >= 10 || (S + F1) >= 10 || (S + G1) >= 10 || (S + H1) >= 10 || (S + I1) >= 10 || (S + J1) >= 10 || (S + K1) >= 10 || (S + L1) >= 10 || (S + M1) >= 10 || (S + N1) >= 10 || (S + O1) >= 10 || (S + P1) >= 10 || (S + Q1) >= 10 || (S + R1) >= 10 || (S + S1) >= 10 ||
-                                        (A1 + B1) >= 10 || (A1 + C1) >= 10 || (A1 + D1) >= 10 || (A1 + E1) >= 10 || (A1 + F1) >= 10 || (A1 + G1) >= 10 || (A1 + H1) >= 10 || (A1 + I1) >= 10 || (A1 + J1) >= 10 || (A1 + K1) >= 10 || (A1 + L1) >= 10 || (A1 + M1) >= 10 || (A1 + N1) >= 10 || (A1 + O1) >= 10 || (A1 + P1) >= 10 || (A1 + Q1) >= 10 || (A1 + R1) >= 10 || (A1 + S1) >= 10 ||
-                                        (B1 + C1) >= 10 || (B1 + D1) >= 10 || (B1 + E1) >= 10 || (B1 + F1) >= 10 || (B1 + G1) >= 10 || (B1 + H1) >= 10 || (B1 + I1) >= 10 || (B1 + J1) >= 10 || (B1 + K1) >= 10 || (B1 + L1) >= 10 || (B1 + M1) >= 10 || (B1 + N1) >= 10 || (B1 + O1) >= 10 || (B1 + P1) >= 10 || (B1 + Q1) >= 10 || (B1 + R1) >= 10 || (B1 + S1) >= 10 ||
-                                        (C1 + D1) >= 10 || (C1 + E1) >= 10 || (C1 + F1) >= 10 || (C1 + G1) >= 10 || (C1 + H1) >= 10 || (C1 + I1) >= 10 || (C1 + J1) >= 10 || (C1 + K1) >= 10 || (C1 + L1) >= 10 || (C1 + M1) >= 10 || (C1 + N1) >= 10 || (C1 + O1) >= 10 || (C1 + P1) >= 10 || (C1 + Q1) >= 10 || (C1 + R1) >= 10 || (C1 + S1) >= 10 ||
-                                        (D1 + E1) >= 10 || (D1 + F1) >= 10 || (D1 + G1) >= 10 || (D1 + H1) >= 10 || (D1 + I1) >= 10 || (D1 + J1) >= 10 || (D1 + K1) >= 10 || (D1 + L1) >= 10 || (D1 + M1) >= 10 || (D1 + N1) >= 10 || (D1 + O1) >= 10 || (D1 + P1) >= 10 || (D1 + Q1) >= 10 || (D1 + R1) >= 10 || (D1 + S1) >= 10 ||
-                                        (E1 + F1) >= 10 || (E1 + G1) >= 10 || (E1 + H1) >= 10 || (E1 + I1) >= 10 || (E1 + J1) >= 10 || (E1 + K1) >= 10 || (E1 + L1) >= 10 || (E1 + M1) >= 10 || (E1 + N1) >= 10 || (E1 + O1) >= 10 || (E1 + P1) >= 10 || (E1 + Q1) >= 10 || (E1 + R1) >= 10 || (E1 + S1) >= 10 ||
-                                        (F1 + G1) >= 10 || (F1 + H1) >= 10 || (F1 + I1) >= 10 || (F1 + J1) >= 10 || (F1 + K1) >= 10 || (F1 + L1) >= 10 || (F1 + M1) >= 10 || (F1 + N1) >= 10 || (F1 + O1) >= 10 || (F1 + P1) >= 10 || (F1 + Q1) >= 10 || (F1 + R1) >= 10 || (F1 + S1) >= 10 ||
-                                        (G1 + H1) >= 10 || (G1 + I1) >= 10 || (G1 + J1) >= 10 || (G1 + K1) >= 10 || (G1 + L1) >= 10 || (G1 + M1) >= 10 || (G1 + N1) >= 10 || (G1 + O1) >= 10 || (G1 + P1) >= 10 || (G1 + Q1) >= 10 || (G1 + R1) >= 10 || (G1 + S1) >= 10 ||
-                                        (H1 + I1) >= 10 || (H1 + J1) >= 10 || (H1 + K1) >= 10 || (H1 + L1) >= 10 || (H1 + M1) >= 10 || (H1 + N1) >= 10 || (H1 + O1) >= 10 || (H1 + P1) >= 10 || (H1 + Q1) >= 10 || (H1 + R1) >= 10 || (H1 + S1) >= 10 ||
-                                        (I1 + J1) >= 10 || (I1 + K1) >= 10 || (I1 + L1) >= 10 || (I1 + M1) >= 10 || (I1 + N1) >= 10 || (I1 + O1) >= 10 || (I1 + P1) >= 10 || (I1 + Q1) >= 10 || (I1 + R1) >= 10 || (I1 + S1) >= 10 ||
-                                        (J1 + K1) >= 10 || (J1 + L1) >= 10 || (J1 + M1) >= 10 || (J1 + N1) >= 10 || (J1 + O1) >= 10 || (J1 + P1) >= 10 || (J1 + Q1) >= 10 || (J1 + R1) >= 10 || (J1 + S1) >= 10 ||
-                                        (K1 + L1) >= 10 || (K1 + M1) >= 10 || (K1 + N1) >= 10 || (K1 + O1) >= 10 || (K1 + P1) >= 10 || (K1 + Q1) >= 10 || (K1 + R1) >= 10 || (K1 + S1) >= 10 ||
-                                        (L1 + M1) >= 10 || (L1 + N1) >= 10 || (L1 + O1) >= 10 || (L1 + P1) >= 10 || (L1 + Q1) >= 10 || (L1 + R1) >= 10 || (L1 + S1) >= 10 ||
-                                        (M1 + N1) >= 10 || (M1 + O1) >= 10 || (M1 + P1) >= 10 || (M1 + Q1) >= 10 || (M1 + R1) >= 10 || (M1 + S1) >= 10 ||
-                                        (N1 + O1) >= 10 || (N1 + P1) >= 10 || (N1 + Q1) >= 10 || (N1 + R1) >= 10 || (N1 + S1) >= 10 ||
-                                        (O1 + P1) >= 10 || (O1 + Q1) >= 10 || (O1 + R1) >= 10 || (O1 + S1) >= 10 ||
-                                        (P1 + Q1) >= 10 || (P1 + R1) >= 10 || (P1 + S1) >= 10 ||
-                                        (Q1 + R1) >= 10 || (Q1 + S1) >= 10 ||
-                                        (R1 + S1) >= 10)
+
+                                    obj.NC3 = "Minimum total rest comprises more than 2 period";
+                                    ncbms = ncbms + 1;
+
+                                    int bc = Convert.ToInt32(today[y1]);
+                                    foreach (var item in DynamicGridBorders)
                                     {
-
-                                    }
-                                    else
-                                    {
-
-                                        obj.NC3 = "Minimum total rest comprises more than 2 period";
-                                        ncbms = ncbms + 1;
-
-                                        int bc = Convert.ToInt32(today[y1]);
-                                        foreach (var item in DynamicGridBorders)
+                                        if (item.Name == "BP" + bc)
                                         {
-                                            if (item.Name == "BP" + bc)
+                                            var ss1 = item.Background;
+                                            if (((SolidColorBrush)ss1).Color.ToString() == colorValue1)
                                             {
-                                                var ss1 = item.Background;
-                                                if (((SolidColorBrush)ss1).Color.ToString() == colorValue1)
-                                                {
-                                                    item.Background = new SolidColorBrush(Colors.Red);
-                                                }
-
-                                                break;
+                                                item.Background = new SolidColorBrush(Colors.Red);
                                             }
 
+                                            break;
                                         }
+
                                     }
                                 }
-
                             }
 
-                            //10/2 next Condition compleated....
+                        }
 
-                            int count7 = 0;
-                            count7 = index1 + 336;
-                            double totalbms1 = 0;
-                            ab10rest1.Clear();
-                            List<double> list7 = new List<double>();
-                            list7.Clear();
+                        //10/2 next Condition compleated....
+
+                        int count7 = 0;
+                        count7 = index1 + 336;
+                        double totalbms1 = 0;
+                        ab10rest1.Clear();
+                        List<double> list7 = new List<double>();
+                        list7.Clear();
 
 
-                            string[] numsbms1 = st4bms7.Skip(index1).Take(336).ToArray();
+                        string[] numsbms1 = st4bms7.Skip(index1).Take(336).ToArray();
 
-                            int norm13 = 0;
-                            norm13 = numsbms1.Length;
-                            for (long i = 0; i < norm13; i++)
+                        int norm13 = 0;
+                        norm13 = numsbms1.Length;
+                        for (long i = 0; i < norm13; i++)
+                        {
+
+                            if (Convert.ToInt32(numsbms1[i]) == 0)
                             {
-
-                                if (Convert.ToInt32(numsbms1[i]) == 0)
-                                {
-                                    totalbms1 += 0.5;
-                                }
-                                else if (Convert.ToInt32(numsbms1[i]) == 1)
-                                {
-                                    if (totalbms1 != 0)
-                                    {
-                                        list7.Add(totalbms1);
-                                        totalbms1 = 0;
-                                    }
-                                }
-                                if (i == numsbms1.Length - 1)
-                                {
-                                    if (totalbms1 != 0)
-                                    {
-                                        list7.Add(totalbms1);
-                                        totalbms1 = 0;
-                                    }
-                                }
-
+                                totalbms1 += 0.5;
                             }
-
-                            if (list7.Count() == 0)
-                                list7.Add(0);
-                            double hrs77Count = list7.Sum();
-
-                            ab10rest1.Add(hrs77Count);
-                            ab10rest1.Sort();
-
-                            obj.RestHour7day = Convert.ToDecimal(ab10rest1[0].ToString());
-                            obj.RestHourAny7day = ab10rest1[0].ToString();
-
-                            //_CommonData1.RestHour7day = Convert.ToDecimal(ab10rest1[0].ToString());
-                            //RaisePropertyChanged("CommonData1");
-
-
-                            int hrs77 = (int)(DefineRules.Rule77Hrs);
-                            if (hrs77Count < hrs77)
+                            else if (Convert.ToInt32(numsbms1[i]) == 1)
                             {
-                                obj.NC4 = "Less than 77 hours rest in 7 day period";
-
-
-                                int bc = Convert.ToInt32(today[y1]);
-                                foreach (var item in DynamicGridBorders)
+                                if (totalbms1 != 0)
                                 {
-                                    if (item.Name == "BP" + bc)
-                                    {
-
-                                        var ss1 = item.Background;
-                                        if (((SolidColorBrush)ss1).Color.ToString() == colorValue1)
-                                        {
-                                            item.Background = new SolidColorBrush(Colors.Red);
-                                        }
-
-                                        break;
-                                    }
-
-                                }
-
-
-
-                            } //77hrs Condition compleated....
-
-
-                            //OPA 90 Conditions..................
-
-                            //// OPA start....
-
-                            if (b11)
-                            {
-                                bool bmsmopa = Convert.ToBoolean(Convert.ToDateTime(startdateop) >= Convert.ToDateTime(opdastart) && Convert.ToDateTime(enddateop) <= Convert.ToDateTime(opastop)) ? true : false;
-                                if (bmsmopa || chkOPAforallday)
-                                {
-
-                                    var hrsOPa1 = lista.Sum();
-                                    if (hrsOPa1 < 9)
-                                    {
-                                        obj.NC15 = "OPA NC : No more than 15 hrs work in any 24 hrs period";
-
-
-                                        int bc = Convert.ToInt32(today[y1]);
-
-                                        foreach (var item in DynamicGridBorders)
-                                        {
-                                            if (item.Name == "BP" + bc)
-                                            {
-
-                                                var ss1 = item.Background;
-                                                if (((SolidColorBrush)ss1).Color.ToString() == colorValue1)
-                                                {
-                                                    item.Background = new SolidColorBrush(Colors.Red);
-                                                }
-
-                                                break;
-                                            }
-                                        }
-                                    }//opa 9 hrs condition compleated
-
+                                    list7.Add(totalbms1);
                                     totalbms1 = 0;
-                                    List<double> listopa3 = new List<double>();
-                                    listopa3.Clear();
+                                }
+                            }
+                            if (i == numsbms1.Length - 1)
+                            {
+                                if (totalbms1 != 0)
+                                {
+                                    list7.Add(totalbms1);
+                                    totalbms1 = 0;
+                                }
+                            }
 
-                                    string[] numsOPA3 = ST4OPA3.Skip(index1).Take(144).ToArray();
+                        }
 
-                                    int normOPA3 = 0;
-                                    normOPA3 = numsOPA3.Length;
-                                    for (long i = 0; i < normOPA3; i++)
+                        if (list7.Count() == 0)
+                            list7.Add(0);
+                        double hrs77Count = list7.Sum();
+
+                        ab10rest1.Add(hrs77Count);
+                        ab10rest1.Sort();
+
+                        obj.RestHour7day = Convert.ToDecimal(ab10rest1[0].ToString());
+                        obj.RestHourAny7day = ab10rest1[0].ToString();
+
+                        //_CommonData1.RestHour7day = Convert.ToDecimal(ab10rest1[0].ToString());
+                        //RaisePropertyChanged("CommonData1");
+
+
+                        int hrs77 = (int)(DefineRules.Rule77Hrs);
+                        if (hrs77Count < hrs77)
+                        {
+                            obj.NC4 = "Less than 77 hours rest in 7 day period";
+
+
+                            int bc = Convert.ToInt32(today[y1]);
+                            foreach (var item in DynamicGridBorders)
+                            {
+                                if (item.Name == "BP" + bc)
+                                {
+
+                                    var ss1 = item.Background;
+                                    if (((SolidColorBrush)ss1).Color.ToString() == colorValue1)
                                     {
-
-                                        if (Convert.ToInt32(numsOPA3[i]) == 0)
-                                        {
-                                            totalbms1 += 0.5;
-                                        }
-                                        else if (Convert.ToInt32(numsOPA3[i]) == 1)
-                                        {
-                                            if (totalbms1 != 0)
-                                            {
-                                                listopa3.Add(totalbms1);
-                                                totalbms1 = 0;
-                                            }
-                                        }
-                                        if (i == numsOPA3.Length - 1)
-                                        {
-                                            if (totalbms1 != 0)
-                                            {
-                                                listopa3.Add(totalbms1);
-                                                totalbms1 = 0;
-                                            }
-                                        }
-
+                                        item.Background = new SolidColorBrush(Colors.Red);
                                     }
 
-                                    if (listopa3.Count() == 0)
-                                        listopa3.Add(0);
-                                    double Opa3Count = listopa3.Sum();
-
-                                    if (Opa3Count < 36)
-                                    {
-                                        obj.NC16 = "OPA NC : No more than 36 hrs work in any 72 hrs period";
-
-                                        int bc = Convert.ToInt32(today[y1]);
-
-                                        foreach (var item in DynamicGridBorders)
-                                        {
-                                            if (item.Name == "BP" + bc)
-                                            {
-                                                var ss1 = item.Background;
-                                                if (((SolidColorBrush)ss1).Color.ToString() == colorValue1)
-                                                {
-                                                    item.Background = new SolidColorBrush(Colors.Red);
-                                                }
-
-                                                break;
-                                            }
-
-                                        }
-
-                                    }
+                                    break;
                                 }
 
-                            }//End OPA
+                            }
+
+
+
+                        } //77hrs Condition compleated....
+
+
+                        //OPA 90 Conditions..................
+
+                        //// OPA start....
+
+                        if (b11)
+                        {
+                            bool bmsmopa = Convert.ToBoolean(Convert.ToDateTime(startdateop) >= Convert.ToDateTime(opdastart) && Convert.ToDateTime(enddateop) <= Convert.ToDateTime(opastop)) ? true : false;
+                            if (bmsmopa || chkOPAforallday)
+                            {
+
+                                var hrsOPa1 = lista.Sum();
+                                if (hrsOPa1 < 9)
+                                {
+                                    obj.NC15 = "OPA NC : No more than 15 hrs work in any 24 hrs period";
+
+
+                                    int bc = Convert.ToInt32(today[y1]);
+
+                                    foreach (var item in DynamicGridBorders)
+                                    {
+                                        if (item.Name == "BP" + bc)
+                                        {
+
+                                            var ss1 = item.Background;
+                                            if (((SolidColorBrush)ss1).Color.ToString() == colorValue1)
+                                            {
+                                                item.Background = new SolidColorBrush(Colors.Red);
+                                            }
+
+                                            break;
+                                        }
+                                    }
+                                }//opa 9 hrs condition compleated
+
+                                totalbms1 = 0;
+                                List<double> listopa3 = new List<double>();
+                                listopa3.Clear();
+
+                                string[] numsOPA3 = ST4OPA3.Skip(index1).Take(144).ToArray();
+
+                                int normOPA3 = 0;
+                                normOPA3 = numsOPA3.Length;
+                                for (long i = 0; i < normOPA3; i++)
+                                {
+
+                                    if (Convert.ToInt32(numsOPA3[i]) == 0)
+                                    {
+                                        totalbms1 += 0.5;
+                                    }
+                                    else if (Convert.ToInt32(numsOPA3[i]) == 1)
+                                    {
+                                        if (totalbms1 != 0)
+                                        {
+                                            listopa3.Add(totalbms1);
+                                            totalbms1 = 0;
+                                        }
+                                    }
+                                    if (i == numsOPA3.Length - 1)
+                                    {
+                                        if (totalbms1 != 0)
+                                        {
+                                            listopa3.Add(totalbms1);
+                                            totalbms1 = 0;
+                                        }
+                                    }
+
+                                }
+
+                                if (listopa3.Count() == 0)
+                                    listopa3.Add(0);
+                                double Opa3Count = listopa3.Sum();
+
+                                if (Opa3Count < 36)
+                                {
+                                    obj.NC16 = "OPA NC : No more than 36 hrs work in any 72 hrs period";
+
+                                    int bc = Convert.ToInt32(today[y1]);
+
+                                    foreach (var item in DynamicGridBorders)
+                                    {
+                                        if (item.Name == "BP" + bc)
+                                        {
+                                            var ss1 = item.Background;
+                                            if (((SolidColorBrush)ss1).Color.ToString() == colorValue1)
+                                            {
+                                                item.Background = new SolidColorBrush(Colors.Red);
+                                            }
+
+                                            break;
+                                        }
+
+                                    }
+
+                                }
+                            }
+
+                        }//End OPA
 
 
 
 
 
-                        }//End
+                        //}//End
 
 
 

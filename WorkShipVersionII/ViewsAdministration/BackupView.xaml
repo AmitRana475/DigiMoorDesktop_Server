@@ -31,7 +31,9 @@
                 <Button x:Name="btnBackup"  Command="{Binding CreateCommand}" Style="{StaticResource HeaderButton1}" HorizontalAlignment="Right" >
                     <TextBlock TextWrapping="Wrap"  Text=" Create BackUp "/>
                 </Button>
-                <TextBlock  Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="Blue" FontFamily="Verdana" FontSize="14"  Text="Help" Padding="0,0,10,0"  />
+                <TextBlock  Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="Blue" FontFamily="Verdana" FontSize="14"   Padding="0,0,10,0">
+                     <Hyperlink Command="{Binding HelpCommand}" Name="Help" Foreground="#0000cc">Help</Hyperlink>
+                </TextBlock>  
             </Grid>
         </UniformGrid>
 
@@ -40,7 +42,18 @@
             <DataGrid x:Name="BackupGrid"  BorderThickness="0" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" ItemsSource="{Binding LoadBackupFiles}" GridLinesVisibility="Horizontal" SelectionUnit="FullRow"  SelectionMode="Single" CanUserAddRows="False" HeadersVisibility="Column"  BorderBrush="LightGray" ColumnWidth="Auto" 
                      RowHeight="27" AutoGenerateColumns="False"   VerticalScrollBarVisibility="Auto" VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray">
 
+                <!--<DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding AckRecord}" Value="Not yet acknowledged">
+                                <Setter Property="Foreground" Value="Red" />
+                            </DataTrigger>
+                            
+                        </Style.Triggers>
+                    </Style>
 
+
+                </DataGrid.RowStyle>-->
 
                 <DataGrid.Columns >
 
@@ -53,7 +66,7 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn  Binding="{Binding Path=Times}" IsReadOnly="True" Header="Time" MaxWidth="120" Width="*">
+                    <DataGridTextColumn  Binding="{Binding Path=Times,StringFormat=\{0:HH mm\},Mode=TwoWay}" IsReadOnly="True" Header="Time" MaxWidth="120" Width="*">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="HorizontalAlignment" Value="Center" />
@@ -62,7 +75,7 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn  Binding="{Binding Path=FileName}" IsReadOnly="True" Header="File Name" MaxWidth="180" Width="*" >
+                    <DataGridTextColumn  Binding="{Binding Path=FileNames}" IsReadOnly="True" Header="File Name" MaxWidth="180" Width="*" >
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="HorizontalAlignment" Value="Center" />
@@ -80,7 +93,15 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
 
-
+                    <DataGridTextColumn  Visibility="Hidden" Binding="{Binding Path=BackupType}" IsReadOnly="True" Header="Mode" MaxWidth="650" Width="*" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                  
                     <DataGridTemplateColumn MaxWidth="70" Width="*" Header="Save As">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -98,7 +119,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Label Width="70"  FontWeight="Normal"   FontSize="13" FontFamily="Verdana" VerticalAlignment="Center" HorizontalContentAlignment="Center">
+                                    <Label Visibility="{Binding Path=Visibiles}"  Width="70"  FontWeight="Normal"   FontSize="13" FontFamily="Verdana" VerticalAlignment="Center" HorizontalContentAlignment="Center">
                                         <Hyperlink  Name="Delete" Command="{Binding Path=DataContext.DeleteCommand,RelativeSource={RelativeSource AncestorType= DataGrid}}"  CommandParameter="{Binding}" Foreground="#0000cc">Delete
                                         </Hyperlink>
                                     </Label>
@@ -112,7 +133,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Label Width="80"  FontWeight="Normal"   FontSize="13" FontFamily="Verdana" VerticalAlignment="Center" HorizontalContentAlignment="Center">
+                                    <Label   Width="80"  FontWeight="Normal"   FontSize="13" FontFamily="Verdana" VerticalAlignment="Center" HorizontalContentAlignment="Center">
                                         <Hyperlink  Name="Restore" Command="{Binding Path=DataContext.RestoreCommand,RelativeSource={RelativeSource AncestorType=DataGrid}}"  CommandParameter="{Binding}" Foreground="#0000cc">Restore
                                         </Hyperlink>
                                     </Label>

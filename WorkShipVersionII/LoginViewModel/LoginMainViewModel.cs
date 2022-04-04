@@ -1,7 +1,6 @@
 ﻿using DataBuildingLayer;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using System;
 using System.Linq;
 using System.Windows.Input;
 using WorkShipVersionII.ViewModelCrewManagement;
@@ -11,7 +10,7 @@ namespace WorkShipVersionII.LoginViewModel
     public class LoginMainViewModel : ViewModelBase
     {
 
-        private readonly AdministrationContaxt sc;
+        private readonly ShipmentContaxt sc;
 
         readonly static AdminLoginViewModel _adminLoginView = new AdminLoginViewModel();
         readonly static CongrasViewModel _congrasView = new CongrasViewModel();
@@ -50,7 +49,7 @@ namespace WorkShipVersionII.LoginViewModel
 
             if (sc == null)
             {
-                sc = new AdministrationContaxt();
+                sc = new ShipmentContaxt();
                 sc.Configuration.ProxyCreationEnabled = false;
             }
 
@@ -109,8 +108,23 @@ namespace WorkShipVersionII.LoginViewModel
 
         private void AdminLoginMethod()
         {
+            var pwd = AdminLoginViewModel.adminAccess.pswd;
+            if (string.IsNullOrEmpty(pwd))
+            {
 
-            LoginViewModel = LoginMainViewModel._adminLoginView;
+            }
+            else
+            {
+                var DecryptPWD = sc.Decrypt(pwd, StaticHelper.Key);
+                AdminLoginViewModel.adminAccess.pswd = DecryptPWD;
+                AdminLoginViewModel.adminAccess.ConfirmPassword = DecryptPWD;
+                RaisePropertyChanged("AdminAccess");
+                // OnPropertyChanged(new PropertyChangedEventArgs("AdminAccess"));
+            }
+            if (StaticHelper.IsValidateShipDetail == true)
+            {
+                LoginViewModel = LoginMainViewModel._adminLoginView;
+            }
         }
 
 

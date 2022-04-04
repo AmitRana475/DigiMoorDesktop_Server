@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="WorkShipVersionII.Views.CrewManagementView"
+﻿<UserControl Name="crewuser" x:Class="WorkShipVersionII.Views.CrewManagementView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,9 +6,9 @@
              xmlns:vm="clr-namespace:WorkShipVersionII.ViewModelCrewManagement"
              xmlns:views="clr-namespace:WorkShipVersionII.ViewsCrewManagement"
              xmlns:local="clr-namespace:WorkShipVersionII.Views"
-              
+                        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="1200">
+             d:DesignHeight="300" d:DesignWidth="1200" Loaded="UserControl_Loaded">
 
     <UserControl.DataContext>
         <vm:MainViewModelCrewManagement/>
@@ -16,54 +16,145 @@
 
     <UserControl.Resources>
 
-        <DataTemplate DataType="{x:Type vm:CrewDetailViewModel}">
-            <views:CrewDetailView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:CrewRankViewModel}">
-            <views:CrewRankView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:DepartmentViewModel}">
-            <views:DepartmentView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:HoliDayGroupViewModel}">
-            <views:HoliDayGroupView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:HODViewModel}">
-            <views:HODView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:GroupPlanningViewModel}">
-            <views:GroupPlanningView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:LogbookVerificationViewModel}">
-            <views:LogbookVerificationView/>
+        <Style x:Key="MainMenuitem11" TargetType="MenuItem">
+            <Setter Property="Background" Value="#003366" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuItem">
+                        <Border x:Name="templateRoot" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <Grid VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentPresenter x:Name="Icon" Content="{TemplateBinding Icon}" ContentSource="Icon" HorizontalAlignment="Center" Height="16" Margin="3" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" Width="16"/>
+                                <Path x:Name="GlyphPanel" Data="F1M10,1.2L4.7,9.1 4.5,9.1 0,5.2 1.3,3.5 4.3,6.1 8.3,0 10,1.2z" Fill="#FF212121" FlowDirection="LeftToRight" Margin="3" Visibility="Collapsed" VerticalAlignment="Center"/>
+                                <ContentPresenter TextElement.FontSize="20" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" Grid.Column="1" ContentStringFormat="{TemplateBinding HeaderStringFormat}" ContentSource="Header" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Icon" Value="{x:Null}">
+                                <Setter Property="Visibility" TargetName="Icon" Value="Collapsed"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Visibility" TargetName="GlyphPanel" Value="Visible"/>
+                                <Setter Property="Visibility" TargetName="Icon" Value="Collapsed"/>
+                            </Trigger>
+                            <Trigger Property="IsHighlighted" Value="True">
+                                <Setter Property="Background" TargetName="templateRoot" Value="#3D26A0DA"/>
+                                <Setter Property="BorderBrush" TargetName="templateRoot" Value="#FF26A0DA"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="#FF707070"/>
+                                <Setter Property="Fill" TargetName="GlyphPanel" Value="#FF707070"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsHighlighted" Value="True"/>
+                                    <Condition Property="IsEnabled" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Background" TargetName="templateRoot" Value="#0A000000"/>
+                                <Setter Property="BorderBrush" TargetName="templateRoot" Value="#21000000"/>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="EditSubMenuitem11" TargetType="MenuItem">
+
+            <!--<Style.Resources>
+                <Style TargetType="MenuItem">
+                    <Style.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                        </Style>
+                    </Style.Resources>
+                    <Setter Property="MaxWidth" Value="200" />
+                </Style>
+            </Style.Resources>-->
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuItem">
+                        <Border x:Name="templateRoot" BorderBrush="{TemplateBinding BorderBrush}" Padding="4" BorderThickness="0" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <Grid VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentPresenter x:Name="Icon"  Content="{TemplateBinding Icon}" ContentSource="Icon" HorizontalAlignment="Center" Height="16" Margin="3" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" Width="16"/>
+                                <Path x:Name="GlyphPanel" Data="F1M10,1.2L4.7,9.1 4.5,9.1 0,5.2 1.3,3.5 4.3,6.1 8.3,0 10,1.2z" Fill="{TemplateBinding Foreground}" FlowDirection="LeftToRight" Margin="3" Visibility="Collapsed" VerticalAlignment="Center"/>
+                                <ContentPresenter TextElement.FontSize="13" TextElement.FontFamily="Verdana"  ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" Grid.Column="1" ContentStringFormat="{TemplateBinding HeaderStringFormat}" ContentSource="Header" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                <Popup Grid.Column="1" x:Name="PART_Popup"  AllowsTransparency="True" Focusable="False" IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}" PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}" Placement="Right">
+                                    <Border x:Name="SubMenuBorder" BorderBrush="#FF999999" BorderThickness="0" Background="#FFF0F0F0" Padding="1">
+                                        <ScrollViewer x:Name="SubMenuScrollViewer" Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}}">
+                                            <Grid RenderOptions.ClearTypeHint="Enabled">
+                                                <Canvas HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
+                                                    <Rectangle x:Name="OpaqueRect" Fill="{Binding Background, ElementName=SubMenuBorder}" Height="{Binding ActualHeight, ElementName=SubMenuBorder}" Width="{Binding ActualWidth, ElementName=SubMenuBorder}"/>
+                                                </Canvas>
+                                                <Rectangle Fill="#FFD7D7D7" HorizontalAlignment="Left" Margin="29,2,0,2" Width="1"/>
+                                                <ItemsPresenter x:Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Cycle" Grid.IsSharedSizeScope="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" KeyboardNavigation.TabNavigation="Cycle"/>
+                                            </Grid>
+                                        </ScrollViewer>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSuspendingPopupAnimation" Value="True">
+                                <Setter Property="PopupAnimation" TargetName="PART_Popup" Value="None"/>
+                            </Trigger>
+                            <Trigger Property="Icon" Value="{x:Null}">
+                                <Setter Property="Visibility" TargetName="Icon" Value="Collapsed"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Visibility" TargetName="GlyphPanel" Value="Visible"/>
+                                <Setter Property="Visibility" TargetName="Icon" Value="Collapsed"/>
+                            </Trigger>
+                            <Trigger Property="IsHighlighted" Value="True">
+                                <Setter Property="Background" TargetName="templateRoot" Value="#3D26A0DA"/>
+                                <Setter Property="BorderBrush" TargetName="templateRoot" Value="#FF26A0DA"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="#FF707070"/>
+                                <Setter Property="Fill" TargetName="GlyphPanel" Value="#FF707070"/>
+                            </Trigger>
+                            <Trigger Property="CanContentScroll" SourceName="SubMenuScrollViewer" Value="False">
+                                <Setter Property="Canvas.Top" TargetName="OpaqueRect" Value="{Binding VerticalOffset, ElementName=SubMenuScrollViewer}"/>
+                                <Setter Property="Canvas.Left" TargetName="OpaqueRect" Value="{Binding HorizontalOffset, ElementName=SubMenuScrollViewer}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <DataTemplate DataType="{x:Type vm:Intro1ViewModel}">
+            <views:Intro1View/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type vm:ResetPasswordViewModel}">
-            <views:ResetPasswordView/>
+        <DataTemplate DataType="{x:Type vm:MSMPDefaultViewModel}">
+            <views:MSMPDefaultView/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:FreezeUnfreezeViewModel}">
-            <views:FreezeUnfreezeView/>
-        </DataTemplate>
-
-        <DataTemplate DataType="{x:Type vm:AddCrewDetailModel}">
-            <views:AddCrewDetailView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:AddNextCrewDetailModel}">
-            <views:AddNextCrewDetailView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:AddNextYoungCrewDetailModel}">
-            <views:AddNextYoungCrewDetailView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:AddOverTimeCrewDetailModel}">
-            <views:AddOverTimeCrewDetailView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:AddHODViewModel}">
-            <views:AddHODView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:HoliDayListViewModel}">
-            <views:HoliDayListView/>
+        <DataTemplate DataType="{x:Type vm:ShipAttachViewModel}">
+            <views:ShipAttchView/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type vm:RevisionViewModel}">
+            <views:RevisionView/>
+        </DataTemplate>
+
+
+        <DataTemplate DataType="{x:Type vm:SearchTextViewModel}">
+            <views:SearchTextView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:ShipSpecificDataViewModel}">
+            <views:ShipSpecificDataView/>
+        </DataTemplate>
 
 
 
@@ -81,16 +172,34 @@
         </Grid.RowDefinitions>-->
 
         <DockPanel >
-            <Menu x:Name="CrewMenu"  MenuItem.Click="MenuItemClick"  Grid.Column="0" Style="{StaticResource MenuTypeCrew}"  >
+            <Menu x:Name="CrewMenu"   MaxWidth="200" Background="#003366"  Grid.Column="0"   >
+
+                <!--<Menu.Resources>
+                    <Style TargetType="{x:Type MenuItem}">
+                        <Setter Property="Header">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <TextBlock 
+                                   TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
+                                   Text="{Binding}" Foreground="WhiteSmoke" Background="#003366" />
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Menu.Resources>-->
+
 
                 <Menu.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel Orientation="Vertical" />
                         <!--<StackPanel/>-->
+
                     </ItemsPanelTemplate>
+
                 </Menu.ItemsPanel>
 
-                <MenuItem x:Name="CrewDetail" Cursor="Hand" Visibility="{Binding CommonVisible.CrewManagement,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Command="{Binding NavCommand}" CommandParameter="CrewDetail"  Margin="0,20,0,0"  Header="Crew Detail"  MouseEnter="MouseEnterFunction" MouseLeave="MouseLeaveFunction" Padding="4,6,0,6" >
+
+                <!--<MenuItem x:Name="CrewDetail" Cursor="Hand" Visibility="{Binding CommonVisible.CrewManagement,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Command="{Binding NavCommand}" CommandParameter="CrewDetail"  Margin="0,20,0,0"  Header="Crew Detail"  MouseEnter="MouseEnterFunction" MouseLeave="MouseLeaveFunction" Padding="4,6,0,6" >
                     <MenuItem.Icon>
                         <Image Source="/WorkShipVersionII;component/Images/Crew.png" MaxWidth="20" MaxHeight="20" />
                     </MenuItem.Icon>
@@ -116,19 +225,7 @@
                         <Image Source="/WorkShipVersionII;component/Images/business.png" MaxWidth="20" MaxHeight="20" />
                     </MenuItem.Icon>
                 </MenuItem>
-
-                <!--<MenuItem x:Name="GroupPlanning" Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="GroupPlanning" Header="Logbook Verification"  Padding="3,6,0,6" >
-                    <MenuItem.Icon>
-                        <Image Source="/WorkShipVersionII;component/Images/GPlan.png" MaxWidth="20" MaxHeight="20" />
-                    </MenuItem.Icon>
-                </MenuItem>-->
-
-                <!--<MenuItem x:Name="LogbookVerification" Cursor="Hand" Visibility="{Binding CommonVisible.CrewManagement,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Command="{Binding NavCommand}" CommandParameter="LogbookVerification" Header="Logbook Verification" MouseEnter="MouseEnterFunction" MouseLeave="MouseLeaveFunction"  Padding="3,6,0,6" >
-                    <MenuItem.Icon>
-                        <Image Source="/WorkShipVersionII;component/Images/GPlan.png" MaxWidth="20" MaxHeight="20" />
-                    </MenuItem.Icon>
-                </MenuItem>-->
-
+          
                 <MenuItem x:Name="ResetPassword" Cursor="Hand" Visibility="{Binding CommonVisible.ResetPassword,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Command="{Binding NavCommand}" CommandParameter="ResetPassword" Header="Reset Password" MouseEnter="MouseEnterFunction" MouseLeave="MouseLeaveFunction"  Padding="4,6,0,6">
                     <MenuItem.Icon>
                         <Image Source="/WorkShipVersionII;component/Images/reset1.png" MaxWidth="20" MaxHeight="20" />
@@ -138,20 +235,122 @@
                     <MenuItem.Icon>
                         <Image Source="/WorkShipVersionII;component/Images/00.png" MaxWidth="20" MaxHeight="20" />
                     </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem x:Name="Help" Cursor="Hand" Header="Help" CommandParameter="Help" MouseEnter="MouseEnterFunction" MouseLeave="MouseLeaveFunction" Padding="4,6,0,6" >
+                </MenuItem>-->
+
+
+
+
+                <!--<MenuItem x:Name="IntroMenu" Header="Introduction >" Padding="0,6,0,6"  Background="#003366" Foreground="WhiteSmoke" >
+                    <MenuItem.Icon>
+                        <Image  VerticalAlignment= "Top" Source="/WorkShipVersionII;component/Images/crew work hour.png" MaxWidth="20" MaxHeight="20"  />
+                    </MenuItem.Icon>
+
+                    <MenuItem x:Name="Intro1" Header="1.0 Purpose &amp; Scope"  Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="Intro1View" Padding="-10,0,-60,0"  MinWidth="170" MaxWidth="250" Background="#003366" >
+                        <MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/crew work hour.png" MaxWidth="20" MaxHeight="20" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="Intro2" Header="2.0 Rules of Mooring Operation"  Cursor="Hand" Padding="-10,0,-60,0"  MinWidth="100" MaxWidth="170" Background="#003366">
+                        <MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/non conformative1.png" MaxWidth="15" MaxHeight="20" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="Intro3" Header="3.0 10Thumb Rule of Mooring" Cursor="Hand"   Padding="-10,0,-60,0"  MinWidth="100" MaxWidth="170" Background="#003366" >
+                        <MenuItem.Icon>
+                            <Image Source="/WorkShipVersionII;component/Images/overtime2.png" MaxWidth="20" MaxHeight="20"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+                </MenuItem>-->
+
+                <!--<MenuItem x:Name="Help" Command="{Binding HelpCommand}" Cursor="Hand" Header="Help" CommandParameter="Help" MouseEnter="MouseEnterFunction" MouseLeave="MouseLeaveFunction" Padding="4,6,0,6" >
                     <MenuItem.Icon>
                         <Image Source="/WorkShipVersionII;component/Images/help1.png" MaxWidth="20" MaxHeight="20" />
                     </MenuItem.Icon>
-                </MenuItem>
+                </MenuItem>-->
 
 
 
             </Menu>
 
             <Grid x:Name = "CrewManagementContent" DockPanel.Dock="Top"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,0,0,0"  >
+                <!--<StackPanel Orientation="Vertical" DockPanel.Dock="Bottom" Margin="2,5">
+                    <Button Name="btnPreviousTab" >Prev.</Button>
+                    <Button Name="btnNextTab">Next</Button>
+                    <Button Name="btnSelectedTab" >Selected</Button>
+                </StackPanel>-->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="45*"/>
+                    </Grid.RowDefinitions>
+                    <Canvas Grid.Row="0" Grid.RowSpan="2">
+                        <!--<Button  Content=" Tab1 "  Command="{Binding UnFreezeCommand}" CommandParameter="{Binding AddFreezDetail}" Style="{StaticResource HeaderButton1}" Canvas.Left="-75" Canvas.Top="10" />
+                        <Button  Content=" Tab2 " Command="{Binding FreezeCommand}" CommandParameter="{Binding AddFreezDetail}" Style="{StaticResource HeaderButton1}" Canvas.Left="22" Canvas.Top="10" />-->
+                        <!--<TextBox x:Name="textBox1" x:FieldModifier="public" />-->
+                        <!--<TextBox x:Name="txtMBL" TextChanged="TxtMBL_TextChanged"  Grid.Column="3" Grid.Row="9" MaxLength="6" Text=" " VerticalContentAlignment="Center"  >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="LostFocus">
+                                    <i:InvokeCommandAction  Command="{Binding LostFocusCDCCommand}" CommandParameter="{Binding Mtt.MenuTitle}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>-->
+                        <!--<TextBlock x:Name="MenuTitle"   Text="{Binding Path = MenuTitle}" Visibility="Visible"  FontWeight="Bold" Canvas.Left="10" Style="{StaticResource HeaderText1}" Canvas.Top="3" FontFamily="Verdana"  />-->
 
-                <ContentControl  Content="{Binding CurrentViewModelCrew}"/>
+                        <TextBlock x:Name="MenuTitle"  Text=" " Visibility="Hidden"  FontWeight="Bold" Canvas.Left="10" Style="{StaticResource HeaderText1}" Canvas.Top="3" FontFamily="Verdana"  />
+                    
+                        <Button  x:Name="B1" Content=" General Data " Command="{Binding Path=TabCommand}"  CommandParameter="GData"   Style="{StaticResource HeaderButton1}" Canvas.Left="0" Canvas.Top="30" Click="B1_Click" />
+                        <Button x:Name="B2" Content=" Ship Specific Data " Command="{Binding Path=TabCommand}" CommandParameter="ShipData" Style="{StaticResource HeaderButton1}" Canvas.Left="110" Canvas.Top="30" Click="B2_Click" />
+                        <Button x:Name="B3" Content=" Ship Specific Attachments " Command="{Binding Path=TabCommand}" CommandParameter="ShipAttach"  Style="{StaticResource HeaderButton1}" Canvas.Left="255" Canvas.Top="30" Click="B3_Click" />
+                        <Button x:Name="B4" Visibility="Visible" Content=" Revisions " Command="{Binding Path=TabCommand}" CommandParameter="Revision" Style="{StaticResource HeaderButton1}" Canvas.Left="455" Canvas.Top="30" Click="B4_Click" />
+
+                        <!--<TextBox   Canvas.Left="620" Canvas.Top="34" Height="30" Width="190"    ></TextBox>-->
+                        <TextBox Canvas.Left="620" Canvas.Top="34" x:Name="SearchTermTextBox" Text="{Binding SearchCrews,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Verdana" FontSize="14"   Width="190" Height="30" />
+                        <TextBlock  Canvas.Left="620" Canvas.Top="34" IsHitTestVisible="False"  Text="Search text.." VerticalAlignment="Center" HorizontalAlignment="Right" FontFamily="Verdana" FontSize="14" Foreground="DarkGray" Margin="10,7,32,6">
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=SearchTermTextBox}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+
+
+
+                        <Button x:Name="btnSearch" Style="{StaticResource HeaderButton1}" Click="btnSearch_Click" Content=" Search Data " Command="{Binding Path=TabCommand}" CommandParameter="SearchText" Canvas.Left="820"  Canvas.Top="34" >
+
+                        </Button>
+
+                        <Button x:Name="btnPDF" Style="{StaticResource HeaderButton1}"  Command="{Binding Path=TabCommand}" CommandParameter="PDFGenerate" Canvas.Left="930"  Canvas.Top="34" >
+
+                            <StackPanel Orientation="Horizontal" >
+                                <Image   Source="/WorkShipVersionII;component/Images/PDF.png" Height="20" HorizontalAlignment="Left" />
+                                <TextBlock  Style="{StaticResource HeaderText1}"  HorizontalAlignment="Right" Text=" PDF "/>
+                            </StackPanel>
+
+                        </Button>
+
+                        <TextBlock Grid.Column="1" Margin="1040,40,0,0"  HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="Blue" FontFamily="Verdana" FontSize="14"   Padding="0,0,10,0"   >
+                      <Hyperlink Command="{Binding HelpCommand}" Name="Help" Foreground="#0000cc">Help</Hyperlink>
+                        </TextBlock>
+                        <!--<Button  x:Name="btnPrint" Style="{StaticResource HeaderButton1}" Command="{Binding Path=TabCommand}" CommandParameter="Printing" Canvas.Left="1000"  Canvas.Top="34"   >
+                            <StackPanel Orientation="Horizontal" >
+                                <Image   Source="/WorkShipVersionII;component/Images/printer.png" Height="20" HorizontalAlignment="Left" />
+                                <TextBlock  Style="{StaticResource HeaderText1}"  HorizontalAlignment="Center" Text=" Print "/>
+                            </StackPanel>
+                        </Button>-->
+
+
+                    </Canvas>
+
+                    <ContentControl  Grid.Row="2" Margin="0,17,0,0" Content="{Binding CurrentViewModelCrew}"/>
+                </Grid>
+
             </Grid>
 
         </DockPanel>

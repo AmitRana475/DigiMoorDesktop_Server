@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -13,7 +14,14 @@ namespace WorkShipVersionII.Views
         string tag = "";
         public AdministrationView()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("1. " + exc.Message);
+            }
             MenuItemClick1();
 
         }

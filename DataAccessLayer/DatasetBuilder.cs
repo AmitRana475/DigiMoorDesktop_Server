@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 
 namespace DataAccessLayer
 {
-    public class DatasetBuilder : IDatasetBuilder
+       public class DatasetBuilder : IDatasetBuilder
     {
         private static DBManager dm;
         public DatasetBuilder()
