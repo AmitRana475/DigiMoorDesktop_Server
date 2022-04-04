@@ -1,0 +1,160 @@
+﻿<Application x:Class="WorkShipVersionII.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" StartupUri="LoginWindow.xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" d1p1:Ignorable="d" xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
+  <Application.Resources>
+    <ResourceDictionary>
+      <!--<vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
+            xmlns:vm="clr-namespace:WorkShipVersionII.ViewModel"-->
+      <!--<DataTemplate DataType="{x:Type vm:AddCrewViewModel}">
+                <views:AddCrewView/>
+            </DataTemplate>-->
+      <!--<DataTemplate DataType="{x:Type vm:NotificationViewModel}">
+                <views:NotificationView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:CrewManagementViewModel}">
+                <views:CrewManagementView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:WorkRestHoursViewModel}">
+                <views:WorkRestHoursView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:ReportsViewModel}">
+                <views:ReportsView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:AdministrationViewModel}">
+                <views:AdministrationView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:CertificationViewModel}">
+                <views:CertificationView/>
+            </DataTemplate>-->
+
+        
+        
+        <Style TargetType="{x:Type Button}" x:Key="HeaderButton1">
+        <Setter Property="FontFamily" Value="Verdana" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="MinHeight" Value="31" />
+        <Setter Property="MaxHeight" Value="31" />
+        <Setter Property="Background" Value="#ededef" />
+        <Setter Property="BorderBrush" Value="LightGray" />
+        <Setter Property="BorderThickness" Value="1" />
+      </Style>
+      <Style TargetType="{x:Type TextBlock}" x:Key="HeaderText1">
+        <Setter Property="FontFamily" Value="Verdana" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Padding" Value="1" />
+      </Style>
+      <Style TargetType="{x:Type DataGridColumnHeader}">
+        <Setter Property="Background" Value="Silver" />
+        <Setter Property="BorderBrush" Value="#A0A0A0" />
+        <!--<Setter Property="BorderBrush" Value="#A0A0A0"/>-->
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Height" Value="30" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+      </Style>
+        
+      <Style TargetType="{x:Type Menu}" x:Key="MenuTypeCrew">
+        <Setter Property="Background" Value="#003366" />
+        <Setter Property="Foreground" Value="WhiteSmoke" />
+        <Setter Property="FontFamily" Value="Verdana" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="MinWidth" Value="175" />
+        <Setter Property="MaxWidth" Value="200" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+      </Style>
+        
+      <Style TargetType="DataGridCell">
+        <Setter Property="BorderThickness" Value="0.1,0,0.1,0" />
+        <Setter Property="BorderBrush" Value="Gray" />
+        <Style.Triggers>
+          <Trigger Property="IsSelected" Value="True">
+            <Setter Property="Background" Value="WhiteSmoke" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderThickness" Value="0.3,0,0.3,0" />
+          </Trigger>
+        </Style.Triggers>
+      </Style>
+        
+      <Style TargetType="{x:Type Button}" x:Key="HeaderButtonP">
+        <Setter Property="FontFamily" Value="Verdana" />
+        <Setter Property="Margin" Value="5,0,5,0" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="MinHeight" Value="22" />
+        <Setter Property="MaxHeight" Value="23" />
+        <Setter Property="Background" Value="#ededef" />
+        <Setter Property="BorderBrush" Value="LightGray" />
+        <Setter Property="BorderThickness" Value="1" />
+      </Style>
+        
+      <Style TargetType="{x:Type TextBlock}" x:Key="HeaderTextP">
+        <Setter Property="FontFamily" Value="Verdana" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Padding" Value="1" />
+      </Style>
+
+        
+        <!--New Implementation-->
+        
+
+            <!--<Style TargetType="ComboBox">
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Height" Value="30"/>
+                <Setter Property="FontFamily" Value="Verdana" />
+                <Setter Property="FontSize" Value="13" />
+
+                <Setter Property="BorderThickness" Value="0,0,0,1" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderBrush" Value="Black" />
+                <Setter Property="IsEditable" Value="True" />
+                <Setter Property="IsReadOnly" Value="True" />
+
+            </Style>
+
+
+
+            <Style TargetType="DatePicker">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="FontFamily" Value="Verdana" />
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Height" Value="30"/>
+
+
+                <Setter Property="BorderThickness" Value="0,0,0,1" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderBrush" Value="Black" />
+            </Style>
+
+
+            <Style TargetType="{x:Type DatePickerTextBox}">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0,0,0,0" />
+                <Setter Property="BorderBrush" Value="Transparent" />
+            </Style>
+
+            <Style x:Key="TextBoxStyle" TargetType="TextBox">
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Height" Value="33"/>
+                <Setter Property="FontFamily" Value="Verdana" />
+                <Setter Property="FontSize" Value="13" />
+                --><!--<Setter Property="BorderThickness" Value="0.5" />
+            <Setter Property="BorderBrush" Value="LightGray" />--><!--
+                <Setter Property="BorderThickness" Value="0,0,0,1" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderBrush" Value="Black" />
+            </Style>-->
+
+            <!--<vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:WorkShipVersionII.ViewModel" />-->
+        
+        
+    </ResourceDictionary>
+  </Application.Resources>
+</Application>

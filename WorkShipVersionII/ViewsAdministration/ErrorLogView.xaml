@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="WorkShipVersionII.ViewsAdministration.ErrorLogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WorkShipVersionII.ViewsAdministration"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1260">
+    <Grid MaxWidth="710" Width="Auto">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <UniformGrid Grid.Row="0" MinHeight="31" Margin="0,0,0,5" x:Name="ResetPasswordUniformGrid" Columns="2">
+            <Grid>
+                <!--<TextBlock Text="License Informations" Style="{StaticResource HeaderText1}" Grid.Column="1" />-->
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="85*"/>
+                    <ColumnDefinition Width="15*"/>
+                </Grid.ColumnDefinitions>
+
+
+
+                <TextBlock Grid.Column="1"  HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="Blue" FontFamily="Verdana" FontSize="14"  Text="Help" Padding="0,0,10,0"   />
+            </Grid>
+        </UniformGrid>
+
+        <GroupBox Grid.Row="1" x:Name="groupBox" Header="Error Log" FontFamily="Verdana" Height="300" FontSize="15" BorderBrush="LightGray" VerticalAlignment="Top" >
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <TextBlock x:Name="textBlock" Margin="0,10,0,0"  Grid.Row="0" TextWrapping="Wrap" Text="  Click Export button to export error log file and send it to support team.  " Style="{StaticResource HeaderText1}"/>
+                <Button x:Name="btnExport" Content="Export" Grid.Row="1" Style="{StaticResource HeaderButton1}"  Command="{Binding ExportCommand}" Width="120" Height="30" VerticalAlignment="Top"  />
+
+
+               
+
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+</UserControl>

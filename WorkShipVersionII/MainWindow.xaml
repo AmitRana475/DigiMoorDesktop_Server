@@ -1,0 +1,224 @@
+﻿<Window x:Class="WorkShipVersionII.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:WorkShipVersionII.ViewModel"
+        xmlns:views="clr-namespace:WorkShipVersionII.Views"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+        mc:Ignorable="d"
+         Title="Work-Ship"
+         d:DesignHeight="889"
+         d:DesignWidth="1365"
+         Background="WhiteSmoke"
+         WindowState="Maximized"
+        WindowStyle="ThreeDBorderWindow"  Icon="Images\softwareicon.ico" FontSize="12" Loaded="Window_Loaded" >
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+
+
+
+    <Window.Resources>
+
+        <DataTemplate DataType="{x:Type vm:NotificationViewModel}">
+            <views:NotificationView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:CrewManagementViewModel}">
+            <views:CrewManagementView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:WorkRestHoursViewModel}">
+            <views:WorkRestHoursView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ReportsViewModel}">
+            <views:ReportsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AdministrationViewModel}">
+            <views:AdministrationView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:CertificationViewModel}">
+            <views:CertificationView/>
+        </DataTemplate>
+
+
+        <Style TargetType="{x:Type Button}" x:Key="MenuButtonStyle">
+            <!--<Setter Property="MaxWidth" Value="350" />
+            <Setter Property="MaxHeight" Value="100"/>-->
+            <!--<Setter Property="HorizontalAlignment" Value="Left" />-->
+            <Setter Property="MinHeight" Value="77"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Margin" Value="-1,0,0,2" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontFamily" Value="verdana" />
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+            <Setter Property="Cursor" Value="Hand"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter  Property="Foreground" Value="Black"/>
+                    <Setter  Property="Background" Value="#FFFFEB"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+
+        <Style TargetType="{x:Type Image}" x:Key="MenuImageStyle">
+            <Setter Property="MaxWidth" Value="100" />
+            <Setter Property="MaxHeight" Value="43" />
+            <Setter Property="Margin" Value="2,7,2,2" />
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <!--<Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>-->
+
+
+        <DockPanel>
+            <Grid Height="Auto" x:Name="grid1b"  DockPanel.Dock="Top"   Background="#003366" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{Binding CommonDeviation.NotiWidth,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
+                    <ColumnDefinition Width="{Binding CommonDeviation.CrewWidth,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
+                    <ColumnDefinition Width="{Binding CommonDeviation.WorkWidth,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
+                    <ColumnDefinition Width="{Binding CommonDeviation.ReportWidth,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
+                    <ColumnDefinition Width="{Binding CommonDeviation.AdminWidth,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
+                    <ColumnDefinition Width="{Binding CommonDeviation.CertiWidth,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                </Grid.RowDefinitions>
+
+                <!--<i:Interaction.Behaviors>
+                    <beh:ScaleFontBehavior MaxFontSize="32" />
+                </i:Interaction.Behaviors>-->
+
+                <Button x:Name="btnNotification"  Visibility="{Binding CommonDeviation.NotificationVisible,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  Style="{StaticResource MenuButtonStyle}" Command="{Binding NotificationCommand}" CommandParameter="Notification" Click="MyClickFunction" MouseEnter="MouseEnterFunction" MouseLeave="MouseLeaveFunction"  >
+
+                    <StackPanel >
+                        <Image x:Name="imgBlue" Visibility="{Binding CommonDeviation.Deviation,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Style="{StaticResource MenuImageStyle}"  Source="/WorkShipVersionII;component/Images/notification.png" />
+
+                        <Image x:Name="imgRed" Visibility="{Binding CommonDeviation.DeviationRed,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Style="{StaticResource MenuImageStyle}" Margin="0,-46,0,0"  Source="/WorkShipVersionII;component/Images/notification icon in red.png" />
+                        <TextBlock TextWrapping="Wrap"  Text="Notification"></TextBlock>
+                    </StackPanel>
+
+                    <!--<i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseEnter">
+                            <i:InvokeCommandAction Command="{Binding NotificationCommand}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding CertificationCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>-->
+
+
+
+
+                </Button>
+
+                <Button x:Name="btnCrewManagement"   Grid.Column="1" Visibility="{Binding CommonDeviation.CrewManagementVisible,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  Style="{StaticResource MenuButtonStyle}" Command="{Binding CrewManagementCommand}"   CommandParameter="CrewManagement" Click="MyClickFunction" MouseEnter="MouseEnterFunction" MouseLeave="MouseLeaveFunction">
+
+                    <StackPanel >
+                        <Image Style="{StaticResource MenuImageStyle}"  Source="/WorkShipVersionII;component/Images/crew-member.png" />
+                        <TextBlock TextWrapping="Wrap" Text="Crew Management"/>
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="btnWorkRestHours" Grid.Column="2" Visibility="{Binding CommonDeviation.WorkRestHoursVisible,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  Style="{StaticResource MenuButtonStyle}" Command="{Binding WorkRestHoursCommand}" CommandParameter="WorkRestHours" Click="MyClickFunction"  MouseEnter="MouseEnterFunction" MouseLeave="MouseLeaveFunction" >
+                    <StackPanel>
+                        <Image  Style="{StaticResource MenuImageStyle}" Source="/WorkShipVersionII;component/Images/time-management.png"  Cursor=""/>
+                        <TextBlock TextWrapping="Wrap" Text="Work &amp; Rest Hours"/>
+                    </StackPanel>
+
+                    <!--<i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.WorkRestHoursView}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>-->
+
+
+                </Button>
+
+                <Button x:Name="btnReports" Grid.Column="3" Visibility="{Binding CommonDeviation.ReportsVisible,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Style="{StaticResource MenuButtonStyle}" Command="{Binding ReportsCommand}"  CommandParameter="Reports" Click="MyClickFunction" MouseEnter="MouseEnterFunction" MouseLeave="MouseLeaveFunction" >
+                    <StackPanel>
+                        <Image  Style="{StaticResource MenuImageStyle}" Source="/WorkShipVersionII;component/Images/reports.png" Cursor=""/>
+                        <TextBlock TextWrapping="Wrap" Text="Reports" />
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="btnAdministration" Grid.Column="4" Visibility="{Binding CommonDeviation.AdministrationVisible,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Style="{StaticResource MenuButtonStyle}" Command="{Binding AdministrationCommand}" CommandParameter="Administration" Click="MyClickFunction" MouseEnter="MouseEnterFunction" MouseLeave="MouseLeaveFunction">
+                    <StackPanel>
+                        <Image Style="{StaticResource MenuImageStyle}" Source="/WorkShipVersionII;component/Images/admin.png" Cursor=""/>
+                        <TextBlock TextWrapping="Wrap" Text="Administration"/>
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="btnCertification" Grid.Column="5" Visibility="{Binding CommonDeviation.CertificationVisible,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Style="{StaticResource MenuButtonStyle}" Command="{Binding CertificationCommand}"  CommandParameter="Certification" Click="MyClickFunction"  MouseEnter="MouseEnterFunction" MouseLeave="MouseLeaveFunction">
+                    <StackPanel >
+                        <Image Style="{StaticResource MenuImageStyle}" Source="/WorkShipVersionII;component/Images/certificate.png"  Cursor=""/>
+                        <TextBlock TextWrapping="Wrap" Text="Certification"/>
+                    </StackPanel>
+                </Button>
+
+                
+                
+                
+                
+                
+                <Button x:Name="btnHelp" Grid.Column="6"  Style="{StaticResource MenuButtonStyle}"  CommandParameter="Help" Click="MyClickFunction" MouseEnter="MouseEnterFunction" MouseLeave="MouseLeaveFunction">
+                    <StackPanel>
+                        <Image Style="{StaticResource MenuImageStyle}" Source="/WorkShipVersionII;component/Images/Help.png" Cursor=""/>
+                        <TextBlock TextWrapping="Wrap" Text="Help "/>
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="btnLogout" Grid.Column="7" Style="{StaticResource MenuButtonStyle}" Command="{Binding LogoutCommand}" CommandParameter="Logout"  MouseEnter="MouseEnterFunction" MouseLeave="MouseLeaveFunction">
+                    <StackPanel>
+                        <Image Style="{StaticResource MenuImageStyle}" Source="/WorkShipVersionII;component/Images/logout.png"  Cursor=""/>
+                        <TextBlock TextWrapping="Wrap" Text="Logout" />
+                    </StackPanel>
+                </Button>
+
+            </Grid>
+
+
+            <DockPanel Margin="0,-3,0,0" Background="WhiteSmoke"  DockPanel.Dock="Top" Height="4" ></DockPanel>
+            <Grid  Margin="5,5,5,5" x:Name = "MainMenuContent"  DockPanel.Dock="Top"   VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+
+                <ContentControl Content="{Binding CurrentViewModel}"/>
+
+                <Border Name="childWindow" Visibility="{Binding WindowVisibility}" Background="#88000000" >
+                    <ContentControl Content="{Binding XmlContent}" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"></ContentControl>
+                </Border>
+
+            </Grid>
+
+        </DockPanel>
+
+
+    </Grid>
+</Window>

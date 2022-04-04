@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
+<!-- Sitemap 1.0 -->
+</HEAD><BODY>
+<OBJECT type="text/site properties">
+<param name="Font" value="Verdana,8,0">
+</OBJECT>
+<UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Notification">
+		<param name="Name" value="Notification">
+		<param name="Local" value="notification.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Crew Detail">
+		<param name="Name" value="Crew Detail">
+		<param name="Local" value="addCrew.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Crew Rank">
+		<param name="Name" value="Crew Rank">
+		<param name="Local" value="addRank.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Department">
+		<param name="Name" value="Department">
+		<param name="Local" value="departments.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Holiday">
+		<param name="Name" value="Holiday Group and list">
+		<param name="Local" value="holiday.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="HOD">
+		<param name="Name" value="HOD">
+		<param name="Local" value="hod.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Group Planning">
+		<param name="Name" value="Group Planning">
+		<param name="Local" value="GroupPlans.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Reset Password">
+		<param name="Name" value="Reset Password">
+		<param name="Local" value="ResetPassword.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Freeze Unfreeze">
+		<param name="Name" value="Freeze Unfreeze">
+		<param name="Local" value="Freeze-Fnfreeze.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Work &amp; Rest Hours">
+		<param name="Name" value="Work & Rest Hours">
+		<param name="Local" value="workRestHours.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Reports">
+		<param name="Name" value="Reports printing">
+		<param name="Local" value="Reportprinting.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Import / Export">
+		<param name="Name" value="Import /  Export">
+		<param name="Local" value="impexport.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Backup / Restore">
+		<param name="Name" value="Backup / Restore">
+		<param name="Local" value="backupRestore.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Application Log">
+		<param name="Name" value="Application Log">
+		<param name="Local" value="log.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Rules">
+		<param name="Name" value="Rules">
+		<param name="Local" value="Rules.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="License">
+		<param name="Name" value="License">
+		<param name="Local" value="license.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Error Log">
+		<param name="Name" value="Error Log">
+		<param name="Local" value="errorlog.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Certificate">
+		<param name="Name" value="Certificate list">
+		<param name="Local" value="certificates.htm">
+		</OBJECT>
+</UL>
+</BODY></HTML>

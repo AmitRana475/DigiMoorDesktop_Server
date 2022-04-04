@@ -1,0 +1,120 @@
+﻿<UserControl x:Class="WorkShipVersionII.ViewsAdministration.ApplicationLogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WorkShipVersionII.ViewsAdministration"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1260">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+
+        <UniformGrid Grid.Row="0" Margin="0,0,0,5" x:Name="CertificateHeaderUniformGrid" Columns="2">
+            <Grid>
+                <ProgressBar Value="{Binding LogProgress, Mode=OneWay}" VerticalAlignment="Bottom" HorizontalAlignment='Left' Visibility="{Binding logPVisible,Mode=TwoWay}" Minimum="0" Height="25" Grid.Column="6" Margin="5,0,0,0" Width="143"/>
+            </Grid>
+            
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="18*"/>
+                    <ColumnDefinition Width="25*"/>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="25*"/>
+                    <ColumnDefinition Width="13*"/>
+                    <ColumnDefinition Width="15*"/>
+                </Grid.ColumnDefinitions>
+              
+                    
+                <TextBlock Margin="0,0,5,0" Grid.Column="0" Style="{StaticResource HeaderText1}" HorizontalAlignment="Right"  Text="From" />
+                <DatePicker Grid.Column="1"  x:Name="dtFrom" Text="{Binding DateFrom,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" FontSize="14" FontFamily="Verdana" >
+                    <DatePicker.Resources>
+                        <Style TargetType="DatePickerTextBox">
+                            <Setter Property="IsReadOnly" Value="True"/>
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
+                
+                <TextBlock  Margin="0,0,5,0" Grid.Column="2" HorizontalAlignment="Right" Style="{StaticResource HeaderText1}"   Text="To" />
+                <DatePicker Grid.Column="3"  x:Name="dtTo" Text="{Binding DateTo,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" FontSize="14" FontFamily="Verdana" >
+                    <DatePicker.Resources>
+                        <Style TargetType="DatePickerTextBox">
+                            <Setter Property="IsReadOnly" Value="True"/>
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
+
+                <Button Grid.Column="4" MinWidth="68" Style="{StaticResource HeaderButton1}" HorizontalAlignment=" Right " Command="{Binding ExcelCommand}">
+                    <TextBlock    HorizontalAlignment="Left" TextWrapping="Wrap" Text="Excel"/>
+                </Button>
+               
+                
+                <TextBlock  Grid.Column="5" HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="Blue" FontFamily="Verdana" FontSize="14"  Text="Help" Padding="0,0,10,0"   />
+
+            </Grid>
+
+         
+
+        </UniformGrid>
+
+        <Grid  Grid.Row="1" Margin="5,0,10,10">
+            <DataGrid  x:Name="AppLogGrid"  BorderThickness="0" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" ItemsSource="{Binding LoadlogFiles}" GridLinesVisibility="Horizontal" SelectionUnit="FullRow"  SelectionMode="Single" CanUserAddRows="False" HeadersVisibility="Column"
+                      RowHeight="25" BorderBrush="LightGray" ColumnWidth="Auto"   AutoGenerateColumns="False"   VerticalScrollBarVisibility="Auto" VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray"   >
+
+                
+
+
+                <DataGrid.Columns >
+                    <DataGridTextColumn  Header="Id" Binding="{Binding Path= LogId}" Visibility="Collapsed"/>
+
+                    <DataGridTextColumn  Binding="{Binding Path=dt,StringFormat=\{0:dd-MMM-yyyy - hh:mm:ss \},Mode=TwoWay}" IsReadOnly="True" Header="Date / Time" MaxWidth="220" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn  FontSize="12" Binding="{Binding Path= Description}" IsReadOnly="True" Header="User Type" MaxWidth="250" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn  Binding="{Binding Path= ModuleName}" FontSize="12" IsReadOnly="True" Header="Module Name" MaxWidth="350" Width="*" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn  Binding="{Binding Path= ActionName}" FontSize="12" IsReadOnly="True" Header="Action" MaxWidth="250" Width="*" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Path= UserName}" FontSize="12" IsReadOnly="True" Header="User Name" MaxWidth="200" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                </DataGrid.Columns>
+
+            </DataGrid>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="WorkShipVersionII.Pagination.PaginationElementsCertification"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WorkShipVersionII.Pagination"
+             mc:Ignorable="d" >
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+        <Button  Command="{Binding FirstCertiCommand}" Style="{StaticResource HeaderButtonP}">
+            <TextBlock Style="{StaticResource HeaderText1}"  FontWeight="Bold"  HorizontalAlignment="Center"   Text=" &lt; &lt;"/>
+        </Button>
+        <Button  Command="{Binding PreviousCertiCommand}" Style="{StaticResource HeaderButtonP}">
+            <TextBlock  Style="{StaticResource HeaderTextP}" FontWeight="Bold" HorizontalAlignment="Center"   Text=" &lt; " />
+        </Button>
+        <TextBlock Width="auto" Text="{Binding CurrentCertiPage,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
+        <TextBlock Text="/" VerticalAlignment="Center"/>
+        <TextBlock Width="auto" Text="{Binding TotalCertiPages,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
+        <Button Style="{StaticResource HeaderButtonP}" Command="{Binding NextCertiCommand}" IsEnabled="True">
+            <TextBlock Style="{StaticResource HeaderTextP}"  FontWeight="Bold" HorizontalAlignment="Center" Text=" &gt; " />
+        </Button>
+        <Button Style="{StaticResource HeaderButtonP}" Command="{Binding LastCertiCommand}">
+            <TextBlock Style="{StaticResource HeaderTextP}"  FontWeight="Bold" HorizontalAlignment="Center"  Text=" &gt; &gt;" />
+        </Button>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,1140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{15CEA73A-7367-4599-B427-5D0701342ED8}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WorkShipVersionII</RootNamespace>
+    <AssemblyName>WorkShipVersionII</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.2.0.2\lib\net45\CommonServiceLocator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Expression.Samples.Interactivity, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c7dd7e4745814058, processorArchitecture=MSIL">
+      <HintPath>..\packages\Expression.Samples.Interactivity.dll.1.0.1\lib\Expression.Samples.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight, Version=5.4.1.0, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.4.1.0, Culture=neutral, PublicKeyToken=669f0b5e8f868abf, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.140.1000.523\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.140.1000.523\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.140.1000.523\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.140.1000.523\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.140.1000.523\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationClient" />
+    <Reference Include="UIAutomationProvider">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="WPFToolkit.Extended">
+      <HintPath>C:\Users\Barmala\Desktop\WPFToolkit.Extended.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Commands\FirstPageCommand.cs" />
+    <Compile Include="Commands\FirstPageCommandCerti.cs" />
+    <Compile Include="Commands\FirstPageCommandOffi.cs" />
+    <Compile Include="Commands\LastPageCommand.cs" />
+    <Compile Include="Commands\LastPageCommandCerti.cs" />
+    <Compile Include="Commands\LastPageCommandOffi.cs" />
+    <Compile Include="Commands\NextPageCommand.cs" />
+    <Compile Include="Commands\NextPageCommandCerti.cs" />
+    <Compile Include="Commands\NextPageCommandOffi.cs" />
+    <Compile Include="Commands\PreviousPageCommand.cs" />
+    <Compile Include="Commands\PreviousPageCommandCerti.cs" />
+    <Compile Include="Commands\PreviousPageCommandOffi.cs" />
+    <Compile Include="Control\Block.xaml.cs">
+      <DependentUpon>Block.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\DatePicker.cs" />
+    <Compile Include="Control\LoadingAnimation.xaml.cs">
+      <DependentUpon>LoadingAnimation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\MultiSelectComboBox.xaml.cs">
+      <DependentUpon>MultiSelectComboBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converter\BackgroundConverter.cs" />
+    <Compile Include="Core\ComCalenders.cs" />
+    <Compile Include="Core\DateHelper.cs" />
+    <Compile Include="Core\OneWayValueConverters.cs" />
+    <Compile Include="DatasetReport\DataSetcertificates.cs">
+      <DependentUpon>DataSetcertificates.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DatasetReport\DataSetcertificates.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetcertificates.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DatasetReport\DataSetCrewDetail.cs">
+      <DependentUpon>DataSetCrewDetail.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DatasetReport\DataSetCrewDetail.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetCrewDetail.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DatasetReport\DataSetWorkHours.cs">
+      <DependentUpon>DataSetWorkHours.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DatasetReport\DataSetWorkHours.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetWorkHours.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DatasetReport\DataSetWorkHoursPlanner.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetWorkHoursPlanner.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="LoginViewModel\AdminLoginViewModel.cs" />
+    <Compile Include="LoginViewModel\CongrasViewModel.cs" />
+    <Compile Include="LoginViewModel\LoginMainViewModel.cs" />
+    <Compile Include="LoginViewModel\LoginViewModel.cs" />
+    <Compile Include="LoginViewModel\ProductInfoViewModel.cs" />
+    <Compile Include="LoginViewModel\ShipDetailViewModel.cs" />
+    <Compile Include="LoginView\AdminLoginView.xaml.cs">
+      <DependentUpon>AdminLoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LoginView\CongrasView.xaml.cs">
+      <DependentUpon>CongrasView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LoginView\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LoginView\ProductInfoView.xaml.cs">
+      <DependentUpon>ProductInfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LoginView\ShipDetailView.xaml.cs">
+      <DependentUpon>ShipDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pagination\PaginationElements.xaml.cs">
+      <DependentUpon>PaginationElements.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pagination\PaginationElementsCertification.xaml.cs">
+      <DependentUpon>PaginationElementsCertification.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pagination\PaginationElementsOffice.xaml.cs">
+      <DependentUpon>PaginationElementsOffice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="StaticHelper.cs" />
+    <Compile Include="ViewModelAdministration\ApplicationLogViewModel.cs" />
+    <Compile Include="ViewModelAdministration\BackupViewModel.cs" />
+    <Compile Include="ViewModelAdministration\CommonPropertiesAdministration.cs" />
+    <Compile Include="ViewModelAdministration\DisclaimerViewModel.cs" />
+    <Compile Include="ViewModelAdministration\ErrorLogViewModel.cs" />
+    <Compile Include="ViewModelAdministration\ImportExportViewModel.cs" />
+    <Compile Include="ViewModelAdministration\LicenceViewModel.cs" />
+    <Compile Include="ViewModelAdministration\MainAdministrationViewModel.cs" />
+    <Compile Include="ViewModelAdministration\RenewLicenceViewModel.cs" />
+    <Compile Include="ViewModelAdministration\RulesViewModel.cs" />
+    <Compile Include="ViewModelCrewManagement\AddCrewDetailModel.cs" />
+    <Compile Include="ViewModelCrewManagement\AddCurrencyViewModel.cs" />
+    <Compile Include="ViewModelCrewManagement\AddDepartmentViewModel.cs" />
+    <Compile Include="ViewModelCrewManagement\AddGroupPlanningViewModel.cs" />
+    <Compile Include="ViewModelCrewManagement\AddHODViewModel.cs" />
+    <Compile Include="ViewModelCrewManagement\AddHoliDayGroupViewModel.cs" />
+    <Compile Include="ViewModelCrewManagement\AddHoliDayListViewModel.cs" />
+    <Compile Include="ViewModelCrewManagement\AddLogbookViewModel.cs" />
+    <Compile Include="ViewModelCrewManagement\AddNextCrewDetailModel.cs" />
+    <Compile Include="ViewModelCrewManagement\AddNextYoungCrewDetailModel.cs" />
+    <Compile Include="ViewModelCrewManagement\AddOverTimeCrewDetailModel.cs" />
+    <Compile Include="ViewModelCrewManagement\AddRankViewModel.cs" />
+    <Compile Include="ViewModelCrewManagement\ChildPopUPModelCrewManagement.cs" />
+    <Compile Include="ViewModelCrewManagement\CommonPropertiesVisibilety.cs" />
+    <Compile Include="ViewModelCrewManagement\CrewDetailViewModel.cs" />
+    <Compile Include="ViewModelCrewManagement\CrewRankViewModel.cs" />
+    <Compile Include="ViewModelCrewManagement\DepartmentViewModel.cs" />
+    <Compile Include="ViewModelCrewManagement\FreezeUnfreezeViewModel.cs" />
+    <Compile Include="ViewModelCrewManagement\GroupPlanningViewModel.cs" />
+    <Compile Include="ViewModelCrewManagement\HODViewModel.cs" />
+    <Compile Include="ViewModelCrewManagement\HoliDayGroupViewModel.cs" />
+    <Compile Include="ViewModelCrewManagement\HoliDayListViewModel.cs" />
+    <Compile Include="ViewModelCrewManagement\LogbookVerificationViewModel.cs" />
+    <Compile Include="ViewModelCrewManagement\MainViewModelCrewManagement.cs" />
+    <Compile Include="ViewModelCrewManagement\MyCommand.cs" />
+    <Compile Include="ViewModelCrewManagement\PasswordHelper.cs" />
+    <Compile Include="ViewModelCrewManagement\ResetPasswordViewModel.cs" />
+    <Compile Include="ViewModelReports\CommonProperties.cs" />
+    <Compile Include="ViewModelReports\CrewDetailViewModel.cs" />
+    <Compile Include="ViewModelReports\CrewWorkHoursViewModel.cs" />
+    <Compile Include="ViewModelReports\CrewWorkPlanningViewModel.cs" />
+    <Compile Include="ViewModelReports\DepartmentPlanningViewModel.cs" />
+    <Compile Include="ViewModelReports\DeviationsViewModel.cs" />
+    <Compile Include="ViewModelReports\MainViewModelReports.cs" />
+    <Compile Include="ViewModelReports\OverTimeViewModel.cs" />
+    <Compile Include="ViewModelReports\WorkScheduleViewModel.cs" />
+    <Compile Include="ViewModel\AddCertificateViewModel.cs" />
+    <Compile Include="ViewModel\AdministrationViewModel.cs" />
+    <Compile Include="ViewModel\CertificationExportListViewModel.cs" />
+    <Compile Include="ViewModelReports\CertificationViewModel.cs" />
+    <Compile Include="ViewModel\ChildWindowManager.cs" />
+    <Compile Include="ViewModel\CommonPropertiesDeviation.cs" />
+    <Compile Include="ViewModel\CrewManagementViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\NotificationViewModel.cs" />
+    <Compile Include="ViewModel\ReportsViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="ViewModel\WorkRestHoursViewModel.cs" />
+    <Compile Include="ViewsAdministration\ApplicationLogView.xaml.cs">
+      <DependentUpon>ApplicationLogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsAdministration\BackupView.xaml.cs">
+      <DependentUpon>BackupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsAdministration\DisclaimerView.xaml.cs">
+      <DependentUpon>DisclaimerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsAdministration\ErrorLogView.xaml.cs">
+      <DependentUpon>ErrorLogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsAdministration\ImoprtExportView.xaml.cs">
+      <DependentUpon>ImoprtExportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsAdministration\LicenceView.xaml.cs">
+      <DependentUpon>LicenceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsAdministration\RenewLicenceView.xaml.cs">
+      <DependentUpon>RenewLicenceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsAdministration\RulesView.xaml.cs">
+      <DependentUpon>RulesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModelAdministration\ViewModelLocator.cs" />
+    <Compile Include="ViewsCrewManagement\AddCrewDetailView.xaml.cs">
+      <DependentUpon>AddCrewDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsCrewManagement\AddCurrencyView.xaml.cs">
+      <DependentUpon>AddCurrencyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsCrewManagement\AddDepartmentView.xaml.cs">
+      <DependentUpon>AddDepartmentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsCrewManagement\AddGroupPlanningView.xaml.cs">
+      <DependentUpon>AddGroupPlanningView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsCrewManagement\AddHODView.xaml.cs">
+      <DependentUpon>AddHODView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsCrewManagement\AddHoliDayGroupView.xaml.cs">
+      <DependentUpon>AddHoliDayGroupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsCrewManagement\AddHoliDayListView.xaml.cs">
+      <DependentUpon>AddHoliDayListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsCrewManagement\AddLogbookView.xaml.cs">
+      <DependentUpon>AddLogbookView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsCrewManagement\AddNextCrewDetailView.xaml.cs">
+      <DependentUpon>AddNextCrewDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsCrewManagement\AddNextYoungCrewDetailView.xaml.cs">
+      <DependentUpon>AddNextYoungCrewDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsCrewManagement\AddOverTimeCrewDetailView.xaml.cs">
+      <DependentUpon>AddOverTimeCrewDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsCrewManagement\AddRankView.xaml.cs">
+      <DependentUpon>AddRankView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsCrewManagement\CrewDetailView.xaml.cs">
+      <DependentUpon>CrewDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsCrewManagement\CrewRankView.xaml.cs">
+      <DependentUpon>CrewRankView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsCrewManagement\DepartmentView.xaml.cs">
+      <DependentUpon>DepartmentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsCrewManagement\FreezeUnfreezeView.xaml.cs">
+      <DependentUpon>FreezeUnfreezeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsCrewManagement\GroupPlanningView.xaml.cs">
+      <DependentUpon>GroupPlanningView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsCrewManagement\HODView.xaml.cs">
+      <DependentUpon>HODView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsCrewManagement\HoliDayGroupView.xaml.cs">
+      <DependentUpon>HoliDayGroupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsCrewManagement\HoliDayListView.xaml.cs">
+      <DependentUpon>HoliDayListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsCrewManagement\LogbookVerificationView.xaml.cs">
+      <DependentUpon>LogbookVerificationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsCrewManagement\ResetPasswordView.xaml.cs">
+      <DependentUpon>ResetPasswordView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsReports\CrewDetailView.xaml.cs">
+      <DependentUpon>CrewDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsReports\CrewWorkHoursView.xaml.cs">
+      <DependentUpon>CrewWorkHoursView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsReports\CrewWorkPlanningView.xaml.cs">
+      <DependentUpon>CrewWorkPlanningView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsReports\DepartmentPlanningView.xaml.cs">
+      <DependentUpon>DepartmentPlanningView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsReports\DeviationsView.xaml.cs">
+      <DependentUpon>DeviationsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsReports\OverTimeView.xaml.cs">
+      <DependentUpon>OverTimeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewsReports\WorkScheduleView.xaml.cs">
+      <DependentUpon>WorkScheduleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddCertificateListView.xaml.cs">
+      <DependentUpon>AddCertificateListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AdministrationView.xaml.cs">
+      <DependentUpon>AdministrationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CertificationExportList.xaml.cs">
+      <DependentUpon>CertificationExportList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CertificationView.xaml.cs">
+      <DependentUpon>CertificationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CrewManagementView.xaml.cs">
+      <DependentUpon>CrewManagementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NotificationView.xaml.cs">
+      <DependentUpon>NotificationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReportsView.xaml.cs">
+      <DependentUpon>ReportsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkRestHoursView.xaml.cs">
+      <DependentUpon>WorkRestHoursView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WorkHoursViewModel\AddLogbookViewModel.cs" />
+    <Compile Include="WorkHoursViewModel\CalenderColumnBrushConverter.cs" />
+    <Compile Include="WorkHoursViewModel\ChildPopUPModelWorkHours.cs" />
+    <Compile Include="WorkHoursViewModel\CommonPropertiesOPA.cs" />
+    <Compile Include="WorkHoursViewModel\DetailWorkRestHoursViewModel.cs" />
+    <Compile Include="WorkHoursViewModel\GridClass.cs" />
+    <Compile Include="WorkHoursViewModel\GridColumnBrushConverter.cs" />
+    <Compile Include="WorkHoursViewModel\IDLClocksSettingViewModel.cs" />
+    <Compile Include="WorkHoursViewModel\InternationalDateLineViewModel.cs" />
+    <Compile Include="WorkHoursViewModel\LogbookViewModel.cs" />
+    <Compile Include="WorkHoursViewModel\MainViewModelClockSetting.cs" />
+    <Compile Include="WorkHoursViewModel\MainViewModelWorkHours.cs" />
+    <Compile Include="WorkHoursViewModel\OPA90ViewModel.cs" />
+    <Compile Include="WorkHoursViewModel\RetardAdvanceViewModel.cs" />
+    <Compile Include="WorkHoursViewModel\TimeSlotModels\CommanConditionsTimeSlot.cs" />
+    <Compile Include="WorkHoursViewModel\TimeSlotModels\ITimeSlotManager.cs" />
+    <Compile Include="WorkHoursViewModel\TimeSlotModels\ITimeSlotManagerPlanner.cs" />
+    <Compile Include="WorkHoursViewModel\TimeSlotModels\ITimeSlotSettingManager.cs" />
+    <Compile Include="WorkHoursViewModel\TimeSlotModels\ManilaTimeSlotManager.cs" />
+    <Compile Include="WorkHoursViewModel\TimeSlotModels\ManilaTimeSlotPlannerManager.cs" />
+    <Compile Include="WorkHoursViewModel\TimeSlotModels\ManilaTimeSlotYoungManager.cs" />
+    <Compile Include="WorkHoursViewModel\TimeSlotModels\ManilaTimeSlotYoungPlannerManager.cs" />
+    <Compile Include="WorkHoursViewModel\TimeSlotModels\NormalTimeSlotManager.cs" />
+    <Compile Include="WorkHoursViewModel\TimeSlotModels\NormalTimeSlotPlannerManager.cs" />
+    <Compile Include="WorkHoursViewModel\TimeSlotModels\NormalTimeSlotYoungManager.cs" />
+    <Compile Include="WorkHoursViewModel\TimeSlotModels\NormalTimeSlotYoungPlannerManager.cs" />
+    <Compile Include="WorkHoursViewModel\TimeSlotModels\TimeSlotInternationalDLManager.cs" />
+    <Compile Include="WorkHoursViewModel\TimeSlotModels\TimeSlotOPA90Manager.cs" />
+    <Compile Include="WorkHoursViewModel\TimeSlotModels\TimeSlotRetardAdvanceManager.cs" />
+    <Compile Include="WorkHoursViewModel\TimeSlotPlannerViewModel.cs" />
+    <Compile Include="WorkHoursViewModel\TimeSlotYoungPlannerViewModel.cs" />
+    <Compile Include="WorkHoursViewModel\TimeSlotYoungViewModel.cs" />
+    <Compile Include="WorkHoursViewModel\TSUserClass.cs" />
+    <Compile Include="WorkHoursViewModel\TimeSlotViewModel.cs" />
+    <Compile Include="WorkHoursViewModel\WorkHoursCalenderViewModel.cs" />
+    <Compile Include="WorkHoursView\AddLogbookView.xaml.cs">
+      <DependentUpon>AddLogbookView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WorkHoursView\DetailWorkRestHoursView.xaml.cs">
+      <DependentUpon>DetailWorkRestHoursView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WorkHoursView\IDLClocksSettingView.xaml.cs">
+      <DependentUpon>IDLClocksSettingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WorkHoursView\InternationalDateLineView.xaml.cs">
+      <DependentUpon>InternationalDateLineView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WorkHoursView\LogbookView.xaml.cs">
+      <DependentUpon>LogbookView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WorkHoursView\OPA90View.xaml.cs">
+      <DependentUpon>OPA90View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WorkHoursView\RetardAdvanceView.xaml.cs">
+      <DependentUpon>RetardAdvanceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WorkHoursView\TimeSlotPlannerView.xaml.cs">
+      <DependentUpon>TimeSlotPlannerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WorkHoursView\TimeSlotView.xaml.cs">
+      <DependentUpon>TimeSlotView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WorkHoursView\TimeSlotYoungPlannerView.xaml.cs">
+      <DependentUpon>TimeSlotYoungPlannerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WorkHoursView\TimeSlotYoungView.xaml.cs">
+      <DependentUpon>TimeSlotYoungView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WorkHoursView\WorkHoursCalenderView.xaml.cs">
+      <DependentUpon>WorkHoursCalenderView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Control\Block.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\LoadingAnimation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\MultiSelectComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoginView\AdminLoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoginView\CongrasView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoginView\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoginView\ProductInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoginView\ShipDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Pagination\PaginationElements.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pagination\PaginationElementsCertification.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pagination\PaginationElementsOffice.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\DatePicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsAdministration\ApplicationLogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsAdministration\BackupView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsAdministration\DisclaimerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsAdministration\ErrorLogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsAdministration\ImoprtExportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsAdministration\LicenceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsAdministration\RenewLicenceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsAdministration\RulesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsCrewManagement\AddCrewDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsCrewManagement\AddCurrencyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsCrewManagement\AddDepartmentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsCrewManagement\AddGroupPlanningView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsCrewManagement\AddHODView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsCrewManagement\AddHoliDayGroupView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsCrewManagement\AddHoliDayListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsCrewManagement\AddLogbookView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsCrewManagement\AddNextCrewDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsCrewManagement\AddNextYoungCrewDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsCrewManagement\AddOverTimeCrewDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsCrewManagement\AddRankView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsCrewManagement\CrewDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsCrewManagement\CrewRankView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsCrewManagement\DepartmentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsCrewManagement\FreezeUnfreezeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsCrewManagement\GroupPlanningView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsCrewManagement\HODView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsCrewManagement\HoliDayGroupView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsCrewManagement\HoliDayListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsCrewManagement\LogbookVerificationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsCrewManagement\ResetPasswordView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsReports\CrewDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsReports\CrewWorkHoursView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsReports\CrewWorkPlanningView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsReports\DepartmentPlanningView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsReports\DeviationsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsReports\OverTimeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewsReports\WorkScheduleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddCertificateListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AdministrationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CertificationExportList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CertificationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CrewManagementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NotificationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ReportsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WorkRestHoursView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WorkHoursView\AddLogbookView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WorkHoursView\DetailWorkRestHoursView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WorkHoursView\IDLClocksSettingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WorkHoursView\InternationalDateLineView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WorkHoursView\LogbookView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WorkHoursView\OPA90View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WorkHoursView\RetardAdvanceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WorkHoursView\TimeSlotPlannerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WorkHoursView\TimeSlotView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WorkHoursView\TimeSlotYoungPlannerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WorkHoursView\TimeSlotYoungView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WorkHoursView\WorkHoursCalenderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RDLCReport\CertificatesExportList.rdlc" />
+    <EmbeddedResource Include="RDLCReport\CrewDetailReport.rdlc" />
+    <EmbeddedResource Include="RDLCReport\DepartmentPlanningReport.rdlc" />
+    <EmbeddedResource Include="RDLCReport\DeviationReport.rdlc" />
+    <EmbeddedResource Include="RDLCReport\OverTimeReport.rdlc" />
+    <EmbeddedResource Include="RDLCReport\OverTimeYoungReport.rdlc" />
+    <EmbeddedResource Include="RDLCReport\WorkHoursPlannerReport.rdlc" />
+    <EmbeddedResource Include="RDLCReport\WorkHoursReport.rdlc" />
+    <EmbeddedResource Include="RDLCReport\WorkHoursYoungPlannerReport.rdlc" />
+    <EmbeddedResource Include="RDLCReport\WorkHoursYoungReport.rdlc" />
+    <None Include="DatasetReport\DataSetcertificates.xsc">
+      <DependentUpon>DataSetcertificates.xsd</DependentUpon>
+    </None>
+    <None Include="DatasetReport\DataSetcertificates.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetcertificates.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DatasetReport\DataSetcertificates.xss">
+      <DependentUpon>DataSetcertificates.xsd</DependentUpon>
+    </None>
+    <None Include="DatasetReport\DataSetCrewDetail.xsc">
+      <DependentUpon>DataSetCrewDetail.xsd</DependentUpon>
+    </None>
+    <None Include="DatasetReport\DataSetCrewDetail.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetCrewDetail.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DatasetReport\DataSetCrewDetail.xss">
+      <DependentUpon>DataSetCrewDetail.xsd</DependentUpon>
+    </None>
+    <None Include="DatasetReport\DataSetWorkHours.xsc">
+      <DependentUpon>DataSetWorkHours.xsd</DependentUpon>
+    </None>
+    <None Include="DatasetReport\DataSetWorkHours.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetWorkHours.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DatasetReport\DataSetWorkHours.xss">
+      <DependentUpon>DataSetWorkHours.xsd</DependentUpon>
+    </None>
+    <None Include="DatasetReport\DataSetWorkHoursPlanner.xsc">
+      <DependentUpon>DataSetWorkHoursPlanner.xsd</DependentUpon>
+    </None>
+    <None Include="DatasetReport\DataSetWorkHoursPlanner.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetWorkHoursPlanner.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DatasetReport\DataSetWorkHoursPlanner.xss">
+      <DependentUpon>DataSetWorkHoursPlanner.xsd</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <None Include="WorkshipManual\Index.hhk" />
+    <None Include="WorkshipManual\Log1.log" />
+    <None Include="WorkshipManual\search.stp" />
+    <None Include="WorkshipManual\Table of Contents.hhc" />
+    <None Include="WorkshipManual\workship.chm" />
+    <None Include="WorkshipManual\workship.chw" />
+    <None Include="WorkshipManual\workship.hhp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\admin.png" />
+    <Resource Include="Images\certificate.png" />
+    <Resource Include="Images\crew-member.png" />
+    <Resource Include="Images\logout.png" />
+    <Resource Include="Images\notification.png" />
+    <Resource Include="Images\reports.png" />
+    <Resource Include="Images\time-management.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\softwareicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Crew.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\00.png" />
+    <Resource Include="Images\business.png" />
+    <Resource Include="Images\deptt.png" />
+    <Resource Include="Images\GPlan.png" />
+    <Resource Include="Images\man.png" />
+    <Resource Include="Images\rank.png" />
+    <Resource Include="Images\reset1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\backup.png" />
+    <Resource Include="Images\crew work hour.png" />
+    <Resource Include="Images\import export.png" />
+    <Resource Include="Images\logicon.png" />
+    <Resource Include="Images\logout3.png" />
+    <Resource Include="Images\multiple.png" />
+    <Resource Include="Images\non conformative.png" />
+    <Resource Include="Images\non conformative1.png" />
+    <Resource Include="Images\notification icon in red.png" />
+    <Resource Include="Images\overtime1.png" />
+    <Resource Include="Images\overtime2.png" />
+    <Resource Include="Images\overview icon.png" />
+    <Resource Include="Images\printer.png" />
+    <Resource Include="Images\reset .png" />
+    <Resource Include="Images\rulesicon.png" />
+    <Resource Include="Images\work schedul.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataBuildingLayer\DataBuildingLayer.csproj">
+      <Project>{5f8bc497-5b46-4808-b219-8140b9cb58b9}</Project>
+      <Name>DataBuildingLayer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\help1.png" />
+    <Resource Include="Images\Disc.png" />
+    <Resource Include="Images\error.png" />
+    <Resource Include="Images\Erroricon.png" />
+    <Resource Include="Images\errorlog.png" />
+    <Resource Include="Images\errorlog1.png" />
+    <Resource Include="Images\Linc.png" />
+    <Resource Include="Images\RePlan.png" />
+    <Content Include="WorkshipManual\aboutDetalilWorkship.htm" />
+    <Content Include="WorkshipManual\aboutWorkship.htm" />
+    <Content Include="WorkshipManual\addCrew.htm" />
+    <Resource Include="WorkshipManual\addCrew.jpg" />
+    <Resource Include="WorkshipManual\addCrew1.jpg" />
+    <Resource Include="WorkshipManual\addCrew11.jpg" />
+    <Resource Include="WorkshipManual\addCrew2.jpg" />
+    <Resource Include="WorkshipManual\addcurrency.jpg" />
+    <Resource Include="WorkshipManual\addgroup1.jpg" />
+    <Resource Include="WorkshipManual\addHG.jpg" />
+    <Resource Include="WorkshipManual\addHL.jpg" />
+    <Resource Include="WorkshipManual\addHL1.jpg" />
+    <Content Include="WorkshipManual\addRank.htm" />
+    <Resource Include="WorkshipManual\addRank.jpg" />
+    <Resource Include="WorkshipManual\addRank1.jpg" />
+    <Resource Include="WorkshipManual\alertfreq.jpg" />
+    <Resource Include="WorkshipManual\backup.jpg" />
+    <Content Include="WorkshipManual\backupRestore.htm" />
+    <Resource Include="WorkshipManual\backupRestore.jpg" />
+    <Resource Include="WorkshipManual\blue.jpg" />
+    <Content Include="WorkshipManual\certificates.htm" />
+    <Resource Include="WorkshipManual\CMove.png" />
+    <Resource Include="WorkshipManual\cnot.jpg" />
+    <Resource Include="WorkshipManual\crew-mgt.jpg" />
+    <Resource Include="WorkshipManual\ct0.jpg" />
+    <Resource Include="WorkshipManual\ct1.jpg" />
+    <Resource Include="WorkshipManual\ct2.jpg" />
+    <Resource Include="WorkshipManual\ct3.jpg" />
+    <Resource Include="WorkshipManual\ct4.jpg" />
+    <Resource Include="WorkshipManual\ct5.jpg" />
+    <Resource Include="WorkshipManual\ct6.jpg" />
+    <Resource Include="WorkshipManual\ctadd.jpg" />
+    <Resource Include="WorkshipManual\ctprint.jpg" />
+    <Resource Include="WorkshipManual\department.jpg" />
+    <Resource Include="WorkshipManual\department1.jpg" />
+    <Resource Include="WorkshipManual\department2.jpg" />
+    <Content Include="WorkshipManual\departments.htm" />
+    <Content Include="WorkshipManual\Disclaimer.htm" />
+    <Resource Include="WorkshipManual\disclaimerhelp.jpg" />
+    <Resource Include="WorkshipManual\editDeleteCrew.jpg" />
+    <Content Include="WorkshipManual\errorlog.htm" />
+    <Resource Include="WorkshipManual\Errorlog.jpg" />
+    <Content Include="WorkshipManual\exit.htm" />
+    <Resource Include="WorkshipManual\exit.jpg" />
+    <Content Include="WorkshipManual\Freeze-Fnfreeze.htm" />
+    <Resource Include="WorkshipManual\freeze.jpg" />
+    <Resource Include="WorkshipManual\GroupPlan.jpg" />
+    <Resource Include="WorkshipManual\GroupPlan1.jpg" />
+    <Resource Include="WorkshipManual\GroupPlan2.jpg" />
+    <Resource Include="WorkshipManual\GroupPlan3.jpg" />
+    <Resource Include="WorkshipManual\GroupPlan4.jpg" />
+    <Resource Include="WorkshipManual\GroupPlanning.jpg" />
+    <Resource Include="WorkshipManual\GroupPlanning1.jpg" />
+    <Content Include="WorkshipManual\GroupPlans.htm" />
+    <Content Include="WorkshipManual\hod.htm" />
+    <Resource Include="WorkshipManual\hod.jpg" />
+    <Resource Include="WorkshipManual\hod1.jpg" />
+    <Resource Include="WorkshipManual\hod2.jpg" />
+    <Resource Include="WorkshipManual\hod3.jpg" />
+    <Resource Include="WorkshipManual\hod4.jpg" />
+    <Resource Include="WorkshipManual\hod5.jpg" />
+    <Content Include="WorkshipManual\holiday.htm" />
+    <Resource Include="WorkshipManual\holigroup.jpg" />
+    <Resource Include="WorkshipManual\holigroup1.jpg" />
+    <Resource Include="WorkshipManual\holilist.jpg" />
+    <Resource Include="WorkshipManual\impexp.jpg" />
+    <Resource Include="WorkshipManual\impexp1.jpg" />
+    <Resource Include="WorkshipManual\impexp2.jpg" />
+    <Content Include="WorkshipManual\impexport.htm" />
+    <Content Include="WorkshipManual\Inputting ship name, flag and IMO number.htm" />
+    <Resource Include="WorkshipManual\L.jpg" />
+    <Content Include="WorkshipManual\license.htm" />
+    <Resource Include="WorkshipManual\license.jpg" />
+    <Resource Include="WorkshipManual\license1.jpg" />
+    <Content Include="WorkshipManual\LicenseInformation.htm" />
+    <Content Include="WorkshipManual\log.htm" />
+    <Resource Include="WorkshipManual\log.jpg" />
+    <Content Include="WorkshipManual\login.htm" />
+    <Resource Include="WorkshipManual\login.jpg" />
+    <Resource Include="WorkshipManual\login1.jpg" />
+    <Resource Include="WorkshipManual\noconformity.jpg" />
+    <Resource Include="WorkshipManual\not1.jpg" />
+    <Resource Include="WorkshipManual\not2.jpg" />
+    <Resource Include="WorkshipManual\not3.jpg" />
+    <Resource Include="WorkshipManual\not4.jpg" />
+    <Resource Include="WorkshipManual\not5.jpg" />
+    <Resource Include="WorkshipManual\not6.jpg" />
+    <Content Include="WorkshipManual\notification.htm" />
+    <Resource Include="WorkshipManual\Notification.jpg" />
+    <Resource Include="WorkshipManual\opa901.jpg" />
+    <Resource Include="WorkshipManual\opa902.jpg" />
+    <Resource Include="WorkshipManual\pic1.jpg" />
+    <Resource Include="WorkshipManual\pic2.jpg" />
+    <Resource Include="WorkshipManual\pic3.jpg" />
+    <Resource Include="WorkshipManual\pic4.jpg" />
+    <Resource Include="WorkshipManual\R.jpg" />
+    <Resource Include="WorkshipManual\rank1.jpg" />
+    <Resource Include="WorkshipManual\rank2.jpg" />
+    <Resource Include="WorkshipManual\red.jpg" />
+    <Resource Include="WorkshipManual\Report.jpg" />
+    <Resource Include="WorkshipManual\Report1.jpg" />
+    <Resource Include="WorkshipManual\report2.jpg" />
+    <Resource Include="WorkshipManual\reportNC.jpg" />
+    <Resource Include="WorkshipManual\reportOT.jpg" />
+    <Resource Include="WorkshipManual\reportprint.jpg" />
+    <Content Include="WorkshipManual\Reportprinting.htm" />
+    <Resource Include="WorkshipManual\reportW&amp;R.jpg" />
+    <Resource Include="WorkshipManual\reportws.jpg" />
+    <Resource Include="WorkshipManual\reset.jpg" />
+    <Content Include="WorkshipManual\ResetPassword.htm" />
+    <Content Include="WorkshipManual\Rest-Password and Freeze-Unfreeze.htm" />
+    <Resource Include="WorkshipManual\restore.jpg" />
+    <Content Include="WorkshipManual\Rules.htm" />
+    <Resource Include="WorkshipManual\rules.jpg" />
+    <Resource Include="WorkshipManual\rules1.jpg" />
+    <Resource Include="WorkshipManual\rules2.jpg" />
+    <Resource Include="WorkshipManual\w&amp;R.jpg" />
+    <Resource Include="WorkshipManual\w&amp;R1.jpg" />
+    <Resource Include="WorkshipManual\w&amp;R11.jpg" />
+    <Resource Include="WorkshipManual\w&amp;R111.jpg" />
+    <Resource Include="WorkshipManual\w&amp;R2.jpg" />
+    <Resource Include="WorkshipManual\w&amp;R21.jpg" />
+    <Resource Include="WorkshipManual\w&amp;R22.jpg" />
+    <Resource Include="WorkshipManual\w&amp;R23.jpg" />
+    <Resource Include="WorkshipManual\w&amp;R24.jpg" />
+    <Resource Include="WorkshipManual\w&amp;R3.jpg" />
+    <Content Include="WorkshipManual\welcome.htm" />
+    <Resource Include="WorkshipManual\welcome1.jpg" />
+    <Resource Include="WorkshipManual\welcome2.jpg" />
+    <Resource Include="WorkshipManual\welcome3.jpg" />
+    <Resource Include="WorkshipManual\welcome4.jpg" />
+    <Resource Include="WorkshipManual\welcome5.jpg" />
+    <Resource Include="WorkshipManual\white.jpg" />
+    <Content Include="WorkshipManual\workprocess.htm" />
+    <Content Include="WorkshipManual\workRestHours.htm" />
+    <Content Include="WorkshipManual\Workshipversion.htm" />
+    <Resource Include="WorkshipManual\x.jpg" />
+    <Resource Include="Images\CMove.png" />
+    <Resource Include="Images\closebtnRed.png" />
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Images\PDF.png" />
+    <Resource Include="Images\Excel.png" />
+    <Resource Include="Images\loader4.gif" />
+    <Resource Include="Images\Help.png" />
+    <Content Include="alarm.wav" />
+    <Content Include="Libs\Microsoft.Practices.Prism.dll" />
+    <Content Include="Libs\Xceed.Wpf.Toolkit.dll" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
+    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\x86\*.*" "$(TargetDir)x86"
+    if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
+    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\amd64\*.*" "$(TargetDir)amd64"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

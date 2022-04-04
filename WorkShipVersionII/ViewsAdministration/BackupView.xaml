@@ -1,0 +1,133 @@
+﻿<UserControl x:Class="WorkShipVersionII.ViewsAdministration.BackupView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WorkShipVersionII.ViewsAdministration"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1260">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+
+
+        <UniformGrid Grid.Row="0" Margin="0,0,0,5" x:Name="CertificateHeaderUniformGrid" Columns="2">
+
+            <Grid/>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="85*"/>
+                    <ColumnDefinition Width="15*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="btnBackup"  Command="{Binding CreateCommand}" Style="{StaticResource HeaderButton1}" HorizontalAlignment="Right" >
+                    <TextBlock TextWrapping="Wrap"  Text=" Create BackUp "/>
+                </Button>
+                <TextBlock  Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="Blue" FontFamily="Verdana" FontSize="14"  Text="Help" Padding="0,0,10,0"  />
+            </Grid>
+        </UniformGrid>
+
+        <Grid  Grid.Row="1">
+
+            <DataGrid x:Name="BackupGrid"  BorderThickness="0" Background="WhiteSmoke" FontFamily="Verdana" FontSize="12" ItemsSource="{Binding LoadBackupFiles}" GridLinesVisibility="Horizontal" SelectionUnit="FullRow"  SelectionMode="Single" CanUserAddRows="False" HeadersVisibility="Column"  BorderBrush="LightGray" ColumnWidth="Auto" 
+                     RowHeight="27" AutoGenerateColumns="False"   VerticalScrollBarVisibility="Auto" VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray">
+
+
+
+                <DataGrid.Columns >
+
+                    <DataGridTextColumn  Binding="{Binding Path=Dates,StringFormat=\{0:dd-MMM-yyyy\},Mode=TwoWay}" IsReadOnly="True" Header="Date" MaxWidth="120" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn  Binding="{Binding Path=Times}" IsReadOnly="True" Header="Time" MaxWidth="120" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn  Binding="{Binding Path=FileName}" IsReadOnly="True" Header="File Name" MaxWidth="180" Width="*" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn  Binding="{Binding Path=Location}" IsReadOnly="True" Header="Location" MaxWidth="650" Width="*" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+
+                    <DataGridTemplateColumn MaxWidth="70" Width="*" Header="Save As">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Width="70"  FontWeight="Normal"   FontSize="13" FontFamily="Verdana" VerticalAlignment="Center" HorizontalContentAlignment="Center">
+                                        <Hyperlink  Name="SaveAs" Command="{Binding Path=DataContext.SaveAsCommand,RelativeSource={RelativeSource AncestorType=DataGrid}}"  CommandParameter="{Binding}" Foreground="#0000cc">Save As
+                                        </Hyperlink>
+                                    </Label>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn MaxWidth="65" Width="*" Header="Delete">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Width="70"  FontWeight="Normal"   FontSize="13" FontFamily="Verdana" VerticalAlignment="Center" HorizontalContentAlignment="Center">
+                                        <Hyperlink  Name="Delete" Command="{Binding Path=DataContext.DeleteCommand,RelativeSource={RelativeSource AncestorType= DataGrid}}"  CommandParameter="{Binding}" Foreground="#0000cc">Delete
+                                        </Hyperlink>
+                                    </Label>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+
+                    <DataGridTemplateColumn MaxWidth="75" Width="*" Header="Restore">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Width="80"  FontWeight="Normal"   FontSize="13" FontFamily="Verdana" VerticalAlignment="Center" HorizontalContentAlignment="Center">
+                                        <Hyperlink  Name="Restore" Command="{Binding Path=DataContext.RestoreCommand,RelativeSource={RelativeSource AncestorType=DataGrid}}"  CommandParameter="{Binding}" Foreground="#0000cc">Restore
+                                        </Hyperlink>
+                                    </Label>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+
+            </DataGrid>
+
+
+        </Grid>
+        <ProgressBar Grid.Row="2" Value="{Binding CurrentProgress, Mode=OneWay}" VerticalAlignment="Bottom" HorizontalAlignment='Right' Visibility="{Binding PVisible,Mode=TwoWay}" Minimum="0" Height="25" Grid.Column="6" Margin="0,0,5,5" Width="143"/>
+        <ProgressBar Grid.Row="2" Value="40" VerticalAlignment="Bottom" HorizontalAlignment='Right' Visibility="{Binding RVisible,Mode=TwoWay}" Minimum="0" Height="25" Grid.Column="6" Margin="0,0,5,5" Width="143"/>
+    </Grid>
+</UserControl>

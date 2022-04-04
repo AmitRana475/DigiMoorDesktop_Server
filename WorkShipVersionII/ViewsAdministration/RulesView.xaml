@@ -1,0 +1,228 @@
+﻿<UserControl x:Class="WorkShipVersionII.ViewsAdministration.RulesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WorkShipVersionII.ViewsAdministration"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1260">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="24*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="24*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="17*" />
+            <RowDefinition Height="18*" />
+        </Grid.RowDefinitions>
+
+
+        <UniformGrid Grid.Row="0" Margin="0,0,0,5" x:Name="RuleHeaderUniformGrid" Columns="2">
+            <Grid>
+                <TextBlock Grid.Row="0" Style="{StaticResource HeaderText1}"  FontWeight="Black" FontSize="14" Text="MLC 2006" />
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="85*"/>
+                    <ColumnDefinition Width="15*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock  Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="Blue" FontFamily="Verdana" FontSize="14" Padding="0,0,10,0">
+                    <Hyperlink  Name="Help" Foreground="#0000cc">Help</Hyperlink>
+                </TextBlock>
+            </Grid>
+        </UniformGrid>
+        <Grid Grid.Row="1">
+            <RichTextBox x:Name="richTextBoxMLC" FontFamily="Verdana" FontSize="14" IsReadOnly="True"  BorderBrush="LightGray"  ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <FlowDocument>
+                    <Paragraph  >
+                        <Run  Text="Regulation 2.3 - Hours of work and hours of rest &#xA;Purpose: To ensure that seafarers have regulated hours of work or hours of rest"/>
+                    </Paragraph>
+                    <Paragraph  >
+                        <Run  Text="1. Each Member shall ensure that the hours of work or hours of rest for seafarers are regulated."/>
+                    </Paragraph>
+                    <Paragraph  >
+                        <Run  Text="2. Each Member shall establish maximum hours of work or minimum hours of rest over given periods that are consistent with the provisions in the Code. 
+Standard A2.3 - Hours of work and hours of rest For the purpose of this Standard, the term:"/>
+                    </Paragraph>
+                    <Paragraph  >
+                        <Run Text="(a) hours of work  means time during which seafarers are required to do work on account of the ship;&#xA;(b) hours of rest  means time outside hours of work; this term does not include short breaks."/>
+                    </Paragraph>
+                    <Paragraph>
+                        <Run Text="3. Each Member shall within the limits set out in paragraphs 5 to 8 of this Standard fix either a maximum number of hours of work which shall not be exceeded in a given period of time, or a minimum number of hours of rest which shall be provided in a  given period of time."/>
+                    </Paragraph>
+                    <Paragraph>
+                        <Run Text="4. Each Member acknowledges that the normal working hours' standard for seafarers, like that for other workers, shall be based on an eight-hour day with
+one day of rest per week and rest on public holidays. However, this shall not prevent the Member from having procedures to authorize or register a collective
+agreement which determines seafarers' normal working hours on a basis no less favourable than this standard."/>
+                    </Paragraph>
+                    <Paragraph>
+                        <Run Text="5. In determining the national standards, each Member shall take account of the danger posed by the fatigue of seafarers, especially those whose duties
+involve navigational safety and the safe and secure operation of the ship."/>
+                    </Paragraph>
+                    <Paragraph>
+                        <Run Text="6. The limits on hours of work or rest shall be as follows:&#xA;(a) maximum hours of work shall not exceed: &#xA;(i) 14 hours in any 24-hour period; and &#xA;(ii) 72 hours in any seven-day period;&#xA;or &#xA;(b) minimum hours of rest shall not be less than:&#xA;(i) ten hours in any 24-hour period; and &#xA;(ii) 77 hours in any seven-day period."/>
+                    </Paragraph>
+                    <Paragraph>
+                        <Run Text="7. Hours of rest may be divided into no more than two periods, one of which shall be at least six hours in length, and the interval between consecutive periods of rest shall not exceed 14 hours."/>
+                    </Paragraph>
+                    <Paragraph>
+                        <Run Text="8. Musters, fire-fighting and lifeboat drills, and drills prescribed by national laws and regulations and by international instruments, shall be conducted in a manner that minimizes the disturbance of rest periods and does not induce fatigue."/>
+                    </Paragraph>
+                    <Paragraph>
+                        <Run Text="9. When a seafarer is on call, such as when a machinery space is unattended, the seafarer shall have an adequate compensatory rest period if the normal period of rest is disturbed by call-outs to work."/>
+                    </Paragraph>
+                    <Paragraph>
+                        <Run Text="10. If no collective agreement or arbitration award exists or if the competent authority determines that the provisions in the agreement or award in respect of paragraph 7 or 8 of this Standard are
+inadequate, the competent authority shall determine such provisions to ensure the seafarers concerned have sufficient rest."/>
+                    </Paragraph>
+                    <Paragraph>
+                        <Run Text="11. Each Member shall require the posting, in an easily accessible place, of a table with the shipboard working arrangements, which shall contain for every position at least:&#xA;(a) the schedule of service at sea and service in port; and &#xA;(b) the maximum hours of work or the minimum hours of rest required by national laws or regulations or applicable collective agreements."/>
+                    </Paragraph>
+                    <Paragraph>
+                        <Run Text="12. The table referred to in paragraph 10 of this Standard shall be established in a standardized format in the working language or languages of the ship and in English."/>
+                    </Paragraph>
+                    <Paragraph>
+                        <Run Text="13. Each Member shall require that records of seafarers' daily hours of work or of their daily hours of rest be maintained to allow monitoring of compliance with paragraphs 5 to 11 inclusive of this Standard. The records shall be in a standardized format established by the competent authority taking into account any available guidelines of the International Labour Organization or shall be in any standard format
+prepared by the Organization. They shall be in the languages required by paragraph 11 of this Standard. The seafarers shall receive a copy of the records pertaining to them which shall be endorsed by the 
+master, or a person authorized by the master, and by the seafarers."/>
+                    </Paragraph>
+                    <Paragraph>
+                        <Run Text="14. Nothing in paragraphs 5 and 6 of this Standard shall prevent a Member from having national laws or regulations or a procedure for the competent authority to authorize or register collective agreements
+permitting exceptions to the limits set out. Such exceptions shall, as far as possible, follow the provisions of this Standard but may take account of more frequent or longer leave periods or the granting of
+compensatory leave for watchkeeping seafarers or seafarers working on board ships on short voyages."/>
+                    </Paragraph>
+                    <Paragraph>
+                        <Run Text="15. Nothing in this Standard shall be deemed to impair the right of the master of a ship to require a seafarer to perform any hours of work necessary for the immediate safety of the ship, persons on board
+or cargo, or for the purpose of giving assistance to other ships or persons in distress at sea. Accordingly, the master may suspend the schedule of hours of work or hours of rest and require a seafarer to
+perform any hours of work necessary until the normal situation has been restored. As soon as practicable after the normal situation has been restored, the master shall ensure that any seafarers
+who have performed work in a scheduled rest period are provided with an adequate period of rest.
+Guideline B2.3 - Hours of work and hours of rest
+Guideline B2.3.1 - Young seafarers &#xA;1. At sea and in port the following provisions should apply to all young seafarers under the age of 18:&#xA;(a) working hours should not exceed eight hours per day and 40 hours per week and overtime should be worked only where unavoidable for safety reasons;&#xA;(b) sufficient time should be allowed for all meals, and a break of at least one hour for the main meal of the day should be assured; and &#xA;(c) a 15-minute rest period as soon as possible following each two hours of continuous work should be allowed."/>
+                    </Paragraph>
+
+                    <Paragraph>
+                        <Run Text="2. Exceptionally, the provisions of paragraph 1 of this Guideline need not be applied if: &#xA;(a) they are impracticable for young seafarers in the deck, engine room and catering departments assigned to watchkeeping duties or working on a rostered shiftwork system; or &#xA;(b) the effective training of young seafarers in accordance with established programmes and schedules would be impaired."/>
+                    </Paragraph>
+
+                    <Paragraph>
+                        <Run Text="3. Such exceptional situations should be recorded, with reasons, and signed by the master."/>
+                    </Paragraph>
+
+                    <Paragraph>
+                        <Run Text="4. Paragraph 1 of this Guideline does not exempt young seafarers from the general obligation on all seafarers to work during any emergency as provided for in Standard A2.3, paragraph 14."/>
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
+        </Grid>
+
+
+
+        <Grid Grid.Row="2" Margin="0,7,0,7">
+            <TextBlock  FontWeight="Black" Text="STCW (Including Exceptions)" Style="{StaticResource HeaderText1}" FontSize="14" />
+        </Grid>
+
+        <Grid Grid.Row="3">
+            <RichTextBox x:Name="richTextBoxManila" FontFamily="Verdana" FontSize="14"   ScrollViewer.VerticalScrollBarVisibility="Visible" HorizontalAlignment="Left"  VerticalAlignment="Top" BorderBrush="Gray" IsReadOnly="True"    >
+                <FlowDocument>
+                    <Paragraph>
+                        <Run  Text="Under the Manila Amendments to the STCW Convention, all persons who are assigned duty as officer in charge of a watch or as a rating forming part of a watch and those whose duties involve designated safety, prevention of pollution and security duties shall be provided with a rest period of not less than.  "/>
+                    </Paragraph>
+
+                    <Paragraph>
+                        <Run Text="1. a minimum of 10 hours of rest in any 24-hour period; &#xA;2. 77 hours in any 7-day period.&#xA;The hours of rest may be divided into no more than two periods, one of which shall be at least 6 hours in length, and the intervals between consecutive periods of rest shall not exceed 14 hours."/>
+                    </Paragraph>
+                    <Paragraph>
+                        <Run Text="At the same time, in order to ensure a continued safe operation of ships in exceptional conditions, the Conference unanimously agreed to allow certain exceptions from the above requirements for the rest periods."/>
+                    </Paragraph>
+                    <Paragraph>
+                        <Run Text="Under the exception clause, parties may allow exceptions from the required hours of rest provided that the rest period is not less than 70 hours in any 7 day period and on certain conditions, namely."/>
+                    </Paragraph>
+                    <Paragraph>
+                        <Run Text="1. such exceptional arrangements shall not be extended for more than two consecutive weeks. &#xA;2. the intervals between two periods of exceptions shall not be less than twice the duration of the exception.&#xA;3. the hours of rest may be divided into no more than three periods, one of which shall be at least 6 hours and none of the other two periods shall be less than one hour in length.&#xA;4. the intervals between consecutive periods of rest shall not exceed 14 hours. &#xA;5. exceptions shall not extend beyond two 24-hour periods in any 7-day period."/>
+                    </Paragraph>
+                    <Paragraph>
+                        <Run Text="Exceptions shall, as far as possible, take into account the guidance regarding prevention of fatigue in section B-VIII/1."/>
+                    </Paragraph>
+                    <Paragraph>
+                        <Run Text="These provisions were the result of intensive negotiations between regulators and the shipping industry and represent a well balanced solution of the issue in the well known IMO spirit of compromise."/>
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
+
+        </Grid>
+
+
+        <Grid Grid.Row="4" Margin="0,7,0,5">
+
+            <Button x:Name="btnRuleName" Foreground="WhiteSmoke"  HorizontalAlignment="Left"  Command="{Binding RulesCommand}"
+                 Content="{Binding RuleName,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Padding="7,0,7,0">
+                <Button.Style>
+                    <Style BasedOn="{StaticResource HeaderButton1}" TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="Green"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=btnRuleName, Path=Content}" Value="Click to Activiate STCW Exception">
+                                <Setter Property="Background" Value="Red"/>
+                            </DataTrigger>
+
+                        </Style.Triggers>
+                    </Style>
+
+
+                </Button.Style>
+
+            </Button>
+
+            <ProgressBar   Value="{Binding RuleProgress, Mode=OneWay}" VerticalAlignment="Bottom" HorizontalAlignment='Right' Visibility="{Binding RuleVisibles,Mode=TwoWay}" Minimum="0" Height="25"  Margin="0,0,5,3" Width="143"/>
+        </Grid>
+        <Grid Grid.Row="5" Margin="0,0,0,7">
+            <TextBlock  FontWeight="Black" Text="OPA 90" Style="{StaticResource HeaderText1}" FontSize="14" Height="20" />
+        </Grid>
+
+        <Grid Grid.Row="6" >
+            <RichTextBox x:Name="richTextBoxOPA90" FontFamily="Verdana" FontSize="14"  IsReadOnly="True"   ScrollViewer.VerticalScrollBarVisibility="Visible" HorizontalAlignment="Left"  VerticalAlignment="Top" >
+                <FlowDocument>
+                    <Paragraph>
+                        <Run  Text="Workhour Limits. &#xA;1. Tankers. &#xA;The Oil Pollution Act of 1990 (OPA 90) amended 46 U.S.C. 8104 by adding a new subsection (n) which reads as follows: On a tanker, a licensed individual or seaman may not be permitted to work more than 15 hours in any 24 hour period, or more than 36 hours in any 72-hour period, except in an emergency or a drill. In this subsection, 'work' includes any administrative duties associated with the vessel whether performed on board the vessel or onshore."/>
+                    </Paragraph>
+
+                </FlowDocument>
+            </RichTextBox>
+        </Grid>
+
+        <Grid Grid.Row="7" Margin="0,0,0,8" >
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="26*"/>
+                <ColumnDefinition Width="26*"/>
+                <ColumnDefinition Width="26*"/>
+                <ColumnDefinition Width="15*"/>
+            </Grid.ColumnDefinitions>
+
+
+            <RadioButton  Grid.Column="0"  VerticalAlignment="Center"  Command="{Binding Path=RadioBTNCommand}"  Name="OPA90option1" IsChecked="{Binding OpaRuleName.OPA90option1,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  
+   CommandParameter="{Binding ElementName=OPA90option1, Path=Name}" FontFamily="Verdana" FontSize="14"  Content="Apply OPA-90 rules for Selected Days"/>
+
+
+            <RadioButton Grid.Column="1"  VerticalAlignment="Center" Command="{Binding Path=RadioBTNCommand}"  Name="OPA90option2" CommandParameter="{Binding ElementName=OPA90option2, Path=Name}" IsChecked="{Binding OpaRuleName.OPA90option2,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" FontFamily="Verdana" FontSize="14"  Content="Apply OPA-90 rules for All Days"/>
+
+
+            <RadioButton Grid.Column="2"  VerticalAlignment="Center"  Command="{Binding Path=RadioBTNCommand}"  Name="OPA90option3" CommandParameter="{Binding ElementName=OPA90option3, Path=Name}" IsChecked="{Binding OpaRuleName.OPA90option3,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" FontFamily="Verdana" FontSize="14"  Content="Don not show OPA-90 rules Selection"/>
+
+
+
+            <Button  x:Name="MyBorder" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left"  Style="{StaticResource HeaderButton1}"  Margin="0,0,0,13" Command="{Binding Opa90Command}" CommandParameter="{Binding OpaRuleName}" >
+                <TextBlock TextWrapping="Wrap" FontWeight="Black" Text="   Apply OPA-90   "/>
+            </Button>
+            <ProgressBar  Grid.Row="1" Value="{Binding Opa90Progress, Mode=OneWay}" VerticalAlignment="Bottom" HorizontalAlignment='Right' Visibility="{Binding OpaVisibles,Mode=TwoWay}" Minimum="0" Height="25" Grid.Column="3" Margin="0,0,10,19" Width="143"/>
+
+        </Grid>
+
+    </Grid>
+</UserControl>

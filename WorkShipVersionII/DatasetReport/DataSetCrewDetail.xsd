@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSetCrewDetails" targetNamespace="http://tempuri.org/DataSetCrewDetails.xsd" xmlns:mstns="http://tempuri.org/DataSetCrewDetails.xsd" xmlns="http://tempuri.org/DataSetCrewDetails.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSetCrewDetails" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSetCrewDetails" msprop:Generator_UserDSName="DataSetCrewDetails">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="CrewDetail" msprop:Generator_TableClassName="CrewDetailDataTable" msprop:Generator_TableVarName="tableCrewDetail" msprop:Generator_TablePropName="CrewDetail" msprop:Generator_RowDeletingName="CrewDetailRowDeleting" msprop:Generator_RowChangingName="CrewDetailRowChanging" msprop:Generator_RowEvHandlerName="CrewDetailRowChangeEventHandler" msprop:Generator_RowDeletedName="CrewDetailRowDeleted" msprop:Generator_UserTableName="CrewDetail" msprop:Generator_RowChangedName="CrewDetailRowChanged" msprop:Generator_RowEvArgName="CrewDetailRowChangeEvent" msprop:Generator_RowClassName="CrewDetailRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
+              <xs:element name="name" msprop:Generator_ColumnVarNameInTable="columnname" msprop:Generator_ColumnPropNameInRow="name" msprop:Generator_ColumnPropNameInTable="nameColumn" msprop:Generator_UserColumnName="name" type="xs:string" minOccurs="0" />
+              <xs:element name="UserName" msprop:Generator_ColumnVarNameInTable="columnUserName" msprop:Generator_ColumnPropNameInRow="UserName" msprop:Generator_ColumnPropNameInTable="UserNameColumn" msprop:Generator_UserColumnName="UserName" type="xs:string" minOccurs="0" />
+              <xs:element name="position" msprop:Generator_ColumnVarNameInTable="columnposition" msprop:Generator_ColumnPropNameInRow="position" msprop:Generator_ColumnPropNameInTable="positionColumn" msprop:Generator_UserColumnName="position" type="xs:string" minOccurs="0" />
+              <xs:element name="department" msprop:Generator_ColumnVarNameInTable="columndepartment" msprop:Generator_ColumnPropNameInRow="department" msprop:Generator_ColumnPropNameInTable="departmentColumn" msprop:Generator_UserColumnName="department" type="xs:string" minOccurs="0" />
+              <xs:element name="ServiceFrom" msprop:Generator_ColumnVarNameInTable="columnServiceFrom" msprop:Generator_ColumnPropNameInRow="ServiceFrom" msprop:Generator_ColumnPropNameInTable="ServiceFromColumn" msprop:Generator_UserColumnName="ServiceFrom" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ServiceTo" msprop:Generator_ColumnVarNameInTable="columnServiceTo" msprop:Generator_ColumnPropNameInRow="ServiceTo" msprop:Generator_ColumnPropNameInTable="ServiceToColumn" msprop:Generator_UserColumnName="ServiceTo" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CDC" msprop:Generator_ColumnVarNameInTable="columnCDC" msprop:Generator_ColumnPropNameInRow="CDC" msprop:Generator_ColumnPropNameInTable="CDCColumn" msprop:Generator_UserColumnName="CDC" type="xs:string" minOccurs="0" />
+              <xs:element name="empno" msprop:Generator_ColumnVarNameInTable="columnempno" msprop:Generator_ColumnPropNameInRow="empno" msprop:Generator_ColumnPropNameInTable="empnoColumn" msprop:Generator_UserColumnName="empno" type="xs:string" minOccurs="0" />
+              <xs:element name="pswd" msprop:Generator_ColumnVarNameInTable="columnpswd" msprop:Generator_ColumnPropNameInRow="pswd" msprop:Generator_ColumnPropNameInTable="pswdColumn" msprop:Generator_UserColumnName="pswd" type="xs:string" minOccurs="0" />
+              <xs:element name="comments" msprop:Generator_ColumnVarNameInTable="columncomments" msprop:Generator_ColumnPropNameInRow="comments" msprop:Generator_ColumnPropNameInTable="commentsColumn" msprop:Generator_UserColumnName="comments" type="xs:string" minOccurs="0" />
+              <xs:element name="overtime" msprop:Generator_ColumnVarNameInTable="columnovertime" msprop:Generator_ColumnPropNameInRow="overtime" msprop:Generator_ColumnPropNameInTable="overtimeColumn" msprop:Generator_UserColumnName="overtime" type="xs:string" minOccurs="0" />
+              <xs:element name="SeaWk" msprop:Generator_ColumnVarNameInTable="columnSeaWk" msprop:Generator_ColumnPropNameInRow="SeaWk" msprop:Generator_ColumnPropNameInTable="SeaWkColumn" msprop:Generator_UserColumnName="SeaWk" type="xs:string" minOccurs="0" />
+              <xs:element name="SeaNWK" msprop:Generator_ColumnVarNameInTable="columnSeaNWK" msprop:Generator_ColumnPropNameInRow="SeaNWK" msprop:Generator_ColumnPropNameInTable="SeaNWKColumn" msprop:Generator_UserColumnName="SeaNWK" type="xs:string" minOccurs="0" />
+              <xs:element name="PortWk" msprop:Generator_ColumnVarNameInTable="columnPortWk" msprop:Generator_ColumnPropNameInRow="PortWk" msprop:Generator_ColumnPropNameInTable="PortWkColumn" msprop:Generator_UserColumnName="PortWk" type="xs:string" minOccurs="0" />
+              <xs:element name="PortNWK" msprop:Generator_ColumnVarNameInTable="columnPortNWK" msprop:Generator_ColumnPropNameInRow="PortNWK" msprop:Generator_ColumnPropNameInTable="PortNWKColumn" msprop:Generator_UserColumnName="PortNWK" type="xs:string" minOccurs="0" />
+              <xs:element name="dates" msprop:Generator_ColumnVarNameInTable="columndates" msprop:Generator_ColumnPropNameInRow="dates" msprop:Generator_ColumnPropNameInTable="datesColumn" msprop:Generator_UserColumnName="dates" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="SeaWH" msprop:Generator_ColumnVarNameInTable="columnSeaWH" msprop:Generator_ColumnPropNameInRow="SeaWH" msprop:Generator_ColumnPropNameInTable="SeaWHColumn" msprop:Generator_UserColumnName="SeaWH" type="xs:decimal" minOccurs="0" />
+              <xs:element name="portWH" msprop:Generator_ColumnVarNameInTable="columnportWH" msprop:Generator_ColumnPropNameInRow="portWH" msprop:Generator_ColumnPropNameInTable="portWHColumn" msprop:Generator_UserColumnName="portWH" type="xs:decimal" minOccurs="0" />
+              <xs:element name="did" msprop:Generator_ColumnVarNameInTable="columndid" msprop:Generator_ColumnPropNameInRow="did" msprop:Generator_ColumnPropNameInTable="didColumn" msprop:Generator_UserColumnName="did" type="xs:int" minOccurs="0" />
+              <xs:element name="rid" msprop:Generator_ColumnVarNameInTable="columnrid" msprop:Generator_ColumnPropNameInRow="rid" msprop:Generator_ColumnPropNameInTable="ridColumn" msprop:Generator_UserColumnName="rid" type="xs:int" minOccurs="0" />
+              <xs:element name="SeaWk1" msprop:Generator_ColumnVarNameInTable="columnSeaWk1" msprop:Generator_ColumnPropNameInRow="SeaWk1" msprop:Generator_ColumnPropNameInTable="SeaWk1Column" msprop:Generator_UserColumnName="SeaWk1" type="xs:string" minOccurs="0" />
+              <xs:element name="SeaNWK1" msprop:Generator_ColumnVarNameInTable="columnSeaNWK1" msprop:Generator_ColumnPropNameInRow="SeaNWK1" msprop:Generator_ColumnPropNameInTable="SeaNWK1Column" msprop:Generator_UserColumnName="SeaNWK1" type="xs:string" minOccurs="0" />
+              <xs:element name="PortWk1" msprop:Generator_ColumnVarNameInTable="columnPortWk1" msprop:Generator_ColumnPropNameInRow="PortWk1" msprop:Generator_ColumnPropNameInTable="PortWk1Column" msprop:Generator_UserColumnName="PortWk1" type="xs:string" minOccurs="0" />
+              <xs:element name="PortNWK1" msprop:Generator_ColumnVarNameInTable="columnPortNWK1" msprop:Generator_ColumnPropNameInRow="PortNWK1" msprop:Generator_ColumnPropNameInTable="PortNWK1Column" msprop:Generator_UserColumnName="PortNWK1" type="xs:string" minOccurs="0" />
+              <xs:element name="OpaStatus" msprop:Generator_ColumnVarNameInTable="columnOpaStatus" msprop:Generator_ColumnPropNameInRow="OpaStatus" msprop:Generator_ColumnPropNameInTable="OpaStatusColumn" msprop:Generator_UserColumnName="OpaStatus" type="xs:boolean" minOccurs="0" />
+              <xs:element name="CertificateView" msprop:Generator_ColumnVarNameInTable="columnCertificateView" msprop:Generator_ColumnPropNameInRow="CertificateView" msprop:Generator_ColumnPropNameInTable="CertificateViewColumn" msprop:Generator_UserColumnName="CertificateView" type="xs:boolean" minOccurs="0" />
+              <xs:element name="CertificateAdd" msprop:Generator_ColumnVarNameInTable="columnCertificateAdd" msprop:Generator_ColumnPropNameInRow="CertificateAdd" msprop:Generator_ColumnPropNameInTable="CertificateAddColumn" msprop:Generator_UserColumnName="CertificateAdd" type="xs:boolean" minOccurs="0" />
+              <xs:element name="CertificateEdit" msprop:Generator_ColumnVarNameInTable="columnCertificateEdit" msprop:Generator_ColumnPropNameInRow="CertificateEdit" msprop:Generator_ColumnPropNameInTable="CertificateEditColumn" msprop:Generator_UserColumnName="CertificateEdit" type="xs:boolean" minOccurs="0" />
+              <xs:element name="CertificateDelete" msprop:Generator_ColumnVarNameInTable="columnCertificateDelete" msprop:Generator_ColumnPropNameInRow="CertificateDelete" msprop:Generator_ColumnPropNameInTable="CertificateDeleteColumn" msprop:Generator_UserColumnName="CertificateDelete" type="xs:boolean" minOccurs="0" />
+              <xs:element name="DOB" msprop:Generator_ColumnVarNameInTable="columnDOB" msprop:Generator_ColumnPropNameInRow="DOB" msprop:Generator_ColumnPropNameInTable="DOBColumn" msprop:Generator_UserColumnName="DOB" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="chkyoungs" msprop:Generator_ColumnVarNameInTable="columnchkyoungs" msprop:Generator_ColumnPropNameInRow="chkyoungs" msprop:Generator_ColumnPropNameInTable="chkyoungsColumn" msprop:Generator_UserColumnName="chkyoungs" type="xs:boolean" minOccurs="0" />
+              <xs:element name="SeaWkYoung" msprop:Generator_ColumnVarNameInTable="columnSeaWkYoung" msprop:Generator_ColumnPropNameInRow="SeaWkYoung" msprop:Generator_ColumnPropNameInTable="SeaWkYoungColumn" msprop:Generator_UserColumnName="SeaWkYoung" type="xs:string" minOccurs="0" />
+              <xs:element name="SeaNWKYoung" msprop:Generator_ColumnVarNameInTable="columnSeaNWKYoung" msprop:Generator_ColumnPropNameInRow="SeaNWKYoung" msprop:Generator_ColumnPropNameInTable="SeaNWKYoungColumn" msprop:Generator_UserColumnName="SeaNWKYoung" type="xs:string" minOccurs="0" />
+              <xs:element name="PortWkYoung" msprop:Generator_ColumnVarNameInTable="columnPortWkYoung" msprop:Generator_ColumnPropNameInRow="PortWkYoung" msprop:Generator_ColumnPropNameInTable="PortWkYoungColumn" msprop:Generator_UserColumnName="PortWkYoung" type="xs:string" minOccurs="0" />
+              <xs:element name="PortNWKYoung" msprop:Generator_ColumnVarNameInTable="columnPortNWKYoung" msprop:Generator_ColumnPropNameInRow="PortNWKYoung" msprop:Generator_ColumnPropNameInTable="PortNWKYoungColumn" msprop:Generator_UserColumnName="PortNWKYoung" type="xs:string" minOccurs="0" />
+              <xs:element name="Remarks" msprop:Generator_ColumnVarNameInTable="columnRemarks" msprop:Generator_ColumnPropNameInRow="Remarks" msprop:Generator_ColumnPropNameInTable="RemarksColumn" msprop:Generator_UserColumnName="Remarks" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1">
+      <xs:selector xpath=".//mstns:CrewDetail" />
+      <xs:field xpath="mstns:Id" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

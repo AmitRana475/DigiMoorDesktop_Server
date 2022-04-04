@@ -1,0 +1,167 @@
+﻿<UserControl x:Class="WorkShipVersionII.LoginView.LoginView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:w="clr-namespace:WorkShipVersionII.ViewModelCrewManagement"
+             xmlns:control="clr-namespace:WorkShipVersionII.Control"
+             xmlns:local="clr-namespace:WorkShipVersionII.LoginView"
+             mc:Ignorable="d" 
+             d:DesignHeight="889" d:DesignWidth="1260">
+    <Grid>
+
+        <DockPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="90*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Height="Auto" x:Name="grid1b"  DockPanel.Dock="Top"   Background="#003366" >
+                    <TextBlock  Text="WELCOME TO WORK-SHIP" Foreground="WhiteSmoke" FontFamily="Verdana" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="13*"/>
+                        <RowDefinition Height="55*"/>
+                        <RowDefinition Height="37*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="60*"/>
+                        <ColumnDefinition Width="20*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid x:Name="lblLoading" Grid.Column="1" Visibility="Hidden" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                        <control:LoadingAnimation HorizontalAlignment="Center" VerticalAlignment="Center"   />
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="1">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="13*"/>
+                            <ColumnDefinition Width="70*"/>
+                            <ColumnDefinition Width="13*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="1" Background="#003366">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20*"/>
+                                <RowDefinition Height="30*"/>
+                                <RowDefinition Height="30*"/>
+                                <RowDefinition Height="25*"/>
+
+
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="35*"/>
+                                <ColumnDefinition Width="60*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="Please Enter Your UserName and Password to log In" Grid.ColumnSpan="2" FontFamily="Verdana" FontSize="14" FontWeight="Bold" Foreground="WhiteSmoke" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Canvas Grid.Row="1">
+                                <TextBlock Text="User Name"  FontFamily="Verdana" FontSize="14"  Foreground="WhiteSmoke" Canvas.Top="30" Canvas.Left="68" />
+                            </Canvas>
+                            <Canvas Grid.Row="2">
+                                <TextBlock Text="Password"  FontFamily="Verdana" FontSize="14"  Foreground="WhiteSmoke" Canvas.Top="26" Canvas.Left="73"   />
+                            </Canvas>
+                            <Canvas Grid.Row="1" Grid.Column="1">
+                                <TextBox x:Name="txtUserName"  Text="{Binding AdminLogin.uname,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Height="35"  VerticalContentAlignment="Center" FontSize="14" Width="242" Canvas.Top="22" Canvas.Left="2" />
+                                <TextBlock Text="{Binding AddLoginMessage.UserNameMessage,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Foreground="Red" FontFamily="Verdana" FontSize="15" Canvas.Top="63" Canvas.Left="1" />
+                            </Canvas>
+
+                            <Canvas Grid.Row="2" Grid.Column="1">
+                                <PasswordBox x:Name="txtPassword" w:PasswordHelper.Attach="True" 
+                           w:PasswordHelper.Password="{Binding AdminLogin.pswd,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                           Height="35" VerticalContentAlignment="Center" FontSize="14" Width="242" Canvas.Top="15" Canvas.Left="2" >
+
+
+                                    <PasswordBox.InputBindings>
+                                        <KeyBinding Command="{Binding LoginCommand}" CommandParameter="{Binding AdminLogin}" Key="Enter" />
+                                    </PasswordBox.InputBindings>
+
+
+                                    <!--<i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="KeyUp">
+                                            <i:InvokeCommandAction Command="{Binding LoginCommand}" CommandParameter="{Binding AdminLogin}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>-->
+                                </PasswordBox>
+                                
+                                
+                                <TextBlock Text="{Binding AddLoginMessage.PasswordMessage,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Foreground="Red" FontFamily="Verdana" FontSize="15" Canvas.Top="63" Canvas.Left="1" />
+
+                            </Canvas>
+
+                            <Canvas Grid.Row="3" Grid.ColumnSpan="2">
+                                <Button Content="Login" Visibility="{Binding BtnVisible,UpdateSourceTrigger=PropertyChanged}"  Width="100" 
+                                    Command="{Binding LoginCommand}" CommandParameter="{Binding AdminLogin}" HorizontalAlignment="Left" Style="{StaticResource HeaderButton1}"   Canvas.Top="4" Canvas.Left="227" />
+                                <TextBlock HorizontalAlignment="Center"  Text="{Binding ErrorMessage,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Foreground="Red" FontFamily="Verdana" FontSize="15" Canvas.Top="46" Canvas.Left="15" />
+                            </Canvas>
+
+                        </Grid>
+                    </Grid>
+
+                    <GroupBox Margin="0,10,0,25" Grid.Row="2" Grid.Column="1" Visibility="{Binding ProductVisible,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" FontFamily="Verdana" FontSize="14" BorderBrush="LightGray" Header="Product Information" >
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition Width="15*"/>
+                                <ColumnDefinition Width="70*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+
+                            </Grid.RowDefinitions>
+
+                            <Canvas   Grid.Row="0" VerticalAlignment="Center">
+                                <TextBlock Text="Product"  FontFamily="Verdana" FontSize="14"   HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="-9" Canvas.Left="5"/>
+                            </Canvas>
+
+                            <Canvas  Grid.Column="1" Grid.Row="0" VerticalAlignment="Center">
+                                <TextBlock Text="Work-Ship"  FontFamily="Verdana" FontSize="14"   HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="-9"/>
+                                <TextBlock Text="{Binding ExpiryMessage,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  FontFamily="Verdana" FontSize="14"  Foreground="Red"  HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="-9" Canvas.Left="150"/>
+                                <TextBlock Text="{Binding RemainingMessage,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  FontFamily="Verdana" FontSize="14"  Foreground="Red"  HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="-9" Canvas.Left="377"/>
+
+
+                            </Canvas>
+
+                            <Canvas  Grid.Row="1" VerticalAlignment="Center">
+                                <TextBlock Text="Licence Key"  FontFamily="Verdana" FontSize="14"   HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="-7" Canvas.Left="4"/>
+                                <Label Height="20" Content="*" Foreground="Red" FontSize="16" Canvas.Left="83" Canvas.Top="-14" />
+                            </Canvas>
+
+                            <Canvas Grid.Column="1" Grid.Row="1"  >
+                                <TextBox x:Name="txt1" MaxLength="4" Text="{Binding ProductInfoValidate.Text1,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center" Width="60" Height="27"  Canvas.Left="2" Canvas.Top="16" TextChanged="Txt1_TextChanged"/>
+                                <TextBox x:Name="txt2" MaxLength="4" Text="{Binding ProductInfoValidate.Text2,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center" Width="60" Height="27" Canvas.Left="72" Canvas.Top="16"  TextChanged="Txt2_TextChanged"/>
+                                <TextBox x:Name="txt3" MaxLength="4" Text="{Binding ProductInfoValidate.Text3,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center" Width="60" Height="27" Canvas.Left="144" Canvas.Top="16"  TextChanged="Txt3_TextChanged"/>
+                                <TextBox x:Name="txt4" MaxLength="4" Text="{Binding ProductInfoValidate.Text4,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center" Width="60" Height="27" Canvas.Left="217" Canvas.Top="16"   TextChanged="Txt4_TextChanged"/>
+                                <TextBox x:Name="txt5" MaxLength="4" Text="{Binding ProductInfoValidate.Text5,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center" Width="60" Height="27" Canvas.Left="291" Canvas.Top="16"  TextChanged="Txt5_TextChanged"/>
+
+                                <Button x:Name="btnEvalidity" Content="Validate"  HorizontalAlignment="Right" Command="{Binding ValidateCommand}" CommandParameter="{Binding ProductInfoValidate }" VerticalAlignment="Top" Style="{StaticResource HeaderButton1}" Width="78" Canvas.Left="373" Canvas.Top="13"  />
+
+                            </Canvas>
+
+                            <TextBlock Grid.Column="1" Grid.Row="2" VerticalAlignment="Top" Text="{Binding ProductMessage, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontFamily="Verdana" Foreground="Red" FontSize="13"   />
+
+
+                        </Grid>
+
+                    </GroupBox>
+
+
+
+                </Grid>
+
+
+
+
+
+
+            </Grid>
+        </DockPanel>
+
+    </Grid>
+</UserControl>

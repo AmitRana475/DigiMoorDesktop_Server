@@ -1,0 +1,131 @@
+﻿<UserControl x:Class="WorkShipVersionII.Views.AdministrationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WorkShipVersionII.Views"
+             xmlns:vm="clr-namespace:WorkShipVersionII.ViewModelAdministration"
+             xmlns:views="clr-namespace:WorkShipVersionII.ViewsAdministration"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="900">
+    <!--DataContext="{Binding MainAdministration, Source={StaticResource Locator}}"-->
+    <UserControl.DataContext>
+        <vm:MainAdministrationViewModel/>
+    </UserControl.DataContext>
+
+
+    <UserControl.Resources>
+
+        <DataTemplate DataType="{x:Type vm:ImportExportViewModel}">
+            <views:ImoprtExportView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:BackupViewModel}">
+            <views:BackupView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ApplicationLogViewModel}">
+            <views:ApplicationLogView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:RulesViewModel}">
+            <views:RulesView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:LicenceViewModel}">
+            <views:LicenceView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:ErrorLogViewModel}">
+            <views:ErrorLogView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:DisclaimerViewModel}">
+            <views:DisclaimerView/>
+        </DataTemplate>
+
+
+
+
+        <!--<Style TargetType="{x:Type Menu}" x:Key="MenuTypeAdmin">
+            <Setter Property="Background" Value="#003366"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+            <Setter Property="FontFamily" Value="Verdana"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="MinWidth" Value="180"/>
+            <Setter Property="MaxWidth" Value="200"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>-->
+
+
+    </UserControl.Resources>
+
+    <Grid>
+
+
+        <DockPanel>
+            <Menu x:Name="AdminMenu" MenuItem.Click="MenuItemClick"  Style="{StaticResource MenuTypeCrew}">
+
+                <Menu.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Orientation="Vertical" />
+                        <!--<StackPanel/>-->
+                    </ItemsPanelTemplate>
+                </Menu.ItemsPanel>
+                <MenuItem x:Name="ImportExport" Cursor="Hand" Margin="0,5,0,0" Visibility="{Binding CommonHide.ImportExport,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  Command="{Binding ImoirtExportAdminCommand}" Header="Import / Export"  Padding="4,6,4,6" >
+                    <MenuItem.Icon>
+                        <Image Source="/WorkShipVersionII;component/Images/import export.png" MaxWidth="20" MaxHeight="20" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="BackupRestore" Cursor="Hand" Visibility="{Binding CommonHide.BackupRestore,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Command="{Binding BackupAdminCommand}" Header="Backup / Restore" Padding="4,6,0,6" >
+                    <MenuItem.Icon>
+                        <Image Source="/WorkShipVersionII;component/Images/backup.png" MaxWidth="20" MaxHeight="20" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="ApplicationLog" Cursor="Hand" Visibility="{Binding CommonHide.ApplicationLog,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Command="{Binding ApplicationLogAdminCommand}" Header="Application Log"  Padding="4,6,0,6" >
+                    <MenuItem.Icon>
+                        <Image Source="/WorkShipVersionII;component/Images/logicon.png" MaxWidth="20" MaxHeight="20" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="Rules" Cursor="Hand" Visibility="{Binding CommonHide.Rules,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Command="{Binding RulesAdminCommand}" Header="Rules"  Padding="4,6,0,6">
+                    <MenuItem.Icon>
+                        <Image Source="/WorkShipVersionII;component/Images/rulesicon.png" MaxWidth="20" MaxHeight="20" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="License" Cursor="Hand" Visibility="{Binding CommonHide.Lincenc,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Command="{Binding LicenceAdminCommand}" Header="License"  Padding="4,6,0,6" >
+                    <MenuItem.Icon>
+                        <Image Source="/WorkShipVersionII;component/Images/Linc.png" MaxWidth="20" MaxHeight="20" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="ErrorLog" Cursor="Hand" Visibility="{Binding CommonHide.ErrorLog,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Command="{Binding ErrorLogAdminCommand}" Header="Error Log" Padding="4,6,0,6" >
+                    <MenuItem.Icon>
+                        <Image Source="/WorkShipVersionII;component/Images/errorlog.png" MaxWidth="20" MaxHeight="20" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="Disclaimer" Cursor="Hand" Command="{Binding DisclaimerAdminCommand}" Header="Disclaimer"  Padding="4,6,0,6">
+                    <MenuItem.Icon>
+                        <Image Source="/WorkShipVersionII;component/Images/disc.png" MaxWidth="20" MaxHeight="20"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="Help" Command="{Binding HelpCommand}" Cursor="Hand" Header="Help" Padding="4,6,0,6" >
+                    <MenuItem.Icon>
+                        <Image Source="/WorkShipVersionII;component/Images/help1.png" MaxWidth="20" MaxHeight="20" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="ExitFromWorkShip" Command="{Binding ExitAdminCommand}" Cursor="Hand" Header="Exit From Work-Ship" Padding="2,6,2,6"  >
+                    <MenuItem.Icon>
+                        <Image Source="/WorkShipVersionII;component/Images/logout3.png" MaxWidth="20" MaxHeight="20" />
+                    </MenuItem.Icon>
+                </MenuItem>
+
+
+
+            </Menu>
+
+            <Grid DockPanel.Dock="Top"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,0,0,0">
+                <ContentControl Content="{Binding CurrentViewModelAdministration}"/>
+
+            </Grid>
+
+        </DockPanel>
+    </Grid>
+</UserControl>

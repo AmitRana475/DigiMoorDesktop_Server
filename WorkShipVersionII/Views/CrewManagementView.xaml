@@ -1,0 +1,159 @@
+﻿<UserControl x:Class="WorkShipVersionII.Views.CrewManagementView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:WorkShipVersionII.ViewModelCrewManagement"
+             xmlns:views="clr-namespace:WorkShipVersionII.ViewsCrewManagement"
+             xmlns:local="clr-namespace:WorkShipVersionII.Views"
+              
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="1200">
+
+    <UserControl.DataContext>
+        <vm:MainViewModelCrewManagement/>
+    </UserControl.DataContext>
+
+    <UserControl.Resources>
+
+        <DataTemplate DataType="{x:Type vm:CrewDetailViewModel}">
+            <views:CrewDetailView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:CrewRankViewModel}">
+            <views:CrewRankView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DepartmentViewModel}">
+            <views:DepartmentView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:HoliDayGroupViewModel}">
+            <views:HoliDayGroupView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:HODViewModel}">
+            <views:HODView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:GroupPlanningViewModel}">
+            <views:GroupPlanningView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:LogbookVerificationViewModel}">
+            <views:LogbookVerificationView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:ResetPasswordViewModel}">
+            <views:ResetPasswordView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:FreezeUnfreezeViewModel}">
+            <views:FreezeUnfreezeView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:AddCrewDetailModel}">
+            <views:AddCrewDetailView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AddNextCrewDetailModel}">
+            <views:AddNextCrewDetailView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AddNextYoungCrewDetailModel}">
+            <views:AddNextYoungCrewDetailView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AddOverTimeCrewDetailModel}">
+            <views:AddOverTimeCrewDetailView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AddHODViewModel}">
+            <views:AddHODView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:HoliDayListViewModel}">
+            <views:HoliDayListView/>
+        </DataTemplate>
+
+
+
+
+    </UserControl.Resources>
+
+    <Grid>
+        <!--<Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+           
+        </Grid.RowDefinitions>-->
+
+        <DockPanel >
+            <Menu x:Name="CrewMenu"  MenuItem.Click="MenuItemClick"  Grid.Column="0" Style="{StaticResource MenuTypeCrew}"  >
+
+                <Menu.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Orientation="Vertical" />
+                        <!--<StackPanel/>-->
+                    </ItemsPanelTemplate>
+                </Menu.ItemsPanel>
+
+                <MenuItem x:Name="CrewDetail" Cursor="Hand" Visibility="{Binding CommonVisible.CrewManagement,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Command="{Binding NavCommand}" CommandParameter="CrewDetail"  Margin="0,20,0,0"  Header="Crew Detail"  MouseEnter="MouseEnterFunction" MouseLeave="MouseLeaveFunction" Padding="4,6,0,6" >
+                    <MenuItem.Icon>
+                        <Image Source="/WorkShipVersionII;component/Images/Crew.png" MaxWidth="20" MaxHeight="20" />
+                    </MenuItem.Icon>
+
+                </MenuItem>
+                <MenuItem x:Name="CrewRank" Cursor="Hand" Visibility="{Binding CommonVisible.CrewRank,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Command="{Binding NavCommand}" CommandParameter="CrewRank" Header="Crew Rank" MouseEnter="MouseEnterFunction" MouseLeave="MouseLeaveFunction" Padding="4,6,0,6" >
+                    <MenuItem.Icon>
+                        <Image Source="/WorkShipVersionII;component/Images/rank.png" MaxWidth="20" MaxHeight="20" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="Department" Cursor="Hand" Visibility="{Binding CommonVisible.Department,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Command="{Binding NavCommand}" CommandParameter="Department" Header="Department" MouseEnter="MouseEnterFunction" MouseLeave="MouseLeaveFunction" Padding="4,6,0,6">
+                    <MenuItem.Icon>
+                        <Image Source="/WorkShipVersionII;component/Images/deptt.png" MaxWidth="20" MaxHeight="20" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="HolidayGroup" Cursor="Hand" Visibility="{Binding CommonVisible.HolidayGroup,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Command="{Binding NavCommand}" CommandParameter="HolidayGroup"  Header="Holiday Group"  MouseEnter="MouseEnterFunction" MouseLeave="MouseLeaveFunction" Padding="4,6,0,6">
+                    <MenuItem.Icon>
+                        <Image Source="/WorkShipVersionII;component/Images/man.png" MaxWidth="20" MaxHeight="20" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="HOD" Cursor="Hand" Visibility="{Binding CommonVisible.HOD,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Command="{Binding NavCommand}" CommandParameter="HOD" Header="H.O.D"  MouseEnter="MouseEnterFunction" MouseLeave="MouseLeaveFunction" Padding="4,6,0,6" >
+                    <MenuItem.Icon>
+                        <Image Source="/WorkShipVersionII;component/Images/business.png" MaxWidth="20" MaxHeight="20" />
+                    </MenuItem.Icon>
+                </MenuItem>
+
+                <!--<MenuItem x:Name="GroupPlanning" Cursor="Hand" Command="{Binding NavCommand}" CommandParameter="GroupPlanning" Header="Logbook Verification"  Padding="3,6,0,6" >
+                    <MenuItem.Icon>
+                        <Image Source="/WorkShipVersionII;component/Images/GPlan.png" MaxWidth="20" MaxHeight="20" />
+                    </MenuItem.Icon>
+                </MenuItem>-->
+
+                <!--<MenuItem x:Name="LogbookVerification" Cursor="Hand" Visibility="{Binding CommonVisible.CrewManagement,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Command="{Binding NavCommand}" CommandParameter="LogbookVerification" Header="Logbook Verification" MouseEnter="MouseEnterFunction" MouseLeave="MouseLeaveFunction"  Padding="3,6,0,6" >
+                    <MenuItem.Icon>
+                        <Image Source="/WorkShipVersionII;component/Images/GPlan.png" MaxWidth="20" MaxHeight="20" />
+                    </MenuItem.Icon>
+                </MenuItem>-->
+
+                <MenuItem x:Name="ResetPassword" Cursor="Hand" Visibility="{Binding CommonVisible.ResetPassword,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Command="{Binding NavCommand}" CommandParameter="ResetPassword" Header="Reset Password" MouseEnter="MouseEnterFunction" MouseLeave="MouseLeaveFunction"  Padding="4,6,0,6">
+                    <MenuItem.Icon>
+                        <Image Source="/WorkShipVersionII;component/Images/reset1.png" MaxWidth="20" MaxHeight="20" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="FreezeUnfreeze" Cursor="Hand" Visibility="{Binding CommonVisible.FreezeUnfreezeAll,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Command="{Binding NavCommand}" CommandParameter="FreezeUnfreeze" Header="Freeze / Unfreeze" MouseEnter="MouseEnterFunction" MouseLeave="MouseLeaveFunction" Padding="4,6,4,6" >
+                    <MenuItem.Icon>
+                        <Image Source="/WorkShipVersionII;component/Images/00.png" MaxWidth="20" MaxHeight="20" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="Help" Cursor="Hand" Header="Help" CommandParameter="Help" MouseEnter="MouseEnterFunction" MouseLeave="MouseLeaveFunction" Padding="4,6,0,6" >
+                    <MenuItem.Icon>
+                        <Image Source="/WorkShipVersionII;component/Images/help1.png" MaxWidth="20" MaxHeight="20" />
+                    </MenuItem.Icon>
+                </MenuItem>
+
+
+
+            </Menu>
+
+            <Grid x:Name = "CrewManagementContent" DockPanel.Dock="Top"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,0,0,0"  >
+
+                <ContentControl  Content="{Binding CurrentViewModelCrew}"/>
+            </Grid>
+
+        </DockPanel>
+    </Grid>
+</UserControl>

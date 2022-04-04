@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="WorkShipVersionII.ViewsAdministration.DisclaimerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WorkShipVersionII.ViewsAdministration"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="1000">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="90*" />
+            <!--<RowDefinition Height="2*" />-->
+        </Grid.RowDefinitions>
+        <UniformGrid Grid.Row="0" Margin="0,0,0,5" x:Name="RuleHeaderUniformGrid" Columns="2">
+            <Grid/>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="85*"/>
+                    <ColumnDefinition Width="15*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock  Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="Blue" FontFamily="Verdana" FontSize="14"  Padding="0,0,10,0">
+                     <Hyperlink  Name="Help" Foreground="#0000cc">Help</Hyperlink>
+                </TextBlock>
+            </Grid>
+        </UniformGrid>
+        <Grid  Grid.Row="1" Margin="10,0,10,12">
+        <RichTextBox x:Name="richTextDisclaimer"  FontFamily="Verdana" FontSize="14" IsReadOnly="True"   ScrollViewer.VerticalScrollBarVisibility="Visible" Background="WhiteSmoke" BorderThickness="0,0,0,0" BorderBrush="WhiteSmoke">
+            <FlowDocument>
+                <Paragraph  >
+                        <Run  Text="DISCLAIMER &#xA;        The Software is a tool to assist Ship Master &amp; Seafarers by indicating possibility of a deviation from activated regimes including STCW as amended in 2010, MLC 2006 &amp; OPA-90, as per the data inserted. The Software is designed to monitor and analyze the inserted data. It is recommended to use the Planning functions of the Software to get early indications of a potential deviation from regimes, and avoid them from occurring. Every deviation has the potential to become non-conformity and should be dealt with immediately, as it arises, as per Client's policy. &#xA;        The user shall ensure that the Seafarer only enters their working hours from the Time of Sign on till the time of Sign Off. The system only restrict basis day of Sign on and Sign off. "/>
+                </Paragraph>
+                <Paragraph  >
+                        <Run  Text="1.0  Disclaimer of Regimes -"/>
+                </Paragraph>
+                <Paragraph>
+                        <Run  Text="1.1.1  OPA-90: -&#xA;        - The Software complies with regulations mentioned in the 'Rules' section. &#xA;        - The Software excludespart calculation of regulation46 USC 8104, which would need to be manually verified by the Ship's Master &amp; stakeholders. (Regulation 46 USC 8104 'An owner, charterer, managing operator, master, individual in charge, or other person having authority may permit an officer to take charge of the deck watch on a vessel when leaving or immediately after leaving port only if the officer has been off duty for at least 6 hours within the 12 hours immediately before the time of leaving.') This regulation may be amended time to time.&#xA;        - OPA-90 calculations are to be activated / deactivated from the rules section, as per the Vessel's trading area. These settings are displayed for Tanker Ships only. "/>
+                </Paragraph>
+                <Paragraph  >
+                        <Run Text="1.1.2  STCW as amended in 2010: -&#xA;        - The Software complies to regulations mentioned in the 'Rules' section of Work-Ship software.&#xA;        - STCW Exceptions, when activated from the rules section, will be additionally calculated. "/>
+                </Paragraph>
+                <Paragraph>
+                        <Run Text="1.1.3  MLC 2006: - &#xA;        - The Software complies with regulations mentioned in the 'Rules' section of Work-Ship software.&#xA;        - The short-break setting, by default, is one hour or less. &#xA;        - Young Seafarer Rules apply on selection of a Seafarer as 'Young Seafarer' from the Crew Management > Crew Detail form. &#xA;        - The User shall be responsible for ensuring that Young Seafarer does not carry out 'Night duty' as defined in their MLC declaration. The software does not restrict entry of work hours in any part of 24 hours. "/>
+                </Paragraph>
+                <Paragraph>
+                        <Run Text="2.0  Non IRS Class approved features.&#xA;        Following are list of add-on features, which have been developed as additional tools for the ease of use, and do not form a part of IRS Class Approval, and can be disabled if not required.&#xA;        - Certificates Add-on and its related functions &#xA;        - Data Freezing / Unfreezing system &#xA;        - Online Version for Office Analysis"/>
+                </Paragraph>
+                
+            </FlowDocument>
+        </RichTextBox>
+        </Grid>
+        <!--<Grid Grid.Row="2"/>-->
+    </Grid>
+</UserControl>
