@@ -61,7 +61,7 @@
 
                 <Grid Grid.Row="2" >
 
-                    <Button x:Name="btnEvalidity" Width="126" Command="{Binding SaveCommand}" CommandParameter="{Binding ProductValidate}"  Style="{StaticResource HeaderButton1}" Content="  Extend Validity  "  HorizontalAlignment="Center" Margin="269,9,373,8"   />
+                    <Button x:Name="btnEvalidity" Width="126"  Command="{Binding SaveCommand}" CommandParameter="{Binding ProductValidate}"  Style="{StaticResource HeaderButton1}" Content="  Extend Validity  "  HorizontalAlignment="Center" Margin="269,9,373,8"   />
                     <Button  Command="{Binding CancelCommand}" Style="{StaticResource HeaderButton1}" Content=" Cancel "  HorizontalAlignment="Center"  Width="82" Margin="408,9,278,8"  />
 
                 </Grid>

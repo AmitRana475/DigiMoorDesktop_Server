@@ -576,7 +576,7 @@ namespace WorkShipVersionII.ViewModelAdministration
                                                  {
 
                                                         expirydate = KeyClass.Dt2;
-                                                        CreateKeyMethod(RecordArr[0], expirydate.ToString("yyyy-MM-dd"), txtLicenseKey, KeyClass.VesselName);
+                                                       CreateKeyMethod(RecordArr[0], expirydate.ToString("yyyy-MM-dd"), txtLicenseKey, KeyClass.VesselName);
                                                  }
                                                  else
                                                  {
@@ -1094,7 +1094,7 @@ namespace WorkShipVersionII.ViewModelAdministration
 
                                           string Recordwork49file = sc.Encrypt(FirstDate + "," + NextDate + "," + LicenseKey + "," + vesselName, StaticHelper.Key);
 
-                                          var data = sc.AdminLogins.FirstOrDefault();
+                                          var data =  sc.AdminLogins.FirstOrDefault();
                                           if (data != null)
                                           {
                                                  data.productinfo = Recordwork49file;

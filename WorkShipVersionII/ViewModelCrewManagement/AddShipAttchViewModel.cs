@@ -158,7 +158,20 @@ namespace WorkShipVersionII.ViewModelCrewManagement
                             string[] ExtList = { ".xls", ".xlsx", ".xlsm", ".pdf", ".jpg", ".png", ".jpeg", ".tiff", ".doc",".docx" };
                             if (ExtList.Contains(fileExtention.ToLower()))
                             {
+                                string imageName = fldlg.FileName;
                                 string fileName = Path.GetFileName(AddDepartment.AttachmentPath);
+
+                                Random randon = new Random();
+                                int num = randon.Next(10000);
+
+                                string fileExtention1 = System.IO.Path.GetExtension(imageName);
+                                //string fileName = System.IO.Path.GetFileName(fldlg.FileName);
+                                var withoutextnsn = System.IO.Path.GetFileNameWithoutExtension(fileName) + num;
+
+                                fileName = withoutextnsn + fileExtention;
+
+
+
                                 mypath = mypath + "\\" + fileName;
                                 //File.Delete(sfd.FileName);
                                 var ss = AddDepartment.AttachmentPath;
